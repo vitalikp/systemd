@@ -1016,7 +1016,6 @@ CLEANFILES += \
 
 # ------------------------------------------------------------------------------
 manual_tests += \
-	test-engine \
 	test-ns \
 	test-loopback \
 	test-daemon \
@@ -1033,6 +1032,7 @@ manual_tests += \
 endif
 
 tests += \
+	test-engine \
 	test-job-type \
 	test-env-replace \
 	test-strbuf \
