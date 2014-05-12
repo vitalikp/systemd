@@ -1076,7 +1076,7 @@ static int part_make_space(
                         uint64_t new_allocated;
 
                         new_allocated = PAGE_ALIGN(sz > 0 ? 2 * sz : 1);
-                        r = ioctl(part->memfd, KDBUS_CMD_MEMFD_SIZE_SET, &new_allocated);
+                        r = ftruncate(part->memfd, new_allocated);
                         if (r < 0) {
                                 m->poisoned = true;
                                 return -errno;
@@ -2554,11 +2554,11 @@ int bus_message_seal(sd_bus_message *m, uint64_t cookie, usec_t timeout) {
 
                                 /* Then, sync up real memfd size */
                                 sz = part->size;
-                                if (ioctl(part->memfd, KDBUS_CMD_MEMFD_SIZE_SET, &sz) < 0)
+                                if (ftruncate(part->memfd, sz) < 0)
                                         return -errno;
 
                                 /* Finally, try to seal */
-                                if (ioctl(part->memfd, KDBUS_CMD_MEMFD_SEAL_SET, 1) >= 0)
+                                if (fcntl(part->memfd, F_ADD_SEALS, F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_WRITE) >= 0)
                                         part->sealed = true;
                         }
         }
