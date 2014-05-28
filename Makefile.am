@@ -1680,9 +1680,6 @@ systemd_detect_virt_SOURCES = \
 systemd_detect_virt_LDADD = \
 	libsystemd-shared.la
 
-systemd-detect-virt-install-hook:
-	-$(SETCAP) cap_dac_override,cap_sys_ptrace=ep $(DESTDIR)$(bindir)/systemd-detect-virt
-
 INSTALL_EXEC_HOOKS += \
 	systemd-detect-virt-install-hook
 
