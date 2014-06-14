@@ -103,6 +103,7 @@
 /test-engine
 /test-env-replace
 /test-event
+/test-fdset
 /test-fileio
 /test-hashmap
 /test-id128

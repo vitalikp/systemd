@@ -1079,7 +1079,8 @@ tests += \
 	test-device-nodes \
 	test-xml \
 	test-architecture \
-	test-socket-util
+	test-socket-util \
+	test-fdset
 
 EXTRA_DIST += \
 	test/sched_idle_bad.service \
@@ -1176,6 +1177,12 @@ test_utf8_SOURCES = \
 
 test_utf8_LDADD = \
 	libsystemd-shared.la
+
+test_fdset_SOURCES = \
+	src/test/test-fdset.c
+
+test_fdset_LDADD = \
+	libsystemd-core.la
 
 test_util_SOURCES = \
 	src/test/test-util.c
