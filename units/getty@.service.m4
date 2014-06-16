@@ -43,3 +43,4 @@ Environment=LANG= LANGUAGE= LC_CTYPE= LC_NUMERIC= LC_TIME= LC_COLLATE= LC_MONETA
 
 [Install]
 WantedBy=getty.target
+DefaultInstance=tty1
