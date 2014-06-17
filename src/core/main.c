@@ -1528,7 +1528,7 @@ int main(int argc, char *argv[]) {
 #ifdef HAVE_KMOD
                 kmod_setup();
 #endif
-                machine_id_setup("");
+                machine_id_setup(NULL);
                 loopback_setup();
 
                 test_mtab();
