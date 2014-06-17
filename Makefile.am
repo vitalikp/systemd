@@ -2498,7 +2498,7 @@ libjournal_internal_la_SOURCES = \
 	src/journal/mmap-cache.h
 
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-libjournal_internal_la_CFLAGS =
+libjournal_internal_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libjournal_internal_la_LIBADD =
