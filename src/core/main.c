@@ -1526,8 +1526,7 @@ int main(int argc, char *argv[]) {
                         status_welcome();
 
 #ifdef HAVE_KMOD
-                if (detect_container(NULL) <= 0)
-                        kmod_setup();
+                kmod_setup();
 #endif
                 machine_id_setup("");
                 loopback_setup();
