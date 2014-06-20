@@ -284,7 +284,7 @@ int lookup_paths_init(
                 }
         }
 
-        if (!path_strv_canonicalize_absolute_uniq(p->unit_path, root_dir))
+        if (!path_strv_resolve_uniq(p->unit_path, root_dir))
                 return -ENOMEM;
 
         if (!strv_isempty(p->unit_path)) {
