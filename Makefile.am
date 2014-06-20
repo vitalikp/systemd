@@ -1077,7 +1077,8 @@ tests += \
 	test-xml \
 	test-architecture \
 	test-socket-util \
-	test-fdset
+	test-fdset \
+	test-conf-files
 
 EXTRA_DIST += \
 	test/sched_idle_bad.service \
@@ -1425,6 +1426,12 @@ test_sched_prio_CFLAGS = \
 test_sched_prio_LDADD = \
 	libsystemd-core.la \
 	$(RT_LIBS)
+
+test_conf_files_SOURCES = \
+	src/test/test-conf-files.c
+
+test_conf_files_LDADD = \
+	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
 ## .PHONY so it always rebuilds it
