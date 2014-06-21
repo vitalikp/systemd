@@ -47,7 +47,7 @@ int parse_sleep_config(const char *verb, char ***_modes, char ***_states) {
                 {}};
 
         int r;
-        FILE _cleanup_fclose_ *f = NULL;
+        _cleanup_fclose_ FILE *f = NULL;
 
         f = fopen(PKGSYSCONFDIR "/sleep.conf", "re");
         if (!f)
