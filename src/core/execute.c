@@ -533,7 +533,7 @@ static int restore_confirm_stdio(int *saved_stdin,
 
 static int ask_for_confirmation(char *response, char **argv) {
         int saved_stdout = -1, saved_stdin = -1, r;
-        char *line;
+        _cleanup_free_ char *line = NULL;
 
         r = setup_confirm_stdio(&saved_stdin, &saved_stdout);
         if (r < 0)
@@ -544,7 +544,6 @@ static int ask_for_confirmation(char *response, char **argv) {
                 return -ENOMEM;
 
         r = ask(response, "yns", "Execute %s? [Yes, No, Skip] ", line);
-        free(line);
 
         restore_confirm_stdio(&saved_stdin, &saved_stdout);
 
@@ -2027,8 +2026,8 @@ int exec_context_load_environment(const ExecContext *c, char ***l) {
 }
 
 static bool tty_may_match_dev_console(const char *tty) {
-        char *active = NULL, *console;
-        bool b;
+        _cleanup_free_ char *active = NULL;
+       char *console;
 
         if (startswith(tty, "/dev/"))
                 tty += 5;
@@ -2043,10 +2042,7 @@ static bool tty_may_match_dev_console(const char *tty) {
                 return true;
 
         /* "tty0" means the active VC, so it may be the same sometimes */
-        b = streq(console, tty) || (streq(console, "tty0") && tty_is_vc(tty));
-        free(active);
-
-        return b;
+        return streq(console, tty) || (streq(console, "tty0") && tty_is_vc(tty));
 }
 
 bool exec_context_may_touch_console(ExecContext *ec) {
@@ -2421,10 +2417,10 @@ char *exec_command_line(char **argv) {
 }
 
 void exec_command_dump(ExecCommand *c, FILE *f, const char *prefix) {
-        char *p2;
+        _cleanup_free_ char *p2 = NULL;
         const char *prefix2;
 
-        char *cmd;
+        _cleanup_free_ char *cmd = NULL;
 
         assert(c);
         assert(f);
@@ -2440,11 +2436,7 @@ void exec_command_dump(ExecCommand *c, FILE *f, const char *prefix) {
                 "%sCommand Line: %s\n",
                 prefix, cmd ? cmd : strerror(ENOMEM));
 
-        free(cmd);
-
         exec_status_dump(&c->exec_status, f, prefix2);
-
-        free(p2);
 }
 
 void exec_command_dump_list(ExecCommand *c, FILE *f, const char *prefix) {
