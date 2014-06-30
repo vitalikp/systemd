@@ -2972,7 +2972,7 @@ static int unit_drop_in_file(Unit *u,
         if (r < 0)
                 return r;
 
-        return drop_in_file(dir, u->id, name, p, q);
+        return drop_in_file(dir, u->id, 50, name, p, q);
 }
 
 int unit_write_drop_in(Unit *u, UnitSetPropertiesMode mode, const char *name, const char *data) {
@@ -2989,7 +2989,7 @@ int unit_write_drop_in(Unit *u, UnitSetPropertiesMode mode, const char *name, co
         if (r < 0)
                 return r;
 
-        return write_drop_in(dir, u->id, name, data);
+        return write_drop_in(dir, u->id, 50, name, data);
 }
 
 int unit_write_drop_in_format(Unit *u, UnitSetPropertiesMode mode, const char *name, const char *format, ...) {
