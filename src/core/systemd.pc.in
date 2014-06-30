@@ -19,6 +19,12 @@ systemdsystemunitpath=${systemdsystemconfdir}:/etc/systemd/system:/run/systemd/s
 systemduserunitpath=${systemduserconfdir}:/etc/systemd/user:/run/systemd/user:/usr/local/lib/systemd/user:/usr/local/share/systemd/user:${systemduserunitdir}:/usr/lib/systemd/user:/usr/share/systemd/user
 systemdsystemgeneratordir=@systemgeneratordir@
 systemdusergeneratordir=@usergeneratordir@
+systemdsleepdir=@systemsleepdir@
+systemdshutdowndir=@systemshutdowndir@
+tmpfilesdir=@tmpfilesdir@
+sysctldir=@sysctldir@
+binfmtdir=@binfmtdir@
+modulesloaddir=@modulesloaddir@
 systemuidmax=@systemuidmax@
 systemgidmax=@systemgidmax@
 
