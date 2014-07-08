@@ -17,8 +17,7 @@ Environment=HOME=/root
 WorkingDirectory=/root
 ExecStartPre=-/bin/plymouth quit
 ExecStartPre=-/bin/echo -e 'Welcome to emergency mode\\x21\\nAfter logging in, type "systemctl reboot" to reboot,\\n"systemctl default" to try again to boot into default mode.'
-ExecStart=-/sbin/sulogin
-ExecStopPost=@SYSTEMCTL@ --fail --no-block default
+ExecStart=-/bin/sh -c "/sbin/sulogin; @SYSTEMCTL@ --fail --no-block default"
 Type=idle
 StandardInput=tty-force
 StandardOutput=inherit
