@@ -1020,7 +1020,6 @@ manual_tests += \
 	test-loopback \
 	test-daemon \
 	test-cgroup \
-	test-cgroup-mask \
 	test-install \
 	test-watchdog \
 	test-log \
@@ -1033,6 +1032,7 @@ endif
 
 tests += \
 	test-engine \
+	test-cgroup-mask \
 	test-job-type \
 	test-env-replace \
 	test-strbuf \
