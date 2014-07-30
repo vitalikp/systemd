@@ -96,18 +96,18 @@ int config_parse_unit_deps(const char* unit,
 
         UnitDependency d = ltype;
         Unit *u = userdata;
-        char *w, *state;
+        const char *word, *state;
         size_t l;
 
         assert(filename);
         assert(lvalue);
         assert(rvalue);
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL, *k = NULL;
                 int r;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -226,7 +226,8 @@ int config_parse_unit_path_strv_printf(
                 void *data,
                 void *userdata) {
 
-        char *w, *state, ***x = data;
+        char ***x = data;
+        const char *word, *state;
         Unit *u = userdata;
         size_t l;
         int r;
@@ -236,11 +237,11 @@ int config_parse_unit_path_strv_printf(
         assert(rvalue);
         assert(u);
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *k = NULL;
                 char t[l+1];
 
-                memcpy(t, w, l);
+                memcpy(t, word, l);
                 t[l] = 0;
 
                 r = unit_full_printf(u, t, &k);
@@ -532,9 +533,8 @@ int config_parse_exec(const char *unit,
          * overriding of argv[0]. */
         for (;;) {
                 int i;
-                char *w;
+                const char *word, *state;
                 size_t l;
-                char *state;
                 bool honour_argv0 = false, ignore = false;
 
                 path = NULL;
@@ -565,8 +565,8 @@ int config_parse_exec(const char *unit,
                 }
 
                 k = 0;
-                FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                        if (strneq(w, ";", MAX(l, 1U)))
+                FOREACH_WORD_QUOTED(word, l, rvalue, state) {
+                        if (strneq(word, ";", MAX(l, 1U)))
                                 break;
 
                         k++;
@@ -577,16 +577,16 @@ int config_parse_exec(const char *unit,
                         return log_oom();
 
                 k = 0;
-                FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                        if (strneq(w, ";", MAX(l, 1U)))
+                FOREACH_WORD_QUOTED(word, l, rvalue, state) {
+                        if (strneq(word, ";", MAX(l, 1U)))
                                 break;
-                        else if (strneq(w, "\\;", MAX(l, 1U)))
-                                w ++;
+                        else if (strneq(word, "\\;", MAX(l, 1U)))
+                                word ++;
 
-                        if (honour_argv0 && w == rvalue) {
+                        if (honour_argv0 && word == rvalue) {
                                 assert(!path);
 
-                                path = strndup(w, l);
+                                path = strndup(word, l);
                                 if (!path) {
                                         r = log_oom();
                                         goto fail;
@@ -601,7 +601,7 @@ int config_parse_exec(const char *unit,
                         } else {
                                 char *c;
 
-                                c = n[k++] = cunescape_length(w, l);
+                                c = n[k++] = cunescape_length(word, l);
                                 if (!c) {
                                         r = log_oom();
                                         goto fail;
@@ -853,9 +853,8 @@ int config_parse_exec_cpu_affinity(const char *unit,
                                    void *userdata) {
 
         ExecContext *c = data;
-        char *w;
+        const char *word, *state;
         size_t l;
-        char *state;
 
         assert(filename);
         assert(lvalue);
@@ -870,12 +869,12 @@ int config_parse_exec_cpu_affinity(const char *unit,
                 return 0;
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL;
                 int r;
                 unsigned cpu;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -944,9 +943,8 @@ int config_parse_exec_secure_bits(const char *unit,
                                   void *userdata) {
 
         ExecContext *c = data;
-        char *w;
         size_t l;
-        char *state;
+        const char *word, *state;
 
         assert(filename);
         assert(lvalue);
@@ -959,18 +957,18 @@ int config_parse_exec_secure_bits(const char *unit,
                 return 0;
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                if (first_word(w, "keep-caps"))
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
+                if (first_word(word, "keep-caps"))
                         c->secure_bits |= 1<<SECURE_KEEP_CAPS;
-                else if (first_word(w, "keep-caps-locked"))
+                else if (first_word(word, "keep-caps-locked"))
                         c->secure_bits |= 1<<SECURE_KEEP_CAPS_LOCKED;
-                else if (first_word(w, "no-setuid-fixup"))
+                else if (first_word(word, "no-setuid-fixup"))
                         c->secure_bits |= 1<<SECURE_NO_SETUID_FIXUP;
-                else if (first_word(w, "no-setuid-fixup-locked"))
+                else if (first_word(word, "no-setuid-fixup-locked"))
                         c->secure_bits |= 1<<SECURE_NO_SETUID_FIXUP_LOCKED;
-                else if (first_word(w, "noroot"))
+                else if (first_word(word, "noroot"))
                         c->secure_bits |= 1<<SECURE_NOROOT;
-                else if (first_word(w, "noroot-locked"))
+                else if (first_word(word, "noroot-locked"))
                         c->secure_bits |= 1<<SECURE_NOROOT_LOCKED;
                 else {
                         log_syntax(unit, LOG_ERR, filename, line, EINVAL,
@@ -994,9 +992,8 @@ int config_parse_bounding_set(const char *unit,
                               void *userdata) {
 
         uint64_t *capability_bounding_set_drop = data;
-        char *w;
+        const char *word, *state;
         size_t l;
-        char *state;
         bool invert = false;
         uint64_t sum = 0;
 
@@ -1015,12 +1012,12 @@ int config_parse_bounding_set(const char *unit,
          * non-inverted everywhere to have a fully normalized
          * interface. */
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL;
                 int r;
                 cap_value_t cap;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -1130,9 +1127,8 @@ int config_parse_exec_mount_flags(const char *unit,
                                   void *userdata) {
 
         ExecContext *c = data;
-        char *w;
+        const char *word, *state;
         size_t l;
-        char *state;
         unsigned long flags = 0;
 
         assert(filename);
@@ -1140,10 +1136,10 @@ int config_parse_exec_mount_flags(const char *unit,
         assert(rvalue);
         assert(data);
 
-        FOREACH_WORD_SEPARATOR(w, l, rvalue, ", ", state) {
+        FOREACH_WORD_SEPARATOR(word, l, rvalue, ", ", state) {
                 _cleanup_free_ char *t = NULL;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -1151,7 +1147,7 @@ int config_parse_exec_mount_flags(const char *unit,
                         flags = MS_SHARED;
                 else if (streq(t, "slave"))
                         flags = MS_SLAVE;
-                else if (streq(w, "private"))
+                else if (streq(word, "private"))
                         flags = MS_PRIVATE;
                 else {
                         log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse mount flag %s, ignoring: %s", t, rvalue);
@@ -1505,7 +1501,7 @@ int config_parse_service_sockets(const char *unit,
 
         Service *s = data;
         int r;
-        char *state, *w;
+        const char *word, *state;
         size_t l;
 
         assert(filename);
@@ -1513,10 +1509,10 @@ int config_parse_service_sockets(const char *unit,
         assert(rvalue);
         assert(data);
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL, *k = NULL;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -1747,7 +1743,8 @@ int config_parse_environ(const char *unit,
                          void *userdata) {
 
         Unit *u = userdata;
-        char*** env = data, *w, *state;
+        char*** env = data;
+        const char *word, *state;
         size_t l;
         _cleanup_free_ char *k = NULL;
         int r;
@@ -1776,11 +1773,11 @@ int config_parse_environ(const char *unit,
         if (!k)
                 return log_oom();
 
-        FOREACH_WORD_QUOTED(w, l, k, state) {
+        FOREACH_WORD_QUOTED(word, l, k, state) {
                 _cleanup_free_ char *n = NULL;
                 char **x;
 
-                n = cunescape_length(w, l);
+                n = cunescape_length(word, l);
                 if (!n)
                         return log_oom();
 
@@ -2019,20 +2016,19 @@ int config_parse_unit_requires_mounts_for(
                 void *userdata) {
 
         Unit *u = userdata;
-        char *state;
+        const char *word, *state;
         size_t l;
-        char *w;
 
         assert(filename);
         assert(lvalue);
         assert(rvalue);
         assert(data);
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 int r;
                 _cleanup_free_ char *n = NULL;
 
-                n = strndup(w, l);
+                n = strndup(word, l);
                 if (!n)
                         return log_oom();
 
@@ -2123,7 +2119,7 @@ int config_parse_syscall_filter(
         ExecContext *c = data;
         Unit *u = userdata;
         bool invert = false;
-        char *w, *state;
+        const char *word, *state;
         size_t l;
         int r;
 
@@ -2176,11 +2172,11 @@ int config_parse_syscall_filter(
                 }
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL;
                 int id;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -2224,7 +2220,7 @@ int config_parse_syscall_archs(
                 void *userdata) {
 
         Set **archs = data;
-        char *w, *state;
+        const char *word, *state;
         size_t l;
         int r;
 
@@ -2238,11 +2234,11 @@ int config_parse_syscall_archs(
         if (r < 0)
                 return log_oom();
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL;
                 uint32_t a;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -2312,7 +2308,7 @@ int config_parse_address_families(
         ExecContext *c = data;
         Unit *u = userdata;
         bool invert = false;
-        char *w, *state;
+        const char *word, *state;
         size_t l;
         int r;
 
@@ -2342,11 +2338,11 @@ int config_parse_address_families(
                 c->address_families_whitelist = !invert;
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *t = NULL;
                 int af;
 
-                t = strndup(w, l);
+                t = strndup(word, l);
                 if (!t)
                         return log_oom();
 
@@ -2841,7 +2837,8 @@ int config_parse_runtime_directory(
                 void *data,
                 void *userdata) {
 
-        char***rt = data, *w, *state;
+        char***rt = data;
+        const char *word, *state;
         size_t l;
         int r;
 
@@ -2857,10 +2854,10 @@ int config_parse_runtime_directory(
                 return 0;
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *n = NULL;
 
-                n = strndup(w, l);
+                n = strndup(word, l);
                 if (!n)
                         return log_oom();
 
@@ -2891,9 +2888,8 @@ int config_parse_set_status(
                 void *data,
                 void *userdata) {
 
-        char *w;
         size_t l;
-        char *state;
+        const char *word, *state;
         int r;
         ExitStatusSet *status_set = data;
 
@@ -2908,11 +2904,11 @@ int config_parse_set_status(
                 return 0;
         }
 
-        FOREACH_WORD(w, l, rvalue, state) {
+        FOREACH_WORD(word, l, rvalue, state) {
                 _cleanup_free_ char *temp = NULL;
                 int val;
 
-                temp = strndup(w, l);
+                temp = strndup(word, l);
                 if (!temp)
                         return log_oom();
 
@@ -2927,11 +2923,11 @@ int config_parse_set_status(
 
                                 r = set_put(status_set->signal, INT_TO_PTR(val));
                                 if (r < 0) {
-                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", w);
+                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", word);
                                         return r;
                                 }
                         } else {
-                                log_syntax(unit, LOG_ERR, filename, line, -val, "Failed to parse value, ignoring: %s", w);
+                                log_syntax(unit, LOG_ERR, filename, line, -val, "Failed to parse value, ignoring: %s", word);
                                 return 0;
                         }
                 } else {
@@ -2944,7 +2940,7 @@ int config_parse_set_status(
 
                                 r = set_put(status_set->status, INT_TO_PTR(val));
                                 if (r < 0) {
-                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", w);
+                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", word);
                                         return r;
                                 }
                         }
@@ -2966,7 +2962,8 @@ int config_parse_namespace_path_strv(
                 void *data,
                 void *userdata) {
 
-        char*** sv = data, *w, *state;
+        char*** sv = data;
+        const char *word, *state;
         size_t l;
         int r;
 
@@ -2982,11 +2979,11 @@ int config_parse_namespace_path_strv(
                 return 0;
         }
 
-        FOREACH_WORD_QUOTED(w, l, rvalue, state) {
+        FOREACH_WORD_QUOTED(word, l, rvalue, state) {
                 _cleanup_free_ char *n = NULL;
                 int offset;
 
-                n = strndup(w, l);
+                n = strndup(word, l);
                 if (!n)
                         return log_oom();
 

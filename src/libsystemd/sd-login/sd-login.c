@@ -226,11 +226,10 @@ _public_ int sd_uid_get_display(uid_t uid, char **session) {
 }
 
 _public_ int sd_uid_is_on_seat(uid_t uid, int require_active, const char *seat) {
-        char *w, *state;
         _cleanup_free_ char *t = NULL, *s = NULL, *p = NULL;
         size_t l;
         int r;
-        const char *variable;
+        const char *word, *variable, *state;
 
         assert_return(seat, -EINVAL);
 
@@ -251,8 +250,8 @@ _public_ int sd_uid_is_on_seat(uid_t uid, int require_active, const char *seat) 
         if (asprintf(&t, UID_FMT, uid) < 0)
                 return -ENOMEM;
 
-        FOREACH_WORD(w, l, s, state) {
-                if (strneq(t, w, l))
+        FOREACH_WORD(word, l, s, state) {
+                if (strneq(t, word, l))
                         return 1;
         }
 
@@ -587,10 +586,10 @@ _public_ int sd_seat_get_sessions(const char *seat, char ***sessions, uid_t **ui
         }
 
         if (uids && t) {
-                char *w, *state;
+                const char *word, *state;
                 size_t l;
 
-                FOREACH_WORD(w, l, t, state)
+                FOREACH_WORD(word, l, t, state)
                         n++;
 
                 if (n > 0) {
@@ -600,10 +599,10 @@ _public_ int sd_seat_get_sessions(const char *seat, char ***sessions, uid_t **ui
                         if (!b)
                                 return -ENOMEM;
 
-                        FOREACH_WORD(w, l, t, state) {
+                        FOREACH_WORD(word, l, t, state) {
                                 _cleanup_free_ char *k = NULL;
 
-                                k = strndup(w, l);
+                                k = strndup(word, l);
                                 if (!k)
                                         return -ENOMEM;
 

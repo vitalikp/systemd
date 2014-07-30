@@ -5505,7 +5505,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                         return 0;
 
                 case 't': {
-                        char *word, *state;
+                        const char *word, *state;
                         size_t size;
 
                         FOREACH_WORD_SEPARATOR(word, size, optarg, ",", state) {
@@ -5669,7 +5669,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                         break;
 
                 case ARG_STATE: {
-                        char *word, *state;
+                        const char *word, *state;
                         size_t size;
 
                         FOREACH_WORD_SEPARATOR(word, size, optarg, ",", state) {
