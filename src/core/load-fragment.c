@@ -83,7 +83,7 @@ int config_parse_warn_compat(
 }
 #endif
 
-int config_parse_unit_deps(const char* unit,
+int config_parse_unit_deps(const char *unit,
                            const char *filename,
                            unsigned line,
                            const char *section,
@@ -1169,7 +1169,8 @@ int config_parse_exec_mount_flags(const char *unit,
                 else if (streq(word, "private"))
                         flags = MS_PRIVATE;
                 else {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse mount flag %s, ignoring: %s", t, rvalue);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Failed to parse mount flag %s, ignoring: %s", t, rvalue);
                         return 0;
                 }
         }
@@ -1219,7 +1220,8 @@ int config_parse_exec_selinux_context(
 
         r = unit_name_printf(u, rvalue, &k);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -r, "Failed to resolve specifiers, ignoring: %s", strerror(-r));
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to resolve specifiers, ignoring: %s", strerror(-r));
                 return 0;
         }
 
@@ -1268,7 +1270,8 @@ int config_parse_exec_apparmor_profile(
 
         r = unit_name_printf(u, rvalue, &k);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -r, "Failed to resolve specifiers, ignoring: %s", strerror(-r));
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to resolve specifiers, ignoring: %s", strerror(-r));
                 return 0;
         }
 
@@ -1490,18 +1493,21 @@ int config_parse_socket_service(const char *unit,
 
         r = unit_name_printf(UNIT(s), rvalue, &p);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -r, "Failed to resolve specifiers, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to resolve specifiers, ignoring: %s", rvalue);
                 return 0;
         }
 
         if (!endswith(p, ".service")) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Unit must be of type service, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Unit must be of type service, ignoring: %s", rvalue);
                 return 0;
         }
 
         r = manager_load_unit(UNIT(s)->manager, p, NULL, &error, &x);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, r, "Failed to load unit %s, ignoring: %s", rvalue, bus_error_message(&error, r));
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to load unit %s, ignoring: %s", rvalue, bus_error_message(&error, r));
                 return 0;
         }
 
@@ -1624,18 +1630,21 @@ int config_parse_busname_service(
 
         r = unit_name_printf(UNIT(n), rvalue, &p);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -r, "Failed to resolve specifiers, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to resolve specifiers, ignoring: %s", rvalue);
                 return 0;
         }
 
         if (!endswith(p, ".service")) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Unit must be of type service, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Unit must be of type service, ignoring: %s", rvalue);
                 return 0;
         }
 
         r = manager_load_unit(UNIT(n)->manager, p, NULL, &error, &x);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, r, "Failed to load unit %s, ignoring: %s", rvalue, bus_error_message(&error, r));
+                log_syntax(unit, LOG_ERR, filename, line, -r,
+                           "Failed to load unit %s, ignoring: %s", rvalue, bus_error_message(&error, r));
                 return 0;
         }
 
@@ -1685,7 +1694,8 @@ int config_parse_bus_policy(
 
         access_str = strpbrk(id_str, WHITESPACE);
         if (!access_str) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Invalid busname policy value '%s'", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Invalid busname policy value '%s'", rvalue);
                 return 0;
         }
 
@@ -1695,7 +1705,8 @@ int config_parse_bus_policy(
 
         p->access = busname_policy_access_from_string(access_str);
         if (p->access < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Invalid busname policy access type '%s'", access_str);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Invalid busname policy access type '%s'", access_str);
                 return 0;
         }
 
@@ -1739,7 +1750,7 @@ int config_parse_unit_env_file(const char *unit,
 
         r = unit_full_printf(u, rvalue, &n);
         if (r < 0)
-                log_syntax(unit, LOG_ERR, filename, line, r,
+                log_syntax(unit, LOG_ERR, filename, line, -r,
                            "Failed to resolve specifiers, ignoring: %s", rvalue);
 
         s = n ?: rvalue;
@@ -2067,7 +2078,7 @@ int config_parse_unit_requires_mounts_for(
 
                 r = unit_require_mounts_for(u, n);
                 if (r < 0) {
-                        log_syntax(unit, LOG_ERR, filename, line, r,
+                        log_syntax(unit, LOG_ERR, filename, line, -r,
                                    "Failed to add required mount for, ignoring: %s", rvalue);
                         continue;
                 }
@@ -2213,7 +2224,8 @@ int config_parse_syscall_filter(
 
                 id = seccomp_syscall_resolve_name(t);
                 if (id < 0)  {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse system call, ignoring: %s", t);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Failed to parse system call, ignoring: %s", t);
                         continue;
                 }
 
@@ -2278,7 +2290,8 @@ int config_parse_syscall_archs(
 
                 r = seccomp_arch_from_string(t, &a);
                 if (r < 0) {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse system call architecture, ignoring: %s", t);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Failed to parse system call architecture, ignoring: %s", t);
                         continue;
                 }
 
@@ -2322,7 +2335,8 @@ int config_parse_syscall_errno(
 
         e = errno_from_name(rvalue);
         if (e < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse error number, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Failed to parse error number, ignoring: %s", rvalue);
                 return 0;
         }
 
@@ -2385,7 +2399,8 @@ int config_parse_address_families(
 
                 af = af_from_name(t);
                 if (af <= 0)  {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse address family, ignoring: %s", t);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Failed to parse address family, ignoring: %s", t);
                         continue;
                 }
 
@@ -2485,7 +2500,8 @@ int config_parse_cpu_shares(
 
         r = safe_atolu(rvalue, &lu);
         if (r < 0 || lu <= 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "CPU shares '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "CPU shares '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2519,12 +2535,14 @@ int config_parse_cpu_quota(
 
         if (!endswith(rvalue, "%")) {
 
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "CPU quota '%s' not ending in '%%'. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "CPU quota '%s' not ending in '%%'. Ignoring.", rvalue);
                 return 0;
         }
 
         if (sscanf(rvalue, "%lf%%", &percent) != 1 || percent <= 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "CPU quota '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "CPU quota '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2558,7 +2576,8 @@ int config_parse_memory_limit(
 
         r = parse_size(rvalue, 1024, &bytes);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Memory limit '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Memory limit '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2599,7 +2618,8 @@ int config_parse_device_allow(
         if (!startswith(path, "/dev/") &&
             !startswith(path, "block-") &&
             !startswith(path, "char-")) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Invalid device node path '%s'. Ignoring.", path);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Invalid device node path '%s'. Ignoring.", path);
                 return 0;
         }
 
@@ -2608,7 +2628,8 @@ int config_parse_device_allow(
                 m = "rwm";
 
         if (!in_charset(m, "rwm")) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Invalid device rights '%s'. Ignoring.", m);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Invalid device rights '%s'. Ignoring.", m);
                 return 0;
         }
 
@@ -2652,7 +2673,8 @@ int config_parse_blockio_weight(
 
         r = safe_atolu(rvalue, &lu);
         if (r < 0 || lu < 10 || lu > 1000) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Block IO weight '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Block IO weight '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2694,7 +2716,8 @@ int config_parse_blockio_device_weight(
         n = strcspn(rvalue, WHITESPACE);
         weight = rvalue + n;
         if (!*weight) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Expected block device and device weight. Ignoring.");
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Expected block device and device weight. Ignoring.");
                 return 0;
         }
 
@@ -2703,14 +2726,16 @@ int config_parse_blockio_device_weight(
                 return log_oom();
 
         if (!path_startswith(path, "/dev")) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Invalid device node path '%s'. Ignoring.", path);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Invalid device node path '%s'. Ignoring.", path);
                 return 0;
         }
 
         weight += strspn(weight, WHITESPACE);
         r = safe_atolu(weight, &lu);
         if (r < 0 || lu < 10 || lu > 1000) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Block IO weight '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Block IO weight '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2786,7 +2811,8 @@ int config_parse_blockio_bandwidth(
 
         r = parse_size(bandwidth, 1000, &bytes);
         if (r < 0 || bytes <= 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Block IO Bandwidth '%s' invalid. Ignoring.", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Block IO Bandwidth '%s' invalid. Ignoring.", rvalue);
                 return 0;
         }
 
@@ -2827,7 +2853,8 @@ int config_parse_job_mode_isolate(
 
         r = parse_boolean(rvalue);
         if (r < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Failed to parse boolean, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                           "Failed to parse boolean, ignoring: %s", rvalue);
                 return 0;
         }
 
@@ -2902,7 +2929,8 @@ int config_parse_runtime_directory(
                         return log_oom();
 
                 if (!filename_is_safe(n)) {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Runtime directory is not valid, ignoring assignment: %s", rvalue);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Runtime directory is not valid, ignoring assignment: %s", rvalue);
                         continue;
                 }
 
@@ -2959,34 +2987,28 @@ int config_parse_set_status(
                 if (r < 0) {
                         val = signal_from_string_try_harder(temp);
 
-                        if (val > 0) {
-                                r = set_ensure_allocated(&status_set->signal, NULL, NULL);
-                                if (r < 0)
-                                        return log_oom();
-
-                                r = set_put(status_set->signal, INT_TO_PTR(val));
-                                if (r < 0) {
-                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", word);
-                                        return r;
-                                }
-                        } else {
-                                log_syntax(unit, LOG_ERR, filename, line, -val, "Failed to parse value, ignoring: %s", word);
+                        if (val <= 0) {
+                                log_syntax(unit, LOG_ERR, filename, line, -val,
+                                           "Failed to parse value, ignoring: %s", word);
                                 return 0;
                         }
                 } else {
-                        if (val < 0 || val > 255)
-                                log_syntax(unit, LOG_ERR, filename, line, ERANGE, "Value %d is outside range 0-255, ignoring", val);
-                        else {
-                                r = set_ensure_allocated(&status_set->status, NULL, NULL);
-                                if (r < 0)
-                                        return log_oom();
-
-                                r = set_put(status_set->status, INT_TO_PTR(val));
-                                if (r < 0) {
-                                        log_syntax(unit, LOG_ERR, filename, line, -r, "Unable to store: %s", word);
-                                        return r;
-                                }
+                        if (val < 0 || val > 255) {
+                                log_syntax(unit, LOG_ERR, filename, line, ERANGE,
+                                           "Value %d is outside range 0-255, ignoring", val);
+                                continue;
                         }
+                }
+
+                r = set_ensure_allocated(&status_set->status, NULL, NULL);
+                if (r < 0)
+                        return log_oom();
+
+                r = set_put(status_set->status, INT_TO_PTR(val));
+                if (r < 0) {
+                        log_syntax(unit, LOG_ERR, filename, line, -r,
+                                   "Unable to store: %s", word);
+                        return r;
                 }
         }
         if (!isempty(state))
@@ -3040,7 +3062,8 @@ int config_parse_namespace_path_strv(
 
                 offset = n[0] == '-';
                 if (!path_is_absolute(n + offset)) {
-                        log_syntax(unit, LOG_ERR, filename, line, EINVAL, "Not an absolute path, ignoring: %s", rvalue);
+                        log_syntax(unit, LOG_ERR, filename, line, EINVAL,
+                                   "Not an absolute path, ignoring: %s", rvalue);
                         continue;
                 }
 
@@ -3081,7 +3104,8 @@ int config_parse_no_new_privileges(
 
         k = parse_boolean(rvalue);
         if (k < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -k, "Failed to parse boolean value, ignoring: %s", rvalue);
+                log_syntax(unit, LOG_ERR, filename, line, -k,
+                           "Failed to parse boolean value, ignoring: %s", rvalue);
                 return 0;
         }
 
@@ -3124,7 +3148,8 @@ int config_parse_protect_home(
 
                 h = protect_home_from_string(rvalue);
                 if (h < 0){
-                        log_syntax(unit, LOG_ERR, filename, line, -h, "Failed to parse protect home value, ignoring: %s", rvalue);
+                        log_syntax(unit, LOG_ERR, filename, line, -h,
+                                   "Failed to parse protect home value, ignoring: %s", rvalue);
                         return 0;
                 }
 
@@ -3167,7 +3192,8 @@ int config_parse_protect_system(
 
                 s = protect_system_from_string(rvalue);
                 if (s < 0){
-                        log_syntax(unit, LOG_ERR, filename, line, -s, "Failed to parse protect system value, ignoring: %s", rvalue);
+                        log_syntax(unit, LOG_ERR, filename, line, -s,
+                                   "Failed to parse protect system value, ignoring: %s", rvalue);
                         return 0;
                 }
 
