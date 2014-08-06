@@ -274,6 +274,9 @@ struct Manager {
 
         /* Reference to the kdbus bus control fd */
         int kdbus_fd;
+
+        /* Used for processing polkit authorization responses */
+        Hashmap *polkit_registry;
 };
 
 int manager_new(SystemdRunningAs running_as, bool test_run, Manager **m);
