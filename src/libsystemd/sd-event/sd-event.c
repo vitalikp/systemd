@@ -131,6 +131,8 @@ struct clock_data {
         Prioq *earliest;
         Prioq *latest;
         usec_t next;
+
+        bool needs_rearm:1;
 };
 
 struct sd_event {
@@ -618,6 +620,7 @@ static void source_disconnect(sd_event_source *s) {
 
                 prioq_remove(d->earliest, s, &s->time.earliest_index);
                 prioq_remove(d->latest, s, &s->time.latest_index);
+                d->needs_rearm = true;
                 break;
         }
 
@@ -717,6 +720,7 @@ static int source_set_pending(sd_event_source *s, bool b) {
 
                 prioq_reshuffle(d->earliest, s, &s->time.earliest_index);
                 prioq_reshuffle(d->latest, s, &s->time.latest_index);
+                d->needs_rearm = true;
         }
 
         return 0;
@@ -899,6 +903,8 @@ _public_ int sd_event_add_time(
         r = prioq_put(d->latest, s, &s->time.latest_index);
         if (r < 0)
                 goto fail;
+
+        d->needs_rearm = true;
 
         if (ret)
                 *ret = s;
@@ -1412,6 +1418,7 @@ _public_ int sd_event_source_set_enabled(sd_event_source *s, int m) {
 
                         prioq_reshuffle(d->earliest, s, &s->time.earliest_index);
                         prioq_reshuffle(d->latest, s, &s->time.latest_index);
+                        d->needs_rearm = true;
                         break;
                 }
 
@@ -1475,6 +1482,7 @@ _public_ int sd_event_source_set_enabled(sd_event_source *s, int m) {
 
                         prioq_reshuffle(d->earliest, s, &s->time.earliest_index);
                         prioq_reshuffle(d->latest, s, &s->time.latest_index);
+                        d->needs_rearm = true;
                         break;
                 }
 
@@ -1552,6 +1560,7 @@ _public_ int sd_event_source_set_time(sd_event_source *s, uint64_t usec) {
 
         prioq_reshuffle(d->earliest, s, &s->time.earliest_index);
         prioq_reshuffle(d->latest, s, &s->time.latest_index);
+        d->needs_rearm = true;
 
         return 0;
 }
@@ -1586,6 +1595,7 @@ _public_ int sd_event_source_set_time_accuracy(sd_event_source *s, uint64_t usec
         assert(d);
 
         prioq_reshuffle(d->latest, s, &s->time.latest_index);
+        d->needs_rearm = true;
 
         return 0;
 }
@@ -1748,6 +1758,11 @@ static int event_arm_timer(
 
         assert(e);
         assert(d);
+
+        if (_likely_(!d->needs_rearm))
+                return 0;
+        else
+                d->needs_rearm = false;
 
         a = prioq_peek(d->earliest);
         if (!a || a->enabled == SD_EVENT_OFF) {
