@@ -6702,3 +6702,15 @@ bool is_localhost(const char *hostname) {
                endswith(hostname, ".localdomain") ||
                endswith(hostname, ".localdomain.");
 }
+
+int is_symlink(const char *path) {
+        struct stat info;
+
+        if (lstat(path, &info) < 0)
+                return -errno;
+
+        if (S_ISLNK(info.st_mode))
+                return 1;
+
+        return 0;
+}
