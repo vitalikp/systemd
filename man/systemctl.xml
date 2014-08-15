@@ -574,8 +574,7 @@ LISTEN           UNIT                        ACTIVATES
             file.</para>
 
             <para>This command should not be confused with the
-            <command>daemon-reload</command> or <command>load</command>
-            commands.</para>
+            <command>daemon-reload</command> command.</para>
           </listitem>
 
         </varlistentry>
@@ -1198,8 +1197,7 @@ LISTEN           UNIT                        ACTIVATES
             tree. While the daemon is being reloaded, all sockets systemd
             listens on behalf of user configuration will stay
             accessible.</para> <para>This command should not be confused
-            with the <command>load</command> or
-            <command>reload</command> commands.</para>
+            with the <command>reload</command> command.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
