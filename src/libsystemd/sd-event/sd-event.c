@@ -896,6 +896,8 @@ _public_ int sd_event_add_time(
         s->userdata = userdata;
         s->enabled = SD_EVENT_ONESHOT;
 
+        d->needs_rearm = true;
+
         r = prioq_put(d->earliest, s, &s->time.earliest_index);
         if (r < 0)
                 goto fail;
@@ -903,8 +905,6 @@ _public_ int sd_event_add_time(
         r = prioq_put(d->latest, s, &s->time.latest_index);
         if (r < 0)
                 goto fail;
-
-        d->needs_rearm = true;
 
         if (ret)
                 *ret = s;
@@ -1876,6 +1876,7 @@ static int process_timer(
 
                 prioq_reshuffle(d->earliest, s, &s->time.earliest_index);
                 prioq_reshuffle(d->latest, s, &s->time.latest_index);
+                d->needs_rearm = true;
         }
 
         return 0;
