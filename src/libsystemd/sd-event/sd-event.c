@@ -781,7 +781,7 @@ _public_ int sd_event_add_io(
         r = source_io_register(s, s->enabled, events);
         if (r < 0) {
                 source_free(s);
-                return -errno;
+                return r;
         }
 
         if (ret)
@@ -1062,7 +1062,7 @@ _public_ int sd_event_add_child(
                 r = event_update_signal_fd(e);
                 if (r < 0) {
                         source_free(s);
-                        return -errno;
+                        return r;
                 }
         }
 
