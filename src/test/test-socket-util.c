@@ -137,9 +137,31 @@ static void test_socket_address_get_path(void) {
         assert_se(streq(socket_address_get_path(&a), "/foo/bar"));
 }
 
+static void test_socket_address_is(void) {
+        SocketAddress a;
+
+        assert_se(socket_address_parse(&a, "192.168.1.1:8888") >= 0);
+        assert_se(socket_address_is(&a, "192.168.1.1:8888", SOCK_STREAM));
+        assert_se(!socket_address_is(&a, "route", SOCK_STREAM));
+        assert_se(!socket_address_is(&a, "192.168.1.1:8888", SOCK_RAW));
+}
+
+static void test_socket_address_is_netlink(void) {
+        SocketAddress a;
+
+        assert_se(socket_address_parse_netlink(&a, "route 10") >= 0);
+        assert_se(socket_address_is_netlink(&a, "route 10"));
+        assert_se(!socket_address_is_netlink(&a, "192.168.1.1:8888"));
+        assert_se(!socket_address_is_netlink(&a, "route 1"));
+}
+
 int main(int argc, char *argv[]) {
         test_socket_address_parse();
         test_socket_address_parse_netlink();
         test_socket_address_equal();
         test_socket_address_get_path();
+        test_socket_address_is();
+        test_socket_address_is_netlink();
+
+        return 0;
 }
