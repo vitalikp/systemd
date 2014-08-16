@@ -1046,7 +1046,8 @@ tests += \
 	test-conf-files \
 	test-capability \
 	test-async \
-	test-ratelimit
+	test-ratelimit \
+	test-condition-util
 
 EXTRA_DIST += \
 	test/a.service \
@@ -1160,6 +1161,14 @@ test_async_SOURCES = \
 
 test_async_LDADD = \
 	libsystemd-shared.la
+
+test_condition_util_SOURCES = \
+	src/test/test-condition-util.c
+
+test_condition_util_LDADD = \
+	libsystemd-shared.la \
+	libsystemd-internal.la
+
 
 test_fdset_SOURCES = \
 	src/test/test-fdset.c
