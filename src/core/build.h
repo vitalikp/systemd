@@ -51,6 +51,12 @@
 #define _IMA_FEATURE_ "-IMA"
 #endif
 
+#ifdef HAVE_SMACK
+#define _SMACK_FEATURE_ "+SMACK"
+#else
+#define _SMACK_FEATURE_ "-SMACK"
+#endif
+
 #ifdef HAVE_XZ
 #define _XZ_FEATURE_ "+XZ"
 #else
@@ -63,4 +69,26 @@
 #define _SECCOMP_FEATURE_ "-SECCOMP"
 #endif
 
-#define SYSTEMD_FEATURES _PAM_FEATURE_ " " _AUDIT_FEATURE_ " " _SELINUX_FEATURE_ " " _IMA_FEATURE_ " " _XZ_FEATURE_ " " _SECCOMP_FEATURE_ " " _APPARMOR_FEATURE_
+#ifdef HAVE_BLKID
+#define _BLKID_FEATURE_ "+BLKID"
+#else
+#define _BLKID_FEATURE_ "-BLKID"
+#endif
+
+#ifdef HAVE_KMOD
+#define _KMOD_FEATURE_ "+KMOD"
+#else
+#define _KMOD_FEATURE_ "-KMOD"
+#endif
+
+#define SYSTEMD_FEATURES                                                \
+        _PAM_FEATURE_ " "                                               \
+        _AUDIT_FEATURE_ " "                                             \
+        _SELINUX_FEATURE_ " "                                           \
+        _IMA_FEATURE_ " "                                               \
+        _APPARMOR_FEATURE_ " "                                          \
+        _SMACK_FEATURE_ " "                                             \
+        _XZ_FEATURE_ " "                                                \
+        _SECCOMP_FEATURE_ " "                                           \
+        _BLKID_FEATURE_ " "                                             \
+        _KMOD_FEATURE_ " "                                              \
