@@ -964,3 +964,4 @@ bool is_localhost(const char *hostname);
 int is_symlink(const char *path);
 
 #define RLIMIT_MAKE_CONST(lim) ((struct rlimit) { lim, lim })
+int free_and_strdup(char **p, const char *s);
