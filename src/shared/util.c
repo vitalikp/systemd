@@ -2505,7 +2505,7 @@ char* gethostname_malloc(void) {
         return strdup(u.sysname);
 }
 
-static char *lookup_uid(uid_t uid) {
+char *lookup_uid(uid_t uid) {
         long bufsize;
         char *name;
         _cleanup_free_ char *buf = NULL;
