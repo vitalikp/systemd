@@ -2733,6 +2733,10 @@ static int attach_io_events(sd_bus *bus) {
                         return r;
 
                 r = sd_event_source_set_priority(bus->input_io_event_source, bus->event_priority);
+                if (r < 0)
+                        return r;
+
+                r = sd_event_source_set_name(bus->input_io_event_source, "bus-input");
         } else
                 r = sd_event_source_set_io_fd(bus->input_io_event_source, bus->input_fd);
 
@@ -2748,6 +2752,10 @@ static int attach_io_events(sd_bus *bus) {
                                 return r;
 
                         r = sd_event_source_set_priority(bus->output_io_event_source, bus->event_priority);
+                        if (r < 0)
+                                return r;
+
+                        r = sd_event_source_set_name(bus->output_io_event_source, "bus-output");
                 } else
                         r = sd_event_source_set_io_fd(bus->output_io_event_source, bus->output_fd);
 
@@ -2800,7 +2808,15 @@ _public_ int sd_bus_attach_event(sd_bus *bus, sd_event *event, int priority) {
         if (r < 0)
                 goto fail;
 
+        r = sd_event_source_set_name(bus->time_event_source, "bus-time");
+        if (r < 0)
+                goto fail;
+
         r = sd_event_add_exit(bus->event, &bus->quit_event_source, quit_callback, bus);
+        if (r < 0)
+                goto fail;
+
+        r = sd_event_source_set_name(bus->quit_event_source, "bus-exit");
         if (r < 0)
                 goto fail;
 
