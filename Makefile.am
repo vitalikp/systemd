@@ -549,6 +549,7 @@ nodist_systemunit_DATA += \
 	units/halt-local.service
 
 systemgenerator_PROGRAMS += \
+	systemd-sysv-generator \
 	systemd-rc-local-generator
 endif
 
@@ -1916,6 +1917,15 @@ dbus1-generator-uninstall-hook:
 INSTALL_EXEC_HOOKS += dbus1-generator-install-hook
 UNINSTALL_EXEC_HOOKS += dbus1-generator-uninstall-hook
 endif
+
+# ------------------------------------------------------------------------------
+systemd_sysv_generator_SOURCES = \
+	src/sysv-generator/sysv-generator.c
+
+systemd_sysv_generator_LDADD = \
+	libsystemd-core.la \
+	libsystemd-label.la \
+	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
 systemd_rc_local_generator_SOURCES = \
