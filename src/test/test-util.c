@@ -1066,6 +1066,25 @@ static void test_execute_directory(void) {
         rm_rf_dangerous(tempdir, false, true, false);
 }
 
+static void test_raw_clone(void) {
+        pid_t parent, pid, pid2;
+
+        parent = getpid();
+        log_info("before clone: getpid()→"PID_FMT, parent);
+        assert_se(raw_getpid() == parent);
+
+        pid = raw_clone(0, NULL);
+        assert(pid >= 0);
+
+        pid2 = raw_getpid();
+        log_info("raw_clone: "PID_FMT" getpid()→"PID_FMT" raw_getpid()→"PID_FMT,
+                 pid, getpid(), pid2);
+        if (pid == 0)
+                assert(pid2 != parent);
+        else
+                assert(pid2 == parent);
+}
+
 int main(int argc, char *argv[]) {
         log_parse_environment();
         log_open();
@@ -1111,6 +1130,7 @@ int main(int argc, char *argv[]) {
         test_hexdump();
         test_log2i();
         test_foreach_string();
+        test_raw_clone();
         test_filename_is_safe();
         test_string_has_cc();
         test_ascii_strlower();
