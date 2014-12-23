@@ -1075,15 +1075,15 @@ static void test_raw_clone(void) {
         assert_se(raw_getpid() == parent);
 
         pid = raw_clone(0, NULL);
-        assert(pid >= 0);
+        assert_se(pid >= 0);
 
         pid2 = raw_getpid();
         log_info("raw_clone: "PID_FMT" getpid()→"PID_FMT" raw_getpid()→"PID_FMT,
                  pid, getpid(), pid2);
         if (pid == 0)
-                assert(pid2 != parent);
+                assert_se(pid2 != parent);
         else
-                assert(pid2 == parent);
+                assert_se(pid2 == parent);
 }
 
 int main(int argc, char *argv[]) {
