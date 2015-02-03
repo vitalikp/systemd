@@ -956,3 +956,5 @@ char *tempfn_random(const char *p);
 bool is_localhost(const char *hostname);
 
 int is_symlink(const char *path);
+
+#define RLIMIT_MAKE_CONST(lim) ((struct rlimit) { lim, lim })

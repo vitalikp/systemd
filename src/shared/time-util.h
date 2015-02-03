@@ -64,7 +64,7 @@ typedef struct dual_timestamp {
 #define FORMAT_TIMESTAMP_RELATIVE_MAX 256
 #define FORMAT_TIMESPAN_MAX 64
 
-#define DUAL_TIMESTAMP_NULL ((struct dual_timestamp) { 0, 0 })
+#define DUAL_TIMESTAMP_NULL ((struct dual_timestamp) { 0ULL, 0ULL })
 
 usec_t now(clockid_t clock);
 
