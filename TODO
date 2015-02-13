@@ -446,7 +446,6 @@ Features:
 * currently x-systemd.timeout is lost in the initrd, since crypttab is copied into dracut, but fstab is not
 
 * nspawn:
-  - nspawn: --read-only is not applied recursively to submounts
   - bind mount read-only the cgroup tree higher than nspawn
   - refuses to boot containers without /etc/machine-id (OK?), and with empty /etc/machine-id (not OK).
   - support taking a btrfs snapshot at startup and dropping it afterwards
@@ -480,8 +479,6 @@ Features:
 * explore multiple service instances per listening socket idea
 
 * MountFlags=shared acts as MountFlags=slave right now.
-
-* ReadOnlyDirectories= is not applied recursively to submounts
 
 * drop PID 1 reloading, only do reexecing (difficult: Reload()
   currently is properly synchronous, Reexec() is weird, because we
