@@ -539,8 +539,6 @@ Features:
 
 * introduce mix of BindTo and Requisite
 
-* add DeleteSocketsOnStop=yes|no option to socket units
-
 * There's currently no way to cancel fsck (used to be possible via C-c or c on the console)
 
 * add option to sockets to avoid activation. Instead just drop packets/connections, see http://cyberelk.net/tim/2012/02/15/portreserve-systemd-solution/
