@@ -192,6 +192,7 @@ static void append_dns(FILE *f, void *dns, unsigned char family, unsigned *count
 }
 
 int manager_update_resolv_conf(Manager *m) {
+        const char *path = "/run/systemd/network/resolv.conf";
         _cleanup_free_ char *temp_path = NULL;
         _cleanup_fclose_ FILE *f = NULL;
          _cleanup_free_ unsigned *indices = NULL;
@@ -201,7 +202,7 @@ int manager_update_resolv_conf(Manager *m) {
 
         assert(m);
 
-        r = fopen_temporary("/run/systemd/network/resolv.conf", &f, &temp_path);
+        r = fopen_temporary(path, &f, &temp_path);
         if (r < 0)
                 return r;
 
@@ -263,9 +264,9 @@ int manager_update_resolv_conf(Manager *m) {
 
         fflush(f);
 
-        if (ferror(f) || rename(temp_path, "/run/systemd/network/resolv.conf") < 0) {
+        if (ferror(f) || rename(temp_path, path) < 0) {
                 r = -errno;
-                unlink("/run/systemd/network/resolv.conf");
+                unlink(path);
                 unlink(temp_path);
                 return r;
         }
