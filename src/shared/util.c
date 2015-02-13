@@ -5457,6 +5457,7 @@ const char *draw_special_char(DrawSpecialChar ch) {
                         [DRAW_TRIANGULAR_BULLET]  = "\342\200\243",             /* ‣ */
                         [DRAW_BLACK_CIRCLE]       = "\342\227\217",             /* ● */
                         [DRAW_ARROW]              = "\342\206\222",             /* → */
+                        [DRAW_DASH]               = "\342\200\223",             /* – */
                 },
 
                 /* ASCII fallback */ {
@@ -5467,6 +5468,7 @@ const char *draw_special_char(DrawSpecialChar ch) {
                         [DRAW_TRIANGULAR_BULLET]  = ">",
                         [DRAW_BLACK_CIRCLE]       = "*",
                         [DRAW_ARROW]              = "->",
+                        [DRAW_DASH]               = "-",
                 }
         };
 
