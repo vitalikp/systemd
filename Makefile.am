@@ -474,6 +474,7 @@ nodist_systemunit_DATA = \
 	units/systemd-ask-password-wall.service \
 	units/systemd-ask-password-console.service \
 	units/systemd-sysctl.service \
+	units/sysctl.service \
 	units/emergency.service \
 	units/rescue.service \
 	units/user@.service \
@@ -519,6 +520,7 @@ EXTRA_DIST += \
 	units/systemd-ask-password-wall.service.in \
 	units/systemd-ask-password-console.service.in \
 	units/systemd-sysctl.service.in \
+	units/sysctl.service.in \
 	units/emergency.service.in \
 	units/systemd-halt.service.in \
 	units/systemd-poweroff.service.in \
@@ -5081,6 +5083,7 @@ SYSINIT_TARGET_WANTS += \
 	sys-kernel-debug.mount \
 	sys-fs-fuse-connections.mount \
 	systemd-sysctl.service \
+	sysctl.service \
 	systemd-ask-password-console.path
 
 if HAVE_SYSV_COMPAT

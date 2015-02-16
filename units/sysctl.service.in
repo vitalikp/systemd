@@ -1,0 +1,14 @@
+# Procps-ng service apply kernel variables
+
+[Unit]
+Description=Apply Kernel Variables
+Documentation=man:sysctl(8) man:sysctl.conf(5)
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=systemd-readahead-collect.service systemd-readahead-replay.service
+Before=sysinit.target shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=@prefix@/sbin/sysctl --system
