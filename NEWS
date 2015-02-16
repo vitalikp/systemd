@@ -3,6 +3,7 @@ systemd System and Service Manager
 NEW CHANGES:
         * units:
              (+) add sysctl service;
+             (+) remove systemd-sysctl service;
 
 CHANGES WITH 214:
 

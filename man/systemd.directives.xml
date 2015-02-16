@@ -2801,8 +2801,6 @@
 
 <varlistentry><term><filename>/usr/lib/systemd/systemd-sleep</filename></term><listitem><para><citerefentry><refentrytitle>systemd-suspend.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
-<varlistentry><term><filename>/usr/lib/systemd/systemd-sysctl</filename></term><listitem><para><citerefentry><refentrytitle>systemd-sysctl.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
-
 <varlistentry><term><filename>/usr/lib/systemd/systemd-timedated</filename></term><listitem><para><citerefentry><refentrytitle>systemd-timedated.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/usr/lib/systemd/systemd-timesyncd</filename></term><listitem><para><citerefentry><refentrytitle>systemd-timesyncd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
@@ -3142,8 +3140,6 @@
 <varlistentry><term><command>systemd-socket-proxyd</command></term><listitem><para><citerefentry><refentrytitle>systemd-socket-proxyd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>systemd-suspend.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-suspend.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
-
-<varlistentry><term><filename>systemd-sysctl.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-sysctl.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>systemd-timedated.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-timedated.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
