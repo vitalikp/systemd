@@ -99,7 +99,6 @@
 /systemd-shutdownd
 /systemd-sleep
 /systemd-socket-proxyd
-/systemd-sysctl
 /systemd-system-update-generator
 /systemd-sysv-generator
 /systemd-timedated

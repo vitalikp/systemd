@@ -357,7 +357,6 @@ rootlibexec_PROGRAMS = \
 	systemd-reply-password \
 	systemd-fsck \
 	systemd-ac-power \
-	systemd-sysctl \
 	systemd-sleep \
 	systemd-bus-proxyd \
 	systemd-socket-proxyd
@@ -1765,13 +1764,6 @@ systemd_machine_id_setup_SOURCES = \
 systemd_machine_id_setup_LDADD = \
 	libsystemd-label.la \
 	libsystemd-internal.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_sysctl_SOURCES = \
-	src/sysctl/sysctl.c
-
-systemd_sysctl_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
