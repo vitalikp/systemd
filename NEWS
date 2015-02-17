@@ -6,6 +6,7 @@ NEW CHANGES:
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
+             (+) remove systemd-networkd-wait-online service;
 
 CHANGES WITH 214:
 

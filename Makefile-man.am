@@ -1058,16 +1058,13 @@ endif
 
 if ENABLE_NETWORKD
 MANPAGES += \
-	man/systemd-networkd-wait-online.service.8 \
 	man/systemd-networkd.service.8 \
 	man/systemd.netdev.5 \
 	man/systemd.network.5
 MANPAGES_ALIAS += \
 	man/systemd-networkd-wait-online.8 \
 	man/systemd-networkd.8
-man/systemd-networkd-wait-online.8: man/systemd-networkd-wait-online.service.8
 man/systemd-networkd.8: man/systemd-networkd.service.8
-man/systemd-networkd-wait-online.html: man/systemd-networkd-wait-online.service.html
 	$(html-alias)
 
 man/systemd-networkd.html: man/systemd-networkd.service.html
@@ -1584,7 +1581,6 @@ EXTRA_DIST += \
 	man/systemd-machine-id-setup.xml \
 	man/systemd-machined.service.xml \
 	man/systemd-modules-load.service.xml \
-	man/systemd-networkd-wait-online.service.xml \
 	man/systemd-networkd.service.xml \
 	man/systemd-notify.xml \
 	man/systemd-nspawn.xml \

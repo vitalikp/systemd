@@ -4324,18 +4324,15 @@ tests += \
 	test-network
 
 nodist_systemunit_DATA += \
-	units/systemd-networkd.service \
-	units/systemd-networkd-wait-online.service
+	units/systemd-networkd.service
 
 GENERAL_ALIASES += \
-	$(systemunitdir)/systemd-networkd.service $(pkgsysconfdir)/system/multi-user.target.wants/systemd-networkd.service \
-	$(systemunitdir)/systemd-networkd-wait-online.service $(pkgsysconfdir)/system/network-online.target.wants/systemd-networkd-wait-online.service
+	$(systemunitdir)/systemd-networkd.service $(pkgsysconfdir)/system/multi-user.target.wants/systemd-networkd.service
 
 EXTRA_DIST += \
 	src/network/networkd-network-gperf.gperf \
 	src/network/networkd-netdev-gperf.gperf \
-	units/systemd-networkd.service.in \
-	units/systemd-networkd-wait-online.service.in
+	units/systemd-networkd.service.in
 
 CLEANFILES += \
 	src/network/networkd-network-gperf.c \
