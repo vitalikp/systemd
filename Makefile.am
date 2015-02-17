@@ -4323,16 +4323,9 @@ test_network_LDADD = \
 tests += \
 	test-network
 
-nodist_systemunit_DATA += \
-	units/systemd-networkd.service
-
-GENERAL_ALIASES += \
-	$(systemunitdir)/systemd-networkd.service $(pkgsysconfdir)/system/multi-user.target.wants/systemd-networkd.service
-
 EXTRA_DIST += \
 	src/network/networkd-network-gperf.gperf \
-	src/network/networkd-netdev-gperf.gperf \
-	units/systemd-networkd.service.in
+	src/network/networkd-netdev-gperf.gperf
 
 CLEANFILES += \
 	src/network/networkd-network-gperf.c \

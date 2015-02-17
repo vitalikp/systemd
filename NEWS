@@ -7,6 +7,7 @@ NEW CHANGES:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
              (+) remove systemd-networkd-wait-online service;
+             (+) remove systemd-networkd service;
 
 CHANGES WITH 214:
 
