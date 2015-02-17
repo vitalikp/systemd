@@ -4086,12 +4086,6 @@ systemd_timesyncd_LDADD = \
 rootlibexec_PROGRAMS += \
 	systemd-timesyncd
 
-nodist_systemunit_DATA += \
-	units/systemd-timesyncd.service
-
-EXTRA_DIST += \
-	units/systemd-timesyncd.service.in
-
 nodist_pkgsysconf_DATA += \
 	src/timesync/timesyncd.conf
 
@@ -4100,9 +4094,6 @@ EXTRA_DIST += \
 
 CLEANFILES += \
 	src/timesync/timesyncd.conf
-
-dist_ntpunits_DATA = \
-	src/timesync/90-systemd.list
 
 endif
 

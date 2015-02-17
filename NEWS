@@ -10,6 +10,7 @@ NEW CHANGES:
              (+) remove systemd-networkd-wait-online service;
              (+) remove systemd-networkd service;
              (+) remove systemd-resolved service;
+             (+) remove systemd-timesyncd service;
 
 CHANGES WITH 214:
 
