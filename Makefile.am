@@ -4017,24 +4017,12 @@ dist_dbussystemservice_DATA += \
 dist_dbuspolicy_DATA += \
 	src/timedate/org.freedesktop.timedate1.conf
 
-nodist_systemunit_DATA += \
-	units/systemd-timedated.service
-
-dist_systemunit_DATA += \
-	units/org.freedesktop.timedate1.busname
-
 polkitpolicy_files += \
 	src/timedate/org.freedesktop.timedate1.policy
 
 INSTALL_DIRS += \
 	$(prefix)/lib/systemd/ntp-units.d \
 	$(sysconfdir)/systemd/ntp-units.d
-
-SYSTEM_UNIT_ALIASES += \
-	systemd-timedated.service dbus-org.freedesktop.timedate1.service
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.timedate1.busname
 
 timedatectl_SOURCES = \
 	src/timedate/timedatectl.c
@@ -4055,9 +4043,6 @@ endif
 
 polkitpolicy_in_files += \
 	src/timedate/org.freedesktop.timedate1.policy.in
-
-EXTRA_DIST += \
-	units/systemd-timedated.service.in
 
 # ------------------------------------------------------------------------------
 if ENABLE_TIMESYNCD

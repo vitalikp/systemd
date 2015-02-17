@@ -96,7 +96,6 @@
                           <citerefentry><refentrytitle>tzset</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>localtime</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>timedatectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd-timedated.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                   </para>
         </refsect1>
 

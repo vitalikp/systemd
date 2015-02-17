@@ -1129,13 +1129,9 @@ endif
 
 if ENABLE_TIMEDATED
 MANPAGES += \
-	man/systemd-timedated.service.8 \
 	man/timedatectl.1
 MANPAGES_ALIAS += \
 	man/systemd-timedated.8
-man/systemd-timedated.8: man/systemd-timedated.service.8
-man/systemd-timedated.html: man/systemd-timedated.service.html
-	$(html-alias)
 
 endif
 
@@ -1571,7 +1567,6 @@ EXTRA_DIST += \
 	man/systemd-suspend.service.xml \
 	man/systemd-system-update-generator.xml \
 	man/systemd-system.conf.xml \
-	man/systemd-timedated.service.xml \
 	man/systemd-tmpfiles.xml \
 	man/systemd-tty-ask-password-agent.xml \
 	man/systemd-udevd.service.xml \
