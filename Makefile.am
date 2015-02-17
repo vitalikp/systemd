@@ -4235,15 +4235,6 @@ systemd_resolved_LDADD = \
 rootlibexec_PROGRAMS += \
 	systemd-resolved
 
-nodist_systemunit_DATA += \
-	units/systemd-resolved.service
-
-EXTRA_DIST += \
-	units/systemd-resolved.service.in
-
-GENERAL_ALIASES += \
-	$(systemunitdir)/systemd-resolved.service $(pkgsysconfdir)/system/multi-user.target.wants/systemd-resolved.service
-
 nodist_pkgsysconf_DATA += \
 	src/resolve/resolved.conf
 

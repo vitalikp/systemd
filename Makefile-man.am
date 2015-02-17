@@ -1117,14 +1117,8 @@ man/systemd-readahead.html: man/systemd-readahead-replay.service.html
 endif
 
 if ENABLE_RESOLVED
-MANPAGES += \
-	man/resolved.conf.5 \
-	man/systemd-resolved.service.8
 MANPAGES_ALIAS += \
 	man/systemd-resolved.8
-man/systemd-resolved.8: man/systemd-resolved.service.8
-man/systemd-resolved.html: man/systemd-resolved.service.html
-	$(html-alias)
 
 endif
 
@@ -1485,7 +1479,6 @@ EXTRA_DIST += \
 	man/nss-myhostname.xml \
 	man/os-release.xml \
 	man/pam_systemd.xml \
-	man/resolved.conf.xml \
 	man/runlevel.xml \
 	man/sd-daemon.xml \
 	man/sd-id128.xml \
@@ -1581,7 +1574,6 @@ EXTRA_DIST += \
 	man/systemd-random-seed.service.xml \
 	man/systemd-readahead-replay.service.xml \
 	man/systemd-remount-fs.service.xml \
-	man/systemd-resolved.service.xml \
 	man/systemd-rfkill@.service.xml \
 	man/systemd-run.xml \
 	man/systemd-shutdownd.service.xml \
