@@ -4207,46 +4207,6 @@ EXTRA_DIST += \
 endif
 
 # ------------------------------------------------------------------------------
-if ENABLE_RESOLVED
-systemd_resolved_SOURCES = \
-	src/resolve/resolved.h \
-	src/resolve/resolved.c \
-	src/resolve/resolved-manager.c
-
-systemd_resolved_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(KMOD_CFLAGS)
-
-nodist_systemd_resolved_SOURCES = \
-	src/resolve/resolved-gperf.c
-
-EXTRA_DIST += \
-	src/resolve/resolved-gperf.gperf
-
-CLEANFILES += \
-	src/resolve/resolved-gperf.c
-
-systemd_resolved_LDADD = \
-	libsystemd-network.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-resolved
-
-nodist_pkgsysconf_DATA += \
-	src/resolve/resolved.conf
-
-EXTRA_DIST += \
-	src/resolve/resolved.conf.in
-
-CLEANFILES += \
-	src/resolve/resolved.conf
-
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_NETWORKD
 rootlibexec_PROGRAMS += \
 	systemd-networkd

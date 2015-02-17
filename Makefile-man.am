@@ -1116,12 +1116,6 @@ man/systemd-readahead.html: man/systemd-readahead-replay.service.html
 
 endif
 
-if ENABLE_RESOLVED
-MANPAGES_ALIAS += \
-	man/systemd-resolved.8
-
-endif
-
 if ENABLE_RFKILL
 MANPAGES += \
 	man/systemd-rfkill@.service.8

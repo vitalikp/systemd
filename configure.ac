@@ -853,23 +853,6 @@ fi
 AM_CONDITIONAL(ENABLE_POLKIT, [test "x$have_polkit" = "xyes"])
 
 # ------------------------------------------------------------------------------
-have_resolved=no
-AC_ARG_ENABLE(resolved, AS_HELP_STRING([--disable-resolved], [disable resolve daemon]))
-if test "x$enable_resolved" != "xno"; then
-        have_resolved=yes
-fi
-AM_CONDITIONAL(ENABLE_RESOLVED, [test "$have_resolved" = "yes"])
-
-AC_ARG_WITH(dns-servers,
-        AS_HELP_STRING([--with-dns-servers=DNSSERVERS],
-                [Space-separated list of default DNS servers]),
-        [DNS_SERVERS="$withval"],
-        [DNS_SERVERS="8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844"])
-
-AC_DEFINE_UNQUOTED(DNS_SERVERS, ["$DNS_SERVERS"], [Default DNS Servers])
-AC_SUBST(DNS_SERVERS)
-
-# ------------------------------------------------------------------------------
 have_networkd=no
 AC_ARG_ENABLE(networkd, AS_HELP_STRING([--disable-networkd], [disable networkd]))
 if test "x$enable_networkd" != "xno"; then
@@ -1180,8 +1163,6 @@ AC_MSG_RESULT([
         time epoch:              ${TIME_EPOCH}
         localed:                 ${have_localed}
         networkd:                ${have_networkd}
-        resolved:                ${have_resolved}
-        default DNS servers:     ${DNS_SERVERS}
         coredump:                ${have_coredump}
         polkit:                  ${have_polkit}
         efi:                     ${have_efi}

@@ -3,6 +3,7 @@ systemd System and Service Manager
 NEW CHANGES:
         * program:
              (+) remove systemd-sysctl program;
+             (+) remove systemd-resolved program;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
