@@ -1115,10 +1115,6 @@ AC_MSG_RESULT([
         rfkill:                  ${have_rfkill}
         logind:                  ${have_logind}
         machined:                ${have_machined}
-        timedated:               ${have_timedated}
-        timesyncd:               ${have_timesyncd}
-        default NTP servers:     ${NTP_SERVERS}
-        time epoch:              ${TIME_EPOCH}
         localed:                 ${have_localed}
         networkd:                ${have_networkd}
         coredump:                ${have_coredump}
