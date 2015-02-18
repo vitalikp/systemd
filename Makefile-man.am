@@ -49,7 +49,6 @@ MANPAGES += \
 	man/sd_notify.3 \
 	man/sd_watchdog_enabled.3 \
 	man/shutdown.8 \
-	man/sysctl.d.5 \
 	man/systemctl.1 \
 	man/systemd-activate.8 \
 	man/systemd-analyze.1 \
