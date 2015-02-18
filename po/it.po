@@ -320,46 +320,6 @@ msgstr ""
 "Autenticazione richiesta per ibernare il sistema nonostante l'inibizione "
 "di una applicazione."
 
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:1
-msgid "Set system time"
-msgstr "Configura l'orario di sistema"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:2
-msgid "Authentication is required to set the system time."
-msgstr "Autenticazione richiesta per configurare l'orario di sistema."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:3
-msgid "Set system timezone"
-msgstr "Configura il fuso orario di sistema"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:4
-msgid "Authentication is required to set the system timezone."
-msgstr "Autenticazione richiesta per configurare il fuso orario di sistema."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:5
-msgid "Set RTC to local timezone or UTC"
-msgstr "Configura l'orologio di sistema (RTC) al fuso orario locale o al tempo civile (UTC)"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:6
-msgid ""
-"Authentication is required to control whether the RTC stores the local or "
-"UTC time."
-msgstr ""
-"Autenticazione richiesta per verificare se l'orologio di sistema (RTC) "
-"è configurato all'orario locale o al tempo civile (UTC)."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:7
-msgid "Turn network time synchronization on or off"
-msgstr "Abilita o meno la sincronizzazione dell'orario in rete"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:8
-msgid ""
-"Authentication is required to control whether network time synchronization "
-"shall be enabled."
-msgstr ""
-"Autenticazione richiesta per verificare se la sincronizzazione dell'orario "
-"in rete debba essere attivata."
-
 #: ../src/core/org.freedesktop.systemd1.policy.in.in.h:1
 msgid "Send passphrase back to system"
 msgstr "Inviare la frase segreta (passphrase) al sistema"

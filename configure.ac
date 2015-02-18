@@ -775,14 +775,6 @@ fi
 AM_CONDITIONAL(ENABLE_HOSTNAMED, [test "$have_hostnamed" = "yes"])
 
 # ------------------------------------------------------------------------------
-have_timedated=no
-AC_ARG_ENABLE(timedated, AS_HELP_STRING([--disable-timedated], [disable timedate daemon]))
-if test "x$enable_timedated" != "xno"; then
-        have_timedated=yes
-fi
-AM_CONDITIONAL(ENABLE_TIMEDATED, [test "$have_timedated" = "yes"])
-
-# ------------------------------------------------------------------------------
 AC_ARG_WITH(system-uid-max,
         AS_HELP_STRING([--with-system-uid-max=UID]
                 [Maximum UID for system users]),

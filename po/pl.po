@@ -329,46 +329,6 @@ msgstr ""
 "Wymagane jest uwierzytelnienie, aby zahibernować system, kiedy program "
 "zażądał jej wstrzymania."
 
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:1
-msgid "Set system time"
-msgstr "Ustawienie czasu systemu"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:2
-msgid "Authentication is required to set the system time."
-msgstr "Wymagane jest uwierzytelnienie, aby ustawić czas systemu."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:3
-msgid "Set system timezone"
-msgstr "Ustawienie strefy czasowej systemu"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:4
-msgid "Authentication is required to set the system timezone."
-msgstr "Wymagane jest uwierzytelnienie, aby ustawić strefę czasową systemu."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:5
-msgid "Set RTC to local timezone or UTC"
-msgstr "Ustawienie RTC na lokalną strefę czasową lub strefę UTC"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:6
-msgid ""
-"Authentication is required to control whether the RTC stores the local or "
-"UTC time."
-msgstr ""
-"Wymagane jest uwierzytelnienie, aby kontrolować, czy RTC przechowuje czas "
-"lokalny lub czas UTC."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:7
-msgid "Turn network time synchronization on or off"
-msgstr "Włączenie lub wyłączenie synchronizacji czasu przez sieć"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:8
-msgid ""
-"Authentication is required to control whether network time synchronization "
-"shall be enabled."
-msgstr ""
-"Wymagane jest uwierzytelnienie, aby kontrolować, czy włączyć synchronizację "
-"czasu przez sieć."
-
 #: ../src/core/org.freedesktop.systemd1.policy.in.in.h:1
 msgid "Send passphrase back to system"
 msgstr "Wysłanie hasła z powrotem do systemu"

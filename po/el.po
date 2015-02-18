@@ -342,46 +342,6 @@ msgstr ""
 "Απαιτείται πιστοποίηση για αδρανοποίηση του συστήματος ενώ μια εφαρμογή "
 "ζήτησε να αποτραπεί."
 
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:1
-msgid "Set system time"
-msgstr "Ορισμός ώρας συστήματος"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:2
-msgid "Authentication is required to set the system time."
-msgstr "Απαιτείται πιστοποίηση για να ορίσετε την ώρα του συστήματος."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:3
-msgid "Set system timezone"
-msgstr "Ορισμός ζώνης ώρας συστήματος"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:4
-msgid "Authentication is required to set the system timezone."
-msgstr "Απαιτείται πιστοποίηση για να ορίσετε την ώρα ζώνης του συστήματος."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:5
-msgid "Set RTC to local timezone or UTC"
-msgstr "Ορισμός RTC στην τοπική ζώνη ώρας ή UTC"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:6
-msgid ""
-"Authentication is required to control whether the RTC stores the local or "
-"UTC time."
-msgstr ""
-"Απαιτείται πιστοποίηση για να ελέγξετε αν το RTC αποθηκεύει την τοπική ή την "
-"ώρα UTC."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:7
-msgid "Turn network time synchronization on or off"
-msgstr "Ενεργοποίηση/Απενεργοποίηση συγχρονισμού ώρας δικτύου"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:8
-msgid ""
-"Authentication is required to control whether network time synchronization "
-"shall be enabled."
-msgstr ""
-"Απαιτείται πιστοποίηση για να ελέγξετε αν ο συγχρονισμός ώρας δικτύου θα "
-"ενεργοποιηθεί."
-
 #: ../src/core/org.freedesktop.systemd1.policy.in.in.h:1
 msgid "Send passphrase back to system"
 msgstr "Αποστολή του συνθηματικού πίσω στο σύστημα"

@@ -246,38 +246,6 @@ msgstr "Перевести систему в спящий режим, несмо
 msgid "Authentication is required for hibernating the system while an application asked to inhibit it."
 msgstr "Чтобы перевести систему в спящий режим, несмотря на то, что приложение запросило блокировку, необходимо пройти аутентификацию."
 
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:1
-msgid "Set system time"
-msgstr "Настроить системное время"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:2
-msgid "Authentication is required to set the system time."
-msgstr "Чтобы настроить системное время, необходимо пройти аутентификацию."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:3
-msgid "Set system timezone"
-msgstr "Настроить часовой пояс"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:4
-msgid "Authentication is required to set the system timezone."
-msgstr "Чтобы настроить часовой пояс, необходимо пройти аутентификацию."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:5
-msgid "Set RTC to local timezone or UTC"
-msgstr "Установить аппаратные часы по местному времени или по Гринвичу"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:6
-msgid "Authentication is required to control whether the RTC stores the local or UTC time."
-msgstr "Чтобы контролировать, установлены аппаратные часы по местному времени или по Гринвичу, необходимо пройти аутентификацию."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:7
-msgid "Turn network time synchronization on or off"
-msgstr "Включить или выключить синхронизацию времени по сети"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:8
-msgid "Authentication is required to control whether network time synchronization shall be enabled."
-msgstr "Чтобы включить или выключить синхронизацию времени по сети, необходимо пройти аутентификацию."
-
 #: ../src/core/org.freedesktop.systemd1.policy.in.in.h:1
 msgid "Send passphrase back to system"
 msgstr "Отправить пароль системе"

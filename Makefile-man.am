@@ -1127,14 +1127,6 @@ man/systemd-rfkill.html: man/systemd-rfkill@.service.html
 
 endif
 
-if ENABLE_TIMEDATED
-MANPAGES += \
-	man/timedatectl.1
-MANPAGES_ALIAS += \
-	man/systemd-timedated.8
-
-endif
-
 if ENABLE_VCONSOLE
 MANPAGES += \
 	man/systemd-vconsole-setup.service.8 \
@@ -1594,7 +1586,6 @@ EXTRA_DIST += \
 	man/systemd.unit.xml \
 	man/systemd.xml \
 	man/telinit.xml \
-	man/timedatectl.xml \
 	man/tmpfiles.d.xml \
 	man/udev.xml \
 	man/udevadm.xml \

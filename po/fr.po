@@ -334,48 +334,6 @@ msgstr ""
 "Authentification requise pour mettre le système en hibernation alors qu'une "
 "application a demandé de l'empêcher."
 
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:1
-msgid "Set system time"
-msgstr "Définir l'heure du système"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:2
-msgid "Authentication is required to set the system time."
-msgstr "Authentification requise pour définir l'heure du système."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:3
-msgid "Set system timezone"
-msgstr "Définir le fuseau horaire du système"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:4
-msgid "Authentication is required to set the system timezone."
-msgstr "Authentification requise pour définir le fuseau horaire du système."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:5
-msgid "Set RTC to local timezone or UTC"
-msgstr ""
-"Positionner l'horloge matérielle à l'heure locale ou sur le temps universel "
-"coordonné (UTC)"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:6
-msgid ""
-"Authentication is required to control whether the RTC stores the local or "
-"UTC time."
-msgstr ""
-"Authentification requise pour positionner l'horloge matérielle à l'heure locale "
-"ou sur le temps universel coordonné (UTC)."
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:7
-msgid "Turn network time synchronization on or off"
-msgstr "Activer ou désactiver la synchronisation de l'heure avec le réseau"
-
-#: ../src/timedate/org.freedesktop.timedate1.policy.in.h:8
-msgid ""
-"Authentication is required to control whether network time synchronization "
-"shall be enabled."
-msgstr ""
-"Authentification requise pour activer ou désactiver la synchronisation "
-"de l'heure avec le réseau."
-
 #: ../src/core/org.freedesktop.systemd1.policy.in.in.h:1
 msgid "Send passphrase back to system"
 msgstr "Renvoyer la phrase secrète au système"

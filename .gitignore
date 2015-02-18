@@ -100,7 +100,6 @@
 /systemd-socket-proxyd
 /systemd-system-update-generator
 /systemd-sysv-generator
-/systemd-timedated
 /systemd-tmpfiles
 /systemd-tty-ask-password-agent
 /systemd-uaccess
@@ -199,7 +198,6 @@
 /test-util
 /test-watchdog
 /test-xml
-/timedatectl
 /udevadm
 /undefined
 /v4l_id

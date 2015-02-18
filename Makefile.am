@@ -103,7 +103,6 @@ udevrulesdir=$(udevlibexecdir)/rules.d
 udevhwdbdir=$(udevlibexecdir)/hwdb.d
 catalogdir=$(prefix)/lib/systemd/catalog
 kernelinstalldir = $(prefix)/lib/kernel/install.d
-ntpunitsdir=$(prefix)/lib/systemd/ntp-units.d
 
 # And these are the special ones for /
 rootprefix=@rootprefix@
@@ -3997,52 +3996,6 @@ polkitpolicy_in_files += \
 
 EXTRA_DIST += \
 	units/systemd-localed.service.in
-
-# ------------------------------------------------------------------------------
-if ENABLE_TIMEDATED
-systemd_timedated_SOURCES = \
-	src/timedate/timedated.c
-
-systemd_timedated_LDADD = \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-timedated
-
-dist_dbussystemservice_DATA += \
-	src/timedate/org.freedesktop.timedate1.service
-
-dist_dbuspolicy_DATA += \
-	src/timedate/org.freedesktop.timedate1.conf
-
-polkitpolicy_files += \
-	src/timedate/org.freedesktop.timedate1.policy
-
-INSTALL_DIRS += \
-	$(prefix)/lib/systemd/ntp-units.d \
-	$(sysconfdir)/systemd/ntp-units.d
-
-timedatectl_SOURCES = \
-	src/timedate/timedatectl.c
-
-timedatectl_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-bin_PROGRAMS += \
-	timedatectl
-
-dist_bashcompletion_DATA += \
-	shell-completion/bash/timedatectl
-
-dist_zshcompletion_DATA += \
-	shell-completion/zsh/_timedatectl
-endif
-
-polkitpolicy_in_files += \
-	src/timedate/org.freedesktop.timedate1.policy.in
 
 # ------------------------------------------------------------------------------
 if HAVE_MYHOSTNAME
