@@ -189,9 +189,6 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/src/network \
 	-I $(top_srcdir)/src/login \
 	-I $(top_srcdir)/src/journal \
-	-I $(top_srcdir)/src/timedate \
-	-I $(top_srcdir)/src/timesync \
-	-I $(top_srcdir)/src/resolve \
 	-I $(top_srcdir)/src/systemd \
 	-I $(top_builddir)/src/core \
 	-I $(top_srcdir)/src/core \
