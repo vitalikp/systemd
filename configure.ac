@@ -812,15 +812,6 @@ fi
 AM_CONDITIONAL(ENABLE_POLKIT, [test "x$have_polkit" = "xyes"])
 
 # ------------------------------------------------------------------------------
-have_networkd=no
-AC_ARG_ENABLE(networkd, AS_HELP_STRING([--disable-networkd], [disable networkd]))
-if test "x$enable_networkd" != "xno"; then
-        AC_DEFINE(ENABLE_NETWORKD, 1, [Define if networkd support is to be enabled])
-        have_networkd=yes
-fi
-AM_CONDITIONAL(ENABLE_NETWORKD, [test "x$have_networkd" = "xyes"])
-
-# ------------------------------------------------------------------------------
 have_efi=no
 AC_ARG_ENABLE(efi, AS_HELP_STRING([--disable-efi], [disable EFI support]))
 if test "x$enable_efi" != "xno"; then
@@ -1116,7 +1107,6 @@ AC_MSG_RESULT([
         logind:                  ${have_logind}
         machined:                ${have_machined}
         localed:                 ${have_localed}
-        networkd:                ${have_networkd}
         coredump:                ${have_coredump}
         polkit:                  ${have_polkit}
         efi:                     ${have_efi}

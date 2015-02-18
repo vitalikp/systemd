@@ -79,8 +79,6 @@
 /systemd-machined
 /systemd-modules-load
 /systemd-multi-seat-x
-/systemd-networkd
-/systemd-networkd-wait-online
 /systemd-notify
 /systemd-nspawn
 /systemd-quotacheck

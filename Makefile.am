@@ -186,7 +186,6 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/src \
 	-I $(top_builddir)/src/shared \
 	-I $(top_srcdir)/src/shared \
-	-I $(top_srcdir)/src/network \
 	-I $(top_srcdir)/src/login \
 	-I $(top_srcdir)/src/journal \
 	-I $(top_srcdir)/src/systemd \
@@ -2497,8 +2496,6 @@ libsystemd_network_la_SOURCES = \
 	src/systemd/sd-dhcp-client.h \
 	src/systemd/sd-dhcp-lease.h \
 	src/systemd/sd-ipv4ll.h \
-	src/network/sd-network.c \
-	src/network/network-util.h \
 	src/libsystemd-network/sd-dhcp-client.c \
 	src/libsystemd-network/dhcp-network.c \
 	src/libsystemd-network/dhcp-option.c \
@@ -2646,11 +2643,6 @@ libudev_internal_la_CFLAGS = \
 INSTALL_DIRS += \
 	$(sysconfdir)/udev/rules.d \
 	$(sysconfdir)/udev/hwdb.d
-
-dist_network_DATA = \
-	network/99-default.link \
-	network/80-container-host0.network \
-	network/80-container-ve.network
 
 dist_udevrules_DATA += \
 	rules/42-usb-hid-pm.rules \
@@ -4034,83 +4026,6 @@ BUSNAMES_TARGET_WANTS += \
 EXTRA_DIST += \
 	units/systemd-machined.service.in
 
-endif
-
-# ------------------------------------------------------------------------------
-if ENABLE_NETWORKD
-rootlibexec_PROGRAMS += \
-	systemd-networkd
-
-systemd_networkd_SOURCES = \
-	src/network/networkd.c
-
-systemd_networkd_LDADD = \
-	libsystemd-networkd-core.la
-
-noinst_LTLIBRARIES += \
-	libsystemd-networkd-core.la
-
-libsystemd_networkd_core_la_CFLAGS = \
-	$(AM_CFLAGS)
-
-libsystemd_networkd_core_la_SOURCES = \
-	src/libsystemd-network/network-internal.h \
-	src/network/networkd.h \
-	src/network/networkd-link.c \
-	src/network/networkd-netdev.c \
-	src/network/networkd-tunnel.c \
-	src/network/networkd-network.c \
-	src/network/networkd-address.c \
-	src/network/networkd-route.c \
-	src/network/networkd-manager.c
-
-nodist_libsystemd_networkd_core_la_SOURCES = \
-	src/network/networkd-network-gperf.c \
-	src/network/networkd-netdev-gperf.c
-
-libsystemd_networkd_core_la_LIBADD = \
-	libudev-internal.la \
-	libsystemd-internal.la \
-	libsystemd-network.la \
-	libsystemd-label.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-networkd-wait-online
-
-systemd_networkd_wait_online_CFLAGS = \
-	$(AM_CFLAGS)
-
-systemd_networkd_wait_online_SOURCES = \
-	src/libsystemd-network/network-internal.h \
-	src/network/networkd-wait-online.c \
-	src/network/networkd-wait-online.h
-
-systemd_networkd_wait_online_LDADD = \
-	libsystemd-network.la \
-	libudev-internal.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-test_network_SOURCES = \
-	src/network/test-network.c
-
-test_network_CFLAGS = \
-	$(AM_CFLAGS)
-
-test_network_LDADD = \
-	libsystemd-networkd-core.la
-
-tests += \
-	test-network
-
-EXTRA_DIST += \
-	src/network/networkd-network-gperf.gperf \
-	src/network/networkd-netdev-gperf.gperf
-
-CLEANFILES += \
-	src/network/networkd-network-gperf.c \
-	src/network/networkd-netdev-gperf.c
 endif
 
 # ------------------------------------------------------------------------------

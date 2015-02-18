@@ -89,7 +89,6 @@ MANPAGES += \
 	man/systemd.exec.5 \
 	man/systemd.journal-fields.7 \
 	man/systemd.kill.5 \
-	man/systemd.link.5 \
 	man/systemd.mount.5 \
 	man/systemd.path.5 \
 	man/systemd.preset.5 \
@@ -1043,16 +1042,6 @@ man/systemd-machined.html: man/systemd-machined.service.html
 
 endif
 
-if ENABLE_NETWORKD
-MANPAGES += \
-	man/systemd.netdev.5 \
-	man/systemd.network.5
-MANPAGES_ALIAS += \
-	man/systemd-networkd-wait-online.8 \
-	man/systemd-networkd.8
-
-endif
-
 if ENABLE_QUOTACHECK
 MANPAGES += \
 	man/systemd-quotacheck.service.8
@@ -1551,10 +1540,7 @@ EXTRA_DIST += \
 	man/systemd.index.xml \
 	man/systemd.journal-fields.xml \
 	man/systemd.kill.xml \
-	man/systemd.link.xml \
 	man/systemd.mount.xml \
-	man/systemd.netdev.xml \
-	man/systemd.network.xml \
 	man/systemd.path.xml \
 	man/systemd.preset.xml \
 	man/systemd.resource-control.xml \

@@ -307,9 +307,7 @@
         <varlistentry>
           <term><varname>NAME</varname></term>
           <listitem>
-            <para>The name to use for a network interface. See
-            <citerefentry><refentrytitle>systemd.link</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-            for a higher-level mechanism for setting the interface name.
+            <para>The name to use for a network interface.
             The name of a device node cannot be changed by udev, only additional
             symlinks can be created.</para>
           </listitem>
@@ -770,9 +768,6 @@
       </citerefentry>,
       <citerefentry>
         <refentrytitle>udevadm</refentrytitle><manvolnum>8</manvolnum>
-      </citerefentry>
-      <citerefentry>
-        <refentrytitle>systemd.link</refentrytitle><manvolnum>5</manvolnum>
       </citerefentry>
     </para>
   </refsect1>
