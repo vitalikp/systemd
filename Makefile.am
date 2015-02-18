@@ -3874,12 +3874,6 @@ systemd_hostnamed_LDADD = \
 rootlibexec_PROGRAMS += \
 	systemd-hostnamed
 
-nodist_systemunit_DATA += \
-	units/systemd-hostnamed.service
-
-dist_systemunit_DATA += \
-	units/org.freedesktop.hostname1.busname
-
 dist_dbuspolicy_DATA += \
 	src/hostname/org.freedesktop.hostname1.conf
 
@@ -3888,12 +3882,6 @@ dist_dbussystemservice_DATA += \
 
 polkitpolicy_files += \
 	src/hostname/org.freedesktop.hostname1.policy
-
-SYSTEM_UNIT_ALIASES += \
-	systemd-hostnamed.service dbus-org.freedesktop.hostname1.service
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.hostname1.busname
 
 hostnamectl_SOURCES = \
 	src/hostname/hostnamectl.c
@@ -3915,9 +3903,6 @@ endif
 
 polkitpolicy_in_files += \
 	src/hostname/org.freedesktop.hostname1.policy.in
-
-EXTRA_DIST += \
-	units/systemd-hostnamed.service.in
 
 # ------------------------------------------------------------------------------
 if ENABLE_KDBUS

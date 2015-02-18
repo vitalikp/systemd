@@ -14,6 +14,7 @@ NEW CHANGES:
              (+) remove systemd-resolved service;
              (+) remove systemd-timesyncd service;
              (+) remove systemd-timedated service;
+             (+) remove systemd-hostnamed service;
 
 CHANGES WITH 214:
 

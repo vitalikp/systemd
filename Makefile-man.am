@@ -670,13 +670,9 @@ endif
 
 if ENABLE_HOSTNAMED
 MANPAGES += \
-	man/hostnamectl.1 \
-	man/systemd-hostnamed.service.8
+	man/hostnamectl.1
 MANPAGES_ALIAS += \
 	man/systemd-hostnamed.8
-man/systemd-hostnamed.8: man/systemd-hostnamed.service.8
-man/systemd-hostnamed.html: man/systemd-hostnamed.service.html
-	$(html-alias)
 
 endif
 
@@ -1528,7 +1524,6 @@ EXTRA_DIST += \
 	man/systemd-getty-generator.xml \
 	man/systemd-gpt-auto-generator.xml \
 	man/systemd-halt.service.xml \
-	man/systemd-hostnamed.service.xml \
 	man/systemd-inhibit.xml \
 	man/systemd-initctl.service.xml \
 	man/systemd-journal-gatewayd.service.xml \
