@@ -668,14 +668,6 @@ MANPAGES_ALIAS += \
 
 endif
 
-if ENABLE_HOSTNAMED
-MANPAGES += \
-	man/hostnamectl.1
-MANPAGES_ALIAS += \
-	man/systemd-hostnamed.8
-
-endif
-
 if ENABLE_KDBUS
 MANPAGES += \
 	man/sd_bus_creds_get_pid.3 \
@@ -1427,7 +1419,6 @@ EXTRA_DIST += \
 	man/daemon.xml \
 	man/halt.xml \
 	man/hostname.xml \
-	man/hostnamectl.xml \
 	man/journalctl.xml \
 	man/journald.conf.xml \
 	man/kernel-command-line.xml \

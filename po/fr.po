@@ -17,35 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:1
-msgid "Set host name"
-msgstr "Définir le nom d'hôte"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:2
-msgid "Authentication is required to set the local host name."
-msgstr "Authentification requise pour définir le nom d'hôte local."
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:3
-msgid "Set static host name"
-msgstr "Définir le nom d'hôte statique"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:4
-msgid ""
-"Authentication is required to set the statically configured local host name, "
-"as well as the pretty host name."
-msgstr ""
-"Authentification requise pour définir le nom d'hôte local de manière statique, "
-"tout comme le nom d'hôte familier."
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:5
-msgid "Set machine information"
-msgstr "Définir les informations sur la machine"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:6
-msgid "Authentication is required to set local machine information."
-msgstr ""
-"Authentification requise pour définir les informations sur la machine locale."
-
 #: ../src/locale/org.freedesktop.locale1.policy.in.h:1
 msgid "Set system locale"
 msgstr "Définir la langue du système"

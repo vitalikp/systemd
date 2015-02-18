@@ -767,14 +767,6 @@ AM_CONDITIONAL(ENABLE_MACHINED, [test "$have_machined" = "yes"])
 AS_IF([test "$have_machined" = "yes"], [ AC_DEFINE(HAVE_MACHINED, [1], [Machined support available]) ])
 
 # ------------------------------------------------------------------------------
-have_hostnamed=no
-AC_ARG_ENABLE(hostnamed, AS_HELP_STRING([--disable-hostnamed], [disable hostname daemon]))
-if test "x$enable_hostnamed" != "xno"; then
-        have_hostnamed=yes
-fi
-AM_CONDITIONAL(ENABLE_HOSTNAMED, [test "$have_hostnamed" = "yes"])
-
-# ------------------------------------------------------------------------------
 AC_ARG_WITH(system-uid-max,
         AS_HELP_STRING([--with-system-uid-max=UID]
                 [Maximum UID for system users]),
@@ -1123,7 +1115,6 @@ AC_MSG_RESULT([
         rfkill:                  ${have_rfkill}
         logind:                  ${have_logind}
         machined:                ${have_machined}
-        hostnamed:               ${have_hostnamed}
         timedated:               ${have_timedated}
         timesyncd:               ${have_timesyncd}
         default NTP servers:     ${NTP_SERVERS}

@@ -14,30 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:1
-msgid "Set host name"
-msgstr "Настроить имя компьютера"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:2
-msgid "Authentication is required to set the local host name."
-msgstr "Чтобы настроить имя компьютера, необходимо пройти аутентификацию."
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:3
-msgid "Set static host name"
-msgstr "Настроить статическое имя компьютера"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:4
-msgid "Authentication is required to set the statically configured local host name, as well as the pretty host name."
-msgstr "Чтобы настроить статическое имя компьютера, а также его «красивое» имя, необходимо пройти аутентификацию."
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:5
-msgid "Set machine information"
-msgstr "Настроить информацию о компьютере"
-
-#: ../src/hostname/org.freedesktop.hostname1.policy.in.h:6
-msgid "Authentication is required to set local machine information."
-msgstr "Чтобы настроить информацию о компьютере, необходимо пройти аутентификацию."
-
 #: ../src/locale/org.freedesktop.locale1.policy.in.h:1
 msgid "Set system locale"
 msgstr "Настроить системную локаль"

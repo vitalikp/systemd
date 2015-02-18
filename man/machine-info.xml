@@ -74,11 +74,6 @@
                 <para>Depending on the operating system other
                 configuration files might be checked for machine
                 information as well, however only as fallback.</para>
-
-                <para>You may use
-                <citerefentry><refentrytitle>hostnamectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                to change the settings of this file from the command
-                line.</para>
         </refsect1>
 
         <refsect1>
@@ -175,7 +170,6 @@ CHASSIS=tablet</programlisting>
                           <citerefentry><refentrytitle>os-release</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>hostname</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>machine-id</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>hostnamectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                   </para>
         </refsect1>
 

@@ -30,7 +30,6 @@
 /exported
 /exported-*
 /gtk-doc.make
-/hostnamectl
 /install-tree
 /journalctl
 /libsystemd-*.c
@@ -68,7 +67,6 @@
 /systemd-getty-generator
 /systemd-gnome-ask-password-agent
 /systemd-gpt-auto-generator
-/systemd-hostnamed
 /systemd-inhibit
 /systemd-initctl
 /systemd-journal-gatewayd

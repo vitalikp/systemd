@@ -3862,49 +3862,6 @@ SYSINIT_TARGET_WANTS += \
 endif
 
 # ------------------------------------------------------------------------------
-if ENABLE_HOSTNAMED
-systemd_hostnamed_SOURCES = \
-	src/hostname/hostnamed.c
-
-systemd_hostnamed_LDADD = \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-hostnamed
-
-dist_dbuspolicy_DATA += \
-	src/hostname/org.freedesktop.hostname1.conf
-
-dist_dbussystemservice_DATA += \
-	src/hostname/org.freedesktop.hostname1.service
-
-polkitpolicy_files += \
-	src/hostname/org.freedesktop.hostname1.policy
-
-hostnamectl_SOURCES = \
-	src/hostname/hostnamectl.c
-
-hostnamectl_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-bin_PROGRAMS += \
-	hostnamectl
-
-dist_bashcompletion_DATA += \
-	shell-completion/bash/hostnamectl
-
-dist_zshcompletion_DATA += \
-	shell-completion/zsh/_hostnamectl
-
-endif
-
-polkitpolicy_in_files += \
-	src/hostname/org.freedesktop.hostname1.policy.in
-
-# ------------------------------------------------------------------------------
 if ENABLE_KDBUS
 dist_systemunit_DATA += \
 	units/org.freedesktop.systemd1.busname
