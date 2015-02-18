@@ -101,7 +101,6 @@
 /systemd-system-update-generator
 /systemd-sysv-generator
 /systemd-timedated
-/systemd-timesyncd
 /systemd-tmpfiles
 /systemd-tty-ask-password-agent
 /systemd-uaccess

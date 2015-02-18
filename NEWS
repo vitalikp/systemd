@@ -4,6 +4,7 @@ NEW CHANGES:
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
+             (+) remove systemd-timesyncd program;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;

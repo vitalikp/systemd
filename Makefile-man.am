@@ -1135,12 +1135,6 @@ MANPAGES_ALIAS += \
 
 endif
 
-if ENABLE_TIMESYNCD
-MANPAGES_ALIAS += \
-	man/systemd-timesyncd.8
-
-endif
-
 if ENABLE_VCONSOLE
 MANPAGES += \
 	man/systemd-vconsole-setup.service.8 \

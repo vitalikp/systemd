@@ -4045,44 +4045,6 @@ polkitpolicy_in_files += \
 	src/timedate/org.freedesktop.timedate1.policy.in
 
 # ------------------------------------------------------------------------------
-if ENABLE_TIMESYNCD
-systemd_timesyncd_SOURCES = \
-	src/timesync/timesyncd.c \
-	src/timesync/timesyncd.h
-
-nodist_systemd_timesyncd_SOURCES = \
-	src/timesync/timesyncd-gperf.c
-
-EXTRA_DIST += \
-	src/timesync/timesyncd-gperf.gperf
-
-CLEANFILES += \
-	src/timesync/timesyncd-gperf.c
-
-systemd_timesyncd_LDADD = \
-	libsystemd-resolve.la \
-	libsystemd-network.la \
-	libsystemd-label.la \
-	libsystemd-capability.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	-lm
-
-rootlibexec_PROGRAMS += \
-	systemd-timesyncd
-
-nodist_pkgsysconf_DATA += \
-	src/timesync/timesyncd.conf
-
-EXTRA_DIST += \
-	src/timesync/timesyncd.conf.in
-
-CLEANFILES += \
-	src/timesync/timesyncd.conf
-
-endif
-
-# ------------------------------------------------------------------------------
 if HAVE_MYHOSTNAME
 libnss_myhostname_la_SOURCES = \
 	src/nss-myhostname/nss-myhostname.c \
