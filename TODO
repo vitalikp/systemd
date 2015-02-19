@@ -34,9 +34,6 @@ Features:
 
 * support setting empty environment variables with Environment= and EnvironmentFile=
 
-* machined/machinectl: sort IP addresses we return by scope and protocol
-* machined: write NSS module for looking up IP addresses for machines
-
 * timer units: actually add extra delays to timer units with high AccuracySec values, don't start them already when we are awake...
 
 * timesyncd:
@@ -137,7 +134,7 @@ Features:
 
 * when we detect low battery and no AC on boot, show pretty splash and refuse boot
 
-* machined, localed: when we try to kill an empty cgroup, generate an ESRCH error over the bus
+* localed: when we try to kill an empty cgroup, generate an ESRCH error over the bus
 
 * libsystemd-journal, libsystemd-login, libudev: add calls to easily attach these objects to sd-event event loops
 
