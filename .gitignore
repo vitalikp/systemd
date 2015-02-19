@@ -80,7 +80,6 @@
 /systemd-modules-load
 /systemd-multi-seat-x
 /systemd-notify
-/systemd-nspawn
 /systemd-quotacheck
 /systemd-random-seed
 /systemd-rc-local-generator

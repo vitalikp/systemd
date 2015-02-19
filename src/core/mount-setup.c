@@ -406,7 +406,7 @@ int mount_setup(bool loaded_policy) {
         /* Mark the root directory as shared in regards to mount
          * propagation. The kernel defaults to "private", but we think
          * it makes more sense to have a default of "shared" so that
-         * nspawn and the container tools work out of the box. If
+         * the container tools work out of the box. If
          * specific setups need other settings they can reset the
          * propagation mode to private if needed. */
         if (detect_container(NULL) <= 0)

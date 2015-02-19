@@ -281,8 +281,6 @@ int detect_container(const char **id) {
                 _id ="lxc";
         else if (streq(e, "lxc-libvirt"))
                 _id = "lxc-libvirt";
-        else if (streq(e, "systemd-nspawn"))
-                _id = "systemd-nspawn";
         else
                 _id = "other";
 

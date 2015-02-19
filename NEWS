@@ -10,6 +10,7 @@ NEW CHANGES:
              (+) remove timedatectl and systemd-timedated programs;
              (+) remove hostnamectl and systemd-hostnamed programs;
              (+) remove systemd-networkd and systemd-networkd-wait-online programs;
+             (+) remove systemd-nspawn program;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;

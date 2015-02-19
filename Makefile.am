@@ -328,7 +328,6 @@ rootbin_PROGRAMS = \
 bin_PROGRAMS = \
 	systemd-cgls \
 	systemd-cgtop \
-	systemd-nspawn \
 	systemd-detect-virt \
 	systemd-delta \
 	systemd-analyze \
@@ -371,7 +370,6 @@ dist_bashcompletion_DATA = \
 	shell-completion/bash/systemd-cgtop \
 	shell-completion/bash/systemd-delta \
 	shell-completion/bash/systemd-detect-virt \
-	shell-completion/bash/systemd-nspawn \
 	shell-completion/bash/systemd-run \
 	shell-completion/bash/udevadm \
 	shell-completion/bash/kernel-install
@@ -381,7 +379,6 @@ dist_zshcompletion_DATA = \
 	shell-completion/zsh/_journalctl \
 	shell-completion/zsh/_udevadm \
 	shell-completion/zsh/_kernel-install \
-	shell-completion/zsh/_systemd-nspawn \
 	shell-completion/zsh/_systemd-analyze \
 	shell-completion/zsh/_systemd-run \
 	shell-completion/zsh/_sd_hosts_or_user_at_host \
@@ -1985,33 +1982,6 @@ systemd_cgtop_SOURCES = \
 
 systemd_cgtop_LDADD = \
 	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_nspawn_SOURCES = \
-	src/nspawn/nspawn.c \
-	src/core/mount-setup.c \
-	src/core/mount-setup.h \
-	src/core/loopback-setup.c \
-	src/core/loopback-setup.h
-
-systemd_nspawn_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(SECCOMP_CFLAGS) \
-	$(BLKID_CFLAGS)
-
-systemd_nspawn_LDADD = \
-	libsystemd-label.la \
-	libsystemd-capability.la \
-	libsystemd-internal.la \
-	libudev-internal.la \
-	libsystemd-shared.la \
-	$(BLKID_LIBS)
-
-if HAVE_SECCOMP
-systemd_nspawn_LDADD += \
-	libsystemd-seccomp.la \
-	$(SECCOMP_LIBS)
-endif
 
 # ------------------------------------------------------------------------------
 systemd_run_SOURCES = \

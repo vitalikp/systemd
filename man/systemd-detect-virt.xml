@@ -73,8 +73,7 @@
                 <varname>bochs</varname>, <varname>chroot</varname>,
                 <varname>uml</varname>,
                 <varname>openvz</varname>, <varname>lxc</varname>,
-                <varname>lxc-libvirt</varname>,
-                <varname>systemd-nspawn</varname>.</para>
+                <varname>lxc-libvirt</varname>.</para>
 
                 <para>If multiple virtualization solutions are used,
                 only the "innermost" is detected and identified. That
