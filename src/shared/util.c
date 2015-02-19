@@ -2484,14 +2484,6 @@ char* gethostname_malloc(void) {
         return strdup(u.sysname);
 }
 
-bool hostname_is_set(void) {
-        struct utsname u;
-
-        assert_se(uname(&u) >= 0);
-
-        return !isempty(u.nodename) && !streq(u.nodename, "(none)");
-}
-
 static char *lookup_uid(uid_t uid) {
         long bufsize;
         char *name;

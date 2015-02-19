@@ -412,8 +412,6 @@ void rename_process(const char name[8]);
 void sigset_add_many(sigset_t *ss, ...);
 int sigprocmask_many(int how, ...);
 
-bool hostname_is_set(void);
-
 char* gethostname_malloc(void);
 char* getlogname_malloc(void);
 char* getusername_malloc(void);
