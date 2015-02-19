@@ -29,7 +29,6 @@
 /defined
 /exported
 /exported-*
-/gtk-doc.make
 /install-tree
 /journalctl
 /libsystemd-*.c

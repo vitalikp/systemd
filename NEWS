@@ -1,6 +1,8 @@
 systemd System and Service Manager
 
 NEW CHANGES:
+        * docs:
+             (+) remove gtk-doc build;
         * config:
              (+) remove /etc/hostname;
         * program:

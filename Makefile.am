@@ -2516,15 +2516,6 @@ tests += \
 	test-ipv4ll
 
 # ------------------------------------------------------------------------------
-if ENABLE_GTK_DOC
-SUBDIRS += \
-	docs/libudev
-
-noinst_DATA += \
-	docs/html/libudev \
-	docs/html/gudev
-endif
-
 include_HEADERS += \
 	src/libudev/libudev.h
 
@@ -2940,11 +2931,6 @@ dist_udevrules_DATA += \
 
 # ------------------------------------------------------------------------------
 if ENABLE_GUDEV
-if ENABLE_GTK_DOC
-SUBDIRS += \
-	docs/gudev
-endif
-
 libgudev_includedir = \
 	$(includedir)/gudev-1.0/gudev
 
@@ -4741,11 +4727,6 @@ else
 DISTCHECK_CONFIGURE_FLAGS += \
 	--with-sysvinit-path= \
 	--with-sysvrcnd-path=
-endif
-
-if ENABLE_GTK_DOC
-DISTCHECK_CONFIGURE_FLAGS += \
-	--enable-gtk-doc
 endif
 
 # check "broken" platforms limited toolchains for link breakage before we release

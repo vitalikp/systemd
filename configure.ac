@@ -80,16 +80,6 @@ AS_IF([! ln --relative --help > /dev/null 2>&1], [AC_MSG_ERROR([*** ln doesn't s
 
 M4_DEFINES=
 
-# gtkdocize greps for '^GTK_DOC_CHECK', so it needs to be on its own line
-m4_ifdef([GTK_DOC_CHECK], [
-GTK_DOC_CHECK([1.18],[--flavour no-tmpl])],
-         [AM_CONDITIONAL([ENABLE_GTK_DOC], [false])
-          enable_gtk_doc=no])
-
-AS_IF([test "x$enable_gtk_doc" = "xyes" -a "x$XSLTPROC" = x], [
-        AC_MSG_ERROR([*** GTK doc requested but xsltproc not found])
-])
-
 m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
 GOBJECT_INTROSPECTION_CHECK([1.31.1])
 ], [
@@ -1036,13 +1026,6 @@ AS_IF([test "x${enable_split_usr}" = "xyes"], [
         AC_DEFINE(HAVE_SPLIT_USR, 1, [Define if /bin, /sbin aren't symlinks into /usr])
 ])
 
-# Work around intltoolize and gtk-doc problems in VPATH builds
-AM_CONDITIONAL([ENABLE_GTK_DOC_TESTS], [test "x$0" = "x./configure"],
-                                       [Define to do gtk-doc tests])
-AS_IF([test "x$0" != "x./configure"], [
-        AC_SUBST([INTLTOOL_UPDATE], [/bin/true])
-])
-
 AC_ARG_ENABLE(tests,
        [AC_HELP_STRING([--disable-tests], [disable tests])],
        enable_tests=$enableval, enable_tests=yes)
@@ -1061,10 +1044,6 @@ AC_SUBST([rootlibdir], [$with_rootlibdir])
 
 AC_CONFIG_FILES([
         Makefile po/Makefile.in
-        docs/libudev/Makefile
-        docs/libudev/version.xml
-        docs/gudev/Makefile
-        docs/gudev/version.xml
 ])
 
 AC_OUTPUT
@@ -1111,7 +1090,6 @@ AC_MSG_RESULT([
         Python:                  ${have_python}
         Python Headers:          ${have_python_devel}
         man pages:               ${have_manpages}
-        gtk-doc:                 ${enable_gtk_doc}
         test coverage:           ${have_coverage}
         Split /usr:              ${enable_split_usr}
         SysV compatibility:      ${SYSTEM_SYSV_COMPAT}
