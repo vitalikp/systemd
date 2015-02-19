@@ -20,6 +20,7 @@ NEW CHANGES:
              (+) remove systemd-timedated service;
              (+) remove systemd-hostnamed service;
              (+) remove systemd-machined service;
+             (+) remove systemd-nspawn@ service;
 
 CHANGES WITH 214:
 
