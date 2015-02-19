@@ -12,7 +12,6 @@ MANPAGES += \
 	man/busctl.1 \
 	man/daemon.7 \
 	man/halt.8 \
-	man/hostname.5 \
 	man/journalctl.1 \
 	man/journald.conf.5 \
 	man/kernel-command-line.7 \
