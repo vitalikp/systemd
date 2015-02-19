@@ -139,7 +139,6 @@
 /test-event
 /test-fileio
 /test-hashmap
-/test-hostname
 /test-id128
 /test-inhibit
 /test-install

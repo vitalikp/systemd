@@ -1017,8 +1017,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/ima-setup.h \
 	src/core/locale-setup.h \
 	src/core/locale-setup.c \
-	src/core/hostname-setup.c \
-	src/core/hostname-setup.h \
 	src/core/machine-id-setup.c \
 	src/core/machine-id-setup.h \
 	src/core/mount-setup.c \
@@ -1177,7 +1175,6 @@ manual_tests += \
 	test-engine \
 	test-ns \
 	test-loopback \
-	test-hostname \
 	test-daemon \
 	test-cgroup \
 	test-cgroup-mask \
@@ -1278,12 +1275,6 @@ test_loopback_SOURCES = \
 	src/test/test-loopback.c
 
 test_loopback_LDADD = \
-	libsystemd-core.la
-
-test_hostname_SOURCES = \
-	src/test/test-hostname.c
-
-test_hostname_LDADD = \
 	libsystemd-core.la
 
 if ENABLE_EFI

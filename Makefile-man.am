@@ -1406,7 +1406,6 @@ EXTRA_DIST += \
 	man/crypttab.xml \
 	man/daemon.xml \
 	man/halt.xml \
-	man/hostname.xml \
 	man/journalctl.xml \
 	man/journald.conf.xml \
 	man/kernel-command-line.xml \

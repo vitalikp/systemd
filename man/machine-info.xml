@@ -95,11 +95,7 @@
                                 Laptop</literal> which is useful to
                                 present to the user and does not
                                 suffer by the syntax limitations of
-                                internet domain names. If possible, the
-                                internet hostname as configured in
-                                <filename>/etc/hostname</filename>
-                                should be kept similar to this
-                                one. Example: if this value is
+                                internet domain names. Example: if this value is
                                 <literal>Lennart's Computer</literal>
                                 an Internet hostname of
                                 <literal>lennarts-computer</literal>
@@ -168,7 +164,6 @@ CHASSIS=tablet</programlisting>
                   <para>
                           <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>os-release</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>hostname</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>machine-id</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                   </para>
         </refsect1>
