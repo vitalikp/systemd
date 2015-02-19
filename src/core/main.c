@@ -69,7 +69,6 @@
 
 #include "mount-setup.h"
 #include "loopback-setup.h"
-#include "hostname-setup.h"
 #include "machine-id-setup.h"
 #include "selinux-setup.h"
 #include "ima-setup.h"
@@ -1563,7 +1562,6 @@ int main(int argc, char *argv[]) {
                 if (detect_container(NULL) <= 0)
                         kmod_setup();
 #endif
-                hostname_setup();
                 machine_id_setup("");
                 loopback_setup();
 
