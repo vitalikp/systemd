@@ -3991,12 +3991,8 @@ test_machine_tables_LDADD = \
 tests += \
 	test-machine-tables
 
-nodist_systemunit_DATA += \
-	units/systemd-machined.service
-
 dist_systemunit_DATA += \
-	units/machine.slice \
-	units/org.freedesktop.machine1.busname
+	units/machine.slice
 
 dist_dbussystemservice_DATA += \
 	src/machine/org.freedesktop.machine1.service
@@ -4009,13 +4005,7 @@ dist_zshcompletion_DATA += \
 	shell-completion/zsh/_sd_machines
 
 SYSTEM_UNIT_ALIASES += \
-	systemd-machined.service dbus-org.freedesktop.machine1.service
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.machine1.busname
-
-EXTRA_DIST += \
-	units/systemd-machined.service.in
+	dbus-org.freedesktop.machine1.service
 
 endif
 

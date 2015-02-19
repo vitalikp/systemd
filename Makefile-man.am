@@ -1032,13 +1032,9 @@ endif
 
 if ENABLE_MACHINED
 MANPAGES += \
-	man/machinectl.1 \
-	man/systemd-machined.service.8
+	man/machinectl.1
 MANPAGES_ALIAS += \
 	man/systemd-machined.8
-man/systemd-machined.8: man/systemd-machined.service.8
-man/systemd-machined.html: man/systemd-machined.service.html
-	$(html-alias)
 
 endif
 
@@ -1510,7 +1506,6 @@ EXTRA_DIST += \
 	man/systemd-localed.service.xml \
 	man/systemd-logind.service.xml \
 	man/systemd-machine-id-setup.xml \
-	man/systemd-machined.service.xml \
 	man/systemd-modules-load.service.xml \
 	man/systemd-notify.xml \
 	man/systemd-nspawn.xml \

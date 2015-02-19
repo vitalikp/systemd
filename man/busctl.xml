@@ -85,8 +85,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
           <listitem><para>When showing the list of endpoints, show a
           column containing the names of containers they belong to.
-          See
-          <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
           </para></listitem>
       </varlistentry>
 

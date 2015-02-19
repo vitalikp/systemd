@@ -63,7 +63,7 @@
                 <para><command>machinectl</command> may be used to
                 introspect and control the state of the
                 <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                virtual machine and container registration manager <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+                virtual machine.</para>
         </refsect1>
 
         <refsect1>
@@ -286,7 +286,6 @@
         <refsect1>
                 <title>See Also</title>
                 <para>
-                        <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry>
                 </para>
