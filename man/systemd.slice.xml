@@ -73,10 +73,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     </para>
 
     <para>By default, service and scope units are placed in
-    <filename>system.slice</filename>, virtual machines and containers
-    registered with
-    <citerefentry><refentrytitle>systemd-machined</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-    are found in <filename>machine.slice</filename>, and user sessions
+    <filename>system.slice</filename>, user sessions
     handled by
     <citerefentry><refentrytitle>systemd-logind</refentrytitle><manvolnum>1</manvolnum></citerefentry>
     in <filename>user.slice</filename>. See

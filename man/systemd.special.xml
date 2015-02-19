@@ -104,8 +104,7 @@
                 <filename>umount.target</filename>,
                 <filename>-.slice</filename>,
                 <filename>system.slice</filename>,
-                <filename>user.slice</filename>,
-                <filename>machine.slice</filename></para>
+                <filename>user.slice</filename></para>
         </refsynopsisdiv>
 
         <refsect1>
@@ -1109,18 +1108,6 @@
                                         including the per-user systemd
                                         instance are found in this
                                         slice.</para>
-                                </listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><filename>machine.slice</filename></term>
-                                <listitem>
-                                        <para>By defalt, all virtual
-                                        machines and containers
-                                        registered with
-                                        <command>systemd-machined</command>
-                                        are found in this slice.
-                                        </para>
                                 </listitem>
                         </varlistentry>
                 </variablelist>

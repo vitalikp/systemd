@@ -36,7 +36,6 @@
 /libtool
 /localectl
 /loginctl
-/machinectl
 /mtd_probe
 /scsi_id
 /systemadm
@@ -76,7 +75,6 @@
 /systemd-localed
 /systemd-logind
 /systemd-machine-id-setup
-/systemd-machined
 /systemd-modules-load
 /systemd-multi-seat-x
 /systemd-notify

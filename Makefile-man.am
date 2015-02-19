@@ -1028,14 +1028,6 @@ man/systemd-logind.html: man/systemd-logind.service.html
 
 endif
 
-if ENABLE_MACHINED
-MANPAGES += \
-	man/machinectl.1
-MANPAGES_ALIAS += \
-	man/systemd-machined.8
-
-endif
-
 if ENABLE_QUOTACHECK
 MANPAGES += \
 	man/systemd-quotacheck.service.8
@@ -1413,7 +1405,6 @@ EXTRA_DIST += \
 	man/logind.conf.xml \
 	man/machine-id.xml \
 	man/machine-info.xml \
-	man/machinectl.xml \
 	man/modules-load.d.xml \
 	man/nss-myhostname.xml \
 	man/os-release.xml \

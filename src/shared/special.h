@@ -118,5 +118,4 @@
 /* Where we add all our system units, users and machines by default */
 #define SPECIAL_SYSTEM_SLICE "system.slice"
 #define SPECIAL_USER_SLICE "user.slice"
-#define SPECIAL_MACHINE_SLICE "machine.slice"
 #define SPECIAL_ROOT_SLICE "-.slice"

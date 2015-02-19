@@ -142,9 +142,7 @@
                 <para><function>sd_journal_open_container()</function>
                 is similar to <function>sd_journal_open()</function>
                 but opens the journal files of a running
-                OS container. The specified machine name refers to a
-                container that is registered with
-                <citerefentry><refentrytitle>systemd-machined</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+                OS container.</para>
 
                 <para><varname>sd_journal</varname> objects cannot be
                 used in the child after a fork. Functions which take a
@@ -246,7 +244,6 @@
                         <citerefentry><refentrytitle>sd-journal</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_next</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_get_data</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-machined</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

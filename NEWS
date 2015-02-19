@@ -11,6 +11,7 @@ NEW CHANGES:
              (+) remove hostnamectl and systemd-hostnamed programs;
              (+) remove systemd-networkd and systemd-networkd-wait-online programs;
              (+) remove systemd-nspawn program;
+             (+) remove systemd-machined and machinectl programs;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
