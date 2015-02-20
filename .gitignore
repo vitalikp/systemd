@@ -96,7 +96,6 @@
 /systemd-udevd
 /systemd-update-utmp
 /systemd-user-sessions
-/systemd-vconsole-setup
 /tags
 /test-architecture
 /test-boot-timestamp

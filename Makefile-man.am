@@ -1076,12 +1076,6 @@ man/systemd-rfkill.html: man/systemd-rfkill@.service.html
 
 endif
 
-if ENABLE_VCONSOLE
-MANPAGES_ALIAS += \
-	man/systemd-vconsole-setup.8
-
-endif
-
 if HAVE_KMOD
 MANPAGES += \
 	man/modules-load.d.5 \

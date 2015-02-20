@@ -17,6 +17,7 @@ NEW CHANGES:
              (+) remove systemd-nspawn program;
              (+) remove systemd-machined and machinectl programs;
              (+) remove systemd-localed and localectl programs;
+             (+) remove systemd-vconsole-setup program;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;

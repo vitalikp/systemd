@@ -3582,18 +3582,6 @@ EXTRA_DIST += \
 	units/systemd-binfmt.service.in
 
 # ------------------------------------------------------------------------------
-if ENABLE_VCONSOLE
-systemd_vconsole_setup_SOURCES = \
-	src/vconsole/vconsole-setup.c
-
-systemd_vconsole_setup_LDADD = \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-vconsole-setup
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_READAHEAD
 systemd_readahead_SOURCES = \
 	src/readahead/readahead.c \

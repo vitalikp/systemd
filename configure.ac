@@ -675,14 +675,6 @@ fi
 AM_CONDITIONAL(ENABLE_BINFMT, [test "$have_binfmt" = "yes"])
 
 # ------------------------------------------------------------------------------
-have_vconsole=no
-AC_ARG_ENABLE(vconsole, AS_HELP_STRING([--disable-vconsole], [disable vconsole tool]))
-if test "x$enable_vconsole" != "xno"; then
-        have_vconsole=yes
-fi
-AM_CONDITIONAL(ENABLE_VCONSOLE, [test "$have_vconsole" = "yes"])
-
-# ------------------------------------------------------------------------------
 have_readahead=no
 AC_ARG_ENABLE(readahead, AS_HELP_STRING([--disable-readahead], [disable readahead tools]))
 if test "x$enable_readahead" != "xno"; then
@@ -1058,7 +1050,6 @@ AC_MSG_RESULT([
         CHKCONFIG:               ${have_chkconfig}
         GNUTLS:                  ${have_gnutls}
         binfmt:                  ${have_binfmt}
-        vconsole:                ${have_vconsole}
         readahead:               ${have_readahead}
         bootchart:               ${have_bootchart}
         quotacheck:              ${have_quotacheck}
