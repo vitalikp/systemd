@@ -3591,16 +3591,7 @@ systemd_vconsole_setup_LDADD = \
 
 rootlibexec_PROGRAMS += \
 	systemd-vconsole-setup
-
-nodist_systemunit_DATA += \
-	units/systemd-vconsole-setup.service
-
-SYSINIT_TARGET_WANTS += \
-	systemd-vconsole-setup.service
 endif
-
-EXTRA_DIST += \
-	units/systemd-vconsole-setup.service.in
 
 # ------------------------------------------------------------------------------
 if ENABLE_READAHEAD

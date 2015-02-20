@@ -29,6 +29,7 @@ NEW CHANGES:
              (+) remove systemd-machined service;
              (+) remove systemd-nspawn@ service;
              (+) remove systemd-localed service;
+             (+) remove systemd-vconsole-setup service;
 
 CHANGES WITH 214:
 

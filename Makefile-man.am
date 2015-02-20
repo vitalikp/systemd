@@ -1077,13 +1077,8 @@ man/systemd-rfkill.html: man/systemd-rfkill@.service.html
 endif
 
 if ENABLE_VCONSOLE
-MANPAGES += \
-	man/systemd-vconsole-setup.service.8
 MANPAGES_ALIAS += \
 	man/systemd-vconsole-setup.8
-man/systemd-vconsole-setup.8: man/systemd-vconsole-setup.service.8
-man/systemd-vconsole-setup.html: man/systemd-vconsole-setup.service.html
-	$(html-alias)
 
 endif
 
@@ -1497,7 +1492,6 @@ EXTRA_DIST += \
 	man/systemd-udevd.service.xml \
 	man/systemd-update-utmp.service.xml \
 	man/systemd-user-sessions.service.xml \
-	man/systemd-vconsole-setup.service.xml \
 	man/systemd.automount.xml \
 	man/systemd.device.xml \
 	man/systemd.directives.xml \

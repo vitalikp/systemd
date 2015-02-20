@@ -175,8 +175,7 @@ static int font_load(const char *vc, const char *font, const char *map, const ch
 /*
  * A newly allocated VT uses the font from the active VT. Here
  * we update all possibly already allocated VTs with the configured
- * font. It also allows to restart systemd-vconsole-setup.service,
- * to apply a new font to all VTs.
+ * font.
  */
 static void font_copy_to_all_vcs(int fd) {
         struct vt_stat vcs = {};
