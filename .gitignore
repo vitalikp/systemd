@@ -33,7 +33,6 @@
 /journalctl
 /libsystemd-*.c
 /libtool
-/localectl
 /loginctl
 /mtd_probe
 /scsi_id
@@ -71,7 +70,6 @@
 /systemd-journal-remote
 /systemd-journald
 /systemd-kmsg-syslogd
-/systemd-localed
 /systemd-logind
 /systemd-machine-id-setup
 /systemd-modules-load

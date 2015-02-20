@@ -1002,14 +1002,6 @@ man/systemd-bus-proxyd.socket.html: man/systemd-bus-proxyd@.service.html
 
 endif
 
-if ENABLE_LOCALED
-MANPAGES += \
-	man/localectl.1
-MANPAGES_ALIAS += \
-	man/systemd-localed.8
-
-endif
-
 if ENABLE_LOGIND
 MANPAGES += \
 	man/loginctl.1 \
@@ -1392,7 +1384,6 @@ EXTRA_DIST += \
 	man/kernel-install.xml \
 	man/less-variables.xml \
 	man/libsystemd-pkgconfig.xml \
-	man/localectl.xml \
 	man/localtime.xml \
 	man/loginctl.xml \
 	man/logind.conf.xml \

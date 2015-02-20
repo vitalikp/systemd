@@ -768,14 +768,6 @@ AC_DEFINE_UNQUOTED(SYSTEM_GID_MAX, [$SYSTEM_GID_MAX], [Maximum System GID])
 AC_SUBST(SYSTEM_GID_MAX)
 
 # ------------------------------------------------------------------------------
-have_localed=no
-AC_ARG_ENABLE(localed, AS_HELP_STRING([--disable-localed], [disable locale daemon]))
-if test "x$enable_localed" != "xno"; then
-        have_localed=yes
-fi
-AM_CONDITIONAL(ENABLE_LOCALED, [test "$have_localed" = "yes"])
-
-# ------------------------------------------------------------------------------
 have_coredump=no
 AC_ARG_ENABLE(coredump, AS_HELP_STRING([--disable-coredump], [disable coredump hook]))
 if test "x$enable_coredump" != "xno"; then
@@ -1075,7 +1067,6 @@ AC_MSG_RESULT([
         backlight:               ${have_backlight}
         rfkill:                  ${have_rfkill}
         logind:                  ${have_logind}
-        localed:                 ${have_localed}
         coredump:                ${have_coredump}
         polkit:                  ${have_polkit}
         efi:                     ${have_efi}

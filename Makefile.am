@@ -177,7 +177,6 @@ AM_CPPFLAGS = \
 	-DUSER_GENERATOR_PATH=\"$(usergeneratordir)\" \
 	-DSYSTEM_SHUTDOWN_PATH=\"$(systemshutdowndir)\" \
 	-DSYSTEM_SLEEP_PATH=\"$(systemsleepdir)\" \
-	-DSYSTEMD_KBD_MODEL_MAP=\"$(pkgdatadir)/kbd-model-map\" \
 	-DX_SERVER=\"$(bindir)/X\" \
 	-DUDEVLIBEXECDIR=\"$(udevlibexecdir)\" \
 	-DPOLKIT_AGENT_BINARY_PATH=\"$(bindir)/pkttyagent\" \
@@ -3803,63 +3802,6 @@ dist_systemunit_DATA += \
 BUSNAMES_TARGET_WANTS += \
 	org.freedesktop.systemd1.busname
 endif
-
-# ------------------------------------------------------------------------------
-if ENABLE_LOCALED
-systemd_localed_SOURCES = \
-	src/locale/localed.c
-
-systemd_localed_LDADD = \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-localed
-
-dist_dbuspolicy_DATA += \
-	src/locale/org.freedesktop.locale1.conf
-
-dist_dbussystemservice_DATA += \
-	src/locale/org.freedesktop.locale1.service
-
-polkitpolicy_files += \
-	src/locale/org.freedesktop.locale1.policy
-
-SYSTEM_UNIT_ALIASES += \
-	dbus-org.freedesktop.locale1.service
-
-dist_pkgdata_DATA += \
-	src/locale/kbd-model-map
-
-dist_noinst_SCRIPT = \
-	src/locale/generate-kbd-model-map
-
-update-kbd-model-map: src/locale/generate-kbd-model-map
-	$PYTHON $< >src/locale/kbd-model-map
-
-localectl_SOURCES = \
-	src/locale/localectl.c
-
-localectl_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-bin_PROGRAMS += \
-	localectl
-
-dist_bashcompletion_DATA += \
-	shell-completion/bash/localectl
-
-dist_zshcompletion_DATA += \
-	shell-completion/zsh/_localectl
-
-endif
-
-.PHONY: update-kbd-model-map
-
-polkitpolicy_in_files += \
-	src/locale/org.freedesktop.locale1.policy.in
 
 # ------------------------------------------------------------------------------
 if HAVE_MYHOSTNAME
