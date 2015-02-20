@@ -1005,13 +1005,9 @@ endif
 
 if ENABLE_LOCALED
 MANPAGES += \
-	man/localectl.1 \
-	man/systemd-localed.service.8
+	man/localectl.1
 MANPAGES_ALIAS += \
 	man/systemd-localed.8
-man/systemd-localed.8: man/systemd-localed.service.8
-man/systemd-localed.html: man/systemd-localed.service.html
-	$(html-alias)
 
 endif
 
@@ -1492,7 +1488,6 @@ EXTRA_DIST += \
 	man/systemd-journal-gatewayd.service.xml \
 	man/systemd-journal-remote.xml \
 	man/systemd-journald.service.xml \
-	man/systemd-localed.service.xml \
 	man/systemd-logind.service.xml \
 	man/systemd-machine-id-setup.xml \
 	man/systemd-modules-load.service.xml \

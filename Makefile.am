@@ -3814,12 +3814,6 @@ systemd_localed_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
-nodist_systemunit_DATA += \
-	units/systemd-localed.service
-
-dist_systemunit_DATA += \
-	units/org.freedesktop.locale1.busname
-
 rootlibexec_PROGRAMS += \
 	systemd-localed
 
@@ -3833,10 +3827,7 @@ polkitpolicy_files += \
 	src/locale/org.freedesktop.locale1.policy
 
 SYSTEM_UNIT_ALIASES += \
-	systemd-localed.service dbus-org.freedesktop.locale1.service
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.locale1.busname
+	dbus-org.freedesktop.locale1.service
 
 dist_pkgdata_DATA += \
 	src/locale/kbd-model-map
@@ -3869,9 +3860,6 @@ endif
 
 polkitpolicy_in_files += \
 	src/locale/org.freedesktop.locale1.policy.in
-
-EXTRA_DIST += \
-	units/systemd-localed.service.in
 
 # ------------------------------------------------------------------------------
 if HAVE_MYHOSTNAME

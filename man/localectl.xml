@@ -240,8 +240,7 @@
                         <ulink url="http://www.x.org/releases/current/doc/xorg-docs/input/XKB-Config.html">
                           The XKB Configuration Guide
                         </ulink>,
-                        <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-localed.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

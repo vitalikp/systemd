@@ -25,6 +25,7 @@ NEW CHANGES:
              (+) remove systemd-hostnamed service;
              (+) remove systemd-machined service;
              (+) remove systemd-nspawn@ service;
+             (+) remove systemd-localed service;
 
 CHANGES WITH 214:
 

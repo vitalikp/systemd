@@ -2611,8 +2611,6 @@
 
 <varlistentry><term><filename>/usr/lib/systemd/systemd-journald</filename></term><listitem><para><citerefentry><refentrytitle>systemd-journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
-<varlistentry><term><filename>/usr/lib/systemd/systemd-localed</filename></term><listitem><para><citerefentry><refentrytitle>systemd-localed.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
-
 <varlistentry><term><filename>/usr/lib/systemd/systemd-logind</filename></term><listitem><para><citerefentry><refentrytitle>systemd-logind.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/usr/lib/systemd/systemd-modules-load</filename></term><listitem><para><citerefentry><refentrytitle>systemd-modules-load.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
@@ -2904,8 +2902,6 @@
 <varlistentry><term><filename>systemd-journald.socket</filename></term><listitem><para><citerefentry><refentrytitle>systemd-journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>systemd-kexec.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-halt.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
-
-<varlistentry><term><filename>systemd-localed.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-localed.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>systemd-logind.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd-logind.service</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
 
