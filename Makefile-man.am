@@ -1086,8 +1086,7 @@ endif
 
 if ENABLE_VCONSOLE
 MANPAGES += \
-	man/systemd-vconsole-setup.service.8 \
-	man/vconsole.conf.5
+	man/systemd-vconsole-setup.service.8
 MANPAGES_ALIAS += \
 	man/systemd-vconsole-setup.8
 man/systemd-vconsole-setup.8: man/systemd-vconsole-setup.service.8
@@ -1535,5 +1534,4 @@ EXTRA_DIST += \
 	man/tmpfiles.d.xml \
 	man/udev.xml \
 	man/udevadm.xml \
-	man/user-system-options.xml \
-	man/vconsole.conf.xml
+	man/user-system-options.xml

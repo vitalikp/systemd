@@ -148,22 +148,6 @@ static void locale_simplify(Context *c) {
                 }
 }
 
-static int vconsole_read_data(Context *c) {
-        int r;
-
-        context_free_vconsole(c);
-
-        r = parse_env_file("/etc/vconsole.conf", NEWLINE,
-                           "KEYMAP",        &c->vc_keymap,
-                           "KEYMAP_TOGGLE", &c->vc_keymap_toggle,
-                           NULL);
-
-        if (r < 0 && r != -ENOENT)
-                return r;
-
-        return 0;
-}
-
 static int x11_read_data(Context *c) {
         FILE *f;
         char line[LINE_MAX];
@@ -234,12 +218,11 @@ static int x11_read_data(Context *c) {
 }
 
 static int context_read_data(Context *c) {
-        int q, p;
+        int p;
 
-        q = vconsole_read_data(c);
         p = x11_read_data(c);
 
-        return q < 0 ? q : p;
+        return p;
 }
 
 static int locale_update_system_manager(Context *c, sd_bus *bus) {
@@ -297,63 +280,6 @@ static int locale_update_system_manager(Context *c, sd_bus *bus) {
                 log_error("Failed to update the manager environment: %s", strerror(-r));
 
         return 0;
-}
-
-static int vconsole_write_data(Context *c) {
-        int r;
-        _cleanup_strv_free_ char **l = NULL;
-
-        r = load_env_file("/etc/vconsole.conf", NULL, &l);
-        if (r < 0 && r != -ENOENT)
-                return r;
-
-        if (isempty(c->vc_keymap))
-                l = strv_env_unset(l, "KEYMAP");
-        else {
-                char *s, **u;
-
-                s = strappend("KEYMAP=", c->vc_keymap);
-                if (!s)
-                        return -ENOMEM;
-
-                u = strv_env_set(l, s);
-                free(s);
-                strv_free(l);
-
-                if (!u)
-                        return -ENOMEM;
-
-                l = u;
-        }
-
-        if (isempty(c->vc_keymap_toggle))
-                l = strv_env_unset(l, "KEYMAP_TOGGLE");
-        else  {
-                char *s, **u;
-
-                s = strappend("KEYMAP_TOGGLE=", c->vc_keymap_toggle);
-                if (!s)
-                        return -ENOMEM;
-
-                u = strv_env_set(l, s);
-                free(s);
-                strv_free(l);
-
-                if (!u)
-                        return -ENOMEM;
-
-                l = u;
-        }
-
-        if (strv_isempty(l)) {
-                if (unlink("/etc/vconsole.conf") < 0)
-                        return errno == ENOENT ? 0 : -errno;
-
-                return 0;
-        }
-
-        r = write_env_file_label("/etc/vconsole.conf", l);
-        return r;
 }
 
 static int write_data_x11(Context *c) {
@@ -682,10 +608,6 @@ static int x11_convert_to_vconsole(Context *c, sd_bus *bus) {
         }
 
         if (modified) {
-                r = vconsole_write_data(c);
-                if (r < 0)
-                        log_error("Failed to set virtual console keymap: %s", strerror(-r));
-
                 sd_bus_emit_properties_changed(bus,
                                 "/org/freedesktop/locale1",
                                 "org.freedesktop.locale1",
@@ -865,12 +787,6 @@ static int method_set_vc_keyboard(sd_bus *bus, sd_bus_message *m, void *userdata
                 if (free_and_copy(&c->vc_keymap, keymap) < 0 ||
                     free_and_copy(&c->vc_keymap_toggle, keymap_toggle) < 0)
                         return -ENOMEM;
-
-                r = vconsole_write_data(c);
-                if (r < 0) {
-                        log_error("Failed to set virtual console keymap: %s", strerror(-r));
-                        return sd_bus_error_set_errnof(error, r, "Failed to set virtual console keymap: %s", strerror(-r));
-                }
 
                 log_info("Changed virtual console keymap to '%s'", strempty(c->vc_keymap));
 

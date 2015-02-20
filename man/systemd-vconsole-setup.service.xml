@@ -60,20 +60,12 @@
                 <citerefentry><refentrytitle>loadkeys</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 and
                 <citerefentry><refentrytitle>setfont</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
-
-                <para>See
-                <citerefentry><refentrytitle>vconsole.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                for information about the configuration files understood by this
-                service.</para>
-
-
         </refsect1>
 
         <refsect1>
                 <title>Kernel Command Line</title>
 
-                <para>A few configuration parameters from
-                <filename>vconsole.conf</filename> may be overridden on
+                <para>A few configuration parameters on
                 the kernel command line:</para>
 
                 <variablelist class='kernel-commandline-options'>
@@ -95,20 +87,14 @@
                                 font, the console map, and the unicode
                                 font map.</para></listitem>
 
-
                         </varlistentry>
                 </variablelist>
-
-                <para>See
-                <citerefentry><refentrytitle>vconsole.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                for information about these settings.</para>
         </refsect1>
 
         <refsect1>
                 <title>See Also</title>
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>vconsole.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>loadkeys</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>setfont</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                 </para>

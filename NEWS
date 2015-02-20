@@ -6,6 +6,7 @@ NEW CHANGES:
         * config:
              (+) remove /etc/hostname;
              (+) remove /etc/locale.conf;
+             (+) remove /etc/vconsole.conf;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
