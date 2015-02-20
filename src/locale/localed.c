@@ -148,47 +148,6 @@ static void locale_simplify(Context *c) {
                 }
 }
 
-static int locale_read_data(Context *c) {
-        int r;
-
-        context_free_locale(c);
-
-        r = parse_env_file("/etc/locale.conf", NEWLINE,
-                           "LANG",              &c->locale[LOCALE_LANG],
-                           "LANGUAGE",          &c->locale[LOCALE_LANGUAGE],
-                           "LC_CTYPE",          &c->locale[LOCALE_LC_CTYPE],
-                           "LC_NUMERIC",        &c->locale[LOCALE_LC_NUMERIC],
-                           "LC_TIME",           &c->locale[LOCALE_LC_TIME],
-                           "LC_COLLATE",        &c->locale[LOCALE_LC_COLLATE],
-                           "LC_MONETARY",       &c->locale[LOCALE_LC_MONETARY],
-                           "LC_MESSAGES",       &c->locale[LOCALE_LC_MESSAGES],
-                           "LC_PAPER",          &c->locale[LOCALE_LC_PAPER],
-                           "LC_NAME",           &c->locale[LOCALE_LC_NAME],
-                           "LC_ADDRESS",        &c->locale[LOCALE_LC_ADDRESS],
-                           "LC_TELEPHONE",      &c->locale[LOCALE_LC_TELEPHONE],
-                           "LC_MEASUREMENT",    &c->locale[LOCALE_LC_MEASUREMENT],
-                           "LC_IDENTIFICATION", &c->locale[LOCALE_LC_IDENTIFICATION],
-                           NULL);
-
-        if (r == -ENOENT) {
-                int p;
-
-                /* Fill in what we got passed from systemd. */
-                for (p = 0; p < _LOCALE_MAX; p++) {
-                        assert(names[p]);
-
-                        r = free_and_copy(&c->locale[p], getenv(names[p]));
-                        if (r < 0)
-                                return r;
-                }
-
-                r = 0;
-        }
-
-        locale_simplify(c);
-        return r;
-}
-
 static int vconsole_read_data(Context *c) {
         int r;
 
@@ -275,61 +234,12 @@ static int x11_read_data(Context *c) {
 }
 
 static int context_read_data(Context *c) {
-        int r, q, p;
+        int q, p;
 
-        r = locale_read_data(c);
         q = vconsole_read_data(c);
         p = x11_read_data(c);
 
-        return r < 0 ? r : q < 0 ? q : p;
-}
-
-static int locale_write_data(Context *c) {
-        int r, p;
-        char **l = NULL;
-
-        r = load_env_file("/etc/locale.conf", NULL, &l);
-        if (r < 0 && r != -ENOENT)
-                return r;
-
-        for (p = 0; p < _LOCALE_MAX; p++) {
-                char *t, **u;
-
-                assert(names[p]);
-
-                if (isempty(c->locale[p])) {
-                        l = strv_env_unset(l, names[p]);
-                        continue;
-                }
-
-                if (asprintf(&t, "%s=%s", names[p], c->locale[p]) < 0) {
-                        strv_free(l);
-                        return -ENOMEM;
-                }
-
-                u = strv_env_set(l, t);
-                free(t);
-                strv_free(l);
-
-                if (!u)
-                        return -ENOMEM;
-
-                l = u;
-        }
-
-        if (strv_isempty(l)) {
-                strv_free(l);
-
-                if (unlink("/etc/locale.conf") < 0)
-                        return errno == ENOENT ? 0 : -errno;
-
-                return 0;
-        }
-
-        r = write_env_file_label("/etc/locale.conf", l);
-        strv_free(l);
-
-        return r;
+        return q < 0 ? q : p;
 }
 
 static int locale_update_system_manager(Context *c, sd_bus *bus) {
@@ -907,12 +817,6 @@ static int method_set_locale(sd_bus *bus, sd_bus_message *m, void *userdata, sd_
                 }
 
                 locale_simplify(c);
-
-                r = locale_write_data(c);
-                if (r < 0) {
-                        log_error("Failed to set locale: %s", strerror(-r));
-                        return sd_bus_error_set_errnof(error, r, "Failed to set locale: %s", strerror(-r));
-                }
 
                 locale_update_system_manager(c, bus);
 

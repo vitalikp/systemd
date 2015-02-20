@@ -1314,9 +1314,8 @@
                         <varlistentry>
                                 <term><varname>$LANG</varname></term>
 
-                                <listitem><para>Locale. Can be set in
-                                <citerefentry><refentrytitle>locale.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                                or on the kernel command line (see
+                                <listitem><para>Locale. Can be set
+                                on the kernel command line (see
                                 <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                                 and
                                 <citerefentry><refentrytitle>kernel-command-line</refentrytitle><manvolnum>7</manvolnum></citerefentry>).

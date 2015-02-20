@@ -16,7 +16,6 @@ MANPAGES += \
 	man/journald.conf.5 \
 	man/kernel-command-line.7 \
 	man/kernel-install.8 \
-	man/locale.conf.5 \
 	man/localtime.5 \
 	man/machine-id.5 \
 	man/machine-info.5 \
@@ -1394,7 +1393,6 @@ EXTRA_DIST += \
 	man/kernel-install.xml \
 	man/less-variables.xml \
 	man/libsystemd-pkgconfig.xml \
-	man/locale.conf.xml \
 	man/localectl.xml \
 	man/localtime.xml \
 	man/loginctl.xml \

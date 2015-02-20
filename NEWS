@@ -5,6 +5,7 @@ NEW CHANGES:
              (+) remove gtk-doc build;
         * config:
              (+) remove /etc/hostname;
+             (+) remove /etc/locale.conf;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
