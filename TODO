@@ -36,9 +36,6 @@ Features:
 
 * timer units: actually add extra delays to timer units with high AccuracySec values, don't start them already when we are awake...
 
-* timesyncd:
-  - hookup with networkd: NTP servers from dhcp
-
 * a way for container managers to turn off getty starting via $container_headless= or so...
 
 * figure out a nice way how we can let the admin know what child/sibling unit causes cgroup membership for a specific unit
@@ -134,8 +131,6 @@ Features:
 
 * when we detect low battery and no AC on boot, show pretty splash and refuse boot
 
-* localed: when we try to kill an empty cgroup, generate an ESRCH error over the bus
-
 * libsystemd-journal, libsystemd-login, libudev: add calls to easily attach these objects to sd-event event loops
 
 * be more careful what we export on the bus as (usec_t) 0 and (usec_t) -1
@@ -208,10 +203,6 @@ Features:
 
 * maybe add a generator that looks for "systemd.run=" on the kernel cmdline for container usercases...
 
-* timedatctl, localectl: possibly make some commands work without the daemon, for chroot situations...
-
-* timedatectl: print a nicer message when enabling ntp fails because ntpd/chrony are not installed
-
 * cgtop: make cgtop useful in a container
 
 * test/:
@@ -260,8 +251,6 @@ Features:
 * think about window-manager-run-as-user-service problem: exit 0 → activate shutdown.target; exit != 0 → restart service
 
 * use "log level" rather than "log priority" everywhere
-
-* timedate: have global on/off switches for auto-time (NTP), and auto-timezone that connman can subscribe to.
 
 * merge unit_kill_common() and unit_kill_context()
 
@@ -421,8 +410,6 @@ Features:
 * fedup: do not delete initrd on switch-root
 * fedup: generator
 
-* timedated: refuse time changes when NTP is on
-
 * clean up date formatting and parsing so that all absolute/relative timestamps we format can also be parsed
 
 * on shutdown: move utmp, wall, audit logic all into PID 1 (or logind?), get rid of systemd-update-utmp-runlevel
@@ -436,8 +423,6 @@ Features:
 
 * make repeated alt-ctrl-del presses printing a dump, or even force a reboot without
   waiting for the timeout
-
-* hostnamed: before returning information from /etc/machine-info.conf check the modification data and reread. Similar for localed, ...
 
 * currently x-systemd.timeout is lost in the initrd, since crypttab is copied into dracut, but fstab is not
 
@@ -639,24 +624,6 @@ Features:
 * sd-rtnl:
    - add support for more attribute types
    - inbuilt piping support (essentially degenerate async)? see loopback-setup.c and other places
-
-* networkd:
-   - add more keys to [Route] and [Address] sections
-   - add support for more DHCPv4 options (and, longer term, other kinds of dynamic config)
-   - send hostname to DHCP server
-   - add proper initrd support (in particular generate .network/.link files based on /proc/cmdline)
-   - add reduced [Link] support to .network files
-   - add Scope= parsing option for [Network]
-   - properly handle routerless dhcp leases
-   - set lifetime on the address acquired from dhcp
-   - patch kernel to support module alias for tunnel device (ipip/sit/gre),
-     then remove remove libkmod dependency and CAP_SYS_MODULE
-   - add veth netdev support (c.f. http://shorewall.net/bridge-Shorewall-perl.html#veth)
-   - add tun/tap netdev support
-   - add more attribute support for SIT tunnel
-
-* networkd-wait-online:
-   - make operstates to wait for configurable?
 
 * dhcp:
    - figure out how much we can increase Maximum Message Size
