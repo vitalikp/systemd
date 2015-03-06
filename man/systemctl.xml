@@ -554,7 +554,6 @@ LISTEN           UNIT                        ACTIVATES
 /dev/initctl     systemd-initctl.socket      systemd-initctl.service
 ...
 [::]:22          sshd.socket                 sshd.service
-kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
 
 5 sockets listed.</programlisting>
             Note: because the addresses might contains spaces, this output

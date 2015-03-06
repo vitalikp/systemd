@@ -111,16 +111,6 @@ class Reader(_Reader):
     entries. Note that in order to access the system journal, a
     non-root user must be in the `systemd-journal` group.
 
-    Example usage to print out all informational or higher level
-    messages for systemd-udevd for this boot:
-
-    >>> j = journal.Reader()
-    >>> j.this_boot()
-    >>> j.log_level(journal.LOG_INFO)
-    >>> j.add_match(_SYSTEMD_UNIT="systemd-udevd.service")
-    >>> for entry in j:
-    ...    print(entry['MESSAGE'])
-
     See systemd.journal-fields(7) for more info on typical fields
     found in the journal.
     """

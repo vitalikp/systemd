@@ -9,8 +9,8 @@
 Description=Cleanup udevd DB
 DefaultDependencies=no
 ConditionPathExists=/etc/initrd-release
-Conflicts=systemd-udevd.service systemd-udevd-control.socket systemd-udevd-kernel.socket
-After=systemd-udevd.service systemd-udevd-control.socket systemd-udevd-kernel.socket
+Conflicts=udevd.service udevd-control.socket udevd-kernel.socket
+After=udevd.service udevd-control.socket udevd-kernel.socket
 Before=initrd-switch-root.target
 
 [Service]

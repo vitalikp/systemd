@@ -443,8 +443,6 @@ dist_systemunit_DATA = \
 	units/smartcard.target \
 	units/systemd-ask-password-wall.path \
 	units/systemd-ask-password-console.path \
-	units/systemd-udevd-control.socket \
-	units/systemd-udevd-kernel.socket \
 	units/system-update.target \
 	units/initrd-switch-root.target
 
@@ -474,7 +472,6 @@ nodist_systemunit_DATA = \
 	units/systemd-kexec.service \
 	units/systemd-fsck@.service \
 	units/systemd-fsck-root.service \
-	units/systemd-udevd.service \
 	units/debug-shell.service \
 	units/initrd-parse-etc.service \
 	units/initrd-cleanup.service \
@@ -2637,18 +2634,6 @@ EXTRA_DIST += \
 CLEANFILES += \
 	rules/99-systemd.rules \
 	src/udev/udev.pc
-
-EXTRA_DIST += \
-	units/systemd-udevd.service.in
-
-CLEANFILES += \
-	units/systemd-udevd.service
-
-SOCKETS_TARGET_WANTS += \
-	systemd-udevd-control.socket \
-	systemd-udevd-kernel.socket
-SYSINIT_TARGET_WANTS += \
-	systemd-udevd.service
 
 rootlibexec_PROGRAMS += \
 	systemd-udevd
