@@ -370,13 +370,11 @@ dist_bashcompletion_DATA = \
 	shell-completion/bash/systemd-delta \
 	shell-completion/bash/systemd-detect-virt \
 	shell-completion/bash/systemd-run \
-	shell-completion/bash/udevadm \
 	shell-completion/bash/kernel-install
 
 dist_zshcompletion_DATA = \
 	shell-completion/zsh/_systemctl \
 	shell-completion/zsh/_journalctl \
-	shell-completion/zsh/_udevadm \
 	shell-completion/zsh/_kernel-install \
 	shell-completion/zsh/_systemd-analyze \
 	shell-completion/zsh/_systemd-run \
@@ -2659,9 +2657,6 @@ SYSINIT_TARGET_WANTS += \
 	systemd-udevd.service \
 	systemd-udev-trigger.service
 
-rootbin_PROGRAMS += \
-	udevadm
-
 rootlibexec_PROGRAMS += \
 	systemd-udevd
 
@@ -2773,31 +2768,6 @@ systemd_udevd_SOURCES = \
 
 systemd_udevd_LDADD = \
 	libudev-core.la
-
-udevadm_SOURCES = \
-	src/udev/udevadm.c \
-	src/udev/udevadm-info.c \
-	src/udev/udevadm-control.c \
-	src/udev/udevadm-monitor.c \
-	src/udev/udevadm-hwdb.c \
-	src/udev/udevadm-settle.c \
-	src/udev/udevadm-trigger.c \
-	src/udev/udevadm-test.c \
-	src/udev/udevadm-test-builtin.c
-
-udevadm_LDADD = \
-	libudev-core.la
-
-# Update hwdb on installation. Do not bother if installing
-# in DESTDIR, since this is likely for packaging purposes.
-hwdb-update-hook:
-	-test -n "$(DESTDIR)" || $(rootbindir)/udevadm hwdb --update
-
-INSTALL_DATA_HOOKS += \
-	hwdb-update-hook
-
-hwdb-remove-hook:
-	-test -n "$(DESTDIR)" || rm -f /etc/udev/hwdb.bin
 
 # ------------------------------------------------------------------------------
 TESTS += \

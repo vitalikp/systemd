@@ -186,7 +186,6 @@
 /test-util
 /test-watchdog
 /test-xml
-/udevadm
 /undefined
 /v4l_id
 Makefile.in

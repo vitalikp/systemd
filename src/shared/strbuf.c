@@ -34,13 +34,6 @@
  * A trie (http://en.wikipedia.org/wiki/Trie) is used to maintain the
  * information about the stored strings.
  *
- * Example of udev rules:
- *   $ ./udevadm test .
- *   ...
- *   read rules file: /usr/lib/udev/rules.d/99-systemd.rules
- *   rules contain 196608 bytes tokens (16384 * 12 bytes), 39742 bytes strings
- *   23939 strings (207859 bytes), 20404 de-duplicated (171653 bytes), 3536 trie nodes used
- *   ...
  */
 
 struct strbuf *strbuf_new(void) {

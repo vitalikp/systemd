@@ -18,6 +18,7 @@ NEW CHANGES:
              (+) remove systemd-machined and machinectl programs;
              (+) remove systemd-localed and localectl programs;
              (+) remove systemd-vconsole-setup program;
+             (+) move udevadm to separate module udev;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
