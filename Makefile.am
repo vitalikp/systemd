@@ -475,7 +475,6 @@ nodist_systemunit_DATA = \
 	units/systemd-fsck@.service \
 	units/systemd-fsck-root.service \
 	units/systemd-udevd.service \
-	units/systemd-udev-trigger.service \
 	units/debug-shell.service \
 	units/initrd-parse-etc.service \
 	units/initrd-cleanup.service \
@@ -2640,19 +2639,16 @@ CLEANFILES += \
 	src/udev/udev.pc
 
 EXTRA_DIST += \
-	units/systemd-udevd.service.in \
-	units/systemd-udev-trigger.service.in
+	units/systemd-udevd.service.in
 
 CLEANFILES += \
-	units/systemd-udevd.service \
-	units/systemd-udev-trigger.service
+	units/systemd-udevd.service
 
 SOCKETS_TARGET_WANTS += \
 	systemd-udevd-control.socket \
 	systemd-udevd-kernel.socket
 SYSINIT_TARGET_WANTS += \
-	systemd-udevd.service \
-	systemd-udev-trigger.service
+	systemd-udevd.service
 
 rootlibexec_PROGRAMS += \
 	systemd-udevd

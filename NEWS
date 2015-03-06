@@ -33,6 +33,7 @@ NEW CHANGES:
              (+) remove systemd-localed service;
              (+) remove systemd-vconsole-setup service;
              (+) move systemd-udev-settle service to separate module udev;
+             (+) move systemd-udev-trigger service to separate module udev;
 
 CHANGES WITH 214:
 
