@@ -2604,24 +2604,11 @@ dist_udevrules_DATA += \
 nodist_udevrules_DATA += \
 	rules/99-systemd.rules
 
-udevconfdir = $(sysconfdir)/udev
-dist_udevconf_DATA = \
-	src/udev/udev.conf
-
-sharepkgconfigdir = $(datadir)/pkgconfig
-sharepkgconfig_DATA = \
-	src/udev/udev.pc
-
 EXTRA_DIST += \
-	rules/99-systemd.rules.in \
-	src/udev/udev.pc.in
+	rules/99-systemd.rules.in
 
 CLEANFILES += \
-	rules/99-systemd.rules \
-	src/udev/udev.pc
-
-rootlibexec_PROGRAMS += \
-	systemd-udevd
+	rules/99-systemd.rules
 
 noinst_LTLIBRARIES += \
 	libudev-core.la
@@ -2725,12 +2712,6 @@ libudev_core_la_SOURCES += \
 libudev_core_la_LIBADD += \
 	libsystemd-acl.la
 endif
-
-systemd_udevd_SOURCES = \
-	src/udev/udevd.c
-
-systemd_udevd_LDADD = \
-	libudev-core.la
 
 # ------------------------------------------------------------------------------
 TESTS += \

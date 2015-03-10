@@ -101,8 +101,7 @@ MANPAGES += \
 	man/systemd.timer.5 \
 	man/systemd.unit.5 \
 	man/telinit.8 \
-	man/tmpfiles.d.5 \
-	man/udev.7
+	man/tmpfiles.d.5
 MANPAGES_ALIAS += \
 	man/SD_ALERT.3 \
 	man/SD_CRIT.3 \
@@ -199,7 +198,6 @@ MANPAGES_ALIAS += \
 	man/systemd-tmpfiles-clean.timer.8 \
 	man/systemd-tmpfiles-setup-dev.service.8 \
 	man/systemd-tmpfiles-setup.service.8 \
-	man/systemd-udevd.8 \
 	man/systemd-update-utmp-runlevel.service.8 \
 	man/systemd-update-utmp.8 \
 	man/systemd-user.conf.5
@@ -1494,5 +1492,4 @@ EXTRA_DIST += \
 	man/systemd.xml \
 	man/telinit.xml \
 	man/tmpfiles.d.xml \
-	man/udev.xml \
 	man/user-system-options.xml
