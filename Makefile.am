@@ -100,7 +100,6 @@ systempresetdir=$(rootprefix)/lib/systemd/system-preset
 udevlibexecdir=$(rootprefix)/lib/udev
 udevhomedir=$(udevlibexecdir)
 udevrulesdir=$(udevlibexecdir)/rules.d
-udevhwdbdir=$(udevlibexecdir)/hwdb.d
 catalogdir=$(prefix)/lib/systemd/catalog
 kernelinstalldir = $(prefix)/lib/kernel/install.d
 
@@ -2583,8 +2582,7 @@ libudev_internal_la_CFLAGS = \
 
 # ------------------------------------------------------------------------------
 INSTALL_DIRS += \
-	$(sysconfdir)/udev/rules.d \
-	$(sysconfdir)/udev/hwdb.d
+	$(sysconfdir)/udev/rules.d
 
 dist_udevrules_DATA += \
 	rules/42-usb-hid-pm.rules \
@@ -2605,19 +2603,6 @@ dist_udevrules_DATA += \
 
 nodist_udevrules_DATA += \
 	rules/99-systemd.rules
-
-dist_udevhwdb_DATA = \
-	hwdb/20-pci-vendor-model.hwdb \
-	hwdb/20-pci-classes.hwdb \
-	hwdb/20-usb-vendor-model.hwdb \
-	hwdb/20-usb-classes.hwdb \
-	hwdb/20-sdio-vendor-model.hwdb \
-	hwdb/20-sdio-classes.hwdb \
-	hwdb/20-bluetooth-vendor-product.hwdb \
-	hwdb/20-acpi-vendor.hwdb \
-	hwdb/20-OUI.hwdb \
-	hwdb/20-net-ifname.hwdb \
-	hwdb/60-keyboard.hwdb
 
 udevconfdir = $(sysconfdir)/udev
 dist_udevconf_DATA = \
@@ -4272,7 +4257,6 @@ substitutions = \
        '|userunitdir=$(userunitdir)|' \
        '|systempresetdir=$(systempresetdir)|' \
        '|userpresetdir=$(userpresetdir)|' \
-       '|udevhwdbdir=$(udevhwdbdir)|' \
        '|udevrulesdir=$(udevrulesdir)|' \
        '|catalogdir=$(catalogdir)|' \
        '|tmpfilesdir=$(tmpfilesdir)|' \
@@ -4560,8 +4544,6 @@ distclean-local: $(DISTCLEAN_LOCAL_HOOKS)
 
 clean-local: $(CLEAN_LOCAL_HOOKS)
 	rm -rf $(abs_srcdir)/install-tree
-	rm -f $(abs_srcdir)/hwdb/usb.ids $(abs_srcdir)/hwdb/pci.ids $(abs_srcdir)/hwdb/oui.txt \
-	      $(abs_srcdir)/hwdb/iab.txt
 
 DISTCHECK_CONFIGURE_FLAGS = \
 	--with-dbuspolicydir=$$dc_install_base/$(dbuspolicydir) \
@@ -4590,15 +4572,6 @@ endif
 .PHONY: linkcheck
 linkcheck:
 	$(MAKE) CFLAGS='-fno-lto' LDFLAGS='-Wl,-fuse-ld=gold -Wl,--as-needed -Wl,--no-gc-sections' distcheck
-
-.PHONY: hwdb-update
-hwdb-update:
-	( cd $(top_srcdir)/hwdb && \
-	wget -N http://www.linux-usb.org/usb.ids \
-		http://pci-ids.ucw.cz/v2.2/pci.ids \
-		http://standards.ieee.org/develop/regauth/oui/oui.txt \
-		http://standards.ieee.org/develop/regauth/iab/iab.txt && \
-	./ids-update.pl )
 
 .PHONY: kdbus-update
 kdbus-update:

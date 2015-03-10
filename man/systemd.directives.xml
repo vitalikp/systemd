@@ -2317,10 +2317,6 @@
 
 <varlistentry><term><filename>/etc/tmpfiles.d/*.conf</filename></term><listitem><para><citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry></para></listitem></varlistentry>
 
-<varlistentry><term><filename>/etc/udev/hwdb.bin</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
-
-<varlistentry><term><filename>/etc/udev/hwdb.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
-
 <varlistentry><term><filename>/etc/udev/rules.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/home</filename></term><listitem><para><citerefentry><refentrytitle>systemd-gpt-auto-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry></para></listitem></varlistentry>
@@ -2388,8 +2384,6 @@
 <varlistentry><term><filename>/run/tmpfiles.d</filename></term><listitem><para><citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/run/tmpfiles.d/*.conf</filename></term><listitem><para><citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry></para></listitem></varlistentry>
-
-<varlistentry><term><filename>/run/udev/hwdb.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/run/udev/rules.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 
@@ -2522,8 +2516,6 @@
 <varlistentry><term><filename>/usr/lib/tmpfiles.d/*.conf</filename></term><listitem><para><citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/usr/lib/udev</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
-
-<varlistentry><term><filename>/usr/lib/udev/hwdb.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>/usr/lib/udev/rules.d</filename></term><listitem><para><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 

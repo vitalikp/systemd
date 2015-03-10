@@ -7,6 +7,8 @@ NEW CHANGES:
              (+) remove /etc/hostname;
              (+) remove /etc/locale.conf;
              (+) remove /etc/vconsole.conf;
+        * data:
+             (+) move hwdb to separate module udev;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
