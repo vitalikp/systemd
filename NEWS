@@ -23,6 +23,8 @@ NEW CHANGES:
              (+) remove systemd-vconsole-setup program;
              (+) move udevadm to separate module udev;
              (+) move systemd-udevd to separate module udev;
+        * tests:
+             (+) move test-udev to separate module udev;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;

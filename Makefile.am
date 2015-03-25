@@ -2687,12 +2687,10 @@ endif
 
 # ------------------------------------------------------------------------------
 TESTS += \
-	test/udev-test.pl \
 	test/rules-test.sh
 
 manual_tests += \
-	test-libudev \
-	test-udev
+	test-libudev
 
 test_libudev_SOURCES = \
 	src/test/test-libudev.c
@@ -2702,30 +2700,7 @@ test_libudev_LDADD = \
 	libudev-internal.la \
 	libsystemd-shared.la
 
-test_udev_SOURCES = \
-	src/test/test-udev.c
-
-test_udev_LDADD = \
-	libudev-core.la \
-	$(BLKID_LIBS) \
-	$(KMOD_LIBS) \
-	$(SELINUX_LIBS)
-
-check_DATA += \
-	test/sys
-
-# packed sysfs test tree
-test/sys:
-	$(AM_V_at)$(MKDIR_P) $(dir $@)
-	$(AM_V_GEN)tar -C test/ -xJf $(top_srcdir)/test/sys.tar.xz
-
-test-sys-distclean:
-	-rm -rf test/sys
-DISTCLEAN_LOCAL_HOOKS += test-sys-distclean
-
 EXTRA_DIST += \
-	test/sys.tar.xz \
-	test/udev-test.pl \
 	test/rules-test.sh \
 	test/rule-syntax-check.py
 
