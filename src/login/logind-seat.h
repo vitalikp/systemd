@@ -56,7 +56,6 @@ void seat_free(Seat *s);
 int seat_save(Seat *s);
 int seat_load(Seat *s);
 
-int seat_apply_acls(Seat *s, Session *old_active);
 int seat_set_active(Seat *s, Session *session);
 int seat_switch_to(Seat *s, unsigned int num);
 int seat_switch_to_next(Seat *s);

@@ -172,24 +172,7 @@
                 <filename>/var/log/journal/</filename>. These files
                 will not be owned by the user, however, in order to
                 avoid that the user can write to them
-                directly. Instead, file system ACLs are used to ensure
-                the user gets read access only.</para>
-
-                <para>Additional users and groups may be granted
-                access to journal files via file system access control
-                lists (ACL). Distributions and administrators may
-                choose to grant read access to all members of the
-                <literal>wheel</literal> and <literal>adm</literal>
-                system groups with a command such as the
-                following:</para>
-
-                <programlisting># setfacl -Rnm g:wheel:rx,d:g:wheel:rx,g:adm:rx,d:g:adm:rx /var/log/journal/</programlisting>
-
-                <para>Note that this command will update the ACLs both
-                for existing journal files and for future journal
-                files created in the
-                <filename>/var/log/journal/</filename>
-                directory.</para>
+                directly.</para>
         </refsect1>
 
         <refsect1>

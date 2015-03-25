@@ -154,9 +154,6 @@ enum udev_builtin_cmd {
         UDEV_BUILTIN_NET_LINK,
         UDEV_BUILTIN_PATH_ID,
         UDEV_BUILTIN_USB_ID,
-#ifdef HAVE_ACL
-        UDEV_BUILTIN_UACCESS,
-#endif
         UDEV_BUILTIN_MAX
 };
 struct udev_builtin {

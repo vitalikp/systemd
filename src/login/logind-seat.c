@@ -30,7 +30,6 @@
 #include "sd-id128.h"
 #include "sd-messages.h"
 #include "logind-seat.h"
-#include "logind-acl.h"
 #include "util.h"
 #include "mkdir.h"
 #include "path-util.h"
@@ -209,23 +208,6 @@ int seat_preallocate_vts(Seat *s) {
         return r;
 }
 
-int seat_apply_acls(Seat *s, Session *old_active) {
-        int r;
-
-        assert(s);
-
-        r = devnode_acl_all(s->manager->udev,
-                            s->id,
-                            false,
-                            !!old_active, old_active ? old_active->user->uid : 0,
-                            !!s->active, s->active ? s->active->user->uid : 0);
-
-        if (r < 0)
-                log_error("Failed to apply ACLs: %s", strerror(-r));
-
-        return r;
-}
-
 int seat_set_active(Seat *s, Session *session) {
         Session *old_active;
 
@@ -242,8 +224,6 @@ int seat_set_active(Seat *s, Session *session) {
                 session_device_pause_all(old_active);
                 session_send_changed(old_active, "Active", NULL);
         }
-
-        seat_apply_acls(s, old_active);
 
         if (session && session->started) {
                 session_send_changed(session, "Active", NULL);

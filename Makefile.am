@@ -886,23 +886,6 @@ libsystemd_capability_la_LIBADD = \
 	$(CAP_LIBS)
 
 # ------------------------------------------------------------------------------
-if HAVE_ACL
-noinst_LTLIBRARIES += \
-	libsystemd-acl.la
-
-libsystemd_acl_la_SOURCES = \
-	src/shared/acl-util.c \
-	src/shared/acl-util.h
-
-libsystemd_acl_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(ACL_CFLAGS)
-
-libsystemd_acl_la_LIBADD = \
-	$(ACL_LIBS)
-endif
-
-# ------------------------------------------------------------------------------
 noinst_LTLIBRARIES += \
 	libsystemd-core.la
 
@@ -2702,17 +2685,6 @@ libudev_core_la_SOURCES += \
 	src/udev/udev-builtin-blkid.c
 endif
 
-if HAVE_ACL
-libudev_core_la_SOURCES += \
-	src/udev/udev-builtin-uaccess.c \
-	src/login/logind-acl.c \
-	src/libsystemd/sd-login/sd-login.c \
-	src/systemd/sd-login.h
-
-libudev_core_la_LIBADD += \
-	libsystemd-acl.la
-endif
-
 # ------------------------------------------------------------------------------
 TESTS += \
 	test/udev-test.pl \
@@ -2738,11 +2710,6 @@ test_udev_LDADD = \
 	$(BLKID_LIBS) \
 	$(KMOD_LIBS) \
 	$(SELINUX_LIBS)
-
-if HAVE_ACL
-test_udev_LDADD += \
-	libsystemd-acl.la
-endif
 
 check_DATA += \
 	test/sys
@@ -3090,11 +3057,6 @@ journalctl_LDADD = \
 	libsystemd-logs.la \
 	libsystemd-shared.la
 
-if HAVE_ACL
-journalctl_LDADD += \
-	libsystemd-acl.la
-endif
-
 if HAVE_QRENCODE
 journalctl_SOURCES += \
 	src/journal/journal-qrcode.c \
@@ -3213,11 +3175,6 @@ libsystemd_journal_core_la_LIBADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
-if HAVE_ACL
-libsystemd_journal_core_la_LIBADD += \
-	libsystemd-acl.la
-endif
-
 noinst_LTLIBRARIES += \
 	libsystemd-journal-core.la
 
@@ -3225,8 +3182,6 @@ journal-install-hook:
 	-$(MKDIR_P) $(DESTDIR)/var/log/journal
 	-chown 0:0 $(DESTDIR)/var/log/journal
 	-chmod 755 $(DESTDIR)/var/log/journal
-	-setfacl -nm g:adm:rx,d:g:adm:rx $(DESTDIR)/var/log/journal/
-	-setfacl -nm g:wheel:rx,d:g:wheel:rx $(DESTDIR)/var/log/journal/
 
 journal-uninstall-hook:
 	-rmdir $(DESTDIR)/var/log/journal/
@@ -3752,8 +3707,7 @@ libsystemd_logind_core_la_SOURCES = \
 	src/login/logind-dbus.c \
 	src/login/logind-session-dbus.c \
 	src/login/logind-seat-dbus.c \
-	src/login/logind-user-dbus.c \
-	src/login/logind-acl.h
+	src/login/logind-user-dbus.c
 
 libsystemd_logind_core_la_LIBADD = \
 	libsystemd-label.la \
@@ -3761,14 +3715,6 @@ libsystemd_logind_core_la_LIBADD = \
 	libsystemd-internal.la \
 	libudev-internal.la \
 	libsystemd-shared.la
-
-if HAVE_ACL
-libsystemd_logind_core_la_SOURCES += \
-	src/login/logind-acl.c
-
-libsystemd_logind_core_la_LIBADD += \
-	libsystemd-acl.la
-endif
 
 noinst_LTLIBRARIES += \
 	libsystemd-logind-core.la

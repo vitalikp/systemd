@@ -1,6 +1,7 @@
 systemd System and Service Manager
 
 NEW CHANGES:
+        (+) remove ACL support;
         * docs:
              (+) remove gtk-doc build;
         * config:

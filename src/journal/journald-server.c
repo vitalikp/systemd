@@ -52,12 +52,6 @@
 #include "journald-native.h"
 #include "journald-server.h"
 
-#ifdef HAVE_ACL
-#include <sys/acl.h>
-#include <acl/libacl.h>
-#include "acl-util.h"
-#endif
-
 #ifdef HAVE_SELINUX
 #include <selinux/selinux.h>
 #endif
@@ -192,54 +186,12 @@ static uint64_t available_space(Server *s, bool verbose) {
 
 void server_fix_perms(Server *s, JournalFile *f, uid_t uid) {
         int r;
-#ifdef HAVE_ACL
-        acl_t acl;
-        acl_entry_t entry;
-        acl_permset_t permset;
-#endif
 
         assert(f);
 
         r = fchmod(f->fd, 0640);
         if (r < 0)
                 log_warning("Failed to fix access mode on %s, ignoring: %s", f->path, strerror(-r));
-
-#ifdef HAVE_ACL
-        if (uid <= 0)
-                return;
-
-        acl = acl_get_fd(f->fd);
-        if (!acl) {
-                log_warning("Failed to read ACL on %s, ignoring: %m", f->path);
-                return;
-        }
-
-        r = acl_find_uid(acl, uid, &entry);
-        if (r <= 0) {
-
-                if (acl_create_entry(&acl, &entry) < 0 ||
-                    acl_set_tag_type(entry, ACL_USER) < 0 ||
-                    acl_set_qualifier(entry, &uid) < 0) {
-                        log_warning("Failed to patch ACL on %s, ignoring: %m", f->path);
-                        goto finish;
-                }
-        }
-
-        /* We do not recalculate the mask unconditionally here,
-         * so that the fchmod() mask above stays intact. */
-        if (acl_get_permset(entry, &permset) < 0 ||
-            acl_add_perm(permset, ACL_READ) < 0 ||
-            calc_acl_mask_if_needed(&acl) < 0) {
-                log_warning("Failed to patch ACL on %s, ignoring: %m", f->path);
-                goto finish;
-        }
-
-        if (acl_set_fd(f->fd, acl) < 0)
-                log_warning("Failed to set ACL on %s, ignoring: %m", f->path);
-
-finish:
-        acl_free(acl);
-#endif
 }
 
 static JournalFile* find_journal(Server *s, uid_t uid) {
