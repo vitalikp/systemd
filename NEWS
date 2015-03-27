@@ -1,7 +1,6 @@
 systemd System and Service Manager
 
 NEW CHANGES:
-        (+) remove ACL support;
         * docs:
              (+) remove gtk-doc build;
         * config:
@@ -41,6 +40,9 @@ NEW CHANGES:
              (+) move systemd-udev-settle service to separate module udev;
              (+) move systemd-udev-trigger service to separate module udev;
              (+) move systemd-udevd service to separate module udev;
+        * other:
+             (+) remove ACL support;
+             (+) remove udev firmware loading support;
 
 CHANGES WITH 214:
 
