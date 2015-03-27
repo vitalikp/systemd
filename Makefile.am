@@ -2677,17 +2677,6 @@ endif
 TESTS += \
 	test/rules-test.sh
 
-manual_tests += \
-	test-libudev
-
-test_libudev_SOURCES = \
-	src/test/test-libudev.c
-
-test_libudev_LDADD = \
-	libsystemd-label.la \
-	libudev-internal.la \
-	libsystemd-shared.la
-
 EXTRA_DIST += \
 	test/rules-test.sh \
 	test/rule-syntax-check.py
