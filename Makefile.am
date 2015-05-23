@@ -2631,9 +2631,6 @@ libudev_core_la_LIBADD = \
 if HAVE_KMOD
 libudev_core_la_SOURCES += \
 	src/udev/udev-builtin-kmod.c
-
-dist_udevrules_DATA += \
-	rules/80-drivers.rules
 endif
 
 if HAVE_BLKID
