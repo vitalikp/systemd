@@ -2837,9 +2837,6 @@ mtd_probe_SOURCES =  \
 	src/udev/mtd_probe/mtd_probe.h \
 	src/udev/mtd_probe/probe_smartmedia.c
 
-dist_udevrules_DATA += \
-	rules/75-probe_mtd.rules
-
 udevlibexec_PROGRAMS += \
 	mtd_probe
 

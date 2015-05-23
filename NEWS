@@ -12,6 +12,7 @@ NEW CHANGES:
              (+) move cdrom_id rules file to separate module udev;
              (+) move v4l_id rules file to separate module udev;
              (+) move accelerometer rules file to separate module udev;
+             (+) move mtd_probe rules file to separate module udev;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
