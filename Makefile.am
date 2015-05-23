@@ -2832,15 +2832,6 @@ EXTRA_DIST += \
 	src/gudev/seed-example.js
 
 # ------------------------------------------------------------------------------
-mtd_probe_SOURCES =  \
-	src/udev/mtd_probe/mtd_probe.c \
-	src/udev/mtd_probe/mtd_probe.h \
-	src/udev/mtd_probe/probe_smartmedia.c
-
-udevlibexec_PROGRAMS += \
-	mtd_probe
-
-# ------------------------------------------------------------------------------
 test_id128_SOURCES = \
 	src/test/test-id128.c
 

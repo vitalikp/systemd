@@ -32,7 +32,6 @@
 /libsystemd-*.c
 /libtool
 /loginctl
-/mtd_probe
 /scsi_id
 /systemadm
 /systemctl
