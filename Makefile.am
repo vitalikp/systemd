@@ -2691,9 +2691,6 @@ accelerometer_LDADD = \
 udevlibexec_PROGRAMS += \
 	accelerometer
 
-dist_udevrules_DATA += \
-	rules/61-accelerometer.rules
-
 # ------------------------------------------------------------------------------
 if ENABLE_GUDEV
 libgudev_includedir = \
