@@ -2622,17 +2622,6 @@ libudev_core_la_SOURCES += \
 endif
 
 # ------------------------------------------------------------------------------
-ata_id_SOURCES = \
-	src/udev/ata_id/ata_id.c
-
-ata_id_LDADD = \
-	libudev-internal.la \
-	libsystemd-shared.la
-
-udevlibexec_PROGRAMS += \
-	ata_id
-
-# ------------------------------------------------------------------------------
 collect_SOURCES = \
 	src/udev/collect/collect.c
 
