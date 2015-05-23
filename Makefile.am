@@ -2681,17 +2681,6 @@ EXTRA_DIST += \
 	src/udev/scsi_id/README
 
 # ------------------------------------------------------------------------------
-accelerometer_SOURCES = \
-	src/udev/accelerometer/accelerometer.c
-
-accelerometer_LDADD = \
-	libudev-internal.la -lm \
-	libsystemd-shared.la
-
-udevlibexec_PROGRAMS += \
-	accelerometer
-
-# ------------------------------------------------------------------------------
 if ENABLE_GUDEV
 libgudev_includedir = \
 	$(includedir)/gudev-1.0/gudev
