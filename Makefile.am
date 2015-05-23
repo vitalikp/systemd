@@ -2674,11 +2674,7 @@ libudev_core_la_SOURCES += \
 endif
 
 # ------------------------------------------------------------------------------
-TESTS += \
-	test/rules-test.sh
-
 EXTRA_DIST += \
-	test/rules-test.sh \
 	test/rule-syntax-check.py
 
 # ------------------------------------------------------------------------------
