@@ -1826,27 +1826,6 @@ dist_zshcompletion_DATA += \
 endif
 
 # ------------------------------------------------------------------------------
-if HAVE_BLKID
-systemgenerator_PROGRAMS +=  \
-	systemd-gpt-auto-generator
-
-systemd_gpt_auto_generator_SOURCES = \
-	src/gpt-auto-generator/gpt-auto-generator.c \
-	src/shared/blkid-util.h
-
-systemd_gpt_auto_generator_LDADD = \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libudev-internal.la \
-	libsystemd-shared.la \
-	$(BLKID_LIBS)
-
-systemd_gpt_auto_generator_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(BLKID_CFLAGS)
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_KDBUS
 systemgenerator_PROGRAMS +=  \
 	systemd-dbus1-generator

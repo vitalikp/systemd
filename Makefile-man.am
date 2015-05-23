@@ -61,7 +61,6 @@ MANPAGES += \
 	man/systemd-fsck@.service.8 \
 	man/systemd-fstab-generator.8 \
 	man/systemd-getty-generator.8 \
-	man/systemd-gpt-auto-generator.8 \
 	man/systemd-halt.service.8 \
 	man/systemd-inhibit.1 \
 	man/systemd-initctl.service.8 \
@@ -1440,7 +1439,6 @@ EXTRA_DIST += \
 	man/systemd-fsck@.service.xml \
 	man/systemd-fstab-generator.xml \
 	man/systemd-getty-generator.xml \
-	man/systemd-gpt-auto-generator.xml \
 	man/systemd-halt.service.xml \
 	man/systemd-inhibit.xml \
 	man/systemd-initctl.service.xml \

@@ -22,6 +22,7 @@ NEW CHANGES:
              (+) remove systemd-vconsole-setup program;
              (+) move udevadm to separate module udev;
              (+) move systemd-udevd to separate module udev;
+             (+) remove systemd-gpt-auto-generator program;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;
