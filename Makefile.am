@@ -2535,23 +2535,6 @@ libudev_internal_la_CFLAGS = \
 INSTALL_DIRS += \
 	$(sysconfdir)/udev/rules.d
 
-dist_udevrules_DATA += \
-	rules/42-usb-hid-pm.rules \
-	rules/50-udev-default.rules \
-	rules/60-drm.rules \
-	rules/60-keyboard.rules \
-	rules/60-persistent-storage-tape.rules \
-	rules/60-persistent-serial.rules \
-	rules/60-persistent-input.rules \
-	rules/60-persistent-alsa.rules \
-	rules/60-persistent-storage.rules \
-	rules/64-btrfs.rules \
-	rules/75-net-description.rules \
-	rules/75-tty-description.rules \
-	rules/78-sound-card.rules \
-	rules/80-net-setup-link.rules \
-	rules/95-udev-late.rules
-
 nodist_udevrules_DATA += \
 	rules/99-systemd.rules
 
