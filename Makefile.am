@@ -1792,17 +1792,6 @@ systemd_system_update_generator_LDADD = \
 
 if ENABLE_EFI
 # ------------------------------------------------------------------------------
-systemgenerator_PROGRAMS +=  \
-	systemd-efi-boot-generator
-
-systemd_efi_boot_generator_SOURCES = \
-	src/efi-boot-generator/efi-boot-generator.c
-
-systemd_efi_boot_generator_LDADD = \
-	libsystemd-label.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
 bootctl_SOURCES = \
 	src/boot/boot.h \
 	src/boot/boot-loader.h \
