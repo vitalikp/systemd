@@ -147,7 +147,6 @@
 /test-journal-verify
 /test-libsystemd-sym*
 /test-libsystemd-*-sym*
-/test-libudev
 /test-list
 /test-log
 /test-login
