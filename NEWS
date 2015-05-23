@@ -45,6 +45,7 @@ NEW CHANGES:
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;
+             (+) remove rule-syntax-check.py test util;
 
 CHANGES WITH 214:
 
