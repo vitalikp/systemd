@@ -180,7 +180,6 @@
 /test-watchdog
 /test-xml
 /undefined
-/v4l_id
 Makefile.in
 __pycache__/
 aclocal.m4

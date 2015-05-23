@@ -2681,19 +2681,6 @@ EXTRA_DIST += \
 	src/udev/scsi_id/README
 
 # ------------------------------------------------------------------------------
-v4l_id_SOURCES = \
-	src/udev/v4l_id/v4l_id.c
-
-v4l_id_LDADD = \
-	libudev-internal.la
-
-udevlibexec_PROGRAMS += \
-	v4l_id
-
-dist_udevrules_DATA += \
-	rules/60-persistent-v4l.rules
-
-# ------------------------------------------------------------------------------
 accelerometer_SOURCES = \
 	src/udev/accelerometer/accelerometer.c
 
