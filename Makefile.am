@@ -2653,17 +2653,6 @@ udevlibexec_PROGRAMS += \
 	ata_id
 
 # ------------------------------------------------------------------------------
-cdrom_id_SOURCES = \
-	src/udev/cdrom_id/cdrom_id.c
-
-cdrom_id_LDADD = \
-	libudev-internal.la \
-	libsystemd-shared.la
-
-udevlibexec_PROGRAMS += \
-	cdrom_id
-
-# ------------------------------------------------------------------------------
 collect_SOURCES = \
 	src/udev/collect/collect.c
 

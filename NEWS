@@ -25,6 +25,7 @@ NEW CHANGES:
              (+) move systemd-udevd to separate module udev;
              (+) remove systemd-gpt-auto-generator program;
              (+) remove systemd-efi-boot-generator program;
+             (+) move cdrom_id to separate module udev;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;

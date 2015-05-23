@@ -23,7 +23,6 @@
 /bootctl
 /build-aux
 /busctl
-/cdrom_id
 /collect
 /coverage/
 /defined
