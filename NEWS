@@ -10,6 +10,7 @@ NEW CHANGES:
         * data:
              (+) move hwdb to separate module udev;
              (+) move cdrom_id rules file to separate module udev;
+             (+) move v4l_id rules file to separate module udev;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;
