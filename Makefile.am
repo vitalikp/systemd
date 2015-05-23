@@ -2497,17 +2497,7 @@ EXTRA_DIST += \
 	src/libudev/libudev.pc.in
 
 CLEANFILES += \
-	src/libudev/libudev.pc \
-	docs/html/libudev \
-	docs/html/gudev
-
-docs/html/libudev:
-	$(AM_V_at)$(MKDIR_P) $(dir $@)
-	$(AM_V_LN)$(LN_S) -f ../libudev/html $@
-
-docs/html/gudev:
-	$(AM_V_at)$(MKDIR_P) $(dir $@)
-	$(AM_V_LN)$(LN_S) -f ../gudev/html $@
+	src/libudev/libudev.pc
 
 # move lib from $(libdir) to $(rootlibdir) and update devel link, if needed
 libudev-install-hook:
