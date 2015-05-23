@@ -2663,9 +2663,6 @@ cdrom_id_LDADD = \
 udevlibexec_PROGRAMS += \
 	cdrom_id
 
-dist_udevrules_DATA += \
-	rules/60-cdrom_id.rules
-
 # ------------------------------------------------------------------------------
 collect_SOURCES = \
 	src/udev/collect/collect.c
