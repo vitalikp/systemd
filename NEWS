@@ -28,6 +28,7 @@ NEW CHANGES:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;
              (+) remove rules-test.sh;
+             (+) remove test-libudev-sym;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;

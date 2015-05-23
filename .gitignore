@@ -148,7 +148,6 @@
 /test-libsystemd-sym*
 /test-libsystemd-*-sym*
 /test-libudev
-/test-libudev-sym*
 /test-list
 /test-log
 /test-login
