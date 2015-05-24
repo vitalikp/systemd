@@ -60,7 +60,7 @@ static int help(void) {
                "     --no-tty        Ask question via agent even on TTY\n"
                "     --accept-cached Accept cached passwords\n"
                "     --multiple      List multiple passwords if available\n"
-               "     --id=ID         Query identifier (e.g. cryptsetup:/dev/sda5)\n",
+               "     --id=ID         Query identifier\n",
                program_invocation_short_name);
 
         return 0;

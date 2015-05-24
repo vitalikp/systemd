@@ -1331,7 +1331,6 @@ EXTRA_DIST += \
 	man/bootctl.xml \
 	man/bootup.xml \
 	man/busctl.xml \
-	man/crypttab.xml \
 	man/daemon.xml \
 	man/halt.xml \
 	man/journalctl.xml \

@@ -103,7 +103,6 @@ REQUIREMENTS:
         libblkid >= 2.20 (from util-linux) (optional)
         libkmod >= 15 (optional)
         PAM >= 1.1.2 (optional)
-        libcryptsetup (optional)
         libaudit (optional)
         libselinux (optional)
         liblzma (optional)

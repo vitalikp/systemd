@@ -103,15 +103,6 @@ TEMPLATE = '''\
         </refsect1>
 
         <refsect1>
-                <title>crypttab options</title>
-
-                <para>Options which influence mounted filesystems and
-                encrypted volumes.</para>
-
-                <variablelist id='crypttab-options' />
-        </refsect1>
-
-        <refsect1>
                 <title>System manager directives</title>
 
                 <para>Directives for configuring the behaviour of the

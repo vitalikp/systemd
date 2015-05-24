@@ -581,18 +581,6 @@ fi
 AC_SUBST(AUDIT_LIBS)
 
 # ------------------------------------------------------------------------------
-have_libcryptsetup=no
-AC_ARG_ENABLE(libcryptsetup, AS_HELP_STRING([--disable-libcryptsetup], [disable libcryptsetup tools]))
-if test "x$enable_libcryptsetup" != "xno"; then
-        PKG_CHECK_MODULES(LIBCRYPTSETUP, [ libcryptsetup >= 1.6.0 ],
-                [AC_DEFINE(HAVE_LIBCRYPTSETUP, 1, [Define if libcryptsetup is available]) have_libcryptsetup=yes], have_libcryptsetup=no)
-        if test "x$have_libcryptsetup" = xno -a "x$enable_libcryptsetup" = xyes; then
-                AC_MSG_ERROR([*** libcryptsetup support requested but libraries not found])
-        fi
-fi
-AM_CONDITIONAL(HAVE_LIBCRYPTSETUP, [test "$have_libcryptsetup" = "yes"])
-
-# ------------------------------------------------------------------------------
 have_qrencode=no
 AC_ARG_ENABLE(qrencode, AS_HELP_STRING([--disable-qrencode], [disable qrencode support]))
 if test "x$enable_qrencode" != "xno"; then
@@ -977,7 +965,6 @@ AC_OUTPUT
 AC_MSG_RESULT([
         $PACKAGE_NAME $VERSION
 
-        libcryptsetup:           ${have_libcryptsetup}
         PAM:                     ${have_pam}
         AUDIT:                   ${have_audit}
         IMA:                     ${have_ima}

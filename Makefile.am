@@ -171,7 +171,6 @@ AM_CPPFLAGS = \
 	-DROOTPREFIX=\"$(rootprefix)\" \
 	-DRANDOM_SEED_DIR=\"$(localstatedir)/lib/systemd/\" \
 	-DRANDOM_SEED=\"$(localstatedir)/lib/systemd/random-seed\" \
-	-DSYSTEMD_CRYPTSETUP_PATH=\"$(rootlibexecdir)/systemd-cryptsetup\" \
 	-DSYSTEM_GENERATOR_PATH=\"$(systemgeneratordir)\" \
 	-DUSER_GENERATOR_PATH=\"$(usergeneratordir)\" \
 	-DSYSTEM_SHUTDOWN_PATH=\"$(systemshutdowndir)\" \
@@ -3395,26 +3394,6 @@ endif
 
 EXTRA_DIST += \
 	units/systemd-rfkill@.service.in
-
-# ------------------------------------------------------------------------------
-if HAVE_LIBCRYPTSETUP
-rootlibexec_PROGRAMS += \
-	systemd-cryptsetup
-
-systemd_cryptsetup_SOURCES = \
-	src/cryptsetup/cryptsetup.c
-
-systemd_cryptsetup_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(LIBCRYPTSETUP_CFLAGS)
-
-systemd_cryptsetup_LDADD = \
-	libsystemd-label.la \
-	libudev-internal.la \
-	libsystemd-shared.la \
-	$(LIBCRYPTSETUP_LIBS)
-
-endif
 
 # ------------------------------------------------------------------------------
 if ENABLE_KDBUS
