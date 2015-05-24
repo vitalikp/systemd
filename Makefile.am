@@ -3401,9 +3401,6 @@ if HAVE_LIBCRYPTSETUP
 rootlibexec_PROGRAMS += \
 	systemd-cryptsetup
 
-systemgenerator_PROGRAMS += \
-	systemd-cryptsetup-generator
-
 dist_systemunit_DATA += \
 	units/cryptsetup.target
 
@@ -3419,13 +3416,6 @@ systemd_cryptsetup_LDADD = \
 	libudev-internal.la \
 	libsystemd-shared.la \
 	$(LIBCRYPTSETUP_LIBS)
-
-systemd_cryptsetup_generator_SOURCES = \
-	src/cryptsetup/cryptsetup-generator.c
-
-systemd_cryptsetup_generator_LDADD = \
-	libsystemd-label.la \
-	libsystemd-shared.la
 
 SYSINIT_TARGET_WANTS += \
 	cryptsetup.target

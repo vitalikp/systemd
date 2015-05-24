@@ -48,7 +48,6 @@
 /systemd-coredump
 /systemd-coredumpctl
 /systemd-cryptsetup
-/systemd-cryptsetup-generator
 /systemd-dbus1-generator
 /systemd-delta
 /systemd-detect-virt

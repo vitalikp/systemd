@@ -37,6 +37,7 @@ NEW CHANGES:
              (+) move ata_id to separate module udev;
              (+) move collect to separate module udev;
              (+) move scsi_id to separate module udev;
+             (+) remove systemd-cryptsetup-generator program;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;
