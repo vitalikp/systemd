@@ -187,7 +187,6 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/src/libsystemd/sd-bus \
 	-I $(top_srcdir)/src/libsystemd/sd-event \
 	-I $(top_srcdir)/src/libsystemd/sd-rtnl \
-	-I $(top_srcdir)/src/libsystemd-network \
 	$(OUR_CPPFLAGS)
 
 AM_CFLAGS = $(OUR_CFLAGS)
@@ -2374,41 +2373,6 @@ busctl_LDADD = \
 busctl_CFLAGS = \
 	$(AM_CFLAGS) \
 	$(CAP_CFLAGS)
-
-# ------------------------------------------------------------------------------
-noinst_LTLIBRARIES += \
-	libsystemd-network.la
-
-libsystemd_network_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(KMOD_CFLAGS)
-
-libsystemd_network_la_SOURCES = \
-	src/systemd/sd-network.h \
-	src/systemd/sd-dhcp-client.h \
-	src/systemd/sd-dhcp-lease.h \
-	src/systemd/sd-ipv4ll.h \
-	src/libsystemd-network/sd-dhcp-client.c \
-	src/libsystemd-network/dhcp-network.c \
-	src/libsystemd-network/dhcp-option.c \
-	src/libsystemd-network/dhcp-packet.c \
-	src/libsystemd-network/dhcp-internal.h \
-	src/libsystemd-network/dhcp-protocol.h \
-	src/libsystemd-network/dhcp-lease-internal.h \
-	src/libsystemd-network/sd-dhcp-lease.c \
-	src/libsystemd-network/sd-ipv4ll.c \
-	src/libsystemd-network/ipv4ll-network.c \
-	src/libsystemd-network/ipv4ll-packet.c \
-	src/libsystemd-network/ipv4ll-internal.h \
-	src/libsystemd-network/network-internal.c \
-	src/libsystemd-network/network-internal.h
-
-libsystemd_network_la_LIBADD = \
-	libudev-internal.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	$(KMOD_LIBS)
 
 # ------------------------------------------------------------------------------
 INSTALL_DIRS += \

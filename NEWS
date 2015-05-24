@@ -72,6 +72,7 @@ NEW CHANGES:
              (+) remove rule-syntax-check.py test util;
              (+) move libudev-core to separate module udev;
              (+) move libudev to separate module udev;
+             (+) remove libsystemd-network;
 
 CHANGES WITH 214:
 
