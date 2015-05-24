@@ -112,7 +112,6 @@
 /test-daemon
 /test-date
 /test-device-nodes
-/test-dhcp-client
 /test-resolve
 /test-ellipsize
 /test-engine

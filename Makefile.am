@@ -2418,18 +2418,6 @@ libsystemd_network_la_LIBADD = \
 	libsystemd-shared.la \
 	$(KMOD_LIBS)
 
-test_dhcp_client_SOURCES = \
-	src/systemd/sd-dhcp-client.h \
-	src/libsystemd-network/dhcp-protocol.h \
-	src/libsystemd-network/dhcp-internal.h \
-	src/libsystemd-network/test-dhcp-client.c
-
-test_dhcp_client_LDADD = \
-	libsystemd-network.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
 test_ipv4ll_SOURCES = \
 	src/systemd/sd-ipv4ll.h \
 	src/libsystemd-network/ipv4ll-internal.h \
@@ -2442,7 +2430,6 @@ test_ipv4ll_LDADD = \
 	libsystemd-shared.la
 
 tests += \
-	test-dhcp-client \
 	test-ipv4ll
 
 # ------------------------------------------------------------------------------
