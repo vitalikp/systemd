@@ -426,11 +426,6 @@ Features:
 
 * currently x-systemd.timeout is lost in the initrd, since crypttab is copied into dracut, but fstab is not
 
-* cryptsetup:
-  - move cryptsetup key caching into kernel keyctl?
-    https://bugs.freedesktop.org/show_bug.cgi?id=54982
-  - support rd.luks.allow-discards= kernel cmdline params in cryptsetup generator
-
 * hw watchdog: optionally try to use the preset watchdog timeout instead of always overriding it
   https://bugs.freedesktop.org/show_bug.cgi?id=54712
 
