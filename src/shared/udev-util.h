@@ -21,7 +21,8 @@
   along with systemd; If not, see <http://www.gnu.org/licenses/>.
 ***/
 
-#include "udev.h"
+#include <libudev.h>
+
 #include "util.h"
 
 DEFINE_TRIVIAL_CLEANUP_FUNC(struct udev*, udev_unref);
