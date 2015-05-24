@@ -123,7 +123,6 @@
 /test-inhibit
 /test-install
 /test-ipcrm
-/test-ipv4ll
 /test-job-type
 /test-journal
 /test-journal-enum

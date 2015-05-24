@@ -2418,20 +2418,6 @@ libsystemd_network_la_LIBADD = \
 	libsystemd-shared.la \
 	$(KMOD_LIBS)
 
-test_ipv4ll_SOURCES = \
-	src/systemd/sd-ipv4ll.h \
-	src/libsystemd-network/ipv4ll-internal.h \
-	src/libsystemd-network/test-ipv4ll.c
-
-test_ipv4ll_LDADD = \
-	libsystemd-network.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-tests += \
-	test-ipv4ll
-
 # ------------------------------------------------------------------------------
 include_HEADERS += \
 	src/libudev/libudev.h

@@ -46,6 +46,7 @@ NEW CHANGES:
              (+) remove test-libudev-sym;
              (+) remove test-dhcp-option;
              (+) remove test-dhcp-client;
+             (+) remove test-ipv4ll;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
