@@ -2543,8 +2543,6 @@
 
 <varlistentry><term><command>busctl</command></term><listitem><para><citerefentry><refentrytitle>busctl</refentrytitle><manvolnum>1</manvolnum></citerefentry></para></listitem></varlistentry>
 
-<varlistentry><term><filename>cryptsetup.target</filename></term><listitem><para><citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
-
 <varlistentry><term><filename>ctrl-alt-del.target</filename></term><listitem><para><citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>
 
 <varlistentry><term><filename>dbus.service</filename></term><listitem><para><citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry></para></listitem></varlistentry>

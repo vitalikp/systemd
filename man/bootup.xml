@@ -124,13 +124,13 @@
 <programlisting>local-fs-pre.target
          |
          v
-(various mounts and   (various swap   (various cryptsetup
- fsck services...)     devices...)        devices...)       (various low-level   (various low-level
-         |                  |                  |             services: udevd,     API VFS mounts:
-         v                  v                  v             tmpfiles, random     mqueue, configfs,
-  local-fs.target      swap.target     cryptsetup.target    seed, sysctl, ...)      debugfs, ...)
-         |                  |                  |                    |                    |
-         \__________________|_________________ | ___________________|____________________/
+(various mounts and   (various swap
+ fsck services...)     devices...)        (various low-level   (various low-level
+         |                  |              services: udevd,     API VFS mounts:
+         v                  v              tmpfiles, random     mqueue, configfs,
+  local-fs.target      swap.target        seed, sysctl, ...)      debugfs, ...)
+         |                  |                  |                    |
+         \__________________|_________________ | ___________________/
                                               \|/
                                                v
                                         sysinit.target
@@ -277,8 +277,8 @@
 <programlisting>                                  (conflicts with  (conflicts with
                                     all system     all file system
                                      services)     mounts, swaps,
-                                         |           cryptsetup
                                          |          devices, ...)
+                                         |                |
                                          |                |
                                          v                v
                                   shutdown.target    umount.target

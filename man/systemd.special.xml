@@ -51,7 +51,6 @@
                 <para><filename>basic.target</filename>,
                 <filename>bluetooth.target</filename>,
                 <filename>ctrl-alt-del.target</filename>,
-                <filename>cryptsetup.target</filename>,
                 <filename>dbus.service</filename>,
                 <filename>dbus.socket</filename>,
                 <filename>default.target</filename>,
@@ -152,15 +151,6 @@
                                         should be aliased (symlinked)
                                         to
                                         <filename>reboot.target</filename>.</para>
-                                </listitem>
-                        </varlistentry>
-                        <varlistentry>
-                                <term><filename>cryptsetup.target</filename></term>
-                                <listitem>
-                                        <para>A target that pulls in
-                                        setup services for all
-                                        encrypted block
-                                        devices.</para>
                                 </listitem>
                         </varlistentry>
                         <varlistentry>
