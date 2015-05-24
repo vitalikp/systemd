@@ -35,10 +35,6 @@ SUBDIRS = . po
 # Keep the test-suite.log
 .PRECIOUS: $(TEST_SUITE_LOG) Makefile
 
-LIBUDEV_CURRENT=5
-LIBUDEV_REVISION=1
-LIBUDEV_AGE=4
-
 LIBGUDEV_CURRENT=2
 LIBGUDEV_REVISION=0
 LIBGUDEV_AGE=2
@@ -188,7 +184,6 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/src/systemd \
 	-I $(top_builddir)/src/core \
 	-I $(top_srcdir)/src/core \
-	-I $(top_srcdir)/src/libudev \
 	-I $(top_srcdir)/src/libsystemd/sd-bus \
 	-I $(top_srcdir)/src/libsystemd/sd-event \
 	-I $(top_srcdir)/src/libsystemd/sd-rtnl \
@@ -2414,70 +2409,6 @@ libsystemd_network_la_LIBADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la \
 	$(KMOD_LIBS)
-
-# ------------------------------------------------------------------------------
-include_HEADERS += \
-	src/libudev/libudev.h
-
-lib_LTLIBRARIES += \
-	libudev.la
-
-libudev_la_SOURCES =\
-	src/libudev/libudev.sym \
-	src/libudev/libudev-private.h \
-	src/libudev/libudev.c \
-	src/libudev/libudev-list.c \
-	src/libudev/libudev-util.c \
-	src/libudev/libudev-device.c \
-	src/libudev/libudev-enumerate.c \
-	src/libudev/libudev-monitor.c \
-	src/libudev/libudev-queue.c \
-	src/libudev/libudev-hwdb-def.h \
-	src/libudev/libudev-hwdb.c
-
-libudev_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	-fvisibility=hidden
-
-libudev_la_LDFLAGS = \
-	$(AM_LDFLAGS) \
-	-version-info $(LIBUDEV_CURRENT):$(LIBUDEV_REVISION):$(LIBUDEV_AGE) \
-	-Wl,--version-script=$(top_srcdir)/src/libudev/libudev.sym
-
-libudev_la_LIBADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-pkgconfiglib_DATA += \
-	src/libudev/libudev.pc
-
-EXTRA_DIST += \
-	src/libudev/libudev.pc.in
-
-CLEANFILES += \
-	src/libudev/libudev.pc
-
-# move lib from $(libdir) to $(rootlibdir) and update devel link, if needed
-libudev-install-hook:
-	libname=libudev.so && $(move-to-rootlibdir)
-
-libudev-uninstall-hook:
-	rm -f $(DESTDIR)$(rootlibdir)/libudev.so*
-
-INSTALL_EXEC_HOOKS += libudev-install-hook
-UNINSTALL_EXEC_HOOKS += libudev-uninstall-hook
-
-# ------------------------------------------------------------------------------
-noinst_LTLIBRARIES += \
-	libudev-internal.la
-
-libudev_internal_la_SOURCES =\
-	$(libudev_la_SOURCES) \
-	src/libudev/libudev-device-private.c
-
-libudev_internal_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	-fvisibility=default
 
 # ------------------------------------------------------------------------------
 INSTALL_DIRS += \

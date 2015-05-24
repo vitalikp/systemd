@@ -71,6 +71,7 @@ NEW CHANGES:
              (+) remove udev firmware loading support;
              (+) remove rule-syntax-check.py test util;
              (+) move libudev-core to separate module udev;
+             (+) move libudev to separate module udev;
 
 CHANGES WITH 214:
 
