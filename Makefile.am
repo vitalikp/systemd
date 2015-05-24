@@ -2612,23 +2612,6 @@ libudev_core_la_SOURCES += \
 endif
 
 # ------------------------------------------------------------------------------
-scsi_id_SOURCES =\
-	src/udev/scsi_id/scsi_id.c \
-	src/udev/scsi_id/scsi_serial.c \
-	src/udev/scsi_id/scsi.h \
-	src/udev/scsi_id/scsi_id.h
-
-scsi_id_LDADD = \
-	libudev-internal.la \
-	libsystemd-shared.la
-
-udevlibexec_PROGRAMS += \
-	scsi_id
-
-EXTRA_DIST += \
-	src/udev/scsi_id/README
-
-# ------------------------------------------------------------------------------
 if ENABLE_GUDEV
 libgudev_includedir = \
 	$(includedir)/gudev-1.0/gudev

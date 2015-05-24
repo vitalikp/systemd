@@ -30,7 +30,6 @@
 /libsystemd-*.c
 /libtool
 /loginctl
-/scsi_id
 /systemadm
 /systemctl
 /systemd

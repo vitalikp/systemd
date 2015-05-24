@@ -36,6 +36,7 @@ NEW CHANGES:
              (+) move mtd_probe to separate module udev;
              (+) move ata_id to separate module udev;
              (+) move collect to separate module udev;
+             (+) move scsi_id to separate module udev;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;
