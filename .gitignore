@@ -113,7 +113,6 @@
 /test-date
 /test-device-nodes
 /test-dhcp-client
-/test-dhcp-option
 /test-resolve
 /test-ellipsize
 /test-engine

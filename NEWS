@@ -44,6 +44,7 @@ NEW CHANGES:
              (+) move test-libudev to separate module udev;
              (+) remove rules-test.sh;
              (+) remove test-libudev-sym;
+             (+) remove test-dhcp-option;
         * units:
              (+) add sysctl service;
              (+) remove systemd-sysctl service;
