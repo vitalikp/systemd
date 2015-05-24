@@ -21,7 +21,6 @@
 /bootctl
 /build-aux
 /busctl
-/collect
 /coverage/
 /defined
 /exported

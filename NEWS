@@ -35,6 +35,7 @@ NEW CHANGES:
              (+) move accelerometer to separate module udev;
              (+) move mtd_probe to separate module udev;
              (+) move ata_id to separate module udev;
+             (+) move collect to separate module udev;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;

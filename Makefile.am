@@ -2612,17 +2612,6 @@ libudev_core_la_SOURCES += \
 endif
 
 # ------------------------------------------------------------------------------
-collect_SOURCES = \
-	src/udev/collect/collect.c
-
-collect_LDADD = \
-	libudev-internal.la \
-	libsystemd-shared.la
-
-udevlibexec_PROGRAMS += \
-	collect
-
-# ------------------------------------------------------------------------------
 scsi_id_SOURCES =\
 	src/udev/scsi_id/scsi_id.c \
 	src/udev/scsi_id/scsi_serial.c \
