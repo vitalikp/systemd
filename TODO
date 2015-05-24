@@ -427,7 +427,6 @@ Features:
 * currently x-systemd.timeout is lost in the initrd, since crypttab is copied into dracut, but fstab is not
 
 * cryptsetup:
-  - cryptsetup-generator: allow specification of passwords in crypttab itself
   - move cryptsetup key caching into kernel keyctl?
     https://bugs.freedesktop.org/show_bug.cgi?id=54982
   - support rd.luks.allow-discards= kernel cmdline params in cryptsetup generator
