@@ -4088,10 +4088,6 @@ upload: all check dist
 
 .PHONY: doc-sync
 doc-sync: all destdir-sphinx
-	gtkdoc-rebase --html-dir=docs/libudev/html --online
-	rsync -rlv --delete docs/libudev/html/ --omit-dir-times $(www_target)/libudev/
-	gtkdoc-rebase --html-dir=docs/gudev/html --online
-	rsync -rlv --delete docs/gudev/html/ --omit-dir-times $(www_target)/gudev/
 	rsync -rlv --delete-excluded --include="*.html" --exclude="*" --omit-dir-times man/ $(www_target)/man/
 	rsync -rlv --delete --omit-dir-times docs/html/python-systemd/ $(www_target)/python-systemd/
 
