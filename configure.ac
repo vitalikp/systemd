@@ -199,6 +199,8 @@ AC_CHECK_SIZEOF(rlim_t,,[
        #include <sys/resource.h>
 ])
 
+PKG_CHECK_MODULES(LIBUDEV, libudev)
+
 # ------------------------------------------------------------------------------
 # we use python to build the man page index, and for systemd-python
 have_python=no

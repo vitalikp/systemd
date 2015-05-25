@@ -1009,6 +1009,7 @@ nodist_libsystemd_core_la_SOURCES = \
 
 libsystemd_core_la_CFLAGS = \
 	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS) \
 	$(PAM_CFLAGS) \
 	$(AUDIT_CFLAGS) \
 	$(CAP_CFLAGS) \
@@ -1021,7 +1022,7 @@ libsystemd_core_la_LIBADD = \
 	libsystemd-capability.la \
 	libsystemd-units.la \
 	libsystemd-label.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la \
 	libsystemd-internal.la \
 	$(PAM_LIBS) \
@@ -1605,9 +1606,13 @@ systemd_shutdown_SOURCES = \
 	src/core/killall.h \
 	src/core/killall.c
 
+systemd_shutdown_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(UDEV_FLAGS)
+
 systemd_shutdown_LDADD = \
 	libsystemd-label.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
@@ -1722,17 +1727,25 @@ systemd_sleep_LDADD = \
 systemd_fsck_SOURCES = \
 	src/fsck/fsck.c
 
+systemd_fsck_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 systemd_fsck_LDADD = \
 	libsystemd-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
 systemd_ac_power_SOURCES = \
 	src/ac-power/ac-power.c
 
+systemd_ac_power_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 systemd_ac_power_LDADD = \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
@@ -2444,10 +2457,11 @@ libgudev_1_0_la_CPPFLAGS = \
 libgudev_1_0_la_CFLAGS = \
 	$(AM_CFLAGS) \
 	-fvisibility=default \
+	$(LIBUDEV_CFLAGS) \
 	$(GLIB_CFLAGS)
 
 libgudev_1_0_la_LIBADD = \
-	libudev.la \
+	$(LIBUDEV_LIBS) \
 	$(GLIB_LIBS)
 
 libgudev_1_0_la_LDFLAGS = \
@@ -2733,9 +2747,13 @@ libsystemd_journal_core_la_SOURCES = \
 nodist_libsystemd_journal_core_la_SOURCES = \
 	src/journal/journald-gperf.c
 
+libsystemd_journal_core_la_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 libsystemd_journal_core_la_LIBADD = \
 	libsystemd-journal-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-capability.la \
 	libsystemd-label.la \
 	libsystemd-internal.la \
@@ -3026,9 +3044,13 @@ systemd_readahead_SOURCES = \
 	src/readahead/readahead-common.c \
 	src/readahead/readahead-common.h
 
+systemd_readahead_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 systemd_readahead_LDADD = \
 	libsystemd-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 dist_doc_DATA += \
@@ -3055,9 +3077,13 @@ test_ssd_SOURCES = \
 	src/readahead/readahead-common.c \
 	src/readahead/readahead-common.h
 
+test_ssd_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 test_ssd_LDADD = \
 	libsystemd-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 endif
@@ -3143,9 +3169,13 @@ nodist_systemunit_DATA += \
 systemd_backlight_SOURCES = \
 	src/backlight/backlight.c
 
+systemd_backlight_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 systemd_backlight_LDADD = \
 	libsystemd-label.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 endif
 
@@ -3163,9 +3193,13 @@ nodist_systemunit_DATA += \
 systemd_rfkill_SOURCES = \
 	src/rfkill/rfkill.c
 
+systemd_rfkill_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 systemd_rfkill_LDADD = \
 	libsystemd-label.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 endif
 
@@ -3239,11 +3273,15 @@ libsystemd_logind_core_la_SOURCES = \
 	src/login/logind-seat-dbus.c \
 	src/login/logind-user-dbus.c
 
+libsystemd_logind_core_la_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 libsystemd_logind_core_la_LIBADD = \
 	libsystemd-label.la \
 	libsystemd-capability.la \
 	libsystemd-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 noinst_LTLIBRARIES += \
@@ -3263,9 +3301,13 @@ loginctl_SOURCES = \
 	src/login/loginctl.c \
 	src/login/sysfs-show.c
 
+loginctl_CFLAGS = \
+	$(AM_CFLAGS) \
+	$(LIBUDEV_CFLAGS)
+
 loginctl_LDADD = \
 	libsystemd-internal.la \
-	libudev-internal.la \
+	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
 rootbin_PROGRAMS += \
