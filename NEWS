@@ -73,6 +73,7 @@ NEW CHANGES:
              (+) move libudev-core to separate module udev;
              (+) move libudev to separate module udev;
              (+) remove libsystemd-network;
+             (+) move libgudev to separate module libgudev;
 
 CHANGES WITH 214:
 

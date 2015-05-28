@@ -825,14 +825,6 @@ fi
 AM_CONDITIONAL(HAVE_MYHOSTNAME, [test "$have_myhostname" = "yes"])
 
 # ------------------------------------------------------------------------------
-AC_ARG_ENABLE([gudev],
-       AS_HELP_STRING([--disable-gudev], [disable Gobject libudev support @<:@default=enabled@:>@]),
-       [], [enable_gudev=yes])
-AS_IF([test "x$enable_gudev" = "xyes"], [ PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.22.0 gobject-2.0 >= 2.22.0 gio-2.0]) ])
-AM_CONDITIONAL([ENABLE_GUDEV], [test "x$enable_gudev" = "xyes"])
-AS_IF([test "x$enable_gudev" = "xyes"], [ AC_DEFINE(HAVE_GLIB, 1, [Define if glib is available]) ])
-
-# ------------------------------------------------------------------------------
 have_manpages=no
 AC_ARG_ENABLE(manpages, AS_HELP_STRING([--disable-manpages], [disable manpages]))
 AS_IF([test "x$enable_manpages" != xno], [have_manpages=yes])
@@ -996,7 +988,6 @@ AC_MSG_RESULT([
         blkid:                   ${have_blkid}
         dbus:                    ${have_dbus}
         nss-myhostname:          ${have_myhostname}
-        gudev:                   ${enable_gudev}
         gintrospection:          ${enable_introspection}
         multi-seat-x:            ${have_multi_seat_x}
         kdbus:                   ${have_kdbus}
