@@ -64,6 +64,7 @@ NEW CHANGES:
              (+) move systemd-udev-trigger service to separate module udev;
              (+) move systemd-udevd service to separate module udev;
              (+) remove systemd-cryptsetup@ service;
+             (+) move initrd-udevadm-cleanup-db service to separate module udev;
         * targets:
              (+) remove cryptsetup target;
         * other:

@@ -460,7 +460,6 @@ nodist_systemunit_DATA = \
 	units/debug-shell.service \
 	units/initrd-parse-etc.service \
 	units/initrd-cleanup.service \
-	units/initrd-udevadm-cleanup-db.service \
 	units/initrd-switch-root.service
 
 dist_userunit_DATA = \
@@ -502,7 +501,6 @@ EXTRA_DIST += \
 	units/quotaon.service.in \
 	units/initrd-parse-etc.service.in \
 	units/initrd-cleanup.service.in \
-	units/initrd-udevadm-cleanup-db.service.in \
 	units/initrd-switch-root.service.in
 
 CLEANFILES += \

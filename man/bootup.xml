@@ -246,8 +246,8 @@
                                                |
                                                v
                         ______________________/|
-                       /                       v
-                       |        initrd-udevadm-cleanup-db.service
+                       /                       |
+                       |                       |
                        v                       |
                 (custom initrd                 |
                  services...)                  |
