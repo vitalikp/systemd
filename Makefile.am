@@ -763,7 +763,6 @@ libsystemd_shared_la_SOURCES = \
 	src/shared/condition-util.h \
 	src/shared/bus-label.c \
 	src/shared/bus-label.h \
-	src/shared/gpt.h \
 	src/shared/generator.h \
 	src/shared/generator.c \
 	src/shared/clean-ipc.h \
