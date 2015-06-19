@@ -4986,161 +4986,6 @@ static int import_environment(sd_bus *bus, char **args) {
         return 0;
 }
 
-static int enable_sysv_units(const char *verb, char **args) {
-        int r = 0;
-
-#if defined(HAVE_SYSV_COMPAT) && defined(HAVE_CHKCONFIG)
-        unsigned f = 1, t = 1;
-        _cleanup_lookup_paths_free_ LookupPaths paths = {};
-
-        if (arg_scope != UNIT_FILE_SYSTEM)
-                return 0;
-
-        if (!streq(verb, "enable") &&
-            !streq(verb, "disable") &&
-            !streq(verb, "is-enabled"))
-                return 0;
-
-        /* Processes all SysV units, and reshuffles the array so that
-         * afterwards only the native units remain */
-
-        r = lookup_paths_init(&paths, SYSTEMD_SYSTEM, false, arg_root, NULL, NULL, NULL);
-        if (r < 0)
-                return r;
-
-        r = 0;
-        for (f = 0; args[f]; f++) {
-                const char *name;
-                _cleanup_free_ char *p = NULL, *q = NULL, *l = NULL;
-                bool found_native = false, found_sysv;
-                unsigned c = 1;
-                const char *argv[6] = { "/sbin/chkconfig", NULL, NULL, NULL, NULL };
-                char **k;
-                int j;
-                pid_t pid;
-                siginfo_t status;
-
-                name = args[f];
-
-                if (!endswith(name, ".service"))
-                        continue;
-
-                if (path_is_absolute(name))
-                        continue;
-
-                STRV_FOREACH(k, paths.unit_path) {
-                        _cleanup_free_ char *path = NULL;
-
-                        if (!isempty(arg_root))
-                                asprintf(&path, "%s/%s/%s", arg_root, *k, name);
-                        else
-                                asprintf(&path, "%s/%s", *k, name);
-
-                        if (!path) {
-                                r = log_oom();
-                                goto finish;
-                        }
-
-                        found_native = access(path, F_OK) >= 0;
-                        if (found_native)
-                                break;
-                }
-
-                if (found_native)
-                        continue;
-
-                if (!isempty(arg_root))
-                        asprintf(&p, "%s/" SYSTEM_SYSVINIT_PATH "/%s", arg_root, name);
-                else
-                        asprintf(&p, SYSTEM_SYSVINIT_PATH "/%s", name);
-                if (!p) {
-                        r = log_oom();
-                        goto finish;
-                }
-
-                p[strlen(p) - strlen(".service")] = 0;
-                found_sysv = access(p, F_OK) >= 0;
-                if (!found_sysv)
-                        continue;
-
-                /* Mark this entry, so that we don't try enabling it as native unit */
-                args[f] = (char*) "";
-
-                log_info("%s is not a native service, redirecting to /sbin/chkconfig.", name);
-
-                if (!isempty(arg_root))
-                        argv[c++] = q = strappend("--root=", arg_root);
-
-                argv[c++] = basename(p);
-                argv[c++] =
-                        streq(verb, "enable") ? "on" :
-                        streq(verb, "disable") ? "off" : "--level=5";
-                argv[c] = NULL;
-
-                l = strv_join((char**)argv, " ");
-                if (!l) {
-                        r = log_oom();
-                        goto finish;
-                }
-
-                log_info("Executing %s", l);
-
-                pid = fork();
-                if (pid < 0) {
-                        log_error("Failed to fork: %m");
-                        r = -errno;
-                        goto finish;
-                } else if (pid == 0) {
-                        /* Child */
-
-                        execv(argv[0], (char**) argv);
-                        _exit(EXIT_FAILURE);
-                }
-
-                j = wait_for_terminate(pid, &status);
-                if (j < 0) {
-                        log_error("Failed to wait for child: %s", strerror(-r));
-                        r = j;
-                        goto finish;
-                }
-
-                if (status.si_code == CLD_EXITED) {
-                        if (streq(verb, "is-enabled")) {
-                                if (status.si_status == 0) {
-                                        if (!arg_quiet)
-                                                puts("enabled");
-                                        r = 1;
-                                } else {
-                                        if (!arg_quiet)
-                                                puts("disabled");
-                                }
-
-                        } else if (status.si_status != 0) {
-                                r = -EINVAL;
-                                goto finish;
-                        }
-                } else {
-                        r = -EPROTO;
-                        goto finish;
-                }
-        }
-
-finish:
-        /* Drop all SysV units */
-        for (f = 0, t = 0; args[f]; f++) {
-
-                if (isempty(args[f]))
-                        continue;
-
-                args[t++] = args[f];
-        }
-
-        args[t] = NULL;
-
-#endif
-        return r;
-}
-
 static int mangle_names(char **original_names, char ***mangled_names) {
         char **i, **l, **name;
 
@@ -5187,15 +5032,6 @@ static int enable_unit(sd_bus *bus, char **args) {
         r = mangle_names(args+1, &names);
         if (r < 0)
                 return r;
-
-        r = enable_sysv_units(verb, names);
-        if (r < 0)
-                return r;
-
-        /* If the operation was fully executed by the SysV compat,
-         * let's finish early */
-        if (strv_isempty(names))
-                return 0;
 
         if (!bus || avoid_bus()) {
                 if (streq(verb, "enable")) {
@@ -5331,12 +5167,6 @@ static int unit_is_enabled(sd_bus *bus, char **args) {
         r = mangle_names(args+1, &names);
         if (r < 0)
                 return r;
-
-        r = enable_sysv_units(args[0], names);
-        if (r < 0)
-                return r;
-
-        enabled = r > 0;
 
         if (!bus || avoid_bus()) {
 

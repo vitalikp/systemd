@@ -856,24 +856,6 @@ endif</programlisting>
                         a package version that ships both a SysV init
                         script and a native systemd service file, use
                         a fragment like the following:</para>
-
-                        <programlisting>%triggerun -- foobar &lt; 0.47.11-1
-if /sbin/chkconfig --level 5 foobar ; then
-        /bin/systemctl --no-reload enable foobar.service foobar.socket >/dev/null 2>&amp;1 || :
-fi</programlisting>
-
-                        <para>Where 0.47.11-1 is the first package
-                        version that includes the native unit
-                        file. This fragment will ensure that the first
-                        time the unit file is installed, it will be
-                        enabled if and only if the SysV init script is
-                        enabled, thus making sure that the enable
-                        status is not changed. Note that
-                        <command>chkconfig</command> is a command
-                        specific to Fedora which can be used to check
-                        whether a SysV init script is enabled. Other
-                        operating systems will have to use different
-                        commands here.</para>
                 </refsect2>
         </refsect1>
 
