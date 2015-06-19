@@ -349,7 +349,6 @@ dist_bashcompletion_DATA = \
 	shell-completion/bash/journalctl \
 	shell-completion/bash/systemctl \
 	shell-completion/bash/systemd-analyze \
-	shell-completion/bash/systemd-cat \
 	shell-completion/bash/systemd-cgls \
 	shell-completion/bash/systemd-cgtop \
 	shell-completion/bash/systemd-delta \
@@ -2427,12 +2426,6 @@ systemd_journald_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
-systemd_cat_SOURCES = \
-	src/journal/cat.c
-
-systemd_cat_LDADD = \
-	libsystemd-journal-core.la
-
 if HAVE_MICROHTTPD
 rootlibexec_PROGRAMS += \
 	systemd-journal-remote
@@ -2711,9 +2704,6 @@ rootlibexec_PROGRAMS += \
 
 rootbin_PROGRAMS += \
 	journalctl
-
-bin_PROGRAMS += \
-	systemd-cat
 
 dist_systemunit_DATA += \
 	units/systemd-journald.socket

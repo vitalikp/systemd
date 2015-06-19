@@ -41,7 +41,6 @@
 /systemd-binfmt
 /systemd-bootchart
 /systemd-bus-proxyd
-/systemd-cat
 /systemd-cgls
 /systemd-cgroups-agent
 /systemd-cgtop

@@ -1,4 +1,4 @@
-#compdef systemd-cat systemd-ask-password systemd-cgls systemd-cgtop systemd-detect-virt systemd-machine-id-setup systemd-notify systemd-tty-ask-password-agent
+#compdef systemd-ask-password systemd-cgls systemd-cgtop systemd-detect-virt systemd-machine-id-setup systemd-notify systemd-tty-ask-password-agent
 
 local curcontext="$curcontext" state lstate line
 case "$service" in
@@ -10,15 +10,6 @@ case "$service" in
             '--no-tty[Ask question via agent even on TTY]' \
             '--accept-cached[Accept cached passwords]' \
             '--multiple[List multiple passwords if available]'
-    ;;
-    systemd-cat)
-        _arguments \
-            {-h,--help}'[Show this help]' \
-            '--version[Show package version.]' \
-            {-t+,--identifier=}'[Set syslog identifier.]' \
-            {-p+,--priority=}'[Set priority value.]:value:({0..7})' \
-            '--level-prefix=[Control whether level prefix shall be parsed.]:boolean:(1 0)' \
-            ':Message'
     ;;
     systemd-cgls)
         _arguments \

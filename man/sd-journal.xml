@@ -88,10 +88,7 @@
                 for more information about the functions
                 implemented.</para>
 
-                <para>Command line access for submitting entries to
-                the journal is available with the
-                <citerefentry><refentrytitle>systemd-cat</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                tool. Command line access for querying entries from
+                <para>Command line access for querying entries from
                 the journal is available with the
                 <citerefentry><refentrytitle>journalctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 tool.</para>
