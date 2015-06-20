@@ -87,6 +87,7 @@ NEW CHANGES:
              (+) remove sysvrcnd path;
              (+) remove sysv priority;
              (+) remove forcequotacheck option;
+             (+) remove fsck options fastboot and forcefsck;
 
 CHANGES WITH 214:
 
