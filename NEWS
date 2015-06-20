@@ -83,6 +83,7 @@ NEW CHANGES:
              (+) remove libsystemd-network;
              (+) move libgudev to separate module libgudev;
              (+) remove chkconfig support;
+             (+) remove sysvinit path;
 
 CHANGES WITH 214:
 

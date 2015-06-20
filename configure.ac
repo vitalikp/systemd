@@ -795,14 +795,7 @@ AM_CONDITIONAL(ENABLE_MANPAGES, [test "x$have_manpages" = "xyes"])
 # ------------------------------------------------------------------------------
 
 # Location of the init scripts as mandated by LSB
-SYSTEM_SYSVINIT_PATH=/etc/init.d
 SYSTEM_SYSVRCND_PATH=/etc/rc.d
-
-AC_ARG_WITH([sysvinit-path],
-        [AS_HELP_STRING([--with-sysvinit-path=PATH],
-                [Specify the path to where the SysV init scripts are located])],
-        [SYSTEM_SYSVINIT_PATH="$withval"],
-        [])
 
 AC_ARG_WITH([sysvrcnd-path],
         [AS_HELP_STRING([--with-sysvrcnd-path=PATH],
@@ -810,17 +803,14 @@ AC_ARG_WITH([sysvrcnd-path],
         [SYSTEM_SYSVRCND_PATH="$withval"],
         [])
 
-if test "x${SYSTEM_SYSVINIT_PATH}" != "x" -a "x${SYSTEM_SYSVRCND_PATH}" != "x"; then
+if test "x${SYSTEM_SYSVRCND_PATH}" != "x"; then
         AC_DEFINE(HAVE_SYSV_COMPAT, [], [SysV init scripts and rcN.d links are supported.])
         SYSTEM_SYSV_COMPAT="yes"
         M4_DEFINES="$M4_DEFINES -DHAVE_SYSV_COMPAT"
-elif test "x${SYSTEM_SYSVINIT_PATH}" != "x" -o "x${SYSTEM_SYSVRCND_PATH}" != "x"; then
-        AC_MSG_ERROR([*** You need both --with-sysvinit-path=PATH and --with-sysvrcnd-path=PATH to enable SysV compatibility support, or both empty to disable it.])
 else
         SYSTEM_SYSV_COMPAT="no"
 fi
 
-AC_SUBST(SYSTEM_SYSVINIT_PATH)
 AC_SUBST(SYSTEM_SYSVRCND_PATH)
 AC_SUBST(M4_DEFINES)
 
@@ -968,7 +958,6 @@ AC_MSG_RESULT([
         include_prefix:          ${INCLUDE_PREFIX}
         lib dir:                 ${libdir}
         rootlib dir:             ${with_rootlibdir}
-        SysV init scripts:       ${SYSTEM_SYSVINIT_PATH}
         SysV rc?.d directories:  ${SYSTEM_SYSVRCND_PATH}
         Build Python:            ${PYTHON}
         Installation Python:     ${PYTHON_BINARY}

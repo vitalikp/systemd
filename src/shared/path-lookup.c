@@ -300,25 +300,6 @@ int lookup_paths_init(
 
         if (running_as == SYSTEMD_SYSTEM) {
 #ifdef HAVE_SYSV_COMPAT
-                /* /etc/init.d/ compatibility does not matter to users */
-
-                e = getenv("SYSTEMD_SYSVINIT_PATH");
-                if (e) {
-                        p->sysvinit_path = path_split_and_make_absolute(e);
-                        if (!p->sysvinit_path)
-                                return -ENOMEM;
-                } else
-                        p->sysvinit_path = NULL;
-
-                if (strv_isempty(p->sysvinit_path)) {
-                        strv_free(p->sysvinit_path);
-
-                        p->sysvinit_path = strv_new(
-                                        SYSTEM_SYSVINIT_PATH,     /* /etc/init.d/ */
-                                        NULL);
-                        if (!p->sysvinit_path)
-                                return -ENOMEM;
-                }
 
                 e = getenv("SYSTEMD_SYSVRCND_PATH");
                 if (e) {
@@ -338,22 +319,8 @@ int lookup_paths_init(
                                 return -ENOMEM;
                 }
 
-                if (!path_strv_canonicalize_absolute_uniq(p->sysvinit_path, root_dir))
-                        return -ENOMEM;
-
                 if (!path_strv_canonicalize_absolute_uniq(p->sysvrcnd_path, root_dir))
                         return -ENOMEM;
-
-                if (!strv_isempty(p->sysvinit_path)) {
-                        _cleanup_free_ char *t = strv_join(p->sysvinit_path, "\n\t");
-                        if (!t)
-                                return -ENOMEM;
-                        log_debug("Looking for SysV init scripts in:\n\t%s", t);
-                } else {
-                        log_debug("Ignoring SysV init scripts.");
-                        strv_free(p->sysvinit_path);
-                        p->sysvinit_path = NULL;
-                }
 
                 if (!strv_isempty(p->sysvrcnd_path)) {
                         _cleanup_free_ char *t =
@@ -382,8 +349,7 @@ void lookup_paths_free(LookupPaths *p) {
         p->unit_path = NULL;
 
 #ifdef HAVE_SYSV_COMPAT
-        strv_free(p->sysvinit_path);
         strv_free(p->sysvrcnd_path);
-        p->sysvinit_path = p->sysvrcnd_path = NULL;
+        p->sysvrcnd_path = NULL;
 #endif
 }

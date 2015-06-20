@@ -69,7 +69,6 @@ polkitpolicydir=$(datadir)/polkit-1/actions
 bashcompletiondir=@bashcompletiondir@
 zshcompletiondir=@zshcompletiondir@
 rpmmacrosdir=$(prefix)/lib/rpm/macros.d
-sysvinitdir=$(SYSTEM_SYSVINIT_PATH)
 sysvrcnddir=$(SYSTEM_SYSVRCND_PATH)
 varlogdir=$(localstatedir)/log
 systemdstatedir=$(localstatedir)/lib/systemd
@@ -148,7 +147,6 @@ AM_CPPFLAGS = \
 	-DPKGSYSCONFDIR=\"$(pkgsysconfdir)\" \
 	-DSYSTEM_CONFIG_UNIT_PATH=\"$(pkgsysconfdir)/system\" \
 	-DSYSTEM_DATA_UNIT_PATH=\"$(systemunitdir)\" \
-	-DSYSTEM_SYSVINIT_PATH=\"$(SYSTEM_SYSVINIT_PATH)\" \
 	-DSYSTEM_SYSVRCND_PATH=\"$(SYSTEM_SYSVRCND_PATH)\" \
 	-DUSER_CONFIG_UNIT_PATH=\"$(pkgsysconfdir)/user\" \
 	-DUSER_DATA_UNIT_PATH=\"$(userunitdir)\" \
@@ -3581,7 +3579,6 @@ substitutions = \
        '|MKDIR_P=$(MKDIR_P)|' \
        '|QUOTAON=$(QUOTAON)|' \
        '|QUOTACHECK=$(QUOTACHECK)|' \
-       '|SYSTEM_SYSVINIT_PATH=$(sysvinitdir)|' \
        '|VARLOGDIR=$(varlogdir)|' \
        '|PYTHON=$(PYTHON)|' \
        '|PYTHON_BINARY=$(PYTHON_BINARY)|' \
@@ -3835,11 +3832,9 @@ DISTCHECK_CONFIGURE_FLAGS = \
 
 if HAVE_SYSV_COMPAT
 DISTCHECK_CONFIGURE_FLAGS += \
-	--with-sysvinit-path=$$dc_install_base/$(sysvinitdir) \
 	--with-sysvrcnd-path=$$dc_install_base/$(sysvrcnddir)
 else
 DISTCHECK_CONFIGURE_FLAGS += \
-	--with-sysvinit-path= \
 	--with-sysvrcnd-path=
 endif
 
