@@ -298,47 +298,6 @@ int lookup_paths_init(
                 p->unit_path = NULL;
         }
 
-        if (running_as == SYSTEMD_SYSTEM) {
-#ifdef HAVE_SYSV_COMPAT
-
-                e = getenv("SYSTEMD_SYSVRCND_PATH");
-                if (e) {
-                        p->sysvrcnd_path = path_split_and_make_absolute(e);
-                        if (!p->sysvrcnd_path)
-                                return -ENOMEM;
-                } else
-                        p->sysvrcnd_path = NULL;
-
-                if (strv_isempty(p->sysvrcnd_path)) {
-                        strv_free(p->sysvrcnd_path);
-
-                        p->sysvrcnd_path = strv_new(
-                                        SYSTEM_SYSVRCND_PATH,     /* /etc/rcN.d/ */
-                                        NULL);
-                        if (!p->sysvrcnd_path)
-                                return -ENOMEM;
-                }
-
-                if (!path_strv_canonicalize_absolute_uniq(p->sysvrcnd_path, root_dir))
-                        return -ENOMEM;
-
-                if (!strv_isempty(p->sysvrcnd_path)) {
-                        _cleanup_free_ char *t =
-                                strv_join(p->sysvrcnd_path, "\n\t");
-                        if (!t)
-                                return -ENOMEM;
-
-                        log_debug("Looking for SysV rcN.d links in:\n\t%s", t);
-                } else {
-                        log_debug("Ignoring SysV rcN.d links.");
-                        strv_free(p->sysvrcnd_path);
-                        p->sysvrcnd_path = NULL;
-                }
-#else
-                log_debug("SysV init scripts and rcN.d links support disabled");
-#endif
-        }
-
         return 0;
 }
 
@@ -347,9 +306,4 @@ void lookup_paths_free(LookupPaths *p) {
 
         strv_free(p->unit_path);
         p->unit_path = NULL;
-
-#ifdef HAVE_SYSV_COMPAT
-        strv_free(p->sysvrcnd_path);
-        p->sysvrcnd_path = NULL;
-#endif
 }

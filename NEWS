@@ -84,6 +84,7 @@ NEW CHANGES:
              (+) move libgudev to separate module libgudev;
              (+) remove chkconfig support;
              (+) remove sysvinit path;
+             (+) remove sysvrcnd path;
 
 CHANGES WITH 214:
 

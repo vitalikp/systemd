@@ -794,24 +794,10 @@ AM_CONDITIONAL(ENABLE_MANPAGES, [test "x$have_manpages" = "xyes"])
 
 # ------------------------------------------------------------------------------
 
-# Location of the init scripts as mandated by LSB
-SYSTEM_SYSVRCND_PATH=/etc/rc.d
+AC_DEFINE(HAVE_SYSV_COMPAT, [], [SysV init scripts and rcN.d links are supported.])
+SYSTEM_SYSV_COMPAT="yes"
+M4_DEFINES="$M4_DEFINES -DHAVE_SYSV_COMPAT"
 
-AC_ARG_WITH([sysvrcnd-path],
-        [AS_HELP_STRING([--with-sysvrcnd-path=PATH],
-                [Specify the path to the base directory for the SysV rcN.d directories])],
-        [SYSTEM_SYSVRCND_PATH="$withval"],
-        [])
-
-if test "x${SYSTEM_SYSVRCND_PATH}" != "x"; then
-        AC_DEFINE(HAVE_SYSV_COMPAT, [], [SysV init scripts and rcN.d links are supported.])
-        SYSTEM_SYSV_COMPAT="yes"
-        M4_DEFINES="$M4_DEFINES -DHAVE_SYSV_COMPAT"
-else
-        SYSTEM_SYSV_COMPAT="no"
-fi
-
-AC_SUBST(SYSTEM_SYSVRCND_PATH)
 AC_SUBST(M4_DEFINES)
 
 AM_CONDITIONAL(HAVE_SYSV_COMPAT, test "$SYSTEM_SYSV_COMPAT" = "yes")
@@ -958,7 +944,6 @@ AC_MSG_RESULT([
         include_prefix:          ${INCLUDE_PREFIX}
         lib dir:                 ${libdir}
         rootlib dir:             ${with_rootlibdir}
-        SysV rc?.d directories:  ${SYSTEM_SYSVRCND_PATH}
         Build Python:            ${PYTHON}
         Installation Python:     ${PYTHON_BINARY}
         sphinx binary:           ${SPHINX_BUILD}

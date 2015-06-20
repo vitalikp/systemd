@@ -929,14 +929,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><varname>$SYSTEMD_SYSVRCND_PATH</varname></term>
-
-                                <listitem><para>Controls where systemd
-                                looks for SysV init script runlevel link
-                                farms.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><varname>$LISTEN_PID</varname></term>
                                 <term><varname>$LISTEN_FDS</varname></term>
 

@@ -69,7 +69,6 @@ polkitpolicydir=$(datadir)/polkit-1/actions
 bashcompletiondir=@bashcompletiondir@
 zshcompletiondir=@zshcompletiondir@
 rpmmacrosdir=$(prefix)/lib/rpm/macros.d
-sysvrcnddir=$(SYSTEM_SYSVRCND_PATH)
 varlogdir=$(localstatedir)/log
 systemdstatedir=$(localstatedir)/lib/systemd
 catalogstatedir=$(systemdstatedir)/catalog
@@ -147,7 +146,6 @@ AM_CPPFLAGS = \
 	-DPKGSYSCONFDIR=\"$(pkgsysconfdir)\" \
 	-DSYSTEM_CONFIG_UNIT_PATH=\"$(pkgsysconfdir)/system\" \
 	-DSYSTEM_DATA_UNIT_PATH=\"$(systemunitdir)\" \
-	-DSYSTEM_SYSVRCND_PATH=\"$(SYSTEM_SYSVRCND_PATH)\" \
 	-DUSER_CONFIG_UNIT_PATH=\"$(pkgsysconfdir)/user\" \
 	-DUSER_DATA_UNIT_PATH=\"$(userunitdir)\" \
 	-DCATALOG_DATABASE=\"$(catalogstatedir)/database\" \
@@ -3829,14 +3827,6 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--disable-split-usr \
 	--enable-kdbus \
 	--enable-compat-libs
-
-if HAVE_SYSV_COMPAT
-DISTCHECK_CONFIGURE_FLAGS += \
-	--with-sysvrcnd-path=$$dc_install_base/$(sysvrcnddir)
-else
-DISTCHECK_CONFIGURE_FLAGS += \
-	--with-sysvrcnd-path=
-endif
 
 # check "broken" platforms limited toolchains for link breakage before we release
 .PHONY: linkcheck

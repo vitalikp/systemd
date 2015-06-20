@@ -7,7 +7,6 @@ HOWTO:
         1) Find the right configure parameters for:
 
             --with-rootprefix=
-            --with-sysvrcnd-path=
             --with-kbd-loadkeys=
             --with-kbd-setfont=
             --with-tty-gid=
