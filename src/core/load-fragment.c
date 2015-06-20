@@ -64,7 +64,7 @@
 #include "seccomp-util.h"
 #endif
 
-#if !defined(HAVE_SYSV_COMPAT) || !defined(HAVE_SECCOMP) || !defined(HAVE_PAM) || !defined(HAVE_SELINUX) || !defined(HAVE_SMACK) || !defined(HAVE_APPARMOR)
+#if !defined(HAVE_SECCOMP) || !defined(HAVE_PAM) || !defined(HAVE_SELINUX) || !defined(HAVE_SMACK) || !defined(HAVE_APPARMOR)
 int config_parse_warn_compat(
                 const char *unit,
                 const char *filename,
@@ -1086,38 +1086,6 @@ int config_parse_limit(const char *unit,
         (*rl)->rlim_cur = (*rl)->rlim_max = (rlim_t) u;
         return 0;
 }
-
-#ifdef HAVE_SYSV_COMPAT
-int config_parse_sysv_priority(const char *unit,
-                               const char *filename,
-                               unsigned line,
-                               const char *section,
-                               unsigned section_line,
-                               const char *lvalue,
-                               int ltype,
-                               const char *rvalue,
-                               void *data,
-                               void *userdata) {
-
-        int *priority = data;
-        int i, r;
-
-        assert(filename);
-        assert(lvalue);
-        assert(rvalue);
-        assert(data);
-
-        r = safe_atoi(rvalue, &i);
-        if (r < 0 || i < 0) {
-                log_syntax(unit, LOG_ERR, filename, line, -r,
-                           "Failed to parse SysV start priority, ignoring: %s", rvalue);
-                return 0;
-        }
-
-        *priority = (int) i;
-        return 0;
-}
-#endif
 
 DEFINE_CONFIG_PARSE_ENUM(config_parse_kill_mode, kill_mode, KillMode, "Failed to parse kill mode");
 
@@ -3396,7 +3364,7 @@ void unit_dump_config_items(FILE *f) {
                 const ConfigParserCallback callback;
                 const char *rvalue;
         } table[] = {
-#if !defined(HAVE_SYSV_COMPAT) || !defined(HAVE_SECCOMP) || !defined(HAVE_PAM) || !defined(HAVE_SELINUX) || !defined(HAVE_SMACK) || !defined(HAVE_APPARMOR)
+#if !defined(HAVE_SECCOMP) || !defined(HAVE_PAM) || !defined(HAVE_SELINUX) || !defined(HAVE_SMACK) || !defined(HAVE_APPARMOR)
                 { config_parse_warn_compat,           "NOTSUPPORTED" },
 #endif
                 { config_parse_int,                   "INTEGER" },
@@ -3430,9 +3398,6 @@ void unit_dump_config_items(FILE *f) {
                 { config_parse_exec,                  "PATH [ARGUMENT [...]]" },
                 { config_parse_service_type,          "SERVICETYPE" },
                 { config_parse_service_restart,       "SERVICERESTART" },
-#ifdef HAVE_SYSV_COMPAT
-                { config_parse_sysv_priority,         "SYSVPRIORITY" },
-#endif
                 { config_parse_kill_mode,             "KILLMODE" },
                 { config_parse_kill_signal,           "SIGNAL" },
                 { config_parse_socket_listen,         "SOCKET [...]" },

@@ -85,6 +85,7 @@ NEW CHANGES:
              (+) remove chkconfig support;
              (+) remove sysvinit path;
              (+) remove sysvrcnd path;
+             (+) remove sysv priority;
 
 CHANGES WITH 214:
 
