@@ -77,7 +77,6 @@
 /systemd-sleep
 /systemd-socket-proxyd
 /systemd-system-update-generator
-/systemd-sysv-generator
 /systemd-tmpfiles
 /systemd-tty-ask-password-agent
 /systemd-uaccess

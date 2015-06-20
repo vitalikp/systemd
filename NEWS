@@ -41,6 +41,7 @@ NEW CHANGES:
              (+) remove systemd-cryptsetup program;
              (+) remove systemd-cat program;
              (+) remove systemd-rc-local-generator program;
+             (+) remove systemd-sysv-generator program;
         * tests:
              (+) move test-udev to separate module udev;
              (+) move test-libudev to separate module udev;

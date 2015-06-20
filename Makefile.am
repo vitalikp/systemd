@@ -509,11 +509,6 @@ CLEANFILES += \
 	units/rescue.service.m4 \
 	units/user@.service.m4
 
-if HAVE_SYSV_COMPAT
-systemgenerator_PROGRAMS += \
-	systemd-sysv-generator
-endif
-
 # automake is broken and can't handle files with a dash in front
 # http://debbugs.gnu.org/cgi/bugreport.cgi?bug=14728#8
 units-install-hook:
@@ -1824,15 +1819,6 @@ dbus1-generator-uninstall-hook:
 INSTALL_EXEC_HOOKS += dbus1-generator-install-hook
 UNINSTALL_EXEC_HOOKS += dbus1-generator-uninstall-hook
 endif
-
-# ------------------------------------------------------------------------------
-systemd_sysv_generator_SOURCES = \
-	src/sysv-generator/sysv-generator.c
-
-systemd_sysv_generator_LDADD = \
-	libsystemd-core.la \
-	libsystemd-label.la \
-	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
 systemd_remount_fs_SOURCES = \
