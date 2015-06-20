@@ -3,6 +3,7 @@ systemd System and Service Manager
 NEW CHANGES:
         * docs:
              (+) remove gtk-doc build;
+             (+) remove sysvinit README;
         * config:
              (+) remove /etc/hostname;
              (+) remove /etc/locale.conf;
