@@ -743,17 +743,9 @@ AC_ARG_WITH(rc-local-script-path-start,
         [RC_LOCAL_SCRIPT_PATH_START="$withval"],
         [RC_LOCAL_SCRIPT_PATH_START="/etc/rc.local"])
 
-AC_ARG_WITH(rc-local-script-path-stop,
-        AS_HELP_STRING([--with-rc-local-script-path-stop=PATH],
-                [Path to /usr/sbin/halt.local]),
-        [RC_LOCAL_SCRIPT_PATH_STOP="$withval"],
-        [RC_LOCAL_SCRIPT_PATH_STOP="/usr/sbin/halt.local"])
-
 AC_DEFINE_UNQUOTED(RC_LOCAL_SCRIPT_PATH_START, ["$RC_LOCAL_SCRIPT_PATH_START"], [Path of /etc/rc.local script])
-AC_DEFINE_UNQUOTED(RC_LOCAL_SCRIPT_PATH_STOP, ["$RC_LOCAL_SCRIPT_PATH_STOP"], [Path of /usr/sbin/halt.local script])
 
 AC_SUBST(RC_LOCAL_SCRIPT_PATH_START)
-AC_SUBST(RC_LOCAL_SCRIPT_PATH_STOP)
 
 # ------------------------------------------------------------------------------
 AC_ARG_WITH(kbd-loadkeys,
@@ -1001,7 +993,6 @@ AC_MSG_RESULT([
         Bash completions dir:    ${with_bashcompletiondir}
         Zsh completions dir:     ${with_zshcompletiondir}
         Extra start script:      ${RC_LOCAL_SCRIPT_PATH_START}
-        Extra stop script:       ${RC_LOCAL_SCRIPT_PATH_STOP}
         Debug shell:             ${SUSHELL} @ ${DEBUGTTY}
         Maximum System UID:      ${SYSTEM_UID_MAX}
         Maximum System GID:      ${SYSTEM_GID_MAX}

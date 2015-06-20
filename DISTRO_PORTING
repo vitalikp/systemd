@@ -10,7 +10,6 @@ HOWTO:
             --with-sysvinit-path=
             --with-sysvrcnd-path=
             --with-rc-local-script-path-start=
-            --with-rc-local-script-path-stop=
             --with-kbd-loadkeys=
             --with-kbd-setfont=
             --with-tty-gid=

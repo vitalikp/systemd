@@ -511,8 +511,7 @@ CLEANFILES += \
 
 if HAVE_SYSV_COMPAT
 nodist_systemunit_DATA += \
-	units/rc-local.service \
-	units/halt-local.service
+	units/rc-local.service
 
 systemgenerator_PROGRAMS += \
 	systemd-sysv-generator \
@@ -520,8 +519,7 @@ systemgenerator_PROGRAMS += \
 endif
 
 EXTRA_DIST += \
-	units/rc-local.service.in \
-	units/halt-local.service.in
+	units/rc-local.service.in
 
 # automake is broken and can't handle files with a dash in front
 # http://debbugs.gnu.org/cgi/bugreport.cgi?bug=14728#8
@@ -3615,7 +3613,6 @@ substitutions = \
        '|SYSTEM_SYSVINIT_PATH=$(sysvinitdir)|' \
        '|VARLOGDIR=$(varlogdir)|' \
        '|RC_LOCAL_SCRIPT_PATH_START=$(RC_LOCAL_SCRIPT_PATH_START)|' \
-       '|RC_LOCAL_SCRIPT_PATH_STOP=$(RC_LOCAL_SCRIPT_PATH_STOP)|' \
        '|PYTHON=$(PYTHON)|' \
        '|PYTHON_BINARY=$(PYTHON_BINARY)|' \
        '|NTP_SERVERS=$(NTP_SERVERS)|' \
