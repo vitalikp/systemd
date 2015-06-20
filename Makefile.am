@@ -511,8 +511,7 @@ CLEANFILES += \
 
 if HAVE_SYSV_COMPAT
 systemgenerator_PROGRAMS += \
-	systemd-sysv-generator \
-	systemd-rc-local-generator
+	systemd-sysv-generator
 endif
 
 # automake is broken and can't handle files with a dash in front
@@ -1832,14 +1831,6 @@ systemd_sysv_generator_SOURCES = \
 
 systemd_sysv_generator_LDADD = \
 	libsystemd-core.la \
-	libsystemd-label.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_rc_local_generator_SOURCES = \
-	src/rc-local-generator/rc-local-generator.c
-
-systemd_rc_local_generator_LDADD = \
 	libsystemd-label.la \
 	libsystemd-shared.la
 
