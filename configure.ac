@@ -737,17 +737,6 @@ fi
 AM_CONDITIONAL(ENABLE_KDBUS, [test "$have_kdbus" = "yes"])
 
 # ------------------------------------------------------------------------------
-AC_ARG_WITH(rc-local-script-path-start,
-        AS_HELP_STRING([--with-rc-local-script-path-start=PATH],
-                [Path to /etc/rc.local]),
-        [RC_LOCAL_SCRIPT_PATH_START="$withval"],
-        [RC_LOCAL_SCRIPT_PATH_START="/etc/rc.local"])
-
-AC_DEFINE_UNQUOTED(RC_LOCAL_SCRIPT_PATH_START, ["$RC_LOCAL_SCRIPT_PATH_START"], [Path of /etc/rc.local script])
-
-AC_SUBST(RC_LOCAL_SCRIPT_PATH_START)
-
-# ------------------------------------------------------------------------------
 AC_ARG_WITH(kbd-loadkeys,
         AS_HELP_STRING([--with-kbd-loadkeys=PATH],
                 [Path to loadkeys]),
@@ -992,7 +981,6 @@ AC_MSG_RESULT([
         D-Bus interfaces dir:    ${with_dbusinterfacedir}
         Bash completions dir:    ${with_bashcompletiondir}
         Zsh completions dir:     ${with_zshcompletiondir}
-        Extra start script:      ${RC_LOCAL_SCRIPT_PATH_START}
         Debug shell:             ${SUSHELL} @ ${DEBUGTTY}
         Maximum System UID:      ${SYSTEM_UID_MAX}
         Maximum System GID:      ${SYSTEM_GID_MAX}

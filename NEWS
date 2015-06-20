@@ -67,6 +67,7 @@ NEW CHANGES:
              (+) remove systemd-cryptsetup@ service;
              (+) move initrd-udevadm-cleanup-db service to separate module udev;
              (+) remove halt-local service;
+             (+) remove rc-local service;
         * targets:
              (+) remove cryptsetup target;
         * other:

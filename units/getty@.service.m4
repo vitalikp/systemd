@@ -10,9 +10,6 @@ Description=Getty on %I
 Documentation=man:agetty(8) man:systemd-getty-generator(8)
 Documentation=http://0pointer.de/blog/projects/serial-console.html
 After=systemd-user-sessions.service plymouth-quit-wait.service
-m4_ifdef(`HAVE_SYSV_COMPAT',
-After=rc-local.service
-)m4_dnl
 
 # If additional gettys are spawned during boot then we should make
 # sure that this is synchronized before getty.target, even though
