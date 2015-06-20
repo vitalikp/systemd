@@ -86,6 +86,7 @@ NEW CHANGES:
              (+) remove sysvinit path;
              (+) remove sysvrcnd path;
              (+) remove sysv priority;
+             (+) remove forcequotacheck option;
 
 CHANGES WITH 214:
 
