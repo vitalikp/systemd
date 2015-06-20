@@ -4,6 +4,7 @@ NEW CHANGES:
         * docs:
              (+) remove gtk-doc build;
              (+) remove sysvinit README;
+             (+) remove var-log README;
         * config:
              (+) remove /etc/hostname;
              (+) remove /etc/locale.conf;

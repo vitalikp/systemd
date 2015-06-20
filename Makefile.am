@@ -3712,21 +3712,6 @@ EXTRA_DIST += \
 	man/custom-man.xsl
 
 # ------------------------------------------------------------------------------
-if HAVE_SYSV_COMPAT
-
-varlog_DATA = \
-	docs/var-log/README
-
-docs/var-log/README: docs/var-log/README.in
-	$(SED_PROCESS)
-
-CLEANFILES += \
-	docs/var-log/README
-endif
-
-EXTRA_DIST += \
-	docs/var-log/README.in
-
 SOCKETS_TARGET_WANTS += \
 	systemd-initctl.socket \
 	systemd-shutdownd.socket
