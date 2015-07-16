@@ -42,6 +42,10 @@ AS_IF([test "x$host_cpu" = "xmips" || test "x$host_cpu" = "xmipsel" ||
        test "x$host_cpu" = "xmips64" || test "x$host_cpu" = "xmips64el"],
       [AC_DEFINE(ARCH_MIPS, [], [Whether on mips arch])])
 
+AC_CHECK_TOOLS([AR], [gcc-ar ar], [:])
+AC_CHECK_TOOLS([NM], [gcc-nm nm], [:])
+AC_CHECK_TOOLS([RANLIB], [gcc-ranlib ranlib], [:])
+
 LT_PREREQ(2.2)
 LT_INIT([disable-static])
 
@@ -164,7 +168,7 @@ CC_CHECK_FLAGS_APPEND([with_cflags], [CFLAGS], [\
         --param=ssp-buffer-size=4])
 AS_CASE([$CFLAGS], [*-O[[12345sz\ ]]*],
         [CC_CHECK_FLAGS_APPEND([with_cflags], [CFLAGS], [\
-               -flto -ffat-lto-objects])],
+               -flto])],
         [AC_MSG_RESULT([skipping -flto, optimization not enabled])])
 AC_SUBST([OUR_CFLAGS], "$with_cflags $sanitizer_cflags")
 
