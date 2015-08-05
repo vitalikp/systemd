@@ -1142,24 +1142,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><varname>2</varname></term>
-                                <term><varname>3</varname></term>
-                                <term><varname>4</varname></term>
-                                <term><varname>5</varname></term>
-
-                                <listitem><para>Boot into the
-                                specified legacy SysV runlevel. These
-                                are equivalent to
-                                <varname>systemd.unit=runlevel2.target</varname>,
-                                <varname>systemd.unit=runlevel3.target</varname>,
-                                <varname>systemd.unit=runlevel4.target</varname>,
-                                and <varname>systemd.unit=runlevel5.target</varname>, respectively,
-                                and provided for compatibility reasons
-                                and to be easier to
-                                type.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><varname>locale.LANG=</varname></term>
                                 <term><varname>locale.LANGUAGE=</varname></term>
                                 <term><varname>locale.LC_CTYPE=</varname></term>

@@ -74,6 +74,7 @@ NEW CHANGES:
              (+) remove rc-local service;
         * targets:
              (+) remove cryptsetup target;
+             (+) remove runlevel targets;
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;

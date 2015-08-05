@@ -197,11 +197,6 @@ endef
 
 INSTALL_DIRS =
 
-RUNLEVEL1_TARGET_WANTS =
-RUNLEVEL2_TARGET_WANTS =
-RUNLEVEL3_TARGET_WANTS =
-RUNLEVEL4_TARGET_WANTS =
-RUNLEVEL5_TARGET_WANTS =
 SHUTDOWN_TARGET_WANTS =
 LOCAL_FS_TARGET_WANTS =
 MULTI_USER_TARGET_WANTS =
@@ -217,11 +212,6 @@ USER_UNIT_ALIASES =
 GENERAL_ALIASES =
 
 install-target-wants-hook:
-	what="$(RUNLEVEL1_TARGET_WANTS)" && wants=runlevel1.target && dir=$(systemunitdir) && $(add-wants)
-	what="$(RUNLEVEL2_TARGET_WANTS)" && wants=runlevel2.target && dir=$(systemunitdir) && $(add-wants)
-	what="$(RUNLEVEL3_TARGET_WANTS)" && wants=runlevel3.target && dir=$(systemunitdir) && $(add-wants)
-	what="$(RUNLEVEL4_TARGET_WANTS)" && wants=runlevel4.target && dir=$(systemunitdir) && $(add-wants)
-	what="$(RUNLEVEL5_TARGET_WANTS)" && wants=runlevel5.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(SHUTDOWN_TARGET_WANTS)" && wants=shutdown.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(LOCAL_FS_TARGET_WANTS)" && wants=local-fs.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(MULTI_USER_TARGET_WANTS)" && wants=multi-user.target && dir=$(systemunitdir) && $(add-wants)
@@ -3711,18 +3701,6 @@ SOCKETS_TARGET_WANTS += \
 	systemd-initctl.socket \
 	systemd-shutdownd.socket
 
-if HAVE_SYSV_COMPAT
-RUNLEVEL1_TARGET_WANTS += \
-	systemd-update-utmp-runlevel.service
-RUNLEVEL2_TARGET_WANTS += \
-	systemd-update-utmp-runlevel.service
-RUNLEVEL3_TARGET_WANTS += \
-	systemd-update-utmp-runlevel.service
-RUNLEVEL4_TARGET_WANTS += \
-	systemd-update-utmp-runlevel.service
-RUNLEVEL5_TARGET_WANTS += \
-	systemd-update-utmp-runlevel.service
-endif
 SYSINIT_TARGET_WANTS += \
 	systemd-update-utmp.service
 LOCAL_FS_TARGET_WANTS += \
@@ -3739,17 +3717,6 @@ SYSINIT_TARGET_WANTS += \
 	sys-fs-fuse-connections.mount \
 	sysctl.service \
 	systemd-ask-password-console.path
-
-if HAVE_SYSV_COMPAT
-SYSTEM_UNIT_ALIASES += \
-	poweroff.target runlevel0.target \
-	rescue.target runlevel1.target \
-	multi-user.target runlevel2.target \
-	multi-user.target runlevel3.target \
-	multi-user.target runlevel4.target \
-	graphical.target runlevel5.target \
-	reboot.target runlevel6.target
-endif
 
 SYSTEM_UNIT_ALIASES += \
 	graphical.target default.target \
@@ -3772,15 +3739,6 @@ GENERAL_ALIASES += \
 	$(systemunitdir)/getty@.service $(pkgsysconfdir)/system/getty.target.wants/getty@tty1.service \
 	$(pkgsysconfdir)/user $(sysconfdir)/xdg/systemd/user \
 	$(dbussystemservicedir)/org.freedesktop.systemd1.service $(dbussessionservicedir)/org.freedesktop.systemd1.service
-
-if HAVE_SYSV_COMPAT
-INSTALL_DIRS += \
-	$(systemunitdir)/runlevel1.target.wants \
-	$(systemunitdir)/runlevel2.target.wants \
-	$(systemunitdir)/runlevel3.target.wants \
-	$(systemunitdir)/runlevel4.target.wants \
-	$(systemunitdir)/runlevel5.target.wants
-endif
 
 INSTALL_DIRS += \
 	$(prefix)/lib/modules-load.d \

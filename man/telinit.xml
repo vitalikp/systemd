@@ -113,25 +113,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>2</command></term>
-                                <term><command>3</command></term>
-                                <term><command>4</command></term>
-                                <term><command>5</command></term>
-
-                                <listitem><para>Change the SysV
-                                runlevel. This is translated into an
-                                activation request for
-                                <filename>runlevel2.target</filename>,
-                                <filename>runlevel3.target</filename>,
-                                ... and is equivalent to
-                                <command>systemctl isolate
-                                runlevel2.target</command>,
-                                <command>systemctl isolate
-                                runlevel3.target</command>,
-                                ...</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><command>1</command></term>
                                 <term><command>s</command></term>
                                 <term><command>S</command></term>

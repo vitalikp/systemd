@@ -73,15 +73,7 @@
                 provided by units. They exist merely to group units via dependencies
                 (useful as boot targets), and to establish
                 standardized names for synchronization points used in
-                dependencies between units. Among other things, target
-                units are a more flexible replacement for SysV
-                runlevels in the classic SysV init system. (And for
-                compatibility reasons special
-                target units such as
-                <filename>runlevel3.target</filename> exist which are used by
-                the SysV runlevel compatibility code in systemd. See
-                <citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry>
-                for details).</para>
+                dependencies between units.</para>
 
                 <para>Unless <varname>DefaultDependencies=</varname>
                 is set to <option>false</option>, target units will
