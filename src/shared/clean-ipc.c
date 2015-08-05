@@ -220,7 +220,7 @@ static int clean_posix_shm_internal(DIR *dir, uid_t uid) {
                         continue;
 
                 if (S_ISDIR(st.st_mode)) {
-                        _cleanup_closedir_ DIR *kid;
+                        _cleanup_closedir_ DIR *kid = NULL;
 
                         kid = xopendirat(dirfd(dir), de->d_name, O_NOFOLLOW|O_NOATIME);
                         if (!kid) {

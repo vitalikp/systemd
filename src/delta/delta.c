@@ -294,7 +294,7 @@ static int enumerate_dir_d(Hashmap *top, Hashmap *bottom, Hashmap *drops, const 
 }
 
 static int enumerate_dir(Hashmap *top, Hashmap *bottom, Hashmap *drops, const char *path, bool dropins) {
-        _cleanup_closedir_ DIR *d;
+        _cleanup_closedir_ DIR *d = NULL;
 
         assert(top);
         assert(bottom);

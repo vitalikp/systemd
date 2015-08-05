@@ -1152,7 +1152,7 @@ static int attach_device(Manager *m, const char *seat, const char *sysfs) {
 }
 
 static int flush_devices(Manager *m) {
-        _cleanup_closedir_ DIR *d;
+        _cleanup_closedir_ DIR *d = NULL;
 
         assert(m);
 

@@ -677,7 +677,7 @@ _public_ int sd_get_sessions(char ***sessions) {
 }
 
 _public_ int sd_get_uids(uid_t **users) {
-        _cleanup_closedir_ DIR *d;
+        _cleanup_closedir_ DIR *d = NULL;
         int r = 0;
         unsigned n = 0;
         _cleanup_free_ uid_t *l = NULL;

@@ -2316,7 +2316,7 @@ bool is_device_path(const char *path) {
 }
 
 int dir_is_empty(const char *path) {
-        _cleanup_closedir_ DIR *d;
+        _cleanup_closedir_ DIR *d = NULL;
 
         d = opendir(path);
         if (!d)

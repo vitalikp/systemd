@@ -80,6 +80,7 @@ NEW CHANGES:
              (+) remove runlevel targets;
         * code:
              (+) init _cleanup_close_ variable with -1;
+             (+) init _cleanup_closedir_ variable with NULL;
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;

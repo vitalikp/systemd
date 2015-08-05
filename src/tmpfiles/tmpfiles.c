@@ -341,7 +341,7 @@ static int dir_cleanup(
                         if (maxdepth <= 0)
                                 log_warning("Reached max depth on %s.", sub_path);
                         else {
-                                _cleanup_closedir_ DIR *sub_dir;
+                                _cleanup_closedir_ DIR *sub_dir = NULL;
                                 int q;
 
                                 sub_dir = xopendirat(dirfd(d), dent->d_name, O_NOFOLLOW|O_NOATIME);
@@ -558,7 +558,7 @@ static int write_one_file(Item *i, const char *path) {
 }
 
 static int item_set_perms_children(Item *i, const char *path) {
-        _cleanup_closedir_ DIR *d;
+        _cleanup_closedir_ DIR *d = NULL;
         int r = 0;
 
         assert(i);
