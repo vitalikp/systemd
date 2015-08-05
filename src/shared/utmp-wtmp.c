@@ -50,16 +50,6 @@ int utmp_get_runlevel(int *runlevel, int *previous) {
         if (e && e[0] > 0) {
                 *runlevel = e[0];
 
-                if (previous) {
-                        /* $PREVLEVEL seems to be an Upstart thing */
-
-                        e = getenv("PREVLEVEL");
-                        if (e && e[0] > 0)
-                                *previous = e[0];
-                        else
-                                *previous = 0;
-                }
-
                 return 0;
         }
 
