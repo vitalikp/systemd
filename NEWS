@@ -19,6 +19,7 @@ NEW CHANGES:
              (+) move udev rules file to separate module udev;
         * environment:
              (+) remove PREVLEVEL variable;
+             (+) remove RUNLEVEL variable;
         * program:
              (+) remove systemd-sysctl program;
              (+) remove systemd-resolved program;

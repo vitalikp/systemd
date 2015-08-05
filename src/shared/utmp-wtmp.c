@@ -39,20 +39,6 @@ int utmp_get_runlevel(int *runlevel, int *previous) {
 
         assert(runlevel);
 
-        /* If these values are set in the environment this takes
-         * precedence. Presumably, sysvinit does this to work around a
-         * race condition that would otherwise exist where we'd always
-         * go to disk and hence might read runlevel data that might be
-         * very new and does not apply to the current script being
-         * executed. */
-
-        e = getenv("RUNLEVEL");
-        if (e && e[0] > 0) {
-                *runlevel = e[0];
-
-                return 0;
-        }
-
         if (utmpxname(_PATH_UTMPX) < 0)
                 return -errno;
 

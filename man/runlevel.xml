@@ -94,22 +94,6 @@
         </refsect1>
 
         <refsect1>
-                <title>Environment</title>
-
-                <variablelist class='environment-variables'>
-                        <varlistentry>
-                                <term><varname>$RUNLEVEL</varname></term>
-
-                                <listitem><para>If
-                                <varname>$RUNLEVEL</varname> is set,
-                                <command>runlevel</command> will print
-                                this value as current runlevel and
-                                ignore utmp.</para></listitem>
-                        </varlistentry>
-                </variablelist>
-        </refsect1>
-
-        <refsect1>
                 <title>Files</title>
 
                 <variablelist>
