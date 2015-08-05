@@ -1644,11 +1644,6 @@ dist_tmpfiles_DATA = \
 	tmpfiles.d/x11.conf \
 	tmpfiles.d/var.conf
 
-if HAVE_SYSV_COMPAT
-dist_tmpfiles_DATA += \
-	tmpfiles.d/legacy.conf
-endif
-
 SYSINIT_TARGET_WANTS += \
 	systemd-tmpfiles-setup-dev.service \
 	systemd-tmpfiles-setup.service

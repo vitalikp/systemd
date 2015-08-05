@@ -92,6 +92,7 @@ NEW CHANGES:
              (+) remove sysv priority;
              (+) remove forcequotacheck option;
              (+) remove fsck options fastboot and forcefsck;
+             (+) remove SysV compatibility;
 
 CHANGES WITH 214:
 

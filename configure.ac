@@ -794,13 +794,7 @@ AM_CONDITIONAL(ENABLE_MANPAGES, [test "x$have_manpages" = "xyes"])
 
 # ------------------------------------------------------------------------------
 
-AC_DEFINE(HAVE_SYSV_COMPAT, [], [SysV init scripts and rcN.d links are supported.])
-SYSTEM_SYSV_COMPAT="yes"
-M4_DEFINES="$M4_DEFINES -DHAVE_SYSV_COMPAT"
-
 AC_SUBST(M4_DEFINES)
-
-AM_CONDITIONAL(HAVE_SYSV_COMPAT, test "$SYSTEM_SYSV_COMPAT" = "yes")
 
 AC_ARG_WITH([tty-gid],
         [AS_HELP_STRING([--with-tty-gid=GID],
@@ -933,7 +927,6 @@ AC_MSG_RESULT([
         man pages:               ${have_manpages}
         test coverage:           ${have_coverage}
         Split /usr:              ${enable_split_usr}
-        SysV compatibility:      ${SYSTEM_SYSV_COMPAT}
         compatibility libraries: ${have_compat_libs}
 
         prefix:                  ${prefix}

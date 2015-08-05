@@ -1282,18 +1282,6 @@ int main(int argc, char *argv[]) {
         char *switch_root_dir = NULL, *switch_root_init = NULL;
         static struct rlimit saved_rlimit_nofile = { 0, 0 };
 
-#ifdef HAVE_SYSV_COMPAT
-        if (getpid() != 1 && strstr(program_invocation_short_name, "init")) {
-                /* This is compatibility support for SysV, where
-                 * calling init as a user is identical to telinit. */
-
-                errno = -ENOENT;
-                execv(SYSTEMCTL_BINARY_PATH, argv);
-                log_error("Failed to exec " SYSTEMCTL_BINARY_PATH ": %m");
-                return 1;
-        }
-#endif
-
         dual_timestamp_from_monotonic(&kernel_timestamp, 0);
         dual_timestamp_get(&userspace_timestamp);
 
