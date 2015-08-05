@@ -228,7 +228,7 @@ static void test_load_env_file_1(void) {
         int r;
 
         char name[] = "/tmp/test-load-env-file.XXXXXX";
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = mkostemp_safe(name, O_RDWR|O_CLOEXEC);
         assert(fd >= 0);
@@ -251,7 +251,7 @@ static void test_load_env_file_2(void) {
         int r;
 
         char name[] = "/tmp/test-load-env-file.XXXXXX";
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = mkostemp_safe(name, O_RDWR|O_CLOEXEC);
         assert(fd >= 0);
@@ -269,7 +269,7 @@ static void test_load_env_file_3(void) {
         int r;
 
         char name[] = "/tmp/test-load-env-file.XXXXXX";
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = mkostemp_safe(name, O_RDWR|O_CLOEXEC);
         assert(fd >= 0);
@@ -284,7 +284,7 @@ static void test_load_env_file_3(void) {
 static void test_load_env_file_4(void) {
         _cleanup_strv_free_ char **data = NULL;
         char name[] = "/tmp/test-load-env-file.XXXXXX";
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
         int r;
 
         fd = mkostemp_safe(name, O_RDWR|O_CLOEXEC);

@@ -78,6 +78,8 @@ NEW CHANGES:
         * targets:
              (+) remove cryptsetup target;
              (+) remove runlevel targets;
+        * code:
+             (+) init _cleanup_close_ variable with -1;
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;

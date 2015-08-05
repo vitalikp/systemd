@@ -417,7 +417,7 @@ bool manager_shall_kill(Manager *m, const char *user) {
 static int vt_is_busy(unsigned int vtnr) {
         struct vt_stat vt_stat;
         int r = 0;
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         assert(vtnr >= 1);
 

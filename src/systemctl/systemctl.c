@@ -6428,7 +6428,7 @@ static int send_shutdownd(usec_t t, char mode, bool dry_run, bool warn, const ch
                 .msg_iovlen = 1,
         };
 
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = socket(AF_UNIX, SOCK_DGRAM|SOCK_CLOEXEC, 0);
         if (fd < 0)

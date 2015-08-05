@@ -435,7 +435,7 @@ fail:
 }
 
 int server_open_kernel_seqnum(Server *s) {
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
         uint64_t *p;
 
         assert(s);

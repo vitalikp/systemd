@@ -123,7 +123,7 @@ static void patch_realtime(
 static int journal_file_empty(int dir_fd, const char *name) {
         int r;
         le64_t n_entries;
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = openat(dir_fd, name, O_RDONLY|O_CLOEXEC|O_NOFOLLOW|O_NONBLOCK);
         if (fd < 0)

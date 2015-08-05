@@ -46,7 +46,7 @@ static void test_import(Hashmap *h, struct strbuf *sb,
                         const char* contents, ssize_t size, int code) {
         int r;
         char name[] = "/tmp/test-catalog.XXXXXX";
-        _cleanup_close_ int fd;
+        _cleanup_close_ int fd = -1;
 
         fd = mkostemp_safe(name, O_RDWR|O_CLOEXEC);
         assert(fd >= 0);
