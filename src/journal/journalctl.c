@@ -989,7 +989,7 @@ static int get_possible_units(sd_journal *j,
                               const char *fields,
                               char **patterns,
                               Set **units) {
-        _cleanup_set_free_free_ Set *found;
+        _cleanup_set_free_free_ Set *found = NULL;
         const char *field;
         int r;
 
