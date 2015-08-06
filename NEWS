@@ -85,6 +85,7 @@ NEW CHANGES:
              (+) init _cleanup_fclose_ variable with NULL;
              (+) init _cleanup_umask_ variable;
              (+) init _cleanup_cap_free_ variable with NULL;
+             (+) init _cleanup_cap_free_charp_ variable with NULL;
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;

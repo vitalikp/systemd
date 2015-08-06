@@ -282,7 +282,7 @@ static void dump_capabilities(
 
         for (;;) {
                 if (r > 0) {
-                        _cleanup_cap_free_charp_ char *t;
+                        _cleanup_cap_free_charp_ char *t = NULL;
 
                         if (n > 0)
                                 fputc(' ', f);
