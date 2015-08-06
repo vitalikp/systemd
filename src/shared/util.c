@@ -6257,12 +6257,12 @@ int getpeersec(int fd, char **ret) {
 
 /* This is much like like mkostemp() but is subject to umask(). */
 int mkostemp_safe(char *pattern, int flags) {
-        _cleanup_umask_ mode_t u;
+        _cleanup_umask_ mode_t u = 077;
         int fd;
 
         assert(pattern);
 
-        u = umask(077);
+        u = umask(u);
 
         fd = mkostemp(pattern, flags);
         if (fd < 0)

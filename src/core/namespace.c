@@ -144,12 +144,12 @@ static int mount_dev(BindMount *m) {
 
         char temporary_mount[] = "/tmp/namespace-dev-XXXXXX";
         const char *d, *dev = NULL, *devpts = NULL, *devshm = NULL, *devkdbus = NULL, *devhugepages = NULL, *devmqueue = NULL;
-        _cleanup_umask_ mode_t u;
+        _cleanup_umask_ mode_t u = 0000;
         int r;
 
         assert(m);
 
-        u = umask(0000);
+        u = umask(u);
 
         if (!mkdtemp(temporary_mount))
                 return -errno;
