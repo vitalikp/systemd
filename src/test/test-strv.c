@@ -139,7 +139,7 @@ static void test_strv_join(void) {
 
 static void test_strv_quote_unquote(const char* const *split, const char *quoted) {
         _cleanup_free_ char *p = NULL;
-        _cleanup_strv_free_ char **s;
+        _cleanup_strv_free_ char **s = NULL;
         char **t;
 
         p = strv_join_quoted((char **)split);
@@ -158,7 +158,7 @@ static void test_strv_quote_unquote(const char* const *split, const char *quoted
 }
 
 static void test_strv_quote_unquote2(const char *quoted, const char ** list) {
-        _cleanup_strv_free_ char **s;
+        _cleanup_strv_free_ char **s = NULL;
         unsigned i = 0;
         char **t;
 
@@ -324,7 +324,7 @@ static void test_strv_extend(void) {
 }
 
 static void test_strv_foreach(void) {
-        _cleanup_strv_free_ char **a;
+        _cleanup_strv_free_ char **a = NULL;
         unsigned i = 0;
         char **check;
 
@@ -338,7 +338,7 @@ static void test_strv_foreach(void) {
 }
 
 static void test_strv_foreach_backwards(void) {
-        _cleanup_strv_free_ char **a;
+        _cleanup_strv_free_ char **a = NULL;
         unsigned i = 2;
         char **check;
 

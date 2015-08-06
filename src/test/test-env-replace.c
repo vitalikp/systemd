@@ -163,7 +163,7 @@ static void test_normalize_env_assignment(void) {
 }
 
 static void test_env_clean(void) {
-        _cleanup_strv_free_ char **e;
+        _cleanup_strv_free_ char **e = NULL;
 
         e = strv_new("FOOBAR=WALDO",
                      "FOOBAR=WALDO",
