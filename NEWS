@@ -86,6 +86,7 @@ NEW CHANGES:
              (+) init _cleanup_umask_ variable;
              (+) init _cleanup_cap_free_ variable with NULL;
              (+) init _cleanup_cap_free_charp_ variable with NULL;
+             (+) remove udev private cleanup variable attribute;
         * other:
              (+) remove ACL support;
              (+) remove udev firmware loading support;
