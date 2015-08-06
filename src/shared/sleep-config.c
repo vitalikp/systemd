@@ -47,7 +47,7 @@ int parse_sleep_config(const char *verb, char ***_modes, char ***_states) {
                 {}};
 
         int r;
-        FILE _cleanup_fclose_ *f;
+        FILE _cleanup_fclose_ *f = NULL;
 
         f = fopen(PKGSYSCONFDIR "/sleep.conf", "re");
         if (!f)
@@ -168,7 +168,7 @@ int can_sleep_disk(char **types) {
 #define HIBERNATION_SWAP_THRESHOLD 0.98
 
 static int hibernation_partition_size(size_t *size, size_t *used) {
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
         int i;
 
         assert(size);

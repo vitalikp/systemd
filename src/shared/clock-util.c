@@ -80,7 +80,7 @@ int clock_set_hwclock(const struct tm *tm) {
 }
 
 int clock_is_localtime(void) {
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
 
         /*
          * The third line of adjtime is "UTC" or "LOCAL" or nothing.

@@ -124,7 +124,7 @@ static void parse_conf(void) {
                 { "Bootchart", "ControlGroup",     config_parse_bool,   0, &arg_show_cgroup },
                 { NULL, NULL, NULL, 0, NULL }
         };
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
         int r;
 
         f = fopen(BOOTCHART_CONF, "re");

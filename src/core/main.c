@@ -712,7 +712,7 @@ static int parse_config_file(void) {
                 {}
         };
 
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
         const char *fn;
         int r;
 

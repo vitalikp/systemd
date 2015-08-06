@@ -1775,7 +1775,7 @@ int unit_file_query_preset(UnitFileScope scope, const char *name) {
                 return r;
 
         STRV_FOREACH(i, files) {
-                _cleanup_fclose_ FILE *f;
+                _cleanup_fclose_ FILE *f = NULL;
 
                 f = fopen(*i, "re");
                 if (!f) {

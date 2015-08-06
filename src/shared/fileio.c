@@ -119,7 +119,7 @@ int read_one_line_file(const char *fn, char **line) {
 }
 
 ssize_t sendfile_full(int out_fd, const char *fn) {
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
         struct stat st;
         int r;
         ssize_t s;

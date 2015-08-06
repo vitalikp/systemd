@@ -102,7 +102,7 @@ int time_get_dst(time_t date, const char *tzfile,
         size_t lo, hi;
         size_t num_transitions = 0;
         _cleanup_free_ time_t *transitions = NULL;
-        _cleanup_fclose_ FILE *f;
+        _cleanup_fclose_ FILE *f = NULL;
 
         f = fopen(tzfile, "re");
         if (f == NULL)
