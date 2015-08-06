@@ -225,7 +225,7 @@ static int loopback_list_get(MountPoint **head) {
         first = udev_enumerate_get_list_entry(e);
         udev_list_entry_foreach(item, first) {
                 MountPoint *lb;
-                _cleanup_udev_device_unref_ struct udev_device *d;
+                _cleanup_udev_device_unref_ struct udev_device *d = NULL;
                 char *loop;
                 const char *dn;
 
@@ -285,7 +285,7 @@ static int dm_list_get(MountPoint **head) {
         first = udev_enumerate_get_list_entry(e);
         udev_list_entry_foreach(item, first) {
                 MountPoint *m;
-                _cleanup_udev_device_unref_ struct udev_device *d;
+                _cleanup_udev_device_unref_ struct udev_device *d = NULL;
                 dev_t devnum;
                 char *node;
                 const char *dn;

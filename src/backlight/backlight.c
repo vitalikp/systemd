@@ -151,7 +151,7 @@ static bool validate_device(struct udev *udev, struct udev_device *device) {
 
         first = udev_enumerate_get_list_entry(enumerate);
         udev_list_entry_foreach(item, first) {
-                _cleanup_udev_device_unref_ struct udev_device *other;
+                _cleanup_udev_device_unref_ struct udev_device *other = NULL;
                 struct udev_device *other_parent;
                 const char *other_subsystem;
 
