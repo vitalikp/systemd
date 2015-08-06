@@ -4126,7 +4126,7 @@ int vt_disallocate(const char *name) {
 
 int symlink_atomic(const char *from, const char *to) {
         char *x;
-        _cleanup_free_ char *t;
+        _cleanup_free_ char *t = NULL;
         const char *fn;
         size_t k;
         uint64_t u;

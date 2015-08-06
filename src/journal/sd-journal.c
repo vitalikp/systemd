@@ -1342,7 +1342,7 @@ static int add_file(sd_journal *j, const char *prefix, const char *filename) {
 }
 
 static int remove_file(sd_journal *j, const char *prefix, const char *filename) {
-        _cleanup_free_ char *path;
+        _cleanup_free_ char *path = NULL;
         JournalFile *f;
 
         assert(j);
@@ -1634,7 +1634,7 @@ static int add_current_paths(sd_journal *j) {
          * treat them as fatal. */
 
         HASHMAP_FOREACH(f, j->files, i) {
-                _cleanup_free_ char *dir;
+                _cleanup_free_ char *dir = NULL;
                 int r;
 
                 dir = dirname_malloc(f->path);

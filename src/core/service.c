@@ -2745,7 +2745,7 @@ int service_set_socket_fd(Service *s, int fd, Socket *sock) {
         if (getpeername_pretty(fd, &peer) >= 0) {
 
                 if (UNIT(s)->description) {
-                        _cleanup_free_ char *a;
+                        _cleanup_free_ char *a = NULL;
 
                         a = strjoin(UNIT(s)->description, " (", peer, ")", NULL);
                         if (!a)

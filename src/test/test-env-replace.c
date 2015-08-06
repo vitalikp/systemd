@@ -138,7 +138,7 @@ static void test_replace_env_arg(void) {
 }
 
 static void test_one_normalize(const char *input, const char *output) {
-        _cleanup_free_ char *t;
+        _cleanup_free_ char *t = NULL;
 
         t = normalize_env_assignment(input);
         assert_se(t);

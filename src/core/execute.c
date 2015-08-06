@@ -1520,7 +1520,7 @@ int exec_spawn(ExecCommand *command,
                         char **rt;
 
                         STRV_FOREACH(rt, context->runtime_directory) {
-                                _cleanup_free_ char *p;
+                                _cleanup_free_ char *p = NULL;
 
                                 p = strjoin(runtime_prefix, "/", *rt, NULL);
                                 if (!p) {
@@ -1923,7 +1923,7 @@ int exec_context_destroy_runtime_directory(ExecContext *c, const char *runtime_p
                 return 0;
 
         STRV_FOREACH(i, c->runtime_directory) {
-                _cleanup_free_ char *p;
+                _cleanup_free_ char *p = NULL;
 
                 p = strjoin(runtime_prefix, "/", *i, NULL);
                 if (!p)

@@ -250,7 +250,7 @@ static void warn_wall(enum action a) {
                 return;
 
         if (arg_wall) {
-                _cleanup_free_ char *p;
+                _cleanup_free_ char *p = NULL;
 
                 p = strv_join(arg_wall, " ");
                 if (!p) {
@@ -4018,7 +4018,7 @@ static int print_property(const char *name, sd_bus_message *m, const char *conte
 
                         while ((r = exec_status_info_deserialize(m, &info)) > 0) {
                                 char timestamp1[FORMAT_TIMESTAMP_MAX], timestamp2[FORMAT_TIMESTAMP_MAX];
-                                _cleanup_free_ char *tt;
+                                _cleanup_free_ char *tt = NULL;
 
                                 tt = strv_join(info.argv, " ");
 
@@ -4449,7 +4449,7 @@ static int show(sd_bus *bus, char **args) {
                                 log_error("Failed to expand names: %s", strerror(-r));
 
                         STRV_FOREACH(name, names) {
-                                _cleanup_free_ char *unit;
+                                _cleanup_free_ char *unit = NULL;
 
                                 unit = unit_dbus_path_from_name(*name);
                                 if (!unit)
@@ -5522,7 +5522,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                         size_t size;
 
                         FOREACH_WORD_SEPARATOR(word, size, optarg, ",", state) {
-                                _cleanup_free_ char *type;
+                                _cleanup_free_ char *type = NULL;
 
                                 type = strndup(word, size);
                                 if (!type)
@@ -6550,7 +6550,7 @@ static int halt_main(sd_bus *bus) {
         }
 
         if (arg_when > 0) {
-                _cleanup_free_ char *m;
+                _cleanup_free_ char *m = NULL;
 
                 m = strv_join(arg_wall, " ");
                 if (!m)

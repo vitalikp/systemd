@@ -1245,7 +1245,7 @@ static int server_parse_proc_cmdline(Server *s) {
                 return 0;
 
         FOREACH_WORD_QUOTED(w, l, line, state) {
-                _cleanup_free_ char *word;
+                _cleanup_free_ char *word = NULL;
 
                 word = strndup(w, l);
                 if (!word)

@@ -478,7 +478,7 @@ int parse_timestamp(const char *t, usec_t *usec) {
                 return parse_sec(t + 1, usec);
 
         else if (endswith(t, " ago")) {
-                _cleanup_free_ char *z;
+                _cleanup_free_ char *z = NULL;
 
                 z = strndup(t, strlen(t) - 4);
                 if (!z)
@@ -490,7 +490,7 @@ int parse_timestamp(const char *t, usec_t *usec) {
 
                 goto finish;
         } else if (endswith(t, " left")) {
-                _cleanup_free_ char *z;
+                _cleanup_free_ char *z = NULL;
 
                 z = strndup(t, strlen(t) - 4);
                 if (!z)

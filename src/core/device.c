@@ -205,7 +205,7 @@ static int device_make_description(Unit *u, struct udev_device *dev, const char 
                         label = udev_device_get_property_value(dev, "ID_PART_ENTRY_NUMBER");
 
                 if (label) {
-                        _cleanup_free_ char *j;
+                        _cleanup_free_ char *j = NULL;
 
                         j = strjoin(model, " ", label, NULL);
                         if (j)

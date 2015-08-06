@@ -703,7 +703,7 @@ static int add_matches(sd_journal *j, char **args) {
                 if (streq(*i, "+"))
                         r = sd_journal_add_disjunction(j);
                 else if (path_is_absolute(*i)) {
-                        _cleanup_free_ char *p, *t = NULL, *t2 = NULL;
+                        _cleanup_free_ char *p = NULL, *t = NULL, *t2 = NULL;
                         const char *path;
                         _cleanup_free_ char *interpreter = NULL;
                         struct stat st;
@@ -718,7 +718,7 @@ static int add_matches(sd_journal *j, char **args) {
 
                         if (S_ISREG(st.st_mode) && (0111 & st.st_mode)) {
                                 if (executable_is_script(path, &interpreter) > 0) {
-                                        _cleanup_free_ char *comm;
+                                        _cleanup_free_ char *comm = NULL;
 
                                         comm = strndup(basename(path), 15);
                                         if (!comm)
@@ -1631,7 +1631,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (_unlikely_(log_get_max_level() >= LOG_PRI(LOG_DEBUG))) {
-                _cleanup_free_ char *filter;
+                _cleanup_free_ char *filter = NULL;
 
                 filter = journal_make_match_string(j);
                 log_debug("Journal filter: %s", filter);

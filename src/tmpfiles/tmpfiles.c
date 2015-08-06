@@ -518,7 +518,7 @@ static int write_one_file(Item *i, const char *path) {
         }
 
         if (i->argument) {
-                _cleanup_free_ char *unescaped;
+                _cleanup_free_ char *unescaped = NULL;
                 ssize_t n;
                 size_t l;
 

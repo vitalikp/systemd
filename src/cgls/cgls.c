@@ -185,7 +185,7 @@ int main(int argc, char *argv[]) {
                 }
 
         } else {
-                _cleanup_free_ char *p;
+                _cleanup_free_ char *p = NULL;
 
                 p = get_current_dir_name();
                 if (!p) {

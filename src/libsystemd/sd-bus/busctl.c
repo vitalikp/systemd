@@ -184,7 +184,7 @@ static int list_bus_names(sd_bus *bus, char **argv) {
 
                         r = sd_bus_creds_get_unit(creds, &unit);
                         if (r >= 0) {
-                                _cleanup_free_ char *e;
+                                _cleanup_free_ char *e = NULL;
 
                                 e = ellipsize(unit, 25, 100);
                                 if (!e)

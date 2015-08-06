@@ -198,7 +198,7 @@ static int bus_service_set_transient_property(
                         fputs("ExecStart=\n", f);
 
                         LIST_FOREACH(command, c, s->exec_command[SERVICE_EXEC_START]) {
-                                _cleanup_free_ char *a;
+                                _cleanup_free_ char *a = NULL;
 
                                 a = strv_join_quoted(c->argv);
                                 if (!a)

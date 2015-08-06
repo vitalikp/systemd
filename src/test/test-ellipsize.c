@@ -26,7 +26,7 @@
 #include "def.h"
 
 static void test_one(const char *p) {
-        _cleanup_free_ char *t;
+        _cleanup_free_ char *t = NULL;
         t = ellipsize(p, columns(), 70);
         puts(t);
 }

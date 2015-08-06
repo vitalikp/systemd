@@ -539,7 +539,7 @@ done:
 
                 n = hashmap_size(files);
                 if (n) {
-                        _cleanup_free_ struct item *ordered;
+                        _cleanup_free_ struct item *ordered = NULL;
                         struct item *j;
                         unsigned k;
 

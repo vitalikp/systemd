@@ -2096,7 +2096,7 @@ int manager_serialize(Manager *m, FILE *f, FDSet *fds, bool switching_root) {
 
         if (!switching_root) {
                 STRV_FOREACH(e, m->environment) {
-                        _cleanup_free_ char *ce;
+                        _cleanup_free_ char *ce = NULL;
 
                         ce = cescape(*e);
                         if (!ce)

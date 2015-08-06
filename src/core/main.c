@@ -996,7 +996,7 @@ static int parse_argv(int argc, char *argv[]) {
                  * instead. */
 
                 for (a = argv; a < argv + argc; a++) {
-                        _cleanup_free_ char *w;
+                        _cleanup_free_ char *w = NULL;
                         char *value;
 
                         w = strdup(*a);

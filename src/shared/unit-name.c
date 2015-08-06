@@ -294,7 +294,7 @@ char *unit_name_unescape(const char *f) {
 }
 
 char *unit_name_path_escape(const char *f) {
-        _cleanup_free_ char *p;
+        _cleanup_free_ char *p = NULL;
 
         assert(f);
 

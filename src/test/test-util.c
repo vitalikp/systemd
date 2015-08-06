@@ -226,7 +226,7 @@ static void test_safe_atod(void) {
 }
 
 static void test_strappend(void) {
-        _cleanup_free_ char *t1, *t2, *t3, *t4;
+        _cleanup_free_ char *t1 = NULL, *t2 = NULL, *t3 = NULL, *t4 = NULL;
 
         t1 = strappend(NULL, NULL);
         assert_se(streq(t1, ""));
@@ -294,13 +294,13 @@ static void test_undecchar(void) {
 }
 
 static void test_cescape(void) {
-        _cleanup_free_ char *escaped;
+        _cleanup_free_ char *escaped = NULL;
         escaped = cescape("abc\\\"\b\f\n\r\t\v\003\177\234\313");
         assert_se(streq(escaped, "abc\\\\\\\"\\b\\f\\n\\r\\t\\v\\003\\177\\234\\313"));
 }
 
 static void test_cunescape(void) {
-        _cleanup_free_ char *unescaped;
+        _cleanup_free_ char *unescaped = NULL;
         unescaped = cunescape("abc\\\\\\\"\\b\\f\\n\\r\\t\\v\\003\\177\\234\\313");
         assert_se(streq(unescaped, "abc\\\"\b\f\n\r\t\v\003\177\234\313"));
 }
@@ -549,7 +549,7 @@ static void test_strextend(void) {
 }
 
 static void test_strrep(void) {
-        _cleanup_free_ char *one, *three, *zero;
+        _cleanup_free_ char *one = NULL, *three = NULL, *zero = NULL;
         one = strrep("waldo", 1);
         three = strrep("waldo", 3);
         zero = strrep("waldo", 0);

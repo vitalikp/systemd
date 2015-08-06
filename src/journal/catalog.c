@@ -328,7 +328,7 @@ static long write_catalog(const char *database, Hashmap *h, struct strbuf *sb,
         CatalogHeader header;
         _cleanup_fclose_ FILE *w = NULL;
         int r;
-        _cleanup_free_ char *d, *p = NULL;
+        _cleanup_free_ char *d = NULL, *p = NULL;
         size_t k;
 
         d = dirname_malloc(database);

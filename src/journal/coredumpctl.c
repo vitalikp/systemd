@@ -557,7 +557,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (_unlikely_(log_get_max_level() >= LOG_PRI(LOG_DEBUG))) {
-                _cleanup_free_ char *filter;
+                _cleanup_free_ char *filter = NULL;
 
                 filter = journal_make_match_string(j);
                 log_debug("Journal filter: %s", filter);

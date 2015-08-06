@@ -138,7 +138,7 @@ static void test_strv_join(void) {
 }
 
 static void test_strv_quote_unquote(const char* const *split, const char *quoted) {
-        _cleanup_free_ char *p;
+        _cleanup_free_ char *p = NULL;
         _cleanup_strv_free_ char **s;
         char **t;
 

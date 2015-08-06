@@ -1142,7 +1142,7 @@ int config_parse_exec_mount_flags(const char *unit,
         assert(data);
 
         FOREACH_WORD_SEPARATOR(w, l, rvalue, ", ", state) {
-                _cleanup_free_ char *t;
+                _cleanup_free_ char *t = NULL;
 
                 t = strndup(w, l);
                 if (!t)
@@ -1778,7 +1778,7 @@ int config_parse_environ(const char *unit,
                 return log_oom();
 
         FOREACH_WORD_QUOTED(w, l, k, state) {
-                _cleanup_free_ char *n;
+                _cleanup_free_ char *n = NULL;
                 char **x;
 
                 n = cunescape_length(w, l);
@@ -2031,7 +2031,7 @@ int config_parse_unit_requires_mounts_for(
 
         FOREACH_WORD_QUOTED(w, l, rvalue, state) {
                 int r;
-                _cleanup_free_ char *n;
+                _cleanup_free_ char *n = NULL;
 
                 n = strndup(w, l);
                 if (!n)
@@ -2859,7 +2859,7 @@ int config_parse_runtime_directory(
         }
 
         FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                _cleanup_free_ char *n;
+                _cleanup_free_ char *n = NULL;
 
                 n = strndup(w, l);
                 if (!n)
@@ -2914,7 +2914,7 @@ int config_parse_set_status(
         }
 
         FOREACH_WORD(w, l, rvalue, state) {
-                _cleanup_free_ char *temp;
+                _cleanup_free_ char *temp = NULL;
                 int val;
 
                 temp = strndup(w, l);
@@ -2988,7 +2988,7 @@ int config_parse_namespace_path_strv(
         }
 
         FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                _cleanup_free_ char *n;
+                _cleanup_free_ char *n = NULL;
                 int offset;
 
                 n = strndup(w, l);
@@ -3326,7 +3326,7 @@ int unit_load_fragment(Unit *u) {
 
         /* Look for a template */
         if (u->load_state == UNIT_STUB && u->instance) {
-                _cleanup_free_ char *k;
+                _cleanup_free_ char *k = NULL;
 
                 k = unit_name_template(u->id);
                 if (!k)

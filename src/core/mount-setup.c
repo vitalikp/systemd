@@ -287,7 +287,7 @@ int mount_cgroup_controllers(char ***join_controllers) {
                         for (i = *k, j = *k; *i; i++) {
 
                                 if (!streq(*i, controller)) {
-                                        _cleanup_free_ char *t;
+                                        _cleanup_free_ char *t = NULL;
 
                                         t = set_remove(controllers, *i);
                                         if (!t) {

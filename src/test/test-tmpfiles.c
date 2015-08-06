@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
         const char *p = argv[1] ?: "/tmp";
         char *pattern = strappenda(p, "/systemd-test-XXXXXX");
         _cleanup_close_ int fd = -1, fd2 = -1;
-        _cleanup_free_ char *cmd, *cmd2;
+        _cleanup_free_ char *cmd = NULL, *cmd2 = NULL;
 
         fd = open_tmpfile(p, O_RDWR|O_CLOEXEC);
         assert(fd >= 0);

@@ -58,7 +58,7 @@ static void test_replacements(void) {
 #undef expect
 #define expect(path, suffix, expected)                             \
         {                                                          \
-                _cleanup_free_ char *k, *t =                       \
+                _cleanup_free_ char *k = NULL, *t =                \
                         unit_name_from_path(path, suffix);         \
                 puts(t);                                           \
                 k = unit_name_to_path(t);                          \
@@ -91,7 +91,7 @@ static void test_replacements(void) {
 #undef expect
 #define expect(pattern)                                                     \
         {                                                                   \
-                _cleanup_free_ char *k, *t;                                 \
+                _cleanup_free_ char *k = NULL, *t = NULL;                   \
                 assert_se(t = unit_name_mangle(pattern, MANGLE_NOGLOB));    \
                 assert_se(k = unit_name_mangle(t, MANGLE_NOGLOB));          \
                 puts(t);                                                    \
@@ -114,7 +114,7 @@ static int test_unit_printf(void) {
         Unit *u, *u2;
         int r;
 
-        _cleanup_free_ char *mid, *bid, *host, *root_uid;
+        _cleanup_free_ char *mid = NULL, *bid = NULL, *host = NULL, *root_uid = NULL;
         struct passwd *root;
 
         assert_se(specifier_machine_id('m', NULL, NULL, &mid) >= 0 && mid);
@@ -134,7 +134,7 @@ static int test_unit_printf(void) {
 #define expect(unit, pattern, expected)                                 \
         {                                                               \
                 char *e;                                                \
-                _cleanup_free_ char *t;                                 \
+                _cleanup_free_ char *t = NULL;                          \
                 assert_se(unit_full_printf(unit, pattern, &t) >= 0);    \
                 printf("result: %s\nexpect: %s\n", t, expected);        \
                 if ((e = endswith(expected, "*")))                      \

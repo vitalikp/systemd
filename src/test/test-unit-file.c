@@ -312,7 +312,7 @@ static void test_install_printf(void) {
         InstallInfo i3 = {name3, path3, user};
         InstallInfo i4 = {name3, path3, NULL};
 
-        _cleanup_free_ char *mid, *bid, *host;
+        _cleanup_free_ char *mid = NULL, *bid = NULL, *host = NULL;
 
         assert_se(specifier_machine_id('m', NULL, NULL, &mid) >= 0 && mid);
         assert_se(specifier_boot_id('b', NULL, NULL, &bid) >= 0 && bid);

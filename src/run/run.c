@@ -286,7 +286,7 @@ static int message_start_transient_unit_new(sd_bus *bus, const char *name, sd_bu
                 return r;
 
         if (!isempty(arg_slice)) {
-                _cleanup_free_ char *slice;
+                _cleanup_free_ char *slice = NULL;
 
                 slice = unit_name_mangle_with_suffix(arg_slice, MANGLE_NOGLOB, ".slice");
                 if (!slice)

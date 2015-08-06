@@ -563,7 +563,7 @@ int unit_file_mask(
                 unsigned *n_changes) {
 
         char **i;
-        _cleanup_free_ char *prefix;
+        _cleanup_free_ char *prefix = NULL;
         int r;
 
         assert(scope >= 0);
@@ -938,7 +938,7 @@ static int config_parse_also(const char *unit,
         assert(rvalue);
 
         FOREACH_WORD_QUOTED(w, l, rvalue, state) {
-                _cleanup_free_ char *n;
+                _cleanup_free_ char *n = NULL;
                 int r;
 
                 n = strndup(w, l);

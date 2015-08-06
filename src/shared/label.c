@@ -337,7 +337,7 @@ static int label_mkdir_selinux(const char *path, mode_t mode) {
         if (path_is_absolute(path))
                 r = selabel_lookup_raw(label_hnd, &fcon, path, S_IFDIR);
         else {
-                _cleanup_free_ char *newpath;
+                _cleanup_free_ char *newpath = NULL;
 
                 newpath = path_make_absolute_cwd(path);
                 if (!newpath)
@@ -431,7 +431,7 @@ int label_bind(int fd, const struct sockaddr *addr, socklen_t addrlen) {
         if (path_is_absolute(path))
                 r = selabel_lookup_raw(label_hnd, &fcon, path, S_IFSOCK);
         else {
-                _cleanup_free_ char *newpath;
+                _cleanup_free_ char *newpath = NULL;
 
                 newpath = path_make_absolute_cwd(path);
                 if (!newpath)

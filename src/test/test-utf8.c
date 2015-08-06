@@ -51,7 +51,7 @@ static void test_utf8_encoded_valid_unichar(void) {
 }
 
 static void test_utf8_escaping(void) {
-        _cleanup_free_ char *p1, *p2, *p3;
+        _cleanup_free_ char *p1 = NULL, *p2 = NULL, *p3 = NULL;
 
         p1 = utf8_escape_invalid("goo goo goo");
         puts(p1);

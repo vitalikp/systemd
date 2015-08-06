@@ -26,7 +26,7 @@
 #include "util.h"
 
 static void test_tmpdir(const char *id, const char *A, const char *B) {
-        _cleanup_free_ char *a, *b;
+        _cleanup_free_ char *a = NULL, *b = NULL;
         struct stat x, y;
         char *c, *d;
 
