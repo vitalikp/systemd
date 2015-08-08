@@ -54,12 +54,6 @@ SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{ID_USB_INTERFACES}=="*:0701??:
 
 ACTION=="add", SUBSYSTEM=="net", KERNEL!="lo", RUN+="@prefix@/sbin/sysctl --pattern "net.ipv4.conf.$name.*|net.ipv4.neigh.$name.*|net.ipv6.conf.$name.*|net.ipv6.neigh.$name.*" --system"
 
-# Pull in backlight save/restore for all backlight devices and
-# keyboard backlights
-
-SUBSYSTEM=="backlight", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-backlight@backlight:$name.service"
-SUBSYSTEM=="leds", KERNEL=="*kbd_backlight", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-backlight@leds:$name.service"
-
 # Pull in rfkill save/restore for all rfkill devices
 
 SUBSYSTEM=="rfkill", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-rfkill@$name.service"

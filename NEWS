@@ -75,6 +75,7 @@ NEW CHANGES:
              (+) move initrd-udevadm-cleanup-db service to separate module udev;
              (+) remove halt-local service;
              (+) remove rc-local service;
+             (+) remove systemd-backlight@.service;
         * targets:
              (+) remove cryptsetup target;
              (+) remove runlevel targets;
