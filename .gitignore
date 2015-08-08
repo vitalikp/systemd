@@ -37,7 +37,6 @@
 /systemd-activate
 /systemd-analyze
 /systemd-ask-password
-/systemd-backlight
 /systemd-binfmt
 /systemd-bootchart
 /systemd-bus-proxyd

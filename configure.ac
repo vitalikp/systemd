@@ -648,14 +648,6 @@ fi
 AM_CONDITIONAL(ENABLE_RANDOMSEED, [test "$have_randomseed" = "yes"])
 
 # ------------------------------------------------------------------------------
-have_backlight=no
-AC_ARG_ENABLE(backlight, AS_HELP_STRING([--disable-backlight], [disable backlight tools]))
-if test "x$enable_backlight" != "xno"; then
-        have_backlight=yes
-fi
-AM_CONDITIONAL(ENABLE_BACKLIGHT, [test "$have_backlight" = "yes"])
-
-# ------------------------------------------------------------------------------
 have_rfkill=no
 AC_ARG_ENABLE(rfkill, AS_HELP_STRING([--disable-rfkill], [disable rfkill tools]))
 if test "x$enable_rfkill" != "xno"; then
@@ -909,7 +901,6 @@ AC_MSG_RESULT([
         quotacheck:              ${have_quotacheck}
         tmpfiles:                ${have_tmpfiles}
         randomseed:              ${have_randomseed}
-        backlight:               ${have_backlight}
         rfkill:                  ${have_rfkill}
         logind:                  ${have_logind}
         coredump:                ${have_coredump}

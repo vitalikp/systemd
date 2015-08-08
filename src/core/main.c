@@ -407,7 +407,7 @@ static int parse_proc_cmdline_item(const char *key, const char *value) {
                                  "systemd.default_standard_error=null|tty|syslog|syslog+console|kmsg|kmsg+console|journal|journal+console\n"
                                  "                                         Set default log error output for services\n"
                                  "systemd.setenv=ASSIGNMENT                Set an environment variable for all spawned processes\n"
-                                 "systemd.restore_state=0|1                Restore backlight/rfkill state at boot\n");
+                                 "systemd.restore_state=0|1                Restore rfkill state at boot\n");
                 }
 
         } else if (streq(key, "quiet") && !value) {

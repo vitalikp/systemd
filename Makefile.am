@@ -2940,24 +2940,6 @@ EXTRA_DIST += \
 	units/systemd-random-seed.service.in
 
 # ------------------------------------------------------------------------------
-if ENABLE_BACKLIGHT
-rootlibexec_PROGRAMS += \
-	systemd-backlight
-
-systemd_backlight_SOURCES = \
-	src/backlight/backlight.c
-
-systemd_backlight_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(LIBUDEV_CFLAGS)
-
-systemd_backlight_LDADD = \
-	libsystemd-label.la \
-	$(LIBUDEV_LIBS) \
-	libsystemd-shared.la
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_RFKILL
 rootlibexec_PROGRAMS += \
 	systemd-rfkill
