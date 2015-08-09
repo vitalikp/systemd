@@ -3,6 +3,8 @@ systemd System and Service Manager
    systemd (214.2-dev)
 ~~~~~~~
  * fix quote udev rule;
+ * journalctl:
+    - remove qrencode support;
  
    systemd (214.1)
 ~~~~~~~

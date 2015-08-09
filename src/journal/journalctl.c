@@ -50,7 +50,6 @@
 #include "journal-def.h"
 #include "journal-verify.h"
 #include "journal-authenticate.h"
-#include "journal-qrcode.h"
 #include "fsprg.h"
 #include "unit-name.h"
 #include "catalog.h"
@@ -1371,13 +1370,6 @@ static int setup_keys(void) {
                 } else
                         fprintf(stderr, "\nThe keys have been generated for host " SD_ID128_FORMAT_STR ".\n", SD_ID128_FORMAT_VAL(machine));
 
-#ifdef HAVE_QRENCODE
-                /* If this is not an UTF-8 system don't print any QR codes */
-                if (is_locale_utf8()) {
-                        fputs("\nTo transfer the verification key to your phone please scan the QR code below:\n\n", stderr);
-                        print_qr_code(stderr, seed, seed_size, n, arg_interval, hn, machine);
-                }
-#endif
                 free(hn);
         }
 

@@ -107,7 +107,6 @@ REQUIREMENTS:
         libselinux (optional)
         liblzma (optional)
         libgcrypt (optional)
-        libqrencode (optional)
         libmicrohttpd (optional)
         libpython (optional)
         make, gcc, and similar tools
