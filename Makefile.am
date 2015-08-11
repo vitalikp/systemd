@@ -2642,52 +2642,6 @@ CLEANFILES += \
 	src/journal/journald-gperf.c
 
 # ------------------------------------------------------------------------------
-if HAVE_MICROHTTPD
-gatewayddocumentrootdir=$(pkgdatadir)/gatewayd
-
-rootlibexec_PROGRAMS += \
-	systemd-journal-gatewayd
-
-systemd_journal_gatewayd_SOURCES = \
-	src/journal/journal-gatewayd.c \
-	src/journal/microhttpd-util.h \
-	src/journal/microhttpd-util.c
-
-systemd_journal_gatewayd_LDADD = \
-	libsystemd-logs.la \
-	libsystemd-journal-internal.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	$(MICROHTTPD_LIBS)
-
-if HAVE_GNUTLS
-systemd_journal_gatewayd_LDADD += \
-	$(GNUTLS_LIBS)
-endif
-
-systemd_journal_gatewayd_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(MICROHTTPD_CFLAGS)
-
-systemd_journal_gatewayd_CPPFLAGS = \
-	$(AM_CPPFLAGS) \
-	-DDOCUMENT_ROOT=\"$(gatewayddocumentrootdir)\"
-
-dist_systemunit_DATA += \
-	units/systemd-journal-gatewayd.socket
-
-nodist_systemunit_DATA += \
-	units/systemd-journal-gatewayd.service
-
-dist_gatewayddocumentroot_DATA = \
-	src/journal/browse.html
-
-endif
-
-EXTRA_DIST += \
-	units/systemd-journal-gatewayd.service.in
-
-# ------------------------------------------------------------------------------
 
 systemd_socket_proxyd_SOURCES = \
 	src/socket-proxy/socket-proxyd.c

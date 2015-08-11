@@ -1056,22 +1056,6 @@ man/systemd-modules-load.html: man/systemd-modules-load.service.html
 
 endif
 
-if HAVE_MICROHTTPD
-MANPAGES += \
-	man/systemd-journal-gatewayd.service.8
-MANPAGES_ALIAS += \
-	man/systemd-journal-gatewayd.8 \
-	man/systemd-journal-gatewayd.socket.8
-man/systemd-journal-gatewayd.8: man/systemd-journal-gatewayd.service.8
-man/systemd-journal-gatewayd.socket.8: man/systemd-journal-gatewayd.service.8
-man/systemd-journal-gatewayd.html: man/systemd-journal-gatewayd.service.html
-	$(html-alias)
-
-man/systemd-journal-gatewayd.socket.html: man/systemd-journal-gatewayd.service.html
-	$(html-alias)
-
-endif
-
 if HAVE_MYHOSTNAME
 MANPAGES += \
 	man/nss-myhostname.8
@@ -1409,7 +1393,6 @@ EXTRA_DIST += \
 	man/systemd-halt.service.xml \
 	man/systemd-inhibit.xml \
 	man/systemd-initctl.service.xml \
-	man/systemd-journal-gatewayd.service.xml \
 	man/systemd-journald.service.xml \
 	man/systemd-logind.service.xml \
 	man/systemd-machine-id-setup.xml \

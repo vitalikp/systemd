@@ -152,15 +152,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   </refsect1>
 
   <refsect1>
-    <title>Example 2</title>
-
-    <programlisting>$ /usr/lib/systemd/systemd-activate -l 19531 /usr/lib/systemd/systemd-journal-gatewayd</programlisting>
-
-    <para>This runs a socket activated instance of
-    <citerefentry><refentrytitle>systemd-journal-gatewayd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
-  </refsect1>
-
-  <refsect1>
     <title>See Also</title>
     <para>
       <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,

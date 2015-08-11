@@ -6,6 +6,7 @@ systemd System and Service Manager
  * journalctl:
     - remove qrencode support;
  * remove systemd-journal-remote program;
+ * remove systemd-journal-gatewayd program, service and socket;
  
    systemd (214.1)
 ~~~~~~~
