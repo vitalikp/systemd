@@ -2376,38 +2376,6 @@ systemd_journald_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
-if HAVE_MICROHTTPD
-rootlibexec_PROGRAMS += \
-	systemd-journal-remote
-
-systemd_journal_remote_SOURCES = \
-	src/journal/journal-remote-parse.h \
-	src/journal/journal-remote-parse.c \
-	src/journal/journal-remote-write.h \
-	src/journal/journal-remote-write.c \
-	src/journal/journal-remote.c
-
-systemd_journal_remote_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-journal-core.la
-
-systemd_journal_remote_SOURCES += \
-	src/journal/microhttpd-util.h \
-	src/journal/microhttpd-util.c
-
-systemd_journal_remote_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(MICROHTTPD_CFLAGS)
-
-systemd_journal_remote_LDADD += \
-	$(MICROHTTPD_LIBS)
-
-if HAVE_GNUTLS
-systemd_journal_remote_LDADD += \
-	$(GNUTLS_LIBS)
-endif
-endif
-
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
 journalctl_CFLAGS = \
 	$(AM_CFLAGS)

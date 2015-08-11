@@ -55,7 +55,6 @@
 /systemd-inhibit
 /systemd-initctl
 /systemd-journal-gatewayd
-/systemd-journal-remote
 /systemd-journald
 /systemd-kmsg-syslogd
 /systemd-logind

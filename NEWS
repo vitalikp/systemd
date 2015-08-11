@@ -5,6 +5,7 @@ systemd System and Service Manager
  * fix quote udev rule;
  * journalctl:
     - remove qrencode support;
+ * remove systemd-journal-remote program;
  
    systemd (214.1)
 ~~~~~~~
