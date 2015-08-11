@@ -7,6 +7,7 @@ systemd System and Service Manager
     - remove qrencode support;
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
+ * remove gnutls support;
  
    systemd (214.1)
 ~~~~~~~
