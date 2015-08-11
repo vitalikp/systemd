@@ -851,76 +851,6 @@ static PyObject* Reader_query_unique(Reader *self, PyObject *args) {
         return value_set;
 }
 
-PyDoc_STRVAR(Reader_get_catalog__doc__,
-             "get_catalog() -> str\n\n"
-             "Retrieve a message catalog entry for the current journal entry.\n"
-             "Will throw IndexError if the entry has no MESSAGE_ID\n"
-             "and KeyError is the id is specified, but hasn't been found\n"
-             "in the catalog.\n\n"
-             "Wraps man:sd_journal_get_catalog(3).");
-static PyObject* Reader_get_catalog(Reader *self, PyObject *args) {
-        int r;
-        _cleanup_free_ char *msg = NULL;
-
-        assert(self);
-        assert(!args);
-
-        Py_BEGIN_ALLOW_THREADS
-        r = sd_journal_get_catalog(self->j, &msg);
-        Py_END_ALLOW_THREADS
-
-        if (r == -ENOENT) {
-                const void* mid;
-                size_t mid_len;
-
-                r = sd_journal_get_data(self->j, "MESSAGE_ID", &mid, &mid_len);
-                if (r == 0) {
-                        const size_t l = sizeof("MESSAGE_ID");
-                        assert(mid_len > l);
-                        PyErr_Format(PyExc_KeyError, "%.*s", (int) (mid_len - l),
-                                     (const char*) mid + l);
-                } else if (r == -ENOENT)
-                        PyErr_SetString(PyExc_IndexError, "no MESSAGE_ID field");
-                else
-                        set_error(r, NULL, NULL);
-                return NULL;
-        }
-
-        if (set_error(r, NULL, NULL) < 0)
-                return NULL;
-
-        return unicode_FromString(msg);
-}
-
-PyDoc_STRVAR(get_catalog__doc__,
-             "get_catalog(id128) -> str\n\n"
-             "Retrieve a message catalog entry for the given id.\n"
-             "Wraps man:sd_journal_get_catalog_for_message_id(3).");
-static PyObject* get_catalog(PyObject *self, PyObject *args) {
-        int r;
-        char *id_ = NULL;
-        sd_id128_t id;
-        _cleanup_free_ char *msg = NULL;
-
-        assert(args);
-
-        if (!PyArg_ParseTuple(args, "z:get_catalog", &id_))
-                return NULL;
-
-        r = sd_id128_from_string(id_, &id);
-        if (set_error(r, NULL, "Invalid id128") < 0)
-                return NULL;
-
-        Py_BEGIN_ALLOW_THREADS
-        r = sd_journal_get_catalog_for_message_id(id, &msg);
-        Py_END_ALLOW_THREADS
-
-        if (set_error(r, NULL, NULL) < 0)
-                return NULL;
-
-        return unicode_FromString(msg);
-}
-
 PyDoc_STRVAR(data_threshold__doc__,
              "Threshold for field size truncation in bytes.\n\n"
              "Fields longer than this will be truncated to the threshold size.\n"
@@ -1004,7 +934,6 @@ static PyMethodDef Reader_methods[] = {
         {"_get_cursor",     (PyCFunction) Reader_get_cursor, METH_NOARGS, Reader_get_cursor__doc__},
         {"test_cursor",     (PyCFunction) Reader_test_cursor, METH_VARARGS, Reader_test_cursor__doc__},
         {"query_unique",    (PyCFunction) Reader_query_unique, METH_VARARGS, Reader_query_unique__doc__},
-        {"get_catalog",     (PyCFunction) Reader_get_catalog, METH_NOARGS, Reader_get_catalog__doc__},
         {}  /* Sentinel */
 };
 
@@ -1020,21 +949,6 @@ static PyTypeObject ReaderType = {
         .tp_init = (initproc) Reader_init,
         .tp_new = PyType_GenericNew,
 };
-
-static PyMethodDef methods[] = {
-        { "_get_catalog", get_catalog, METH_VARARGS, get_catalog__doc__},
-        {} /* Sentinel */
-};
-
-#if PY_MAJOR_VERSION >= 3
-static PyModuleDef module = {
-        PyModuleDef_HEAD_INIT,
-        "_reader",
-        module__doc__,
-        -1,
-        methods,
-};
-#endif
 
 #if PY_MAJOR_VERSION >= 3
 static bool initialized = false;

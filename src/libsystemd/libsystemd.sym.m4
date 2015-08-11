@@ -52,8 +52,6 @@ global:
         sd_journal_query_unique;
         sd_journal_enumerate_unique;
         sd_journal_restart_unique;
-        sd_journal_get_catalog;
-        sd_journal_get_catalog_for_message_id;
         sd_journal_set_data_threshold;
         sd_journal_get_data_threshold;
         sd_journal_reliable_fd;

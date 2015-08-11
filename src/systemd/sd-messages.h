@@ -27,9 +27,6 @@
 
 _SD_BEGIN_DECLARATIONS;
 
-/* Hey! If you add a new message here, you *must* also update the
- * message catalog with an appropriate explanation */
-
 /* And if you add a new ID here, make sure to generate a random one
  * with journalctl --new-id128. Do not use any other IDs, and do not
  * count them up manually. */

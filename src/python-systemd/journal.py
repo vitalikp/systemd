@@ -34,8 +34,7 @@ from syslog import (LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR,
 from ._journal import __version__, sendv, stream_fd
 from ._reader import (_Reader, NOP, APPEND, INVALIDATE,
                       LOCAL_ONLY, RUNTIME_ONLY,
-                      SYSTEM, SYSTEM_ONLY, CURRENT_USER,
-                      _get_catalog)
+                      SYSTEM, SYSTEM_ONLY, CURRENT_USER)
 from . import id128 as _id128
 
 if _sys.version_info >= (3,):
@@ -333,11 +332,6 @@ class Reader(_Reader):
             machineid = getattr(machineid, 'hex', machineid)
         self.add_match(_MACHINE_ID=machineid)
 
-
-def get_catalog(mid):
-    if isinstance(mid, _uuid.UUID):
-        mid = mid.hex
-    return _get_catalog(mid)
 
 def _make_line(field, value):
         if isinstance(value, bytes):

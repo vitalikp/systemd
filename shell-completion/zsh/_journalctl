@@ -60,7 +60,6 @@ _arguments -s \
     '--no-tail[Show all lines, even in follow mode]' \
     {-r,--reverse}'[Reverse output]' \
     {-o+,--output=}'[Change journal output mode]:output modes:_sd_outputmodes' \
-    {-x,--catalog}'[Show explanatory texts with each log line]' \
     {-q,--quiet}"[Don't show privilege warning]" \
     {-m,--merge}'[Show entries from all available journals]' \
     {-b+,--boot=}'[Show data only from the specified boot or offset]:boot id or offset:_journal_boots' \
@@ -78,13 +77,9 @@ _arguments -s \
     '--user[Show messages from user services]' \
     {-D+,--directory=}'[Show journal files from directory]:directories:_directories' \
     '--file=[Operate on specified journal files]:file:_files' \
-    '--root=[Operate on catalog hierarchy under specified directory]:directories:_directories' \
     '--new-id128[Generate a new 128 Bit ID]' \
     '--header[Show journal header information]' \
     '--disk-usage[Show total disk usage]' \
-    '--list-catalog[List messages in catalog]' \
-    '--dump-catalog[Dump messages in catalog]' \
-    '--update-catalog[Update binary catalog database]' \
     '--setup-keys[Generate a new FSS key pair]' \
     '--force[Force recreation of the FSS keys]' \
     '--interval=[Time interval for changing the FSS sealing key]:time interval' \

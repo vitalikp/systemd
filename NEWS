@@ -9,6 +9,7 @@ systemd System and Service Manager
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
  * remove microhttpd support;
+ * remove journal catalog support;
  
    systemd (214.1)
 ~~~~~~~

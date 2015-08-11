@@ -71,7 +71,6 @@ zshcompletiondir=@zshcompletiondir@
 rpmmacrosdir=$(prefix)/lib/rpm/macros.d
 varlogdir=$(localstatedir)/log
 systemdstatedir=$(localstatedir)/lib/systemd
-catalogstatedir=$(systemdstatedir)/catalog
 
 # Our own, non-special dirs
 pkgsysconfdir=$(sysconfdir)/systemd
@@ -90,7 +89,6 @@ systempresetdir=$(rootprefix)/lib/systemd/system-preset
 udevlibexecdir=$(rootprefix)/lib/udev
 udevhomedir=$(udevlibexecdir)
 udevrulesdir=$(udevlibexecdir)/rules.d
-catalogdir=$(prefix)/lib/systemd/catalog
 kernelinstalldir = $(prefix)/lib/kernel/install.d
 
 # And these are the special ones for /
@@ -148,7 +146,6 @@ AM_CPPFLAGS = \
 	-DSYSTEM_DATA_UNIT_PATH=\"$(systemunitdir)\" \
 	-DUSER_CONFIG_UNIT_PATH=\"$(pkgsysconfdir)/user\" \
 	-DUSER_DATA_UNIT_PATH=\"$(userunitdir)\" \
-	-DCATALOG_DATABASE=\"$(catalogstatedir)/database\" \
 	-DSYSTEMD_CGROUP_AGENT_PATH=\"$(rootlibexecdir)/systemd-cgroups-agent\" \
 	-DSYSTEMD_BINARY_PATH=\"$(rootlibexecdir)/systemd\" \
 	-DSYSTEMD_SHUTDOWN_BINARY_PATH=\"$(rootlibexecdir)/systemd-shutdown\" \
@@ -2455,16 +2452,6 @@ test_mmap_cache_SOURCES = \
 test_mmap_cache_LDADD = \
 	libsystemd-journal-core.la
 
-test_catalog_SOURCES = \
-	src/journal/test-catalog.c
-
-test_catalog_CPPFLAGS = \
-	$(AM_CPPFLAGS) \
-	-DCATALOG_DIR=\"$(abs_top_srcdir)/catalog\"
-
-test_catalog_LDADD = \
-	libsystemd-journal-core.la
-
 libsystemd_journal_core_la_SOURCES = \
 	src/journal/journald-kmsg.c \
 	src/journal/journald-kmsg.h \
@@ -2514,20 +2501,6 @@ INSTALL_EXEC_HOOKS += journal-install-hook
 UNINSTALL_EXEC_HOOKS += journal-uninstall-hook
 
 # ------------------------------------------------------------------------------
-# Update catalog on installation. Do not bother if installing
-# in DESTDIR, since this is likely for packaging purposes.
-catalog-update-hook:
-	-test -n "$(DESTDIR)" || $(rootbindir)/journalctl --update-catalog
-
-INSTALL_DATA_HOOKS += \
-	catalog-update-hook
-
-catalog-remove-hook:
-	-test -n "$(DESTDIR)" || rm -f $(catalogstatedir)/database
-
-UNINSTALL_DATA_HOOKS += \
-	catalog-remove-hook
-
 manual_tests += \
 	test-journal-enum
 
@@ -2541,8 +2514,7 @@ tests += \
 	test-journal-verify \
 	test-journal-interleaving \
 	test-journal-flush \
-	test-mmap-cache \
-	test-catalog
+	test-mmap-cache
 
 pkginclude_HEADERS += \
 	src/systemd/sd-journal.h \
@@ -2564,8 +2536,6 @@ libsystemd_journal_internal_la_SOURCES = \
 	src/journal/journal-send.c \
 	src/journal/journal-def.h \
 	src/journal/compress.h \
-	src/journal/catalog.c \
-	src/journal/catalog.h \
 	src/journal/mmap-cache.c \
 	src/journal/mmap-cache.h
 
@@ -2620,12 +2590,6 @@ nodist_systemunit_DATA += \
 
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
-
-dist_catalog_DATA = \
-	catalog/systemd.fr.catalog \
-	catalog/systemd.ru.catalog \
-	catalog/systemd.it.catalog \
-	catalog/systemd.catalog
 
 SOCKETS_TARGET_WANTS += \
 	systemd-journald.socket
@@ -3424,7 +3388,6 @@ substitutions = \
        '|systempresetdir=$(systempresetdir)|' \
        '|userpresetdir=$(userpresetdir)|' \
        '|udevrulesdir=$(udevrulesdir)|' \
-       '|catalogdir=$(catalogdir)|' \
        '|tmpfilesdir=$(tmpfilesdir)|' \
        '|sysctldir=$(sysctldir)|' \
        '|systemgeneratordir=$(systemgeneratordir)|' \

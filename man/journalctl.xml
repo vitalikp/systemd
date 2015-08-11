@@ -368,37 +368,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><option>-x</option></term>
-                                <term><option>--catalog</option></term>
-
-                                <listitem><para>Augment log lines with
-                                explanation texts from the message
-                                catalog. This will add explanatory
-                                help texts to log messages in the
-                                output where this is available. These
-                                short help texts will explain the
-                                context of an error or log event,
-                                possible solutions, as well as
-                                pointers to support forums, developer
-                                documentation, and any other relevant
-                                manuals. Note that help texts are not
-                                available for all messages, but only
-                                for selected ones. For more
-                                information on the message catalog,
-                                please refer to the <ulink
-                                url="http://www.freedesktop.org/wiki/Software/systemd/catalog">Message
-                                Catalog Developer
-                                Documentation</ulink>.</para>
-
-                                <para>Note: when attaching
-                                <command>journalctl</command> output
-                                to bug reports, please do
-                                <emphasis>not</emphasis> use
-                                <option>-x</option>.</para>
-                                </listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><option>-q</option></term>
                                 <term><option>--quiet</option></term>
 
@@ -685,20 +654,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><option>--root=<replaceable>ROOT</replaceable></option></term>
-
-                                <listitem><para>Takes a directory path
-                                as an argument. If specified, journalctl
-                                will operate on catalog file hierarchy
-                                underneath the specified directory
-                                instead of the root directory
-                                (e.g. <option>--update-catalog</option>
-                                will create
-                                <filename><replaceable>ROOT</replaceable>/var/lib/systemd/catalog/database</filename>).
-                                </para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><option>--new-id128</option></term>
 
                                 <listitem><para>Instead of showing
@@ -729,53 +684,6 @@
                                 <listitem><para>Shows the current disk
                                 usage of all
                                 journal files.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>--list-catalog
-                                <optional><replaceable>128-bit-ID...</replaceable></optional>
-                                </option></term>
-
-                                <listitem><para>List the contents of
-                                the message catalog as a table of
-                                message IDs, plus their short
-                                description strings.</para>
-
-                                <para>If any
-                                <replaceable>128-bit-ID</replaceable>s are
-                                specified, only those entries are shown.
-                                </para>
-                                </listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>--dump-catalog
-                                <optional><replaceable>128-bit-ID...</replaceable></optional>
-                                </option></term>
-
-                                <listitem><para>Show the contents of
-                                the message catalog, with entries
-                                separated by a line consisting of two
-                                dashes and the ID (the format is the
-                                same as <filename>.catalog</filename>
-                                files).</para>
-
-                                <para>If any
-                                <replaceable>128-bit-ID</replaceable>s are
-                                specified, only those entries are shown.
-                                </para>
-                                </listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>--update-catalog</option></term>
-
-                                <listitem><para>Update the message
-                                catalog index. This command needs to
-                                be executed each time new catalog
-                                files are installed, removed, or
-                                updated to rebuild the binary catalog
-                                index.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>

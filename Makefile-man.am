@@ -30,7 +30,6 @@ MANPAGES += \
 	man/sd_id128_to_string.3 \
 	man/sd_is_fifo.3 \
 	man/sd_journal_add_match.3 \
-	man/sd_journal_get_catalog.3 \
 	man/sd_journal_get_cursor.3 \
 	man/sd_journal_get_cutoff_realtime_usec.3 \
 	man/sd_journal_get_data.3 \
@@ -144,7 +143,6 @@ MANPAGES_ALIAS += \
 	man/sd_journal_enumerate_data.3 \
 	man/sd_journal_enumerate_unique.3 \
 	man/sd_journal_flush_matches.3 \
-	man/sd_journal_get_catalog_for_message_id.3 \
 	man/sd_journal_get_cutoff_monotonic_usec.3 \
 	man/sd_journal_get_data_threshold.3 \
 	man/sd_journal_get_events.3 \
@@ -242,7 +240,6 @@ man/sd_journal_close.3: man/sd_journal_open.3
 man/sd_journal_enumerate_data.3: man/sd_journal_get_data.3
 man/sd_journal_enumerate_unique.3: man/sd_journal_query_unique.3
 man/sd_journal_flush_matches.3: man/sd_journal_add_match.3
-man/sd_journal_get_catalog_for_message_id.3: man/sd_journal_get_catalog.3
 man/sd_journal_get_cutoff_monotonic_usec.3: man/sd_journal_get_cutoff_realtime_usec.3
 man/sd_journal_get_data_threshold.3: man/sd_journal_get_data.3
 man/sd_journal_get_events.3: man/sd_journal_get_fd.3
@@ -426,9 +423,6 @@ man/sd_journal_enumerate_unique.html: man/sd_journal_query_unique.html
 	$(html-alias)
 
 man/sd_journal_flush_matches.html: man/sd_journal_add_match.html
-	$(html-alias)
-
-man/sd_journal_get_catalog_for_message_id.html: man/sd_journal_get_catalog.html
 	$(html-alias)
 
 man/sd_journal_get_cutoff_monotonic_usec.html: man/sd_journal_get_cutoff_realtime_usec.html
@@ -1349,7 +1343,6 @@ EXTRA_DIST += \
 	man/sd_id128_to_string.xml \
 	man/sd_is_fifo.xml \
 	man/sd_journal_add_match.xml \
-	man/sd_journal_get_catalog.xml \
 	man/sd_journal_get_cursor.xml \
 	man/sd_journal_get_cutoff_realtime_usec.xml \
 	man/sd_journal_get_data.xml \

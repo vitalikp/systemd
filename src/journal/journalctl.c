@@ -52,7 +52,6 @@
 #include "journal-authenticate.h"
 #include "fsprg.h"
 #include "unit-name.h"
-#include "catalog.h"
 
 #define DEFAULT_FSS_INTERVAL_USEC (15*USEC_PER_MINUTE)
 
@@ -86,10 +85,8 @@ static bool arg_since_set = false, arg_until_set = false;
 static char **arg_system_units = NULL;
 static char **arg_user_units = NULL;
 static const char *arg_field = NULL;
-static bool arg_catalog = false;
 static bool arg_reverse = false;
 static int arg_journal_type = 0;
-static const char *arg_root = NULL;
 static const char *arg_machine = NULL;
 
 static enum {
@@ -99,9 +96,6 @@ static enum {
         ACTION_SETUP_KEYS,
         ACTION_VERIFY,
         ACTION_DISK_USAGE,
-        ACTION_LIST_CATALOG,
-        ACTION_DUMP_CATALOG,
-        ACTION_UPDATE_CATALOG,
         ACTION_LIST_BOOTS,
 } arg_action = ACTION_SHOW;
 
@@ -183,7 +177,6 @@ static int help(void) {
                "  -o --output=STRING       Change journal output mode (short, short-iso,\n"
                "                                   short-precise, short-monotonic, verbose,\n"
                "                                   export, json, json-pretty, json-sse, cat)\n"
-               "  -x --catalog             Add message explanations where available\n"
                "     --no-full             Ellipsize fields\n"
                "  -a --all                 Show all fields, including long and unprintable\n"
                "  -q --quiet               Do not show privilege warning\n"
@@ -191,7 +184,6 @@ static int help(void) {
                "  -m --merge               Show entries from all available journals\n"
                "  -D --directory=PATH      Show journal files from directory\n"
                "     --file=PATH           Show journal file\n"
-               "     --root=ROOT           Operate on catalog files underneath the root ROOT\n"
 #ifdef HAVE_GCRYPT
                "     --interval=TIME       Time interval for changing the FSS sealing key\n"
                "     --verify-key=KEY      Specify FSS verification key\n"
@@ -204,9 +196,6 @@ static int help(void) {
                "     --header              Show journal header information\n"
                "     --disk-usage          Show total disk usage of all journal files\n"
                "  -F --field=FIELD         List all values that a specified field takes\n"
-               "     --list-catalog        Show message IDs of all entries in the message catalog\n"
-               "     --dump-catalog        Show entries in the message catalog\n"
-               "     --update-catalog      Update the message catalog database\n"
 #ifdef HAVE_GCRYPT
                "     --setup-keys          Generate a new FSS key pair\n"
                "     --verify              Verify journal file consistency\n"
@@ -227,7 +216,6 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_LIST_BOOTS,
                 ARG_USER,
                 ARG_SYSTEM,
-                ARG_ROOT,
                 ARG_HEADER,
                 ARG_SETUP_KEYS,
                 ARG_FILE,
@@ -240,9 +228,6 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_AFTER_CURSOR,
                 ARG_SHOW_CURSOR,
                 ARG_USER_UNIT,
-                ARG_LIST_CATALOG,
-                ARG_DUMP_CATALOG,
-                ARG_UPDATE_CATALOG,
                 ARG_FORCE,
         };
 
@@ -270,7 +255,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "user",           no_argument,       NULL, ARG_USER           },
                 { "directory",      required_argument, NULL, 'D'                },
                 { "file",           required_argument, NULL, ARG_FILE           },
-                { "root",           required_argument, NULL, ARG_ROOT           },
                 { "header",         no_argument,       NULL, ARG_HEADER         },
                 { "priority",       required_argument, NULL, 'p'                },
                 { "setup-keys",     no_argument,       NULL, ARG_SETUP_KEYS     },
@@ -286,10 +270,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "unit",           required_argument, NULL, 'u'                },
                 { "user-unit",      required_argument, NULL, ARG_USER_UNIT      },
                 { "field",          required_argument, NULL, 'F'                },
-                { "catalog",        no_argument,       NULL, 'x'                },
-                { "list-catalog",   no_argument,       NULL, ARG_LIST_CATALOG   },
-                { "dump-catalog",   no_argument,       NULL, ARG_DUMP_CATALOG   },
-                { "update-catalog", no_argument,       NULL, ARG_UPDATE_CATALOG },
                 { "reverse",        no_argument,       NULL, 'r'                },
                 { "machine",        required_argument, NULL, 'M'                },
                 {}
@@ -457,10 +437,6 @@ static int parse_argv(int argc, char *argv[]) {
                         };
                         break;
 
-                case ARG_ROOT:
-                        arg_root = optarg;
-                        break;
-
                 case 'c':
                         arg_cursor = optarg;
                         break;
@@ -599,22 +575,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case 'F':
                         arg_field = optarg;
-                        break;
-
-                case 'x':
-                        arg_catalog = true;
-                        break;
-
-                case ARG_LIST_CATALOG:
-                        arg_action = ACTION_LIST_CATALOG;
-                        break;
-
-                case ARG_DUMP_CATALOG:
-                        arg_action = ACTION_DUMP_CATALOG;
-                        break;
-
-                case ARG_UPDATE_CATALOG:
-                        arg_action = ACTION_UPDATE_CATALOG;
                         break;
 
                 case 'r':
@@ -1509,41 +1469,6 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        if (arg_action == ACTION_UPDATE_CATALOG ||
-            arg_action == ACTION_LIST_CATALOG ||
-            arg_action == ACTION_DUMP_CATALOG) {
-
-                const char* database = CATALOG_DATABASE;
-                _cleanup_free_ char *copy = NULL;
-                if (arg_root) {
-                        copy = strjoin(arg_root, "/", CATALOG_DATABASE, NULL);
-                        if (!copy) {
-                                r = log_oom();
-                                goto finish;
-                        }
-                        path_kill_slashes(copy);
-                        database = copy;
-                }
-
-                if (arg_action == ACTION_UPDATE_CATALOG) {
-                        r = catalog_update(database, arg_root, catalog_file_dirs);
-                        if (r < 0)
-                                log_error("Failed to list catalog: %s", strerror(-r));
-                } else {
-                        bool oneline = arg_action == ACTION_LIST_CATALOG;
-
-                        if (optind < argc)
-                                r = catalog_list_items(stdout, database,
-                                                       oneline, argv + optind);
-                        else
-                                r = catalog_list(stdout, database, oneline);
-                        if (r < 0)
-                                log_error("Failed to list catalog: %s", strerror(-r));
-                }
-
-                goto finish;
-        }
-
         if (arg_directory)
                 r = sd_journal_open_directory(&j, arg_directory, arg_journal_type);
         else if (arg_file)
@@ -1817,8 +1742,7 @@ int main(int argc, char *argv[]) {
                         flags =
                                 arg_all * OUTPUT_SHOW_ALL |
                                 arg_full * OUTPUT_FULL_WIDTH |
-                                on_tty() * OUTPUT_COLOR |
-                                arg_catalog * OUTPUT_CATALOG;
+                                on_tty() * OUTPUT_COLOR;
 
                         r = output_journal(stdout, j, arg_output, 0, flags, &ellipsized);
                         need_seek = true;

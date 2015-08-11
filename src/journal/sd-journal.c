@@ -39,7 +39,6 @@
 #include "compress.h"
 #include "journal-internal.h"
 #include "missing.h"
-#include "catalog.h"
 #include "replace-var.h"
 #include "fileio.h"
 
@@ -2615,67 +2614,6 @@ _public_ int sd_journal_reliable_fd(sd_journal *j) {
         assert_return(!journal_pid_changed(j), -ECHILD);
 
         return !j->on_network;
-}
-
-static char *lookup_field(const char *field, void *userdata) {
-        sd_journal *j = userdata;
-        const void *data;
-        size_t size, d;
-        int r;
-
-        assert(field);
-        assert(j);
-
-        r = sd_journal_get_data(j, field, &data, &size);
-        if (r < 0 ||
-            size > REPLACE_VAR_MAX)
-                return strdup(field);
-
-        d = strlen(field) + 1;
-
-        return strndup((const char*) data + d, size - d);
-}
-
-_public_ int sd_journal_get_catalog(sd_journal *j, char **ret) {
-        const void *data;
-        size_t size;
-        sd_id128_t id;
-        _cleanup_free_ char *text = NULL, *cid = NULL;
-        char *t;
-        int r;
-
-        assert_return(j, -EINVAL);
-        assert_return(!journal_pid_changed(j), -ECHILD);
-        assert_return(ret, -EINVAL);
-
-        r = sd_journal_get_data(j, "MESSAGE_ID", &data, &size);
-        if (r < 0)
-                return r;
-
-        cid = strndup((const char*) data + 11, size - 11);
-        if (!cid)
-                return -ENOMEM;
-
-        r = sd_id128_from_string(cid, &id);
-        if (r < 0)
-                return r;
-
-        r = catalog_get(CATALOG_DATABASE, id, &text);
-        if (r < 0)
-                return r;
-
-        t = replace_var(text, lookup_field, j);
-        if (!t)
-                return -ENOMEM;
-
-        *ret = t;
-        return 0;
-}
-
-_public_ int sd_journal_get_catalog_for_message_id(sd_id128_t id, char **ret) {
-        assert_return(ret, -EINVAL);
-
-        return catalog_get(CATALOG_DATABASE, id, ret);
 }
 
 _public_ int sd_journal_set_data_threshold(sd_journal *j, size_t sz) {
