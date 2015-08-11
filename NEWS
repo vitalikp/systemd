@@ -8,6 +8,7 @@ systemd System and Service Manager
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
+ * remove microhttpd support;
  
    systemd (214.1)
 ~~~~~~~

@@ -564,18 +564,6 @@ fi
 AC_SUBST(AUDIT_LIBS)
 
 # ------------------------------------------------------------------------------
-have_microhttpd=no
-AC_ARG_ENABLE(microhttpd, AS_HELP_STRING([--disable-microhttpd], [disable microhttpd support]))
-if test "x$enable_microhttpd" != "xno"; then
-        PKG_CHECK_MODULES(MICROHTTPD, [libmicrohttpd >= 0.9.33],
-                [AC_DEFINE(HAVE_MICROHTTPD, 1, [Define if microhttpd is available]) have_microhttpd=yes], have_microhttpd=no)
-        if test "x$have_microhttpd" = xno -a "x$enable_microhttpd" = xyes; then
-                AC_MSG_ERROR([*** microhttpd support requested but libraries not found])
-        fi
-fi
-AM_CONDITIONAL(HAVE_MICROHTTPD, [test "$have_microhttpd" = "yes"])
-
-# ------------------------------------------------------------------------------
 have_binfmt=no
 AC_ARG_ENABLE(binfmt, AS_HELP_STRING([--disable-binfmt], [disable binfmt tool]))
 if test "x$enable_binfmt" != "xno"; then
@@ -868,7 +856,6 @@ AC_MSG_RESULT([
         SMACK:                   ${have_smack}
         XZ:                      ${have_xz}
         GCRYPT:                  ${have_gcrypt}
-        MICROHTTPD:              ${have_microhttpd}
         binfmt:                  ${have_binfmt}
         readahead:               ${have_readahead}
         bootchart:               ${have_bootchart}
