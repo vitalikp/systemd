@@ -110,7 +110,7 @@ static int manager_watch_jobs_in_progress(Manager *m) {
                         manager_dispatch_jobs_in_progress, m);
 }
 
-#define CYLON_BUFFER_EXTRA (2*(sizeof(ANSI_RED_ON)-1) + sizeof(ANSI_HIGHLIGHT_RED_ON)-1 + 2*(sizeof(ANSI_HIGHLIGHT_OFF)-1))
+#define CYLON_BUFFER_EXTRA (2*(sizeof(ANSI_YELLOW_ON)-1) + sizeof(ANSI_HIGHLIGHT_YELLOW_ON)-1 + 2*(sizeof(ANSI_HIGHLIGHT_OFF)-1))
 
 static void draw_cylon(char buffer[], size_t buflen, unsigned width, unsigned pos) {
         char *p = buffer;
@@ -121,19 +121,19 @@ static void draw_cylon(char buffer[], size_t buflen, unsigned width, unsigned po
         if (pos > 1) {
                 if (pos > 2)
                         p = mempset(p, ' ', pos-2);
-                p = stpcpy(p, ANSI_RED_ON);
+                p = stpcpy(p, ANSI_YELLOW_ON);
                 *p++ = '*';
         }
 
         if (pos > 0 && pos <= width) {
-                p = stpcpy(p, ANSI_HIGHLIGHT_RED_ON);
+                p = stpcpy(p, ANSI_HIGHLIGHT_YELLOW_ON);
                 *p++ = '*';
         }
 
         p = stpcpy(p, ANSI_HIGHLIGHT_OFF);
 
         if (pos < width) {
-                p = stpcpy(p, ANSI_RED_ON);
+                p = stpcpy(p, ANSI_YELLOW_ON);
                 *p++ = '*';
                 if (pos < width-1)
                         p = mempset(p, ' ', width-1-pos);

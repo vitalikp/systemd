@@ -10,6 +10,7 @@ systemd System and Service Manager
  * remove gnutls support;
  * remove microhttpd support;
  * remove journal catalog support;
+ * change ansi color status messages for jobs in progress state;
  
    systemd (214.1)
 ~~~~~~~
