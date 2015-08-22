@@ -23,10 +23,6 @@
 
 #include <inttypes.h>
 
-#ifdef HAVE_GCRYPT
-#include <gcrypt.h>
-#endif
-
 #include <systemd/sd-id128.h>
 
 #include "sparse-endian.h"
@@ -57,7 +53,6 @@ typedef struct JournalFile {
         int prot;
         bool writable:1;
         bool compress:1;
-        bool seal:1;
 
         bool tail_entry_monotonic_valid:1;
 
@@ -81,23 +76,6 @@ typedef struct JournalFile {
         void *compress_buffer;
         uint64_t compress_buffer_size;
 #endif
-
-#ifdef HAVE_GCRYPT
-        gcry_md_hd_t hmac;
-        bool hmac_running;
-
-        FSSHeader *fss_file;
-        size_t fss_file_size;
-
-        uint64_t fss_start_usec;
-        uint64_t fss_interval_usec;
-
-        void *fsprg_state;
-        size_t fsprg_state_size;
-
-        void *fsprg_seed;
-        size_t fsprg_seed_size;
-#endif
 } JournalFile;
 
 int journal_file_open(
@@ -105,7 +83,6 @@ int journal_file_open(
                 int flags,
                 mode_t mode,
                 bool compress,
-                bool seal,
                 JournalMetrics *metrics,
                 MMapCache *mmap_cache,
                 JournalFile *template,
@@ -119,7 +96,6 @@ int journal_file_open_reliably(
                 int flags,
                 mode_t mode,
                 bool compress,
-                bool seal,
                 JournalMetrics *metrics,
                 MMapCache *mmap_cache,
                 JournalFile *template,
@@ -149,9 +125,6 @@ static inline bool VALID_EPOCH(uint64_t u) {
 
 #define JOURNAL_HEADER_CONTAINS(h, field) \
         (le64toh((h)->header_size) >= offsetof(Header, field) + sizeof((h)->field))
-
-#define JOURNAL_HEADER_SEALED(h) \
-        (!!(le32toh((h)->compatible_flags) & HEADER_COMPATIBLE_SEALED))
 
 #define JOURNAL_HEADER_COMPRESSED(h) \
         (!!(le32toh((h)->incompatible_flags) & HEADER_INCOMPATIBLE_COMPRESSED))
@@ -191,7 +164,7 @@ int journal_file_copy_entry(JournalFile *from, JournalFile *to, Object *o, uint6
 void journal_file_dump(JournalFile *f);
 void journal_file_print_header(JournalFile *f);
 
-int journal_file_rotate(JournalFile **f, bool compress, bool seal);
+int journal_file_rotate(JournalFile **f, bool compress);
 
 void journal_file_post_change(JournalFile *f);
 

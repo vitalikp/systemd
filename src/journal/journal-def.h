@@ -44,12 +44,9 @@ typedef struct FieldObject FieldObject;
 typedef struct EntryObject EntryObject;
 typedef struct HashTableObject HashTableObject;
 typedef struct EntryArrayObject EntryArrayObject;
-typedef struct TagObject TagObject;
 
 typedef struct EntryItem EntryItem;
 typedef struct HashItem HashItem;
-
-typedef struct FSSHeader FSSHeader;
 
 /* Object types */
 enum {
@@ -60,7 +57,6 @@ enum {
         OBJECT_DATA_HASH_TABLE,
         OBJECT_FIELD_HASH_TABLE,
         OBJECT_ENTRY_ARRAY,
-        OBJECT_TAG,
         _OBJECT_TYPE_MAX
 };
 
@@ -127,15 +123,6 @@ struct EntryArrayObject {
         le64_t items[];
 } _packed_;
 
-#define TAG_LENGTH (256/8)
-
-struct TagObject {
-        ObjectHeader object;
-        le64_t seqnum;
-        le64_t epoch;
-        uint8_t tag[TAG_LENGTH]; /* SHA-256 HMAC */
-} _packed_;
-
 union Object {
         ObjectHeader object;
         DataObject data;
@@ -143,7 +130,6 @@ union Object {
         EntryObject entry;
         HashTableObject hash_table;
         EntryArrayObject entry_array;
-        TagObject tag;
 };
 
 enum {
@@ -156,10 +142,6 @@ enum {
 /* Header flags */
 enum {
         HEADER_INCOMPATIBLE_COMPRESSED = 1
-};
-
-enum {
-        HEADER_COMPATIBLE_SEALED = 1
 };
 
 #define HEADER_SIGNATURE ((char[]) { 'L', 'P', 'K', 'S', 'H', 'H', 'R', 'H' })
@@ -197,20 +179,4 @@ struct Header {
         le64_t n_entry_arrays;
 
         /* Size: 224 */
-} _packed_;
-
-#define FSS_HEADER_SIGNATURE ((char[]) { 'K', 'S', 'H', 'H', 'R', 'H', 'L', 'P' })
-
-struct FSSHeader {
-        uint8_t signature[8]; /* "KSHHRHLP" */
-        le32_t compatible_flags;
-        le32_t incompatible_flags;
-        sd_id128_t machine_id;
-        sd_id128_t boot_id;    /* last writer */
-        le64_t header_size;
-        le64_t start_usec;
-        le64_t interval_usec;
-        le16_t fsprg_secpar;
-        le16_t reserved[3];
-        le64_t fsprg_state_size;
 } _packed_;

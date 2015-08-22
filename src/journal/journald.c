@@ -28,7 +28,6 @@
 #include <systemd/sd-messages.h>
 #include <systemd/sd-daemon.h>
 
-#include "journal-authenticate.h"
 #include "journald-server.h"
 #include "journald-kmsg.h"
 #include "journald-syslog.h"
@@ -89,26 +88,12 @@ int main(int argc, char *argv[]) {
                         t = server.oldest_file_usec + server.max_retention_usec - n;
                 }
 
-#ifdef HAVE_GCRYPT
-                if (server.system_journal) {
-                        usec_t u;
-
-                        if (journal_file_next_evolve_usec(server.system_journal, &u)) {
-                                if (n >= u)
-                                        t = 0;
-                                else
-                                        t = MIN(t, u - n);
-                        }
-                }
-#endif
-
                 r = sd_event_run(server.event, t);
                 if (r < 0) {
                         log_error("Failed to run event loop: %s", strerror(-r));
                         goto finish;
                 }
 
-                server_maybe_append_tags(&server);
                 server_maybe_warn_forward_syslog_missed(&server);
         }
 

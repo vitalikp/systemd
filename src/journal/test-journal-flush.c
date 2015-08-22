@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
         assert_se(mkdtemp(dn));
         fn = strappend(dn, "/test.journal");
 
-        r = journal_file_open(fn, O_CREAT|O_RDWR, 0644, false, false, NULL, NULL, NULL, &new_journal);
+        r = journal_file_open(fn, O_CREAT|O_RDWR, 0644, false, NULL, NULL, NULL, &new_journal);
         assert_se(r >= 0);
 
         unlink(fn);

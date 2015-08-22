@@ -28,11 +28,9 @@
 #include "macro.h"
 #include "journal-def.h"
 #include "journal-file.h"
-#include "journal-authenticate.h"
 #include "journal-verify.h"
 #include "lookup3.h"
 #include "compress.h"
-#include "fsprg.h"
 
 static int journal_file_object_verify(JournalFile *f, uint64_t offset, Object *o) {
         uint64_t i;
@@ -253,23 +251,6 @@ static int journal_file_object_verify(JournalFile *f, uint64_t offset, Object *o
                                           le64toh(o->entry_array.items[i]));
                                 return -EBADMSG;
                         }
-
-                break;
-
-        case OBJECT_TAG:
-                if (le64toh(o->object.size) != sizeof(TagObject)) {
-                        log_error(OFSfmt": invalid object tag size: %"PRIu64,
-                                  offset,
-                                  le64toh(o->object.size));
-                        return -EBADMSG;
-                }
-
-                if (!VALID_EPOCH(o->tag.epoch)) {
-                        log_error(OFSfmt": invalid object tag epoch: %"PRIu64,
-                                  offset,
-                                  o->tag.epoch);
-                        return -EBADMSG;
-                }
 
                 break;
         }
@@ -772,38 +753,20 @@ static int verify_entry_array(
 
 int journal_file_verify(
                 JournalFile *f,
-                const char *key,
-                usec_t *first_contained, usec_t *last_validated, usec_t *last_contained,
                 bool show_progress) {
         int r;
         Object *o;
-        uint64_t p = 0, last_epoch = 0, last_tag_realtime = 0, last_sealed_realtime = 0;
+        uint64_t p = 0;
 
         uint64_t entry_seqnum = 0, entry_monotonic = 0, entry_realtime = 0;
         sd_id128_t entry_boot_id;
         bool entry_seqnum_set = false, entry_monotonic_set = false, entry_realtime_set = false, found_main_entry_array = false;
-        uint64_t n_weird = 0, n_objects = 0, n_entries = 0, n_data = 0, n_fields = 0, n_data_hash_tables = 0, n_field_hash_tables = 0, n_entry_arrays = 0, n_tags = 0;
+        uint64_t n_weird = 0, n_objects = 0, n_entries = 0, n_data = 0, n_fields = 0, n_data_hash_tables = 0, n_field_hash_tables = 0, n_entry_arrays = 0;
         usec_t last_usec = 0;
         int data_fd = -1, entry_fd = -1, entry_array_fd = -1;
         unsigned i;
         bool found_last;
-#ifdef HAVE_GCRYPT
-        uint64_t last_tag = 0;
-#endif
         assert(f);
-
-        if (key) {
-#ifdef HAVE_GCRYPT
-                r = journal_file_parse_verification_key(f, key);
-                if (r < 0) {
-                        log_error("Failed to parse seed.");
-                        return r;
-                }
-#else
-                return -ENOTSUP;
-#endif
-        } else if (f->seal)
-                return -ENOKEY;
 
         data_fd = open_tmpfile("/var/tmp", O_RDWR | O_CLOEXEC);
         if (data_fd < 0) {
@@ -826,11 +789,7 @@ int journal_file_verify(
                 goto fail;
         }
 
-#ifdef HAVE_GCRYPT
-        if ((le32toh(f->header->compatible_flags) & ~HEADER_COMPATIBLE_SEALED) != 0)
-#else
         if (f->header->compatible_flags != 0)
-#endif
         {
                 log_error("Cannot verify file with unknown extensions.");
                 r = -ENOTSUP;
@@ -896,21 +855,9 @@ int journal_file_verify(
                         break;
 
                 case OBJECT_ENTRY:
-                        if (JOURNAL_HEADER_SEALED(f->header) && n_tags <= 0) {
-                                log_error("First entry before first tag at "OFSfmt, p);
-                                r = -EBADMSG;
-                                goto fail;
-                        }
-
                         r = write_uint64(entry_fd, p);
                         if (r < 0)
                                 goto fail;
-
-                        if (le64toh(o->entry.realtime) < last_tag_realtime) {
-                                log_error("Older entry after newer tag at "OFSfmt, p);
-                                r = -EBADMSG;
-                                goto fail;
-                        }
 
                         if (!entry_seqnum_set &&
                             le64toh(o->entry.seqnum) != le64toh(f->header->head_entry_seqnum)) {
@@ -1006,94 +953,6 @@ int journal_file_verify(
                         n_entry_arrays++;
                         break;
 
-                case OBJECT_TAG:
-                        if (!JOURNAL_HEADER_SEALED(f->header)) {
-                                log_error("Tag object in file without sealing at "OFSfmt, p);
-                                r = -EBADMSG;
-                                goto fail;
-                        }
-
-                        if (le64toh(o->tag.seqnum) != n_tags + 1) {
-                                log_error("Tag sequence number out of synchronization at "OFSfmt, p);
-                                r = -EBADMSG;
-                                goto fail;
-                        }
-
-                        if (le64toh(o->tag.epoch) < last_epoch) {
-                                log_error("Epoch sequence out of synchronization at "OFSfmt, p);
-                                r = -EBADMSG;
-                                goto fail;
-                        }
-
-#ifdef HAVE_GCRYPT
-                        if (f->seal) {
-                                uint64_t q, rt;
-
-                                log_debug("Checking tag %"PRIu64"...", le64toh(o->tag.seqnum));
-
-                                rt = f->fss_start_usec + o->tag.epoch * f->fss_interval_usec;
-                                if (entry_realtime_set && entry_realtime >= rt + f->fss_interval_usec) {
-                                        log_error("Tag/entry realtime timestamp out of synchronization at "OFSfmt, p);
-                                        r = -EBADMSG;
-                                        goto fail;
-                                }
-
-                                /* OK, now we know the epoch. So let's now set
-                                 * it, and calculate the HMAC for everything
-                                 * since the last tag. */
-                                r = journal_file_fsprg_seek(f, le64toh(o->tag.epoch));
-                                if (r < 0)
-                                        goto fail;
-
-                                r = journal_file_hmac_start(f);
-                                if (r < 0)
-                                        goto fail;
-
-                                if (last_tag == 0) {
-                                        r = journal_file_hmac_put_header(f);
-                                        if (r < 0)
-                                                goto fail;
-
-                                        q = le64toh(f->header->header_size);
-                                } else
-                                        q = last_tag;
-
-                                while (q <= p) {
-                                        r = journal_file_move_to_object(f, -1, q, &o);
-                                        if (r < 0)
-                                                goto fail;
-
-                                        r = journal_file_hmac_put_object(f, -1, o, q);
-                                        if (r < 0)
-                                                goto fail;
-
-                                        q = q + ALIGN64(le64toh(o->object.size));
-                                }
-
-                                /* Position might have changed, let's reposition things */
-                                r = journal_file_move_to_object(f, -1, p, &o);
-                                if (r < 0)
-                                        goto fail;
-
-                                if (memcmp(o->tag.tag, gcry_md_read(f->hmac, 0), TAG_LENGTH) != 0) {
-                                        log_error("Tag failed verification at "OFSfmt, p);
-                                        r = -EBADMSG;
-                                        goto fail;
-                                }
-
-                                f->hmac_running = false;
-                                last_tag_realtime = rt;
-                                last_sealed_realtime = entry_realtime;
-                        }
-
-                        last_tag = p + ALIGN64(le64toh(o->object.size));
-#endif
-
-                        last_epoch = le64toh(o->tag.epoch);
-
-                        n_tags ++;
-                        break;
-
                 default:
                         n_weird ++;
                 }
@@ -1132,13 +991,6 @@ int journal_file_verify(
         if (JOURNAL_HEADER_CONTAINS(f->header, n_fields) &&
             n_fields != le64toh(f->header->n_fields)) {
                 log_error("Field number mismatch");
-                r = -EBADMSG;
-                goto fail;
-        }
-
-        if (JOURNAL_HEADER_CONTAINS(f->header, n_tags) &&
-            n_tags != le64toh(f->header->n_tags)) {
-                log_error("Tag number mismatch");
                 r = -EBADMSG;
                 goto fail;
         }
@@ -1225,13 +1077,6 @@ int journal_file_verify(
         safe_close(data_fd);
         safe_close(entry_fd);
         safe_close(entry_array_fd);
-
-        if (first_contained)
-                *first_contained = le64toh(f->header->head_entry_realtime);
-        if (last_validated)
-                *last_validated = last_sealed_realtime;
-        if (last_contained)
-                *last_contained = le64toh(f->header->tail_entry_realtime);
 
         return 0;
 

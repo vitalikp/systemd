@@ -43,7 +43,6 @@
 #include "selinux-util.h"
 #include "journal-internal.h"
 #include "journal-vacuum.h"
-#include "journal-authenticate.h"
 #include "journald-rate-limit.h"
 #include "journald-kmsg.h"
 #include "journald-syslog.h"
@@ -232,7 +231,7 @@ static JournalFile* find_journal(Server *s, uid_t uid) {
                 journal_file_close(f);
         }
 
-        r = journal_file_open_reliably(p, O_RDWR|O_CREAT, 0640, s->compress, s->seal, &s->system_metrics, s->mmap, NULL, &f);
+        r = journal_file_open_reliably(p, O_RDWR|O_CREAT, 0640, s->compress, &s->system_metrics, s->mmap, NULL, &f);
         if (r < 0)
                 return s->system_journal;
 
@@ -248,14 +247,14 @@ static JournalFile* find_journal(Server *s, uid_t uid) {
 }
 
 static int do_rotate(Server *s, JournalFile **f, const char* name,
-                     bool seal, uint32_t uid) {
+                     uint32_t uid) {
         int r;
         assert(s);
 
         if (!*f)
                 return -EINVAL;
 
-        r = journal_file_rotate(f, s->compress, seal);
+        r = journal_file_rotate(f, s->compress);
         if (r < 0)
                 if (*f)
                         log_error("Failed to rotate %s: %s",
@@ -276,11 +275,11 @@ void server_rotate(Server *s) {
 
         log_debug("Rotating...");
 
-        do_rotate(s, &s->runtime_journal, "runtime", false, 0);
-        do_rotate(s, &s->system_journal, "system", s->seal, 0);
+        do_rotate(s, &s->runtime_journal, "runtime", 0);
+        do_rotate(s, &s->system_journal, "system", 0);
 
         HASHMAP_FOREACH_KEY(f, k, s->user_journals, i) {
-                r = do_rotate(s, &f, "user", s->seal, PTR_TO_UINT32(k));
+                r = do_rotate(s, &f, "user", PTR_TO_UINT32(k));
                 if (r >= 0)
                         hashmap_replace(s->user_journals, k, f);
                 else if (!f)
@@ -902,7 +901,7 @@ static int system_journal_open(Server *s) {
                 (void) mkdir(fn, 0755);
 
                 fn = strappenda(fn, "/system.journal");
-                r = journal_file_open_reliably(fn, O_RDWR|O_CREAT, 0640, s->compress, s->seal, &s->system_metrics, s->mmap, NULL, &s->system_journal);
+                r = journal_file_open_reliably(fn, O_RDWR|O_CREAT, 0640, s->compress, &s->system_metrics, s->mmap, NULL, &s->system_journal);
 
                 if (r >= 0)
                         server_fix_perms(s, s->system_journal, 0);
@@ -927,7 +926,7 @@ static int system_journal_open(Server *s) {
                          * if it already exists, so that we can flush
                          * it into the system journal */
 
-                        r = journal_file_open(fn, O_RDWR, 0640, s->compress, false, &s->runtime_metrics, s->mmap, NULL, &s->runtime_journal);
+                        r = journal_file_open(fn, O_RDWR, 0640, s->compress, &s->runtime_metrics, s->mmap, NULL, &s->runtime_journal);
                         free(fn);
 
                         if (r < 0) {
@@ -946,7 +945,7 @@ static int system_journal_open(Server *s) {
                         (void) mkdir("/run/log/journal", 0755);
                         (void) mkdir_parents(fn, 0750);
 
-                        r = journal_file_open_reliably(fn, O_RDWR|O_CREAT, 0640, s->compress, false, &s->runtime_metrics, s->mmap, NULL, &s->runtime_journal);
+                        r = journal_file_open_reliably(fn, O_RDWR|O_CREAT, 0640, s->compress, &s->runtime_metrics, s->mmap, NULL, &s->runtime_journal);
                         free(fn);
 
                         if (r < 0) {
@@ -1417,7 +1416,6 @@ int server_init(Server *s) {
         zero(*s);
         s->syslog_fd = s->native_fd = s->stdout_fd = s->dev_kmsg_fd = s->hostname_fd = -1;
         s->compress = true;
-        s->seal = true;
 
         s->sync_interval_usec = DEFAULT_SYNC_INTERVAL_USEC;
         s->sync_scheduled = false;
@@ -1554,22 +1552,6 @@ int server_init(Server *s) {
                 return r;
 
         return 0;
-}
-
-void server_maybe_append_tags(Server *s) {
-#ifdef HAVE_GCRYPT
-        JournalFile *f;
-        Iterator i;
-        usec_t n;
-
-        n = now(CLOCK_REALTIME);
-
-        if (s->system_journal)
-                journal_file_maybe_append_tag(s->system_journal, n);
-
-        HASHMAP_FOREACH(f, s->user_journals, i)
-                journal_file_maybe_append_tag(f, n);
-#endif
 }
 
 void server_done(Server *s) {

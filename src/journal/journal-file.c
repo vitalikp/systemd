@@ -30,10 +30,8 @@
 
 #include "journal-def.h"
 #include "journal-file.h"
-#include "journal-authenticate.h"
 #include "lookup3.h"
 #include "compress.h"
-#include "fsprg.h"
 
 #define DEFAULT_DATA_HASH_TABLE_SIZE (2047ULL*sizeof(HashItem))
 #define DEFAULT_FIELD_HASH_TABLE_SIZE (333ULL*sizeof(HashItem))
@@ -115,12 +113,6 @@ int journal_file_set_offline(JournalFile *f) {
 void journal_file_close(JournalFile *f) {
         assert(f);
 
-#ifdef HAVE_GCRYPT
-        /* Write the final tag */
-        if (f->seal && f->writable)
-                journal_file_append_tag(f);
-#endif
-
         /* Sync everything to disk, before we mark the file offline */
         if (f->mmap && f->fd >= 0)
                 mmap_cache_close_fd(f->mmap, f->fd);
@@ -142,18 +134,6 @@ void journal_file_close(JournalFile *f) {
         free(f->compress_buffer);
 #endif
 
-#ifdef HAVE_GCRYPT
-        if (f->fss_file)
-                munmap(f->fss_file, PAGE_ALIGN(f->fss_file_size));
-        else if (f->fsprg_state)
-                free(f->fsprg_state);
-
-        free(f->fsprg_seed);
-
-        if (f->hmac)
-                gcry_md_close(f->hmac);
-#endif
-
         free(f);
 }
 
@@ -171,8 +151,7 @@ static int journal_file_init_header(JournalFile *f, JournalFile *template) {
         h.incompatible_flags =
                 htole32(f->compress ? HEADER_INCOMPATIBLE_COMPRESSED : 0);
 
-        h.compatible_flags =
-                htole32(f->seal ? HEADER_COMPATIBLE_SEALED : 0);
+        h.compatible_flags = 0;
 
         r = sd_id128_randomize(&h.file_id);
         if (r < 0)
@@ -240,13 +219,8 @@ static int journal_file_verify_header(JournalFile *f) {
         /* When open for writing we refuse to open files with
          * compatible flags, too */
         if (f->writable) {
-#ifdef HAVE_GCRYPT
-                if ((le32toh(f->header->compatible_flags) & ~HEADER_COMPATIBLE_SEALED) != 0)
-                        return -EPROTONOSUPPORT;
-#else
                 if (f->header->compatible_flags != 0)
                         return -EPROTONOSUPPORT;
-#endif
         }
 
         if (f->header->state >= _STATE_MAX)
@@ -256,7 +230,7 @@ static int journal_file_verify_header(JournalFile *f) {
         if (le64toh(f->header->header_size) < HEADER_SIZE_MIN)
                 return -EBADMSG;
 
-        if (JOURNAL_HEADER_SEALED(f->header) && !JOURNAL_HEADER_CONTAINS(f->header, n_entry_arrays))
+        if (!JOURNAL_HEADER_CONTAINS(f->header, n_entry_arrays))
                 return -EBADMSG;
 
         if ((le64toh(f->header->header_size) + le64toh(f->header->arena_size)) > (uint64_t) f->last_stat.st_size)
@@ -303,8 +277,6 @@ static int journal_file_verify_header(JournalFile *f) {
         }
 
         f->compress = JOURNAL_HEADER_COMPRESSED(f->header);
-
-        f->seal = JOURNAL_HEADER_SEALED(f->header);
 
         return 0;
 }
@@ -399,8 +371,7 @@ static uint64_t minimum_header_size(Object *o) {
                 [OBJECT_ENTRY] = sizeof(EntryObject),
                 [OBJECT_DATA_HASH_TABLE] = sizeof(HashTableObject),
                 [OBJECT_FIELD_HASH_TABLE] = sizeof(HashTableObject),
-                [OBJECT_ENTRY_ARRAY] = sizeof(EntryArrayObject),
-                [OBJECT_TAG] = sizeof(TagObject),
+                [OBJECT_ENTRY_ARRAY] = sizeof(EntryArrayObject)
         };
 
         if (o->object.type >= ELEMENTSOF(table) || table[o->object.type] <= 0)
@@ -920,12 +891,6 @@ static int journal_file_append_field(
         if (r < 0)
                 return r;
 
-#ifdef HAVE_GCRYPT
-        r = journal_file_hmac_put_object(f, OBJECT_FIELD, o, p);
-        if (r < 0)
-                return r;
-#endif
-
         if (ret)
                 *ret = o;
 
@@ -1020,12 +985,6 @@ static int journal_file_append_data(
                 fo->field.head_data_offset = le64toh(p);
         }
 
-#ifdef HAVE_GCRYPT
-        r = journal_file_hmac_put_object(f, OBJECT_DATA, o, p);
-        if (r < 0)
-                return r;
-#endif
-
         if (ret)
                 *ret = o;
 
@@ -1109,12 +1068,6 @@ static int link_entry_into_array(JournalFile *f,
                                        &o, &q);
         if (r < 0)
                 return r;
-
-#ifdef HAVE_GCRYPT
-        r = journal_file_hmac_put_object(f, OBJECT_ENTRY_ARRAY, o, q);
-        if (r < 0)
-                return r;
-#endif
 
         o->entry_array.items[i] = htole64(p);
 
@@ -1258,12 +1211,6 @@ static int journal_file_append_entry_internal(
         o->entry.xor_hash = htole64(xor_hash);
         o->entry.boot_id = f->header->boot_id;
 
-#ifdef HAVE_GCRYPT
-        r = journal_file_hmac_put_object(f, OBJECT_ENTRY, o, np);
-        if (r < 0)
-                return r;
-#endif
-
         r = journal_file_link_entry(f, o, np);
         if (r < 0)
                 return r;
@@ -1319,12 +1266,6 @@ int journal_file_append_entry(JournalFile *f, const dual_timestamp *ts, const st
         if (f->tail_entry_monotonic_valid &&
             ts->monotonic < le64toh(f->header->tail_entry_monotonic))
                 return -EINVAL;
-
-#ifdef HAVE_GCRYPT
-        r = journal_file_maybe_append_tag(f, ts->realtime);
-        if (r < 0)
-                return r;
-#endif
 
         /* alloca() can't take 0, hence let's allocate at least one */
         items = alloca(sizeof(EntryItem) * MAX(1u, n_iovec));
@@ -2321,12 +2262,6 @@ void journal_file_dump(JournalFile *f) {
                         printf("Type: OBJECT_ENTRY_ARRAY\n");
                         break;
 
-                case OBJECT_TAG:
-                        printf("Type: OBJECT_TAG seqnum=%"PRIu64" epoch=%"PRIu64"\n",
-                               le64toh(o->tag.seqnum),
-                               le64toh(o->tag.epoch));
-                        break;
-
                 default:
                         printf("Type: unknown (%u)\n", o->object.type);
                         break;
@@ -2369,7 +2304,7 @@ void journal_file_print_header(JournalFile *f) {
                "Boot ID: %s\n"
                "Sequential Number ID: %s\n"
                "State: %s\n"
-               "Compatible Flags:%s%s\n"
+               "Compatible Flags:\n"
                "Incompatible Flags:%s%s\n"
                "Header size: %"PRIu64"\n"
                "Arena size: %"PRIu64"\n"
@@ -2391,8 +2326,6 @@ void journal_file_print_header(JournalFile *f) {
                f->header->state == STATE_OFFLINE ? "OFFLINE" :
                f->header->state == STATE_ONLINE ? "ONLINE" :
                f->header->state == STATE_ARCHIVED ? "ARCHIVED" : "UNKNOWN",
-               JOURNAL_HEADER_SEALED(f->header) ? " SEALED" : "",
-               (le32toh(f->header->compatible_flags) & ~HEADER_COMPATIBLE_SEALED) ? " ???" : "",
                JOURNAL_HEADER_COMPRESSED(f->header) ? " COMPRESSED" : "",
                (le32toh(f->header->incompatible_flags) & ~HEADER_INCOMPATIBLE_COMPRESSED) ? " ???" : "",
                le64toh(f->header->header_size),
@@ -2420,9 +2353,6 @@ void journal_file_print_header(JournalFile *f) {
                        le64toh(f->header->n_fields),
                        100.0 * (double) le64toh(f->header->n_fields) / ((double) (le64toh(f->header->field_hash_table_size) / sizeof(HashItem))));
 
-        if (JOURNAL_HEADER_CONTAINS(f->header, n_tags))
-                printf("Tag Objects: %"PRIu64"\n",
-                       le64toh(f->header->n_tags));
         if (JOURNAL_HEADER_CONTAINS(f->header, n_entry_arrays))
                 printf("Entry Array Objects: %"PRIu64"\n",
                        le64toh(f->header->n_entry_arrays));
@@ -2436,7 +2366,6 @@ int journal_file_open(
                 int flags,
                 mode_t mode,
                 bool compress,
-                bool seal,
                 JournalMetrics *metrics,
                 MMapCache *mmap_cache,
                 JournalFile *template,
@@ -2469,9 +2398,6 @@ int journal_file_open(
         f->writable = (flags & O_ACCMODE) != O_RDONLY;
 #ifdef HAVE_XZ
         f->compress = compress;
-#endif
-#ifdef HAVE_GCRYPT
-        f->seal = seal;
 #endif
 
         if (mmap_cache)
@@ -2523,16 +2449,6 @@ int journal_file_open(
                 crtime = htole64((uint64_t) now(CLOCK_REALTIME));
                 fsetxattr(f->fd, "user.crtime_usec", &crtime, sizeof(crtime), XATTR_CREATE);
 
-#ifdef HAVE_GCRYPT
-                /* Try to load the FSPRG state, and if we can't, then
-                 * just don't do sealing */
-                if (f->seal) {
-                        r = journal_file_fss_load(f);
-                        if (r < 0)
-                                f->seal = false;
-                }
-#endif
-
                 r = journal_file_init_header(f, template);
                 if (r < 0)
                         goto fail;
@@ -2563,14 +2479,6 @@ int journal_file_open(
                         goto fail;
         }
 
-#ifdef HAVE_GCRYPT
-        if (!newly_created && f->writable) {
-                r = journal_file_fss_load(f);
-                if (r < 0)
-                        goto fail;
-        }
-#endif
-
         if (f->writable) {
                 if (metrics) {
                         journal_default_metrics(metrics, f->fd);
@@ -2583,12 +2491,6 @@ int journal_file_open(
                         goto fail;
         }
 
-#ifdef HAVE_GCRYPT
-        r = journal_file_hmac_setup(f);
-        if (r < 0)
-                goto fail;
-#endif
-
         if (newly_created) {
                 r = journal_file_setup_field_hash_table(f);
                 if (r < 0)
@@ -2597,12 +2499,6 @@ int journal_file_open(
                 r = journal_file_setup_data_hash_table(f);
                 if (r < 0)
                         goto fail;
-
-#ifdef HAVE_GCRYPT
-                r = journal_file_append_first_tag(f);
-                if (r < 0)
-                        goto fail;
-#endif
         }
 
         r = journal_file_map_field_hash_table(f);
@@ -2622,7 +2518,7 @@ fail:
         return r;
 }
 
-int journal_file_rotate(JournalFile **f, bool compress, bool seal) {
+int journal_file_rotate(JournalFile **f, bool compress) {
         _cleanup_free_ char *p = NULL;
         size_t l;
         JournalFile *old_file, *new_file = NULL;
@@ -2654,7 +2550,7 @@ int journal_file_rotate(JournalFile **f, bool compress, bool seal) {
 
         old_file->header->state = STATE_ARCHIVED;
 
-        r = journal_file_open(old_file->path, old_file->flags, old_file->mode, compress, seal, NULL, old_file->mmap, old_file, &new_file);
+        r = journal_file_open(old_file->path, old_file->flags, old_file->mode, compress, NULL, old_file->mmap, old_file, &new_file);
         journal_file_close(old_file);
 
         *f = new_file;
@@ -2666,7 +2562,6 @@ int journal_file_open_reliably(
                 int flags,
                 mode_t mode,
                 bool compress,
-                bool seal,
                 JournalMetrics *metrics,
                 MMapCache *mmap_cache,
                 JournalFile *template,
@@ -2676,7 +2571,7 @@ int journal_file_open_reliably(
         size_t l;
         _cleanup_free_ char *p = NULL;
 
-        r = journal_file_open(fname, flags, mode, compress, seal,
+        r = journal_file_open(fname, flags, mode, compress,
                               metrics, mmap_cache, template, ret);
         if (r != -EBADMSG && /* corrupted */
             r != -ENODATA && /* truncated */
@@ -2710,7 +2605,7 @@ int journal_file_open_reliably(
 
         log_warning("File %s corrupted or uncleanly shut down, renaming and replacing.", fname);
 
-        return journal_file_open(fname, flags, mode, compress, seal,
+        return journal_file_open(fname, flags, mode, compress,
                                  metrics, mmap_cache, template, ret);
 }
 

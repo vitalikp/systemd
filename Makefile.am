@@ -2556,22 +2556,6 @@ libsystemd_journal_internal_la_LIBADD += \
 	$(XZ_LIBS)
 endif
 
-if HAVE_GCRYPT
-libsystemd_journal_internal_la_SOURCES += \
-	src/journal/journal-authenticate.c \
-	src/journal/journal-authenticate.h \
-	src/journal/fsprg.c \
-	src/journal/fsprg.h
-
-libsystemd_journal_internal_la_LIBADD += \
-	$(GCRYPT_LIBS)
-
-# fsprg.c is a drop-in file using void pointer arithmetic
-libsystemd_journal_internal_la_CFLAGS += \
-	$(GCRYPT_CFLAGS) \
-	-Wno-pointer-arith
-endif
-
 noinst_LTLIBRARIES += \
 	libsystemd-journal-internal.la
 

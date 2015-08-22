@@ -92,7 +92,6 @@ typedef struct Server {
         JournalMetrics system_metrics;
 
         bool compress;
-        bool seal;
 
         bool forward_to_kmsg;
         bool forward_to_syslog;
@@ -173,5 +172,4 @@ void server_vacuum(Server *s);
 void server_rotate(Server *s);
 int server_schedule_sync(Server *s, int priority);
 int server_flush_to_var(Server *s);
-void server_maybe_append_tags(Server *s);
 int process_datagram(sd_event_source *es, int fd, uint32_t revents, void *userdata);

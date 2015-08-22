@@ -122,26 +122,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><varname>Seal=</varname></term>
-
-                                <listitem><para>Takes a boolean
-                                value. If enabled (the default), and a
-                                sealing key is available (as created
-                                by
-                                <citerefentry><refentrytitle>journalctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>'s
-                                <option>--setup-keys</option>
-                                command), Forward Secure Sealing (FSS)
-                                for all persistent journal files is
-                                enabled. FSS is based on <ulink
-                                url="https://eprint.iacr.org/2013/397">Seekable
-                                Sequential Key Generators</ulink> by
-                                G. A. Marson and B. Poettering
-                                (doi:10.1007/978-3-642-40203-6_7)
-                                and may be used to protect journal files
-                                from unnoticed alteration.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><varname>SplitMode=</varname></term>
 
                                 <listitem><para>Controls whether to

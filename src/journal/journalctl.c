@@ -49,8 +49,6 @@
 #include "journal-internal.h"
 #include "journal-def.h"
 #include "journal-verify.h"
-#include "journal-authenticate.h"
-#include "fsprg.h"
 #include "unit-name.h"
 
 #define DEFAULT_FSS_INTERVAL_USEC (15*USEC_PER_MINUTE)
@@ -75,11 +73,6 @@ static bool arg_show_cursor = false;
 static const char *arg_directory = NULL;
 static char **arg_file = NULL;
 static int arg_priorities = 0xFF;
-static const char *arg_verify_key = NULL;
-#ifdef HAVE_GCRYPT
-static usec_t arg_interval = DEFAULT_FSS_INTERVAL_USEC;
-static bool arg_force = false;
-#endif
 static usec_t arg_since, arg_until;
 static bool arg_since_set = false, arg_until_set = false;
 static char **arg_system_units = NULL;
@@ -93,7 +86,6 @@ static enum {
         ACTION_SHOW,
         ACTION_NEW_ID128,
         ACTION_PRINT_HEADER,
-        ACTION_SETUP_KEYS,
         ACTION_VERIFY,
         ACTION_DISK_USAGE,
         ACTION_LIST_BOOTS,
@@ -184,11 +176,6 @@ static int help(void) {
                "  -m --merge               Show entries from all available journals\n"
                "  -D --directory=PATH      Show journal files from directory\n"
                "     --file=PATH           Show journal file\n"
-#ifdef HAVE_GCRYPT
-               "     --interval=TIME       Time interval for changing the FSS sealing key\n"
-               "     --verify-key=KEY      Specify FSS verification key\n"
-               "     --force               Force overriding of the FSS key pair with --setup-keys\n"
-#endif
                "\nCommands:\n"
                "  -h --help                Show this help text\n"
                "     --version             Show package version\n"
@@ -196,10 +183,7 @@ static int help(void) {
                "     --header              Show journal header information\n"
                "     --disk-usage          Show total disk usage of all journal files\n"
                "  -F --field=FIELD         List all values that a specified field takes\n"
-#ifdef HAVE_GCRYPT
-               "     --setup-keys          Generate a new FSS key pair\n"
                "     --verify              Verify journal file consistency\n"
-#endif
                , program_invocation_short_name);
 
         return 0;
@@ -217,18 +201,14 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_USER,
                 ARG_SYSTEM,
                 ARG_HEADER,
-                ARG_SETUP_KEYS,
                 ARG_FILE,
-                ARG_INTERVAL,
                 ARG_VERIFY,
-                ARG_VERIFY_KEY,
                 ARG_DISK_USAGE,
                 ARG_SINCE,
                 ARG_UNTIL,
                 ARG_AFTER_CURSOR,
                 ARG_SHOW_CURSOR,
-                ARG_USER_UNIT,
-                ARG_FORCE,
+                ARG_USER_UNIT
         };
 
         static const struct option options[] = {
@@ -237,7 +217,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "no-pager",       no_argument,       NULL, ARG_NO_PAGER       },
                 { "pager-end",      no_argument,       NULL, 'e'                },
                 { "follow",         no_argument,       NULL, 'f'                },
-                { "force",          no_argument,       NULL, ARG_FORCE          },
                 { "output",         required_argument, NULL, 'o'                },
                 { "all",            no_argument,       NULL, 'a'                },
                 { "full",           no_argument,       NULL, 'l'                },
@@ -257,10 +236,7 @@ static int parse_argv(int argc, char *argv[]) {
                 { "file",           required_argument, NULL, ARG_FILE           },
                 { "header",         no_argument,       NULL, ARG_HEADER         },
                 { "priority",       required_argument, NULL, 'p'                },
-                { "setup-keys",     no_argument,       NULL, ARG_SETUP_KEYS     },
-                { "interval",       required_argument, NULL, ARG_INTERVAL       },
                 { "verify",         no_argument,       NULL, ARG_VERIFY         },
-                { "verify-key",     required_argument, NULL, ARG_VERIFY_KEY     },
                 { "disk-usage",     no_argument,       NULL, ARG_DISK_USAGE     },
                 { "cursor",         required_argument, NULL, 'c'                },
                 { "after-cursor",   required_argument, NULL, ARG_AFTER_CURSOR   },
@@ -460,38 +436,6 @@ static int parse_argv(int argc, char *argv[]) {
                 case ARG_DISK_USAGE:
                         arg_action = ACTION_DISK_USAGE;
                         break;
-
-#ifdef HAVE_GCRYPT
-                case ARG_FORCE:
-                        arg_force = true;
-                        break;
-
-                case ARG_SETUP_KEYS:
-                        arg_action = ACTION_SETUP_KEYS;
-                        break;
-
-
-                case ARG_VERIFY_KEY:
-                        arg_action = ACTION_VERIFY;
-                        arg_verify_key = optarg;
-                        arg_merge = false;
-                        break;
-
-                case ARG_INTERVAL:
-                        r = parse_sec(optarg, &arg_interval);
-                        if (r < 0 || arg_interval <= 0) {
-                                log_error("Failed to parse sealing key change interval: %s", optarg);
-                                return -EINVAL;
-                        }
-                        break;
-#else
-                case ARG_SETUP_KEYS:
-                case ARG_VERIFY_KEY:
-                case ARG_INTERVAL:
-                case ARG_FORCE:
-                        log_error("Forward-secure sealing not available.");
-                        return -ENOTSUP;
-#endif
 
                 case 'p': {
                         const char *dots;
@@ -1148,210 +1092,6 @@ static int add_priorities(sd_journal *j) {
         return 0;
 }
 
-static int setup_keys(void) {
-#ifdef HAVE_GCRYPT
-        size_t mpk_size, seed_size, state_size, i;
-        uint8_t *mpk, *seed, *state;
-        ssize_t l;
-        int fd = -1, r, attr = 0;
-        sd_id128_t machine, boot;
-        char *p = NULL, *k = NULL;
-        struct FSSHeader h;
-        uint64_t n;
-        struct stat st;
-
-        r = stat("/var/log/journal", &st);
-        if (r < 0 && errno != ENOENT && errno != ENOTDIR) {
-                log_error("stat(\"%s\") failed: %m", "/var/log/journal");
-                return -errno;
-        }
-
-        if (r < 0 || !S_ISDIR(st.st_mode)) {
-                log_error("%s is not a directory, must be using persistent logging for FSS.",
-                          "/var/log/journal");
-                return r < 0 ? -errno : -ENOTDIR;
-        }
-
-        r = sd_id128_get_machine(&machine);
-        if (r < 0) {
-                log_error("Failed to get machine ID: %s", strerror(-r));
-                return r;
-        }
-
-        r = sd_id128_get_boot(&boot);
-        if (r < 0) {
-                log_error("Failed to get boot ID: %s", strerror(-r));
-                return r;
-        }
-
-        if (asprintf(&p, "/var/log/journal/" SD_ID128_FORMAT_STR "/fss",
-                     SD_ID128_FORMAT_VAL(machine)) < 0)
-                return log_oom();
-
-        if (access(p, F_OK) >= 0) {
-                if (arg_force) {
-                        r = unlink(p);
-                        if (r < 0) {
-                                log_error("unlink(\"%s\") failed: %m", p);
-                                r = -errno;
-                                goto finish;
-                        }
-                } else {
-                        log_error("Sealing key file %s exists already. (--force to recreate)", p);
-                        r = -EEXIST;
-                        goto finish;
-                }
-        }
-
-        if (asprintf(&k, "/var/log/journal/" SD_ID128_FORMAT_STR "/fss.tmp.XXXXXX",
-                     SD_ID128_FORMAT_VAL(machine)) < 0) {
-                r = log_oom();
-                goto finish;
-        }
-
-        mpk_size = FSPRG_mskinbytes(FSPRG_RECOMMENDED_SECPAR);
-        mpk = alloca(mpk_size);
-
-        seed_size = FSPRG_RECOMMENDED_SEEDLEN;
-        seed = alloca(seed_size);
-
-        state_size = FSPRG_stateinbytes(FSPRG_RECOMMENDED_SECPAR);
-        state = alloca(state_size);
-
-        fd = open("/dev/random", O_RDONLY|O_CLOEXEC|O_NOCTTY);
-        if (fd < 0) {
-                log_error("Failed to open /dev/random: %m");
-                r = -errno;
-                goto finish;
-        }
-
-        log_info("Generating seed...");
-        l = loop_read(fd, seed, seed_size, true);
-        if (l < 0 || (size_t) l != seed_size) {
-                log_error("Failed to read random seed: %s", strerror(EIO));
-                r = -EIO;
-                goto finish;
-        }
-
-        log_info("Generating key pair...");
-        FSPRG_GenMK(NULL, mpk, seed, seed_size, FSPRG_RECOMMENDED_SECPAR);
-
-        log_info("Generating sealing key...");
-        FSPRG_GenState0(state, mpk, seed, seed_size);
-
-        assert(arg_interval > 0);
-
-        n = now(CLOCK_REALTIME);
-        n /= arg_interval;
-
-        safe_close(fd);
-        fd = mkostemp_safe(k, O_WRONLY|O_CLOEXEC);
-        if (fd < 0) {
-                log_error("Failed to open %s: %m", k);
-                r = -errno;
-                goto finish;
-        }
-
-        /* Enable secure remove, exclusion from dump, synchronous
-         * writing and in-place updating */
-        if (ioctl(fd, FS_IOC_GETFLAGS, &attr) < 0)
-                log_warning("FS_IOC_GETFLAGS failed: %m");
-
-        attr |= FS_SECRM_FL|FS_NODUMP_FL|FS_SYNC_FL|FS_NOCOW_FL;
-
-        if (ioctl(fd, FS_IOC_SETFLAGS, &attr) < 0)
-                log_warning("FS_IOC_SETFLAGS failed: %m");
-
-        zero(h);
-        memcpy(h.signature, "KSHHRHLP", 8);
-        h.machine_id = machine;
-        h.boot_id = boot;
-        h.header_size = htole64(sizeof(h));
-        h.start_usec = htole64(n * arg_interval);
-        h.interval_usec = htole64(arg_interval);
-        h.fsprg_secpar = htole16(FSPRG_RECOMMENDED_SECPAR);
-        h.fsprg_state_size = htole64(state_size);
-
-        l = loop_write(fd, &h, sizeof(h), false);
-        if (l < 0 || (size_t) l != sizeof(h)) {
-                log_error("Failed to write header: %s", strerror(EIO));
-                r = -EIO;
-                goto finish;
-        }
-
-        l = loop_write(fd, state, state_size, false);
-        if (l < 0 || (size_t) l != state_size) {
-                log_error("Failed to write state: %s", strerror(EIO));
-                r = -EIO;
-                goto finish;
-        }
-
-        if (link(k, p) < 0) {
-                log_error("Failed to link file: %m");
-                r = -errno;
-                goto finish;
-        }
-
-        if (on_tty()) {
-                fprintf(stderr,
-                        "\n"
-                        "The new key pair has been generated. The " ANSI_HIGHLIGHT_ON "secret sealing key" ANSI_HIGHLIGHT_OFF " has been written to\n"
-                        "the following local file. This key file is automatically updated when the\n"
-                        "sealing key is advanced. It should not be used on multiple hosts.\n"
-                        "\n"
-                        "\t%s\n"
-                        "\n"
-                        "Please write down the following " ANSI_HIGHLIGHT_ON "secret verification key" ANSI_HIGHLIGHT_OFF ". It should be stored\n"
-                        "at a safe location and should not be saved locally on disk.\n"
-                        "\n\t" ANSI_HIGHLIGHT_RED_ON, p);
-                fflush(stderr);
-        }
-        for (i = 0; i < seed_size; i++) {
-                if (i > 0 && i % 3 == 0)
-                        putchar('-');
-                printf("%02x", ((uint8_t*) seed)[i]);
-        }
-
-        printf("/%llx-%llx\n", (unsigned long long) n, (unsigned long long) arg_interval);
-
-        if (on_tty()) {
-                char tsb[FORMAT_TIMESPAN_MAX], *hn;
-
-                fprintf(stderr,
-                        ANSI_HIGHLIGHT_OFF "\n"
-                        "The sealing key is automatically changed every %s.\n",
-                        format_timespan(tsb, sizeof(tsb), arg_interval, 0));
-
-                hn = gethostname_malloc();
-
-                if (hn) {
-                        hostname_cleanup(hn, false);
-                        fprintf(stderr, "\nThe keys have been generated for host %s/" SD_ID128_FORMAT_STR ".\n", hn, SD_ID128_FORMAT_VAL(machine));
-                } else
-                        fprintf(stderr, "\nThe keys have been generated for host " SD_ID128_FORMAT_STR ".\n", SD_ID128_FORMAT_VAL(machine));
-
-                free(hn);
-        }
-
-        r = 0;
-
-finish:
-        safe_close(fd);
-
-        if (k) {
-                unlink(k);
-                free(k);
-        }
-
-        free(p);
-
-        return r;
-#else
-        log_error("Forward-secure sealing not available.");
-        return -ENOTSUP;
-#endif
-}
-
 static int verify(sd_journal *j) {
         int r = 0;
         Iterator i;
@@ -1363,14 +1103,8 @@ static int verify(sd_journal *j) {
 
         HASHMAP_FOREACH(f, j->files, i) {
                 int k;
-                usec_t first, validated, last;
 
-#ifdef HAVE_GCRYPT
-                if (!arg_verify_key && JOURNAL_HEADER_SEALED(f->header))
-                        log_notice("Journal file %s has sealing enabled but verification key has not been passed using --verify-key=.", f->path);
-#endif
-
-                k = journal_file_verify(f, arg_verify_key, &first, &validated, &last, true);
+                k = journal_file_verify(f, true);
                 if (k == -EINVAL) {
                         /* If the key was invalid give up right-away. */
                         return k;
@@ -1378,21 +1112,7 @@ static int verify(sd_journal *j) {
                         log_warning("FAIL: %s (%s)", f->path, strerror(-k));
                         r = k;
                 } else {
-                        char a[FORMAT_TIMESTAMP_MAX], b[FORMAT_TIMESTAMP_MAX], c[FORMAT_TIMESPAN_MAX];
                         log_info("PASS: %s", f->path);
-
-                        if (arg_verify_key && JOURNAL_HEADER_SEALED(f->header)) {
-                                if (validated > 0) {
-                                        log_info("=> Validated from %s to %s, final %s entries not sealed.",
-                                                 format_timestamp(a, sizeof(a), first),
-                                                 format_timestamp(b, sizeof(b), validated),
-                                                 format_timespan(c, sizeof(c), last > validated ? last - validated : 0, 0));
-                                } else if (last > 0)
-                                        log_info("=> No sealing yet, %s of entries not sealed.",
-                                                 format_timespan(c, sizeof(c), last - first, 0));
-                                else
-                                        log_info("=> No sealing yet, no entries in file.");
-                        }
                 }
         }
 
@@ -1461,11 +1181,6 @@ int main(int argc, char *argv[]) {
 
         if (arg_action == ACTION_NEW_ID128) {
                 r = generate_new_id128();
-                goto finish;
-        }
-
-        if (arg_action == ACTION_SETUP_KEYS) {
-                r = setup_keys();
                 goto finish;
         }
 
