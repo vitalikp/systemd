@@ -12,6 +12,7 @@ systemd System and Service Manager
  * remove journal catalog support;
  * change ansi color status messages for jobs in progress state;
  * remove gcrypt support;
+ * remove python support;
  
    systemd (214.1)
 ~~~~~~~

@@ -3,7 +3,7 @@ compiler:
   - gcc
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install autotools-dev automake autoconf libtool libdbus-1-dev libcap-dev libblkid-dev libpam-dev libaudit-dev libacl1-dev libattr1-dev libselinux-dev liblzma-dev gperf python2.7-dev
+ - sudo apt-get install autotools-dev automake autoconf libtool libdbus-1-dev libcap-dev libblkid-dev libpam-dev libaudit-dev libacl1-dev libattr1-dev libselinux-dev liblzma-dev gperf
 script: ./autogen.sh && ./configure && make V=1 && sudo ./systemd-machine-id-setup && make check && make distcheck
 after_failure: cat test-suite.log
 notifications:

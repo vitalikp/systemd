@@ -106,7 +106,6 @@ REQUIREMENTS:
         libaudit (optional)
         libselinux (optional)
         liblzma (optional)
-        libpython (optional)
         make, gcc, and similar tools
 
         During runtime, you need the following additional
@@ -131,15 +130,6 @@ REQUIREMENTS:
         intltool
         gperf
         gtkdocize (optional)
-        python (optional)
-        python-lxml (optional, but required to build the indices)
-        sphinx (optional)
-
-        To build HTML documentation for python-systemd using sphinx,
-        please first install systemd (using 'make install'), and then
-        invoke sphinx-build with 'make sphinx-<target>', with <target>
-        being 'html' or 'latexpdf'. If using DESTDIR for installation,
-        pass the same DESTDIR to 'make sphinx-html' invocation.
 
 USERS AND GROUPS:
         Default udev rules use the following standard system group
