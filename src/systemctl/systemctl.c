@@ -1298,7 +1298,7 @@ static void output_unit_file_list(const UnitFileList *units, unsigned c) {
                         on  = ansi_lightred();
                         off = ansi_highlight_off();
                 } else if (u->state == UNIT_FILE_ENABLED) {
-                        on  = ansi_highlight_green();
+                        on  = ansi_lightgreen();
                         off = ansi_highlight_off();
                 } else
                         on = off = "";
@@ -1601,7 +1601,7 @@ static int list_dependencies_one(
                         const char *on;
 
                         state = check_one_unit(bus, *c, "activating\0active\0reloading\0", true);
-                        on = state > 0 ? ansi_highlight_green() : ansi_lightred();
+                        on = state > 0 ? ansi_lightgreen() : ansi_lightred();
                         printf("%s%s%s ", on, draw_special_char(DRAW_BLACK_CIRCLE), ansi_highlight_off());
                 }
 
@@ -2030,7 +2030,7 @@ static void output_jobs_list(const struct job_info* jobs, unsigned n, bool skipp
 
         if (n == 0) {
                 if (!arg_no_legend) {
-                        on = ansi_highlight_green();
+                        on = ansi_lightgreen();
                         off = ansi_highlight_off();
 
                         printf("%sNo jobs %s.%s\n", on, skipped ? "listed" : "running", off);
@@ -3232,7 +3232,7 @@ static void print_status_info(
                 active_on = ansi_lightred();
                 active_off = ansi_highlight_off();
         } else if (streq_ptr(i->active_state, "active") || streq_ptr(i->active_state, "reloading")) {
-                active_on = ansi_highlight_green();
+                active_on = ansi_lightgreen();
                 active_off = ansi_highlight_off();
         } else
                 active_on = active_off = "";

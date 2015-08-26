@@ -114,7 +114,7 @@ static int notify_override_equivalent(const char *top, const char *bottom) {
                 return 0;
 
         printf("%s%s%s %s %s %s\n",
-               ansi_highlight_green(), "[EQUIVALENT]", ansi_highlight_off(),
+        		ansi_lightgreen(), "[EQUIVALENT]", ansi_highlight_off(),
                top, draw_special_char(DRAW_ARROW), bottom);
         return 1;
 }
