@@ -32,13 +32,13 @@ int main(int argc, char *argv[]) {
         assert_se(streq(p, "        Foobar        bar        waldo        "));
         free(p);
 
-        assert_se(p = strdup(ANSI_HIGHLIGHT_ON "Hello" ANSI_HIGHLIGHT_OFF ANSI_HIGHLIGHT_RED_ON " world!" ANSI_HIGHLIGHT_OFF));
+        assert_se(p = strdup(ANSI_HIGHLIGHT_ON "Hello" ANSI_HIGHLIGHT_OFF ANSI_LIGHTRED_ON " world!" ANSI_HIGHLIGHT_OFF));
         assert_se(strip_tab_ansi(&p, NULL));
         fprintf(stdout, "<%s>\n", p);
         assert_se(streq(p, "Hello world!"));
         free(p);
 
-        assert_se(p = strdup("\x1B[\x1B[\t\x1B[" ANSI_HIGHLIGHT_ON "\x1B[" "Hello" ANSI_HIGHLIGHT_OFF ANSI_HIGHLIGHT_RED_ON " world!" ANSI_HIGHLIGHT_OFF));
+        assert_se(p = strdup("\x1B[\x1B[\t\x1B[" ANSI_HIGHLIGHT_ON "\x1B[" "Hello" ANSI_HIGHLIGHT_OFF ANSI_LIGHTRED_ON " world!" ANSI_HIGHLIGHT_OFF));
         assert_se(strip_tab_ansi(&p, NULL));
         assert_se(streq(p, "\x1B[\x1B[        \x1B[\x1B[Hello world!"));
         free(p);

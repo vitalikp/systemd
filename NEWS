@@ -10,6 +10,9 @@ systemd System and Service Manager
  * remove gnutls support;
  * remove microhttpd support;
  * remove journal catalog support;
+ * ansi color:
+    - change color status messages for jobs in progress state;
+    - use light red color instead of highlight red;
  * change ansi color status messages for jobs in progress state;
  * remove gcrypt support;
  * remove python support;

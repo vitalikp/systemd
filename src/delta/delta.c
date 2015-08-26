@@ -104,7 +104,7 @@ static int notify_override_masked(const char *top, const char *bottom) {
                 return 0;
 
         printf("%s%s%s     %s %s %s\n",
-               ansi_highlight_red(), "[MASKED]", ansi_highlight_off(),
+               ansi_lightred(), "[MASKED]", ansi_highlight_off(),
                top, draw_special_char(DRAW_ARROW), bottom);
         return 1;
 }

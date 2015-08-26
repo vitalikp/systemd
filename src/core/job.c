@@ -634,7 +634,7 @@ static void job_print_status_message(Unit *u, JobType t, JobResult result) {
 
                 case JOB_FAILED:
                         manager_flip_auto_status(u->manager, true);
-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format);
+                        unit_status_printf(u, ANSI_LIGHTRED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format);
                         manager_status_printf(u->manager, false, NULL, "See 'systemctl status %s' for details.", u->id);
                         break;
 
@@ -645,7 +645,7 @@ static void job_print_status_message(Unit *u, JobType t, JobResult result) {
 
                 case JOB_TIMEOUT:
                         manager_flip_auto_status(u->manager, true);
-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format);
+                        unit_status_printf(u, ANSI_LIGHTRED_ON " TIME " ANSI_HIGHLIGHT_OFF, format);
                         break;
 
                 default:
@@ -662,7 +662,7 @@ static void job_print_status_message(Unit *u, JobType t, JobResult result) {
 
                 case JOB_TIMEOUT:
                         manager_flip_auto_status(u->manager, true);
-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format);
+                        unit_status_printf(u, ANSI_LIGHTRED_ON " TIME " ANSI_HIGHLIGHT_OFF, format);
                         break;
 
                 case JOB_DONE:

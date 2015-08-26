@@ -425,12 +425,12 @@ static int output_units_list(const UnitInfo *unit_infos, unsigned c) {
                 n_shown++;
 
                 if (STR_IN_SET(u->load_state, "error", "not-found", "masked") && !arg_plain) {
-                        on_loaded = ansi_highlight_red();
+                        on_loaded = ansi_lightred();
                         on_circle = ansi_highlight_yellow();
                         off_loaded = off_circle = ansi_highlight_off();
                         circle = true;
                 } else if (streq(u->active_state, "failed") && !arg_plain) {
-                        on_circle = on_active = ansi_highlight_red();
+                        on_circle = on_active = ansi_lightred();
                         off_circle = off_active = ansi_highlight_off();
                         circle = true;
                 }
@@ -480,7 +480,7 @@ static int output_units_list(const UnitInfo *unit_infos, unsigned c) {
                         on = ansi_highlight();
                         off = ansi_highlight_off();
                 } else {
-                        on = ansi_highlight_red();
+                        on = ansi_lightred();
                         off = ansi_highlight_off();
                 }
 
@@ -838,7 +838,7 @@ static int output_sockets_list(struct socket_info *socket_infos, unsigned cs) {
                 if (!arg_no_legend)
                         printf("\n");
         } else {
-                on = ansi_highlight_red();
+                on = ansi_lightred();
                 off = ansi_highlight_off();
         }
 
@@ -1120,7 +1120,7 @@ static int output_timers_list(struct timer_info *timer_infos, unsigned n) {
                 if (!arg_no_legend)
                         printf("\n");
         } else {
-                on = ansi_highlight_red();
+                on = ansi_lightred();
                 off = ansi_highlight_off();
         }
 
@@ -1295,7 +1295,7 @@ static void output_unit_file_list(const UnitFileList *units, unsigned c) {
                     u->state == UNIT_FILE_MASKED_RUNTIME ||
                     u->state == UNIT_FILE_DISABLED ||
                     u->state == UNIT_FILE_INVALID) {
-                        on  = ansi_highlight_red();
+                        on  = ansi_lightred();
                         off = ansi_highlight_off();
                 } else if (u->state == UNIT_FILE_ENABLED) {
                         on  = ansi_highlight_green();
@@ -1601,7 +1601,7 @@ static int list_dependencies_one(
                         const char *on;
 
                         state = check_one_unit(bus, *c, "activating\0active\0reloading\0", true);
-                        on = state > 0 ? ansi_highlight_green() : ansi_highlight_red();
+                        on = state > 0 ? ansi_highlight_green() : ansi_lightred();
                         printf("%s%s%s ", on, draw_special_char(DRAW_BLACK_CIRCLE), ansi_highlight_off());
                 }
 
@@ -1820,7 +1820,7 @@ static void output_machines_list(struct machine_info *machine_infos, unsigned n)
                 bool circle = false;
 
                 if (streq_ptr(m->state, "degraded")) {
-                        on_state = ansi_highlight_red();
+                        on_state = ansi_lightred();
                         off_state = ansi_highlight_off();
                         circle = true;
                 } else if (!streq_ptr(m->state, "running")) {
@@ -1830,7 +1830,7 @@ static void output_machines_list(struct machine_info *machine_infos, unsigned n)
                 }
 
                 if (m->n_failed_units > 0) {
-                        on_failed = ansi_highlight_red();
+                        on_failed = ansi_lightred();
                         off_failed = ansi_highlight_off();
                 } else
                         on_failed = off_failed = "";
@@ -3229,7 +3229,7 @@ static void print_status_info(
          * print_property() for a low-level property printer */
 
         if (streq_ptr(i->active_state, "failed")) {
-                active_on = ansi_highlight_red();
+                active_on = ansi_lightred();
                 active_off = ansi_highlight_off();
         } else if (streq_ptr(i->active_state, "active") || streq_ptr(i->active_state, "reloading")) {
                 active_on = ansi_highlight_green();
@@ -3248,7 +3248,7 @@ static void print_status_info(
                 printf("   Follow: unit currently follows state of %s\n", i->following);
 
         if (streq_ptr(i->load_state, "error")) {
-                on = ansi_highlight_red();
+                on = ansi_lightred();
                 off = ansi_highlight_off();
         } else
                 on = off = "";
@@ -3367,7 +3367,7 @@ static void print_status_info(
 
                 good = is_clean_exit_lsb(p->code, p->status, NULL);
                 if (!good) {
-                        on = ansi_highlight_red();
+                        on = ansi_lightred();
                         off = ansi_highlight_off();
                 } else
                         on = off = "";
@@ -3487,7 +3487,7 @@ static void print_status_info(
 
         if (i->need_daemon_reload)
                 printf("\n%sWarning:%s Unit file changed on disk, 'systemctl %sdaemon-reload' recommended.\n",
-                       ansi_highlight_red(),
+                       ansi_lightred(),
                        ansi_highlight_off(),
                        arg_scope == UNIT_FILE_SYSTEM ? "" : "--user ");
 }
@@ -4335,7 +4335,7 @@ static int show_system_status(sd_bus *bus) {
         }
 
         if (streq_ptr(mi.state, "degraded")) {
-                on = ansi_highlight_red();
+                on = ansi_lightred();
                 off = ansi_highlight_off();
         } else if (!streq_ptr(mi.state, "running")) {
                 on = ansi_highlight_yellow();

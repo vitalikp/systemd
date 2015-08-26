@@ -55,7 +55,7 @@ int bus_message_dump(sd_bus_message *m, FILE *f, bool with_header) {
         if (with_header) {
                 fprintf(f,
                         "%s%s%s Type=%s%s%s  Endian=%c  Flags=%u  Version=%u  Priority=%lli",
-                        m->header->type == SD_BUS_MESSAGE_METHOD_ERROR ? ansi_highlight_red() :
+                        m->header->type == SD_BUS_MESSAGE_METHOD_ERROR ? ansi_lightred() :
                         m->header->type == SD_BUS_MESSAGE_METHOD_RETURN ? ansi_highlight_green() :
                         m->header->type != SD_BUS_MESSAGE_SIGNAL ? ansi_highlight() : "", draw_special_char(DRAW_TRIANGULAR_BULLET), ansi_highlight_off(),
                         ansi_highlight(), bus_message_type_to_string(m->header->type), ansi_highlight_off(),
@@ -94,8 +94,8 @@ int bus_message_dump(sd_bus_message *m, FILE *f, bool with_header) {
                         fprintf(f,
                                 "  ErrorName=%s%s%s"
                                 "  ErrorMessage=%s\"%s\"%s\n",
-                                ansi_highlight_red(), strna(m->error.name), ansi_highlight_off(),
-                                ansi_highlight_red(), strna(m->error.message), ansi_highlight_off());
+                                ansi_lightred(), strna(m->error.name), ansi_highlight_off(),
+                                ansi_lightred(), strna(m->error.message), ansi_highlight_off());
 
                 if (m->monotonic != 0)
                         fprintf(f, "  Monotonic="USEC_FMT, m->monotonic);

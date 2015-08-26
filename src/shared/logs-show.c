@@ -96,7 +96,7 @@ static bool print_multiline(FILE *f, unsigned prefix, unsigned n_columns, Output
 
         if (flags & OUTPUT_COLOR) {
                 if (priority <= LOG_ERR) {
-                        color_on = ANSI_HIGHLIGHT_RED_ON;
+                        color_on = ANSI_LIGHTRED_ON;
                         color_off = ANSI_HIGHLIGHT_OFF;
                 } else if (priority <= LOG_NOTICE) {
                         color_on = ANSI_HIGHLIGHT_ON;

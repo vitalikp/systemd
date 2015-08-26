@@ -97,7 +97,7 @@
 
 #define ANSI_HIGHLIGHT_ON "\x1B[1;39m"
 #define ANSI_RED_ON "\x1B[31m"
-#define ANSI_HIGHLIGHT_RED_ON "\x1B[1;31m"
+#define ANSI_LIGHTRED_ON "\x1B[38;5;9m"
 #define ANSI_GREEN_ON "\x1B[32m"
 #define ANSI_HIGHLIGHT_GREEN_ON "\x1B[1;32m"
 #define ANSI_YELLOW_ON "\x1B[33m"
@@ -450,8 +450,8 @@ static inline const char *ansi_highlight(void) {
         return on_tty() ? ANSI_HIGHLIGHT_ON : "";
 }
 
-static inline const char *ansi_highlight_red(void) {
-        return on_tty() ? ANSI_HIGHLIGHT_RED_ON : "";
+static inline const char *ansi_lightred(void) {
+	return on_tty() ? ANSI_LIGHTRED_ON: "";
 }
 
 static inline const char *ansi_highlight_green(void) {
