@@ -14,6 +14,7 @@ systemd System and Service Manager
     - change color status messages for jobs in progress state;
     - use light red color instead of highlight red;
     - use light green color instead of highlight green;
+    - use light blue color instead of highlight blue;
  * change ansi color status messages for jobs in progress state;
  * remove gcrypt support;
  * remove python support;

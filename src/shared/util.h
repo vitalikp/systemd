@@ -102,7 +102,7 @@
 #define ANSI_LIGHTGREEN_ON "\x1B[38;5;10m"
 #define ANSI_YELLOW_ON "\x1B[33m"
 #define ANSI_HIGHLIGHT_YELLOW_ON "\x1B[1;33m"
-#define ANSI_HIGHLIGHT_BLUE_ON "\x1B[1;34m"
+#define ANSI_LIGHTBLUE_ON "\x1B[38;5;12m"
 #define ANSI_HIGHLIGHT_OFF "\x1B[0m"
 #define ANSI_ERASE_TO_END_OF_LINE "\x1B[K"
 
@@ -462,8 +462,8 @@ static inline const char *ansi_highlight_yellow(void) {
         return on_tty() ? ANSI_HIGHLIGHT_YELLOW_ON : "";
 }
 
-static inline const char *ansi_highlight_blue(void) {
-        return on_tty() ? ANSI_HIGHLIGHT_BLUE_ON : "";
+static inline const char *ansi_lightblue(void) {
+        return on_tty() ? ANSI_LIGHTBLUE_ON : "";
 }
 
 static inline const char *ansi_highlight_off(void) {

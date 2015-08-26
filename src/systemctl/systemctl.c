@@ -4537,7 +4537,7 @@ static int cat(sd_bus *bus, char **args) {
 
                 if (!isempty(fragment_path)) {
                         printf("%s# %s%s\n",
-                               ansi_highlight_blue(),
+                               ansi_lightblue(),
                                fragment_path,
                                ansi_highlight_off());
                         fflush(stdout);
@@ -4552,7 +4552,7 @@ static int cat(sd_bus *bus, char **args) {
                 STRV_FOREACH(path, dropin_paths) {
                         printf("%s%s# %s%s\n",
                                isempty(fragment_path) && path == dropin_paths ? "" : "\n",
-                               ansi_highlight_blue(),
+                               ansi_lightblue(),
                                *path,
                                ansi_highlight_off());
                         fflush(stdout);
