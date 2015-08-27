@@ -80,12 +80,6 @@ AS_IF([! ln --relative --help > /dev/null 2>&1], [AC_MSG_ERROR([*** ln doesn't s
 
 M4_DEFINES=
 
-m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
-GOBJECT_INTROSPECTION_CHECK([1.31.1])
-], [
-   AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
-   enable_introspection=no])
-
 AC_CHECK_TOOL(STRINGS, strings)
 AC_CHECK_TOOL(GPERF, gperf)
 if test -z "$GPERF" ; then
@@ -801,7 +795,6 @@ AC_MSG_RESULT([
         blkid:                   ${have_blkid}
         dbus:                    ${have_dbus}
         nss-myhostname:          ${have_myhostname}
-        gintrospection:          ${enable_introspection}
         multi-seat-x:            ${have_multi_seat_x}
         kdbus:                   ${have_kdbus}
         man pages:               ${have_manpages}
