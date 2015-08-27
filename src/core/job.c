@@ -640,7 +640,7 @@ static void job_print_status_message(Unit *u, JobType t, JobResult result) {
 
                 case JOB_DEPENDENCY:
                         manager_flip_auto_status(u->manager, true);
-                        unit_status_printf(u, ANSI_HIGHLIGHT_YELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format);
+                        unit_status_printf(u, ANSI_LIGHTYELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format);
                         break;
 
                 case JOB_TIMEOUT:

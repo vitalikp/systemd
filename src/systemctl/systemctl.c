@@ -426,7 +426,7 @@ static int output_units_list(const UnitInfo *unit_infos, unsigned c) {
 
                 if (STR_IN_SET(u->load_state, "error", "not-found", "masked") && !arg_plain) {
                         on_loaded = ansi_lightred();
-                        on_circle = ansi_highlight_yellow();
+                        on_circle = ansi_lightyellow();
                         off_loaded = off_circle = ansi_highlight_off();
                         circle = true;
                 } else if (streq(u->active_state, "failed") && !arg_plain) {
@@ -1824,7 +1824,7 @@ static void output_machines_list(struct machine_info *machine_infos, unsigned n)
                         off_state = ansi_highlight_off();
                         circle = true;
                 } else if (!streq_ptr(m->state, "running")) {
-                        on_state = ansi_highlight_yellow();
+                        on_state = ansi_lightyellow();
                         off_state = ansi_highlight_off();
                         circle = true;
                 }
@@ -4338,7 +4338,7 @@ static int show_system_status(sd_bus *bus) {
                 on = ansi_lightred();
                 off = ansi_highlight_off();
         } else if (!streq_ptr(mi.state, "running")) {
-                on = ansi_highlight_yellow();
+                on = ansi_lightyellow();
                 off = ansi_highlight_off();
         } else
                 on = off = "";
