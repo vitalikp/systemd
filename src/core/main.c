@@ -1326,8 +1326,7 @@ int main(int argc, char *argv[]) {
 
                 /* clear the kernel timestamp,
                  * because we are not PID 1 */
-                kernel_timestamp.monotonic = 0ULL;
-                kernel_timestamp.realtime = 0ULL;
+                kernel_timestamp = DUAL_TIMESTAMP_NULL;
         }
 
         /* Initialize default unit */
