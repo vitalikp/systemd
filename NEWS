@@ -19,6 +19,7 @@ systemd System and Service Manager
  * change ansi color status messages for jobs in progress state;
  * remove gcrypt support;
  * remove python support;
+ * add /etc/default/locale;
  
    systemd (214.1)
 ~~~~~~~
