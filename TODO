@@ -328,7 +328,7 @@ Features:
     full, make sure to write how many messages are lost as first thing
     to syslog when it works again.
   - journald: make sure ratelimit is actually really per-service with the new cgroup changes
-  - change systemd-journal-flush into a service that stays around during
+  - change journal-flush into a service that stays around during
     boot, and causes the journal to be moved back to /run on shutdown,
     so that we do not keep /var busy. This needs to happen synchronously,
     hence doing this via signals is not going to work.
@@ -341,7 +341,7 @@ Features:
   - document that service reload may be implemented as service reexec
   - document in wiki how to map ical recurrence events to systemd timer unit calendar specifications
   - add a man page containing packaging guidelines and recommending usage of things like Documentation=, PrivateTmp=, PrivateNetwork= and ReadOnlyDirectories=/etc /usr.
-  - document systemd-journal-flush.service properly
+  - document journal-flush.service properly
   - documentation: recommend to connect the timer units of a service to the service via Also= in [Install]
   - man: document the very specific env the shutdown drop-in tools live in
   - man: extend runlevel(8) to mention that runlevels suck, and are dead. Maybe add runlevel(7) with a note about that too

@@ -2528,7 +2528,7 @@ dist_systemunit_DATA += \
 
 nodist_systemunit_DATA += \
 	units/journald.service \
-	units/systemd-journal-flush.service
+	units/journal-flush.service
 
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
@@ -2537,11 +2537,11 @@ SOCKETS_TARGET_WANTS += \
 	journald.socket
 SYSINIT_TARGET_WANTS += \
 	journald.service \
-	systemd-journal-flush.service
+	journal-flush.service
 
 EXTRA_DIST += \
 	units/journald.service.in \
-	units/systemd-journal-flush.service.in \
+	units/journal-flush.service.in \
 	src/journal/journald-gperf.gperf
 
 CLEANFILES += \
