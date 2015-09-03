@@ -379,7 +379,7 @@ static int parse_proc_cmdline_item(const char *key, const char *value) {
 
                 const char *c;
 
-                /* Ignore systemd.journald.xyz and friends */
+                /* Ignore systemd.xyz and friends */
                 c = key;
                 if (startswith(c, "rd."))
                         c += 3;

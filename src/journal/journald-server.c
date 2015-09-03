@@ -1250,32 +1250,32 @@ static int server_parse_proc_cmdline(Server *s) {
                 if (!word)
                         return -ENOMEM;
 
-                if (startswith(word, "systemd.journald.forward_to_syslog=")) {
+                if (startswith(word, "journald.forward_to_syslog=")) {
                         r = parse_boolean(word + 35);
                         if (r < 0)
                                 log_warning("Failed to parse forward to syslog switch %s. Ignoring.", word + 35);
                         else
                                 s->forward_to_syslog = r;
-                } else if (startswith(word, "systemd.journald.forward_to_kmsg=")) {
+                } else if (startswith(word, "journald.forward_to_kmsg=")) {
                         r = parse_boolean(word + 33);
                         if (r < 0)
                                 log_warning("Failed to parse forward to kmsg switch %s. Ignoring.", word + 33);
                         else
                                 s->forward_to_kmsg = r;
-                } else if (startswith(word, "systemd.journald.forward_to_console=")) {
+                } else if (startswith(word, "journald.forward_to_console=")) {
                         r = parse_boolean(word + 36);
                         if (r < 0)
                                 log_warning("Failed to parse forward to console switch %s. Ignoring.", word + 36);
                         else
                                 s->forward_to_console = r;
-                } else if (startswith(word, "systemd.journald.forward_to_wall=")) {
+                } else if (startswith(word, "journald.forward_to_wall=")) {
                         r = parse_boolean(word + 33);
                         if (r < 0)
                                 log_warning("Failed to parse forward to wall switch %s. Ignoring.", word + 33);
                         else
                                 s->forward_to_wall = r;
-                } else if (startswith(word, "systemd.journald"))
-                        log_warning("Invalid systemd.journald parameter. Ignoring.");
+                } else if (startswith(word, "journald"))
+                        log_warning("Invalid journald parameter. Ignoring.");
         }
 
         return 0;
