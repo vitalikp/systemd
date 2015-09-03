@@ -220,7 +220,7 @@ sd_journal_send("MESSAGE=Hello World, this is PID %lu!", (unsigned long) getpid(
                 variable itself is not altered.</para>
 
                 <para>If
-                <citerefentry><refentrytitle>systemd-journald</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                <citerefentry><refentrytitle>journald</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                 is not running (the socket is not present), those
                 functions do nothing, and also return 0.</para>
         </refsect1>

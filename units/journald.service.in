@@ -14,7 +14,7 @@ After=journald.socket syslog.socket
 Before=sysinit.target
 
 [Service]
-ExecStart=@rootlibexecdir@/systemd-journald
+ExecStart=@rootlibexecdir@/journald
 Restart=always
 RestartSec=0
 NotifyAccess=all

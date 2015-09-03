@@ -468,7 +468,7 @@
                 <para>Priviledged programs (currently UID 0) may
                 attach <varname>OBJECT_PID=</varname> to a
                 message. This will instruct
-                <command>systemd-journald</command> to attach
+                <command>journald</command> to attach
                 additional fields on behalf of the caller:</para>
 
                 <variablelist class='journal-directives'>
@@ -496,7 +496,7 @@
                                 <term><varname>OBJECT_SYSTEMD_USER_UNIT=</varname></term>
                                 <listitem>
                                         <para>These are additional fields added automatically
-                                        by <command>systemd-journald</command>.
+                                        by <command>journald</command>.
                                         Their meaning is the same as
                                         <varname>_UID=</varname>,
                                         <varname>_GID=</varname>,

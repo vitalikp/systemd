@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         server_flush_to_var(&server);
         server_flush_dev_kmsg(&server);
 
-        log_debug("systemd-journald running as pid "PID_FMT, getpid());
+        log_debug("journald running as pid "PID_FMT, getpid());
         server_driver_message(&server, SD_MESSAGE_JOURNAL_START, "Journal started");
 
         sd_notify(false,
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
                 server_maybe_warn_forward_syslog_missed(&server);
         }
 
-        log_debug("systemd-journald stopped as pid "PID_FMT, getpid());
+        log_debug("journald stopped as pid "PID_FMT, getpid());
         server_driver_message(&server, SD_MESSAGE_JOURNAL_STOP, "Journal stopped");
 
 finish:

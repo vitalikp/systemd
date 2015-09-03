@@ -218,7 +218,7 @@
                                 logging is enabled and the system is
                                 fully booted
                                 up. <command>journalctl</command> and
-                                <command>systemd-journald</command>
+                                <command>journald</command>
                                 ignore all files with names not ending
                                 with <literal>.journal</literal> or
                                 <literal>.journal~</literal>, so only
@@ -234,9 +234,9 @@
                                 <varname>SystemKeepFree=</varname> and
                                 <varname>RuntimeKeepFree=</varname>
                                 control how much disk space
-                                systemd-journald shall leave free for
+                                journald shall leave free for
                                 other uses.
-                                <command>systemd-journald</command>
+                                <command>journald</command>
                                 will respect both limits and use the
                                 smaller of the two values.</para>
 
@@ -246,7 +246,7 @@
                                 file system is nearly full and either
                                 <varname>SystemKeepFree=</varname> or
                                 <varname>RuntimeKeepFree=</varname> is
-                                violated when systemd-journald is
+                                violated when journald is
                                 started, the value will be raised to
                                 percentage that is actually free. This
                                 means that if there was enough

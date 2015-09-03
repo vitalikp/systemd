@@ -45,20 +45,20 @@
         <refnamediv>
                 <refname>journald.service</refname>
                 <refname>journald.socket</refname>
-                <refname>systemd-journald</refname>
+                <refname>journald</refname>
                 <refpurpose>Journal service</refpurpose>
         </refnamediv>
 
         <refsynopsisdiv>
                 <para><filename>journald.service</filename></para>
                 <para><filename>journald.socket</filename></para>
-                <para><filename>/usr/lib/systemd/systemd-journald</filename></para>
+                <para><filename>/usr/lib/systemd/journald</filename></para>
         </refsynopsisdiv>
 
         <refsect1>
                 <title>Description</title>
 
-                <para><filename>systemd-journald</filename> is a
+                <para><filename>journald</filename> is a
                 system service that collects and stores logging data.
                 It creates and maintains structured, indexed journals
                 based on logging information that is received from the
@@ -83,10 +83,10 @@
                 lost at reboot. To make the data persistent, it
                 is sufficient to create
                 <filename>/var/log/journal/</filename> where
-                <filename>systemd-journald</filename> will then store
+                <filename>journald</filename> will then store
                 the data.</para>
 
-                <para><filename>systemd-journald</filename> will
+                <para><filename>journald</filename> will
                 forward all received log messages to the <constant>AF_UNIX</constant>
                 <constant>SOCK_DGRAM</constant> socket
                 <filename>/run/systemd/journal/syslog</filename>, if it exists, which
@@ -183,7 +183,7 @@
                                 <term><filename>/etc/systemd/journald.conf</filename></term>
 
                                 <listitem><para>Configure
-                                <command>systemd-journald</command>
+                                <command>journald</command>
                                 behaviour. See
                                 <citerefentry><refentrytitle>journald.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>.
                                 </para></listitem>
@@ -195,7 +195,7 @@
                                 <term><filename>/var/log/journal/<replaceable>machine-id</replaceable>/*.journal</filename></term>
                                 <term><filename>/var/log/journal/<replaceable>machine-id</replaceable>/*.journal~</filename></term>
 
-                                <listitem><para><command>systemd-journald</command>
+                                <listitem><para><command>journald</command>
                                 writes entries to files in
                                 <filename>/run/log/journal/<replaceable>machine-id</replaceable>/</filename>
                                 or
@@ -206,7 +206,7 @@
                                 to be corrupted, they are renamed
                                 using the <literal>.journal~</literal>
                                 suffix, and
-                                <command>systemd-journald</command>
+                                <command>journald</command>
                                 starts writing to a new
                                 file. <filename>/run</filename> is
                                 used when

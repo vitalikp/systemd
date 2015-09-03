@@ -62,7 +62,7 @@ static int divert_coredump(void) {
 
         mkdir_p_label("/var/lib/systemd/coredump", 0755);
 
-        f = fopen("/var/lib/systemd/coredump/core.systemd-journald", "we");
+        f = fopen("/var/lib/systemd/coredump/core.journald", "we");
         if (!f) {
                 log_error("Failed to create coredump file: %m");
                 return -errno;

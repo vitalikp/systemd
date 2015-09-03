@@ -2518,7 +2518,7 @@ noinst_LTLIBRARIES += \
 	libsystemd-journal-internal.la
 
 rootlibexec_PROGRAMS += \
-	systemd-journald
+	journald
 
 rootbin_PROGRAMS += \
 	journalctl
