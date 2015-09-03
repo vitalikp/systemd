@@ -53,9 +53,9 @@ LIBSYSTEMD_ID128_CURRENT=0
 LIBSYSTEMD_ID128_REVISION=28
 LIBSYSTEMD_ID128_AGE=0
 
-LIBSYSTEMD_JOURNAL_CURRENT=11
-LIBSYSTEMD_JOURNAL_REVISION=5
-LIBSYSTEMD_JOURNAL_AGE=11
+JOURNAL_CURRENT=11
+JOURNAL_REVISION=5
+JOURNAL_AGE=11
 
 # Dirs of external packages
 dbuspolicydir=@dbuspolicydir@
@@ -1247,7 +1247,7 @@ test_tables_CFLAGS = \
 
 test_tables_LDADD = \
 	libsystemd-logs.la \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-core.la \
 	$(RT_LIBS)
 
@@ -1783,7 +1783,7 @@ systemctl_LDADD = \
 	libsystemd-label.la \
 	libsystemd-internal.la \
 	libsystemd-logs.la \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
@@ -1999,7 +1999,7 @@ BUILT_SOURCES += \
 libsystemd_la_SOURCES = \
 	$(libsystemd_internal_la_SOURCES) \
 	$(libsystemd_resolve_la_SOURCES) \
-	$(libsystemd_journal_internal_la_SOURCES)
+	$(libjournal_internal_la_SOURCES)
 
 nodist_libsystemd_la_SOURCES = \
 	$(nodist_libsystemd_internal_la_SOURCES)
@@ -2007,7 +2007,7 @@ nodist_libsystemd_la_SOURCES = \
 libsystemd_la_CFLAGS = \
 	$(libsystemd_internal_la_CFLAGS) \
 	$(libsystemd_resolve_la_CFLAGS) \
-	$(libsystemd_journal_internal_la_CFLAGS)
+	$(libjournal_internal_la_CFLAGS)
 
 libsystemd_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
@@ -2017,7 +2017,7 @@ libsystemd_la_LDFLAGS = \
 libsystemd_la_LIBADD = \
 	libsystemd-shared.la \
 	$(libsystemd_internal_la_LIBADD) \
-	$(libsystemd_journal_internal_la_LIBADD) \
+	$(libjournal_internal_la_LIBADD) \
 	$(libsystemd_resolve_la_LIBADD)
 
 libsystemd-install-hook:
@@ -2322,12 +2322,12 @@ systemd_activate_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
-systemd_journald_SOURCES = \
+journald_SOURCES = \
 	src/journal/journald.c \
 	src/journal/journald-server.h
 
-systemd_journald_LDADD = \
-	libsystemd-journal-core.la \
+journald_LDADD = \
+	libjournal-core.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
@@ -2339,7 +2339,7 @@ journalctl_SOURCES = \
 	src/journal/journalctl.c
 
 journalctl_LDADD = \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-internal.la \
 	libsystemd-logs.la \
 	libsystemd-shared.la
@@ -2348,69 +2348,69 @@ test_journal_SOURCES = \
 	src/journal/test-journal.c
 
 test_journal_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_send_SOURCES = \
 	src/journal/test-journal-send.c
 
 test_journal_send_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_syslog_SOURCES = \
 	src/journal/test-journal-syslog.c
 
 test_journal_syslog_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_match_SOURCES = \
 	src/journal/test-journal-match.c
 
 test_journal_match_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_enum_SOURCES = \
 	src/journal/test-journal-enum.c
 
 test_journal_enum_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_stream_SOURCES = \
 	src/journal/test-journal-stream.c
 
 test_journal_stream_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_flush_SOURCES = \
 	src/journal/test-journal-flush.c
 
 test_journal_flush_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_init_SOURCES = \
 	src/journal/test-journal-init.c
 
 test_journal_init_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_verify_SOURCES = \
 	src/journal/test-journal-verify.c
 
 test_journal_verify_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_journal_interleaving_SOURCES = \
 	src/journal/test-journal-interleaving.c
 
 test_journal_interleaving_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 test_mmap_cache_SOURCES = \
 	src/journal/test-mmap-cache.c
 
 test_mmap_cache_LDADD = \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
-libsystemd_journal_core_la_SOURCES = \
+libjournal_core_la_SOURCES = \
 	src/journal/journald-kmsg.c \
 	src/journal/journald-kmsg.h \
 	src/journal/journald-syslog.c \
@@ -2429,15 +2429,15 @@ libsystemd_journal_core_la_SOURCES = \
 	src/journal/journald-rate-limit.h \
 	src/journal/journal-internal.h
 
-nodist_libsystemd_journal_core_la_SOURCES = \
+nodist_libjournal_core_la_SOURCES = \
 	src/journal/journald-gperf.c
 
-libsystemd_journal_core_la_CFLAGS = \
+libjournal_core_la_CFLAGS = \
 	$(AM_CFLAGS) \
 	$(LIBUDEV_CFLAGS)
 
-libsystemd_journal_core_la_LIBADD = \
-	libsystemd-journal-internal.la \
+libjournal_core_la_LIBADD = \
+	libjournal-internal.la \
 	$(LIBUDEV_LIBS) \
 	libsystemd-capability.la \
 	libsystemd-label.la \
@@ -2445,7 +2445,7 @@ libsystemd_journal_core_la_LIBADD = \
 	libsystemd-shared.la
 
 noinst_LTLIBRARIES += \
-	libsystemd-journal-core.la
+	libjournal-core.la
 
 journal-install-hook:
 	-$(MKDIR_P) $(DESTDIR)/var/log/journal
@@ -2479,7 +2479,7 @@ pkginclude_HEADERS += \
 	src/systemd/sd-messages.h \
 	src/systemd/_sd-common.h
 
-libsystemd_journal_internal_la_SOURCES = \
+libjournal_internal_la_SOURCES = \
 	src/journal/sd-journal.c \
 	src/systemd/sd-journal.h \
 	src/systemd/_sd-common.h \
@@ -2498,24 +2498,24 @@ libsystemd_journal_internal_la_SOURCES = \
 	src/journal/mmap-cache.h
 
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-libsystemd_journal_internal_la_CFLAGS =
+libjournal_internal_la_CFLAGS =
 	$(AM_CFLAGS)
 
-libsystemd_journal_internal_la_LIBADD =
+libjournal_internal_la_LIBADD =
 
 if HAVE_XZ
-libsystemd_journal_internal_la_SOURCES += \
+libjournal_internal_la_SOURCES += \
 	src/journal/compress.c
 
-libsystemd_journal_internal_la_CFLAGS += \
+libjournal_internal_la_CFLAGS += \
 	$(XZ_CFLAGS)
 
-libsystemd_journal_internal_la_LIBADD += \
+libjournal_internal_la_LIBADD += \
 	$(XZ_LIBS)
 endif
 
 noinst_LTLIBRARIES += \
-	libsystemd-journal-internal.la
+	libjournal-internal.la
 
 rootlibexec_PROGRAMS += \
 	journald
@@ -2555,7 +2555,7 @@ systemd_socket_proxyd_SOURCES = \
 systemd_socket_proxyd_LDADD = \
 	libsystemd-logs.la \
 	libsystemd-internal.la \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-shared.la \
 	libsystemd-resolve.la
 
@@ -2565,7 +2565,7 @@ systemd_coredump_SOURCES = \
 	src/journal/coredump.c
 
 systemd_coredump_LDADD = \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-label.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la
@@ -2577,7 +2577,7 @@ systemd_coredumpctl_SOURCES = \
 	src/journal/coredumpctl.c
 
 systemd_coredumpctl_LDADD = \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
@@ -2701,7 +2701,7 @@ systemd_bootchart_SOURCES = \
 	src/bootchart/svg.h
 
 systemd_bootchart_LDADD = \
-	libsystemd-journal-internal.la \
+	libjournal-internal.la \
 	libsystemd-shared.la
 
 rootlibexec_PROGRAMS += \
@@ -3044,31 +3044,35 @@ if ENABLE_COMPAT_LIBS
 EXTRA_DIST += \
 	src/compat-libs/linkwarning.h
 
+libjournal.c: src/compat-libs/journal.sym
+	$(AM_V_at)$(MKDIR_P) $(dir $@)
+	$(AM_V_GEN)sed -r -n 's/^ +(sd_.*);/obsolete_lib(\1,$(notdir $(basename $<)));/p' <$< >$@
+
 libsystemd-%.c: src/compat-libs/libsystemd-%.sym
 	$(AM_V_at)$(MKDIR_P) $(dir $@)
 	$(AM_V_GEN)sed -r -n 's/^ +(sd_.*);/obsolete_lib(\1,$(notdir $(basename $<)));/p' <$< >$@
 
 BUILT_SOURCES += \
-	libsystemd-journal.c \
+	libjournal.c \
 	libsystemd-login.c \
 	libsystemd-id128.c \
 	libsystemd-daemon.c
 
-libsystemd_journal_la_SOURCES = \
-	libsystemd-journal.c \
+libjournal_la_SOURCES = \
+	libjournal.c \
 	src/compat-libs/journal.sym
 
-libsystemd_journal_la_CPPFLAGS = \
+libjournal_la_CPPFLAGS = \
 	$(AM_CFLAGS) \
 	-imacros$(top_srcdir)/src/compat-libs/linkwarning.h
 
-libsystemd_journal_la_LDFLAGS = \
+libjournal_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
-	-version-info $(LIBSYSTEMD_JOURNAL_CURRENT):$(LIBSYSTEMD_JOURNAL_REVISION):$(LIBSYSTEMD_JOURNAL_AGE) \
+	-version-info $(JOURNAL_CURRENT):$(JOURNAL_REVISION):$(JOURNAL_AGE) \
 	-Wl,--version-script=$(top_srcdir)/src/compat-libs/journal.sym
 
-libsystemd_journal_la_LIBADD = \
-	libsystemd-journal-internal.la \
+libjournal_la_LIBADD = \
+	libjournal-internal.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
@@ -3124,7 +3128,7 @@ libsystemd_daemon_la_LIBADD = \
 	libsystemd-shared.la
 
 lib_LTLIBRARIES += \
-	libsystemd-journal.la \
+	libjournal.la \
 	libsystemd-login.la \
 	libsystemd-id128.la \
 	libsystemd-daemon.la
@@ -3138,13 +3142,13 @@ pkgconfiglib_DATA += \
 # move lib from $(libdir) to $(rootlibdir) and update devel link, if needed
 compat-lib-install-hook:
 	libname=libsystemd-login.so && $(move-to-rootlibdir)
-	libname=libsystemd-journal.so && $(move-to-rootlibdir)
+	libname=journal.so && $(move-to-rootlibdir)
 	libname=libsystemd-id128.so && $(move-to-rootlibdir)
 	libname=libsystemd-daemon.so && $(move-to-rootlibdir)
 
 compat-lib-uninstall-hook:
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-login.so*
-	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-journal.so*
+	rm -f $(DESTDIR)$(rootlibdir)/journal.so*
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-id128.so*
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-daemon.so*
 

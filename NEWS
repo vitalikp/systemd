@@ -15,6 +15,7 @@ systemd System and Service Manager
     - rename systemd-journald to journald;
     - rename system group systemd-journal to journal;
     - rename unit systemd-journal-flush.service to journal-flush.service;
+    - rename library libsystemd-journal.so to journal.so;
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
