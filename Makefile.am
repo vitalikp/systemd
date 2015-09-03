@@ -3056,7 +3056,7 @@ BUILT_SOURCES += \
 
 libsystemd_journal_la_SOURCES = \
 	libsystemd-journal.c \
-	src/compat-libs/libsystemd-journal.sym
+	src/compat-libs/journal.sym
 
 libsystemd_journal_la_CPPFLAGS = \
 	$(AM_CFLAGS) \
@@ -3065,7 +3065,7 @@ libsystemd_journal_la_CPPFLAGS = \
 libsystemd_journal_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
 	-version-info $(LIBSYSTEMD_JOURNAL_CURRENT):$(LIBSYSTEMD_JOURNAL_REVISION):$(LIBSYSTEMD_JOURNAL_AGE) \
-	-Wl,--version-script=$(top_srcdir)/src/compat-libs/libsystemd-journal.sym
+	-Wl,--version-script=$(top_srcdir)/src/compat-libs/journal.sym
 
 libsystemd_journal_la_LIBADD = \
 	libsystemd-journal-internal.la \
