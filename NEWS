@@ -5,6 +5,8 @@ systemd System and Service Manager
  * fix quote udev rule;
  * journalctl:
     - remove qrencode support;
+ * journal:
+    - rename libsystemd-journal.pc to journal.pc;
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
