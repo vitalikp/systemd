@@ -176,7 +176,7 @@ MANPAGES_ALIAS += \
 	man/systemd-initctl.8 \
 	man/systemd-initctl.socket.8 \
 	man/systemd-journald.8 \
-	man/systemd-journald.socket.8 \
+	man/journald.socket.8 \
 	man/systemd-kexec.service.8 \
 	man/systemd-poweroff.service.8 \
 	man/systemd-reboot.service.8 \
@@ -273,7 +273,7 @@ man/systemd-hybrid-sleep.service.8: man/systemd-suspend.service.8
 man/systemd-initctl.8: man/systemd-initctl.service.8
 man/systemd-initctl.socket.8: man/systemd-initctl.service.8
 man/systemd-journald.8: man/systemd-journald.service.8
-man/systemd-journald.socket.8: man/systemd-journald.service.8
+man/journald.socket.8: man/systemd-journald.service.8
 man/systemd-kexec.service.8: man/systemd-halt.service.8
 man/systemd-poweroff.service.8: man/systemd-halt.service.8
 man/systemd-reboot.service.8: man/systemd-halt.service.8
@@ -532,7 +532,7 @@ man/systemd-initctl.socket.html: man/systemd-initctl.service.html
 man/systemd-journald.html: man/systemd-journald.service.html
 	$(html-alias)
 
-man/systemd-journald.socket.html: man/systemd-journald.service.html
+man/journald.socket.html: man/systemd-journald.service.html
 	$(html-alias)
 
 man/systemd-kexec.service.html: man/systemd-halt.service.html

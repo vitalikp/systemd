@@ -2524,7 +2524,7 @@ rootbin_PROGRAMS += \
 	journalctl
 
 dist_systemunit_DATA += \
-	units/systemd-journald.socket
+	units/journald.socket
 
 nodist_systemunit_DATA += \
 	units/systemd-journald.service \
@@ -2534,7 +2534,7 @@ dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
 
 SOCKETS_TARGET_WANTS += \
-	systemd-journald.socket
+	journald.socket
 SYSINIT_TARGET_WANTS += \
 	systemd-journald.service \
 	systemd-journal-flush.service
