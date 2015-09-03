@@ -163,7 +163,7 @@
                 <title>Access Control</title>
 
                 <para>Journal files are, by default, owned and readable
-                by the <literal>systemd-journal</literal> system group
+                by the <literal>journal</literal> system group
                 but are not writable. Adding a user to this group thus
                 enables her/him to read the journal files.</para>
 

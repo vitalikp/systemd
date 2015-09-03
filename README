@@ -140,7 +140,7 @@ USERS AND GROUPS:
         tty, dialout, kmem, video, audio, lp, cdrom, tape, disk
 
         During runtime, the journal daemon requires the
-        "systemd-journal" system group to exist. New journal files will
+        "journal" system group to exist. New journal files will
         be readable by this group (but not writable), which may be used
         to grant specific users read access.
 
