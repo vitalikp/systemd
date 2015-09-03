@@ -65,7 +65,7 @@
                 <para><filename>sd-journal.h</filename> provides APIs
                 to submit and query log entries. The APIs exposed act
                 both as client for the
-                <citerefentry><refentrytitle>systemd-journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                <citerefentry><refentrytitle>journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                 journal service and as parser for the journal files
                 on disk.
                 </para>

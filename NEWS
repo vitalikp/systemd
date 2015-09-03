@@ -11,6 +11,7 @@ systemd System and Service Manager
     - rename libsystemd-journal.sym to journal.sym;
     - use abi prefix JOURNAL instead of LIBSYSTEMD_JOURNAL in journal.sym;
     - rename unit systemd-journald.socket to journald.socket;
+    - rename unit systemd-journald.service to journald.service;
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
