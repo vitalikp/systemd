@@ -75,7 +75,7 @@
                 e.g. <literal>_SYSTEMD_UNIT=httpd.service</literal>,
                 referring to the components of a structured journal
                 entry. See
-                <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>
                 for a list of well-known fields. If multiple matches
                 are specified matching different fields, the log
                 entries are filtered by both, i.e. the resulting output
@@ -763,7 +763,7 @@
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>journald.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
                 </para>
         </refsect1>

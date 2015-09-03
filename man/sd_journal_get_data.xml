@@ -108,7 +108,7 @@
                 pointer/size variables where the data object and its
                 size shall be stored in. The field name should be an
                 entry field name. Well-known field names are listed in
-                <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. The
+                <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. The
                 returned data is in a read-only memory map and is only
                 valid until the next invocation of
                 <function>sd_journal_get_data()</function> or
@@ -238,7 +238,7 @@ int print_fields(sd_journal *j) {
 
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd-journal</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_open</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_next</refentrytitle><manvolnum>3</manvolnum></citerefentry>,

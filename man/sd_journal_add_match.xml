@@ -101,7 +101,7 @@
                 they apply to the same fields, only entries where the
                 field takes one of the specified values will be
                 iterated. Well known fields are documented in
-                <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. Whenever
+                <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. Whenever
                 a new match is added the current entry position is
                 reset, and
                 <citerefentry><refentrytitle>sd_journal_next</refentrytitle><manvolnum>3</manvolnum></citerefentry> (or a similar call)
@@ -213,7 +213,7 @@ int add_matches(sd_journal *j) {
                         <citerefentry><refentrytitle>sd_journal_open</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_next</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_get_data</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

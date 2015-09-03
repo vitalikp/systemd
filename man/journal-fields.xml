@@ -21,10 +21,10 @@
   along with systemd; If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<refentry id="systemd.journal-fields">
+<refentry id="journal-fields">
 
         <refentryinfo>
-                <title>systemd.journal-fields</title>
+                <title>journal-fields</title>
                 <productname>systemd</productname>
 
                 <authorgroup>
@@ -38,12 +38,12 @@
         </refentryinfo>
 
         <refmeta>
-                <refentrytitle>systemd.journal-fields</refentrytitle>
+                <refentrytitle>journal-fields</refentrytitle>
                 <manvolnum>7</manvolnum>
         </refmeta>
 
         <refnamediv>
-                <refname>systemd.journal-fields</refname>
+                <refname>journal-fields</refname>
                 <refpurpose>Special journal fields</refpurpose>
         </refnamediv>
 

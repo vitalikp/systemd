@@ -90,7 +90,7 @@
                 specified field can take. It takes two arguments: the
                 journal to query and the field name to look
                 for. Well-known field names are listed on
-                <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. Field
+                <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>. Field
                 names must be specified without a trailing '='. After
                 this function has been executed successfully the field
                 values may be queried using
@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
 
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd.journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>journal-fields</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd-journal</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_open</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>sd_journal_get_data</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
