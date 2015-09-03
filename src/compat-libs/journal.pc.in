@@ -10,8 +10,8 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: systemd
-Description: systemd Journal Utility Library - deprecated
+Name: journal
+Description: Journal Utility Library - deprecated
 URL: @PACKAGE_URL@
 Version: @PACKAGE_VERSION@
 Requires: libsystemd = @PACKAGE_VERSION@

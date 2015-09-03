@@ -7,6 +7,7 @@ systemd System and Service Manager
     - remove qrencode support;
  * journal:
     - rename libsystemd-journal.pc to journal.pc;
+    - use name journal instead of systemd in journal.pc;
  * remove systemd-journal-remote program;
  * remove systemd-journal-gatewayd program, service and socket;
  * remove gnutls support;
