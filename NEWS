@@ -1,6 +1,6 @@
 systemd System and Service Manager
 
-   systemd (214.2-dev)
+   systemd (214.2)
 ~~~~~~~
  * fix quote udev rule;
  * journalctl:
