@@ -8,6 +8,7 @@ systemd System and Service Manager
     - remove 'deprecated' from Description filed in journal.pc;
     - use systemd/sd-messages.h include instead of sd-messages.h;
     - use systemd/sd-daemon.h include instead of sd-daemon.h;
+    - remove unused includes in journald;
  
    systemd (214.2)
 ~~~~~~~
