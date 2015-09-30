@@ -6,6 +6,7 @@ systemd System and Service Manager
     - use systemd/sd-id128.h include instead of sd-id128.h;
     - remove URL field in journal.pc;
     - remove 'deprecated' from Description filed in journal.pc;
+    - use systemd/sd-messages.h include instead of sd-messages.h;
  
    systemd (214.2)
 ~~~~~~~

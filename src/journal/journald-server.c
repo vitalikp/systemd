@@ -25,11 +25,11 @@
 #include <sys/statvfs.h>
 #include <sys/mman.h>
 #include <sys/timerfd.h>
+#include <systemd/sd-messages.h>
 
 #include <libudev.h>
 
 #include "sd-journal.h"
-#include "sd-messages.h"
 #include "sd-daemon.h"
 #include "fileio.h"
 #include "mkdir.h"
