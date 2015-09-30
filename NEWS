@@ -7,6 +7,7 @@ systemd System and Service Manager
     - remove URL field in journal.pc;
     - remove 'deprecated' from Description filed in journal.pc;
     - use systemd/sd-messages.h include instead of sd-messages.h;
+    - use systemd/sd-daemon.h include instead of sd-daemon.h;
  
    systemd (214.2)
 ~~~~~~~

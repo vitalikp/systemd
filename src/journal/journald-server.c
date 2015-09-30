@@ -26,11 +26,11 @@
 #include <sys/mman.h>
 #include <sys/timerfd.h>
 #include <systemd/sd-messages.h>
+#include <systemd/sd-daemon.h>
 
 #include <libudev.h>
 
 #include "sd-journal.h"
-#include "sd-daemon.h"
 #include "fileio.h"
 #include "mkdir.h"
 #include "hashmap.h"
