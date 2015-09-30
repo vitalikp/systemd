@@ -9,6 +9,7 @@ systemd System and Service Manager
     - use systemd/sd-messages.h include instead of sd-messages.h;
     - use systemd/sd-daemon.h include instead of sd-daemon.h;
     - remove unused includes in journald;
+    - use sd-journal.h include instead of systemd/sd-journal.h;
  
    systemd (214.2)
 ~~~~~~~

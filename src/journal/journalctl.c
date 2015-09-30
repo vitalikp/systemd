@@ -35,7 +35,7 @@
 #include <sys/ioctl.h>
 #include <linux/fs.h>
 
-#include <systemd/sd-journal.h>
+#include "sd-journal.h"
 
 #include "log.h"
 #include "logs-show.h"
