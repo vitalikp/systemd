@@ -11,7 +11,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: journal
-Description: Journal Utility Library - deprecated
+Description: Journal Utility Library
 Version: @PACKAGE_VERSION@
 Requires: libsystemd = @PACKAGE_VERSION@
 Libs: -L${libdir} -lsystemd
