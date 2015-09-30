@@ -27,9 +27,7 @@
 #include <stdarg.h>
 #include <sys/uio.h>
 #include <syslog.h>
-
-#include "sd-id128.h"
-#include "_sd-common.h"
+#include <systemd/sd-id128.h>
 
 /* Journal APIs. See sd-journal(3) for more information. */
 

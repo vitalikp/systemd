@@ -25,11 +25,11 @@
 #include <sys/statvfs.h>
 #include <unistd.h>
 #include <sys/xattr.h>
+#include <systemd/sd-id128.h>
 
 #include "journal-def.h"
 #include "journal-file.h"
 #include "journal-vacuum.h"
-#include "sd-id128.h"
 #include "util.h"
 
 struct vacuum_info {

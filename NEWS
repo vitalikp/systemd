@@ -2,7 +2,9 @@ systemd System and Service Manager
 
    systemd (214.3-dev)
 ~~~~~~~
-
+ * journal:
+    - use systemd/sd-id128.h include instead of sd-id128.h;
+ 
    systemd (214.2)
 ~~~~~~~
  * fix quote udev rule;
