@@ -28,7 +28,6 @@
 
 #include <systemd/sd-journal.h>
 
-#include "build.h"
 #include "set.h"
 #include "util.h"
 #include "log.h"
@@ -172,7 +171,6 @@ static int parse_argv(int argc, char *argv[], Set *matches) {
                 case ARG_VERSION:
                         arg_action = ACTION_NONE;
                         puts(PACKAGE_STRING);
-                        puts(SYSTEMD_FEATURES);
                         return 0;
 
                 case ARG_NO_PAGER:

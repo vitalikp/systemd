@@ -42,7 +42,6 @@
 #include "util.h"
 #include "path-util.h"
 #include "fileio.h"
-#include "build.h"
 #include "pager.h"
 #include "strv.h"
 #include "set.h"
@@ -265,7 +264,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
-                        puts(SYSTEMD_FEATURES);
                         return 0;
 
                 case ARG_NO_PAGER:
