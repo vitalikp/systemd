@@ -11,6 +11,7 @@ systemd System and Service Manager
     - remove unused includes in journald;
     - use sd-journal.h include instead of systemd/sd-journal.h;
     - don't print systemd features;
+    - move journal man pages to separate module journal;
  
    systemd (214.2)
 ~~~~~~~
