@@ -16,6 +16,7 @@ systemd System and Service Manager
  * sd-messages.h:
     - remove unused id SD_MESSAGE_MACHINE_START;
     - remove unused id SD_MESSAGE_MACHINE_STOP;
+    - remove unused id SD_MESSAGE_TIMEZONE_CHANGE;
  
    systemd (214.2)
 ~~~~~~~
