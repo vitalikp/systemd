@@ -3134,7 +3134,6 @@ lib_LTLIBRARIES += \
 	libsystemd-daemon.la
 
 pkgconfiglib_DATA += \
-	src/compat-libs/journal.pc \
 	src/compat-libs/libsystemd-login.pc \
 	src/compat-libs/libsystemd-id128.pc \
 	src/compat-libs/libsystemd-daemon.pc
@@ -3157,7 +3156,6 @@ UNINSTALL_EXEC_HOOKS += compat-lib-uninstall-hook
 endif
 
 EXTRA_DIST += \
-	src/compat-libs/journal.pc.in \
 	src/compat-libs/libsystemd-login.pc.in \
 	src/compat-libs/libsystemd-id128.pc.in \
 	src/compat-libs/libsystemd-daemon.pc.in
