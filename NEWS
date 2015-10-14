@@ -13,6 +13,8 @@ systemd System and Service Manager
     - don't print systemd features;
     - move journal man pages to separate module journal;
     - move journal.pc to separate module journal;
+ * sd-messages.h:
+    - remove unused id SD_MESSAGE_MACHINE_START;
  
    systemd (214.2)
 ~~~~~~~
