@@ -2583,12 +2583,6 @@ systemd_coredumpctl_LDADD = \
 
 bin_PROGRAMS += \
 	systemd-coredumpctl
-
-dist_bashcompletion_DATA += \
-	shell-completion/bash/systemd-coredumpctl
-
-dist_zshcompletion_DATA += \
-	shell-completion/zsh/_systemd-coredumpctl
 endif
 
 # ------------------------------------------------------------------------------
