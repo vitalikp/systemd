@@ -2330,18 +2330,6 @@ journald_LDADD = \
 	libsystemd-shared.la
 
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-journalctl_CFLAGS = \
-	$(AM_CFLAGS)
-
-journalctl_SOURCES = \
-	src/journal/journalctl.c
-
-journalctl_LDADD = \
-	libjournal-internal.la \
-	libsystemd-internal.la \
-	libsystemd-logs.la \
-	libsystemd-shared.la
-
 test_journal_SOURCES = \
 	src/journal/test-journal.c
 
@@ -2517,9 +2505,6 @@ noinst_LTLIBRARIES += \
 
 rootlibexec_PROGRAMS += \
 	journald
-
-rootbin_PROGRAMS += \
-	journalctl
 
 dist_systemunit_DATA += \
 	units/journald.socket

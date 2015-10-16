@@ -14,6 +14,7 @@ systemd System and Service Manager
     - move journal man pages to separate module journal;
     - move journal.pc to separate module journal;
     - move journal completions to separate module journal;
+    - move journalctl to separate module journal;
  * sd-messages.h:
     - remove unused id SD_MESSAGE_MACHINE_START;
     - remove unused id SD_MESSAGE_MACHINE_STOP;

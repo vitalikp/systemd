@@ -26,7 +26,6 @@
 /exported
 /exported-*
 /install-tree
-/journalctl
 /libsystemd-*.c
 /libtool
 /loginctl

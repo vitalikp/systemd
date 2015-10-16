@@ -2352,9 +2352,9 @@ static int check_wait_response(WaitData *d) {
                 else if (streq(d->result, "canceled"))
                         log_error("Job for %s canceled.", strna(d->name));
                 else if (streq(d->result, "dependency"))
-                        log_error("A dependency job for %s failed. See 'journalctl -xn' for details.", strna(d->name));
+                        log_error("A dependency job for %s failed. See logs for details.", strna(d->name));
                 else if (!streq(d->result, "done") && !streq(d->result, "skipped"))
-                        log_error("Job for %s failed. See 'systemctl status %s' and 'journalctl -xn' for details.", strna(d->name), strna(d->name));
+                        log_error("Job for %s failed. See 'systemctl status %s' and logs for details.", strna(d->name), strna(d->name));
         }
 
         if (streq(d->result, "timeout"))

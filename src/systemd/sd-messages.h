@@ -27,10 +27,6 @@
 
 _SD_BEGIN_DECLARATIONS;
 
-/* And if you add a new ID here, make sure to generate a random one
- * with journalctl --new-id128. Do not use any other IDs, and do not
- * count them up manually. */
-
 #define SD_MESSAGE_JOURNAL_START    SD_ID128_MAKE(f7,73,79,a8,49,0b,40,8b,be,5f,69,40,50,5a,77,7b)
 #define SD_MESSAGE_JOURNAL_STOP     SD_ID128_MAKE(d9,3f,b3,c9,c2,4d,45,1a,97,ce,a6,15,ce,59,c0,0b)
 #define SD_MESSAGE_JOURNAL_DROPPED  SD_ID128_MAKE(a5,96,d6,fe,7b,fa,49,94,82,8e,72,30,9e,95,d6,1e)
