@@ -2528,21 +2528,6 @@ systemd_socket_proxyd_LDADD = \
 	libsystemd-resolve.la
 
 # ------------------------------------------------------------------------------
-if ENABLE_COREDUMP
-systemd_coredump_SOURCES = \
-	src/journal/coredump.c
-
-systemd_coredump_LDADD = \
-	libjournal-internal.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-rootlibexec_PROGRAMS += \
-	systemd-coredump
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_BINFMT
 systemd_binfmt_SOURCES = \
 	src/binfmt/binfmt.c
