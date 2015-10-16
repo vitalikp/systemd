@@ -51,7 +51,6 @@
 /systemd-gnome-ask-password-agent
 /systemd-inhibit
 /systemd-initctl
-/journald
 /systemd-kmsg-syslogd
 /systemd-logind
 /systemd-machine-id-setup

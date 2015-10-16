@@ -2320,15 +2320,6 @@ systemd_activate_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
-journald_SOURCES = \
-	src/journal/journald.c \
-	src/journal/journald-server.h
-
-journald_LDADD = \
-	libjournal-core.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
 test_journal_SOURCES = \
 	src/journal/test-journal.c
@@ -2502,9 +2493,6 @@ endif
 
 noinst_LTLIBRARIES += \
 	libjournal-internal.la
-
-rootlibexec_PROGRAMS += \
-	journald
 
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
