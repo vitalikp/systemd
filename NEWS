@@ -26,6 +26,7 @@ systemd System and Service Manager
     - move coredump completions to separate module journal;
     - move systemd-coredumpctl to separate module journal;
     - move systemd-coredump to separate module journal;
+    - remove support;
  
    systemd (214.2)
 ~~~~~~~
