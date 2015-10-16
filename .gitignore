@@ -43,7 +43,6 @@
 /systemd-cgroups-agent
 /systemd-cgtop
 /systemd-coredump
-/systemd-coredumpctl
 /systemd-dbus1-generator
 /systemd-delta
 /systemd-detect-virt

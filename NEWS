@@ -24,6 +24,7 @@ systemd System and Service Manager
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;
     - move coredump completions to separate module journal;
+    - move systemd-coredumpctl to separate module journal;
  
    systemd (214.2)
 ~~~~~~~

@@ -2540,17 +2540,6 @@ systemd_coredump_LDADD = \
 
 rootlibexec_PROGRAMS += \
 	systemd-coredump
-
-systemd_coredumpctl_SOURCES = \
-	src/journal/coredumpctl.c
-
-systemd_coredumpctl_LDADD = \
-	libjournal-internal.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-bin_PROGRAMS += \
-	systemd-coredumpctl
 endif
 
 # ------------------------------------------------------------------------------
