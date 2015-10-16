@@ -2506,25 +2506,10 @@ noinst_LTLIBRARIES += \
 rootlibexec_PROGRAMS += \
 	journald
 
-dist_systemunit_DATA += \
-	units/journald.socket
-
-nodist_systemunit_DATA += \
-	units/journald.service \
-	units/journal-flush.service
-
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
 
-SOCKETS_TARGET_WANTS += \
-	journald.socket
-SYSINIT_TARGET_WANTS += \
-	journald.service \
-	journal-flush.service
-
 EXTRA_DIST += \
-	units/journald.service.in \
-	units/journal-flush.service.in \
 	src/journal/journald-gperf.gperf
 
 CLEANFILES += \
