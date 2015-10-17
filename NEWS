@@ -35,6 +35,7 @@ systemd System and Service Manager
     - remove support;
  * systemctl:
     - remove output argument option;
+    - don't show unit logs;
  
    systemd (214.2)
 ~~~~~~~

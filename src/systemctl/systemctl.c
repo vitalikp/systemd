@@ -64,7 +64,6 @@
 #include "spawn-ask-password-agent.h"
 #include "spawn-polkit-agent.h"
 #include "install.h"
-#include "logs-show.h"
 #include "socket-util.h"
 #include "fileio.h"
 #include "env-util.h"
@@ -133,7 +132,6 @@ static enum action {
 static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
 static char *arg_host = NULL;
 static unsigned arg_lines = 10;
-static OutputMode arg_output = OUTPUT_SHORT;
 static bool arg_plain = false;
 
 static const struct {
@@ -3470,19 +3468,6 @@ static void print_status_info(
 
                         show_cgroup_and_extra(SYSTEMD_CGROUP_CONTROLLER, i->control_group, prefix, c, false, extra, k, flags);
                 }
-        }
-
-        if (i->id && arg_transport == BUS_TRANSPORT_LOCAL) {
-                show_journal_by_unit(stdout,
-                                     i->id,
-                                     arg_output,
-                                     0,
-                                     i->inactive_exit_timestamp_monotonic,
-                                     arg_lines,
-                                     getuid(),
-                                     flags | OUTPUT_BEGIN_NEWLINE,
-                                     arg_scope == UNIT_FILE_SYSTEM,
-                                     ellipsized);
         }
 
         if (i->need_daemon_reload)
