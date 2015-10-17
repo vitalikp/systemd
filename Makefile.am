@@ -1245,7 +1245,6 @@ test_tables_CFLAGS = \
 
 test_tables_LDADD = \
 	libsystemd-logs.la \
-	libjournal-internal.la \
 	libsystemd-core.la \
 	$(RT_LIBS)
 
@@ -1781,7 +1780,6 @@ systemctl_LDADD = \
 	libsystemd-label.la \
 	libsystemd-internal.la \
 	libsystemd-logs.la \
-	libjournal-internal.la \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
@@ -1996,16 +1994,14 @@ BUILT_SOURCES += \
 
 libsystemd_la_SOURCES = \
 	$(libsystemd_internal_la_SOURCES) \
-	$(libsystemd_resolve_la_SOURCES) \
-	$(libjournal_internal_la_SOURCES)
+	$(libsystemd_resolve_la_SOURCES)
 
 nodist_libsystemd_la_SOURCES = \
 	$(nodist_libsystemd_internal_la_SOURCES)
 
 libsystemd_la_CFLAGS = \
 	$(libsystemd_internal_la_CFLAGS) \
-	$(libsystemd_resolve_la_CFLAGS) \
-	$(libjournal_internal_la_CFLAGS)
+	$(libsystemd_resolve_la_CFLAGS)
 
 libsystemd_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
@@ -2015,7 +2011,6 @@ libsystemd_la_LDFLAGS = \
 libsystemd_la_LIBADD = \
 	libsystemd-shared.la \
 	$(libsystemd_internal_la_LIBADD) \
-	$(libjournal_internal_la_LIBADD) \
 	$(libsystemd_resolve_la_LIBADD)
 
 libsystemd-install-hook:
@@ -2334,47 +2329,8 @@ UNINSTALL_EXEC_HOOKS += journal-uninstall-hook
 
 # ------------------------------------------------------------------------------
 pkginclude_HEADERS += \
-	src/systemd/sd-journal.h \
 	src/systemd/sd-messages.h \
 	src/systemd/_sd-common.h
-
-libjournal_internal_la_SOURCES = \
-	src/journal/sd-journal.c \
-	src/systemd/sd-journal.h \
-	src/systemd/_sd-common.h \
-	src/journal/journal-file.c \
-	src/journal/journal-file.h \
-	src/journal/journal-vacuum.c \
-	src/journal/journal-vacuum.h \
-	src/journal/journal-verify.c \
-	src/journal/journal-verify.h \
-	src/journal/lookup3.c \
-	src/journal/lookup3.h \
-	src/journal/journal-send.c \
-	src/journal/journal-def.h \
-	src/journal/compress.h \
-	src/journal/mmap-cache.c \
-	src/journal/mmap-cache.h
-
-# using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-libjournal_internal_la_CFLAGS = \
-	$(AM_CFLAGS)
-
-libjournal_internal_la_LIBADD =
-
-if HAVE_XZ
-libjournal_internal_la_SOURCES += \
-	src/journal/compress.c
-
-libjournal_internal_la_CFLAGS += \
-	$(XZ_CFLAGS)
-
-libjournal_internal_la_LIBADD += \
-	$(XZ_LIBS)
-endif
-
-noinst_LTLIBRARIES += \
-	libjournal-internal.la
 
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
@@ -2387,7 +2343,6 @@ systemd_socket_proxyd_SOURCES = \
 systemd_socket_proxyd_LDADD = \
 	libsystemd-logs.la \
 	libsystemd-internal.la \
-	libjournal-internal.la \
 	libsystemd-shared.la \
 	libsystemd-resolve.la
 
@@ -2492,7 +2447,6 @@ systemd_bootchart_SOURCES = \
 	src/bootchart/svg.h
 
 systemd_bootchart_LDADD = \
-	libjournal-internal.la \
 	libsystemd-shared.la
 
 rootlibexec_PROGRAMS += \
@@ -2863,7 +2817,6 @@ libjournal_la_LDFLAGS = \
 	-Wl,--version-script=$(top_srcdir)/src/compat-libs/journal.sym
 
 libjournal_la_LIBADD = \
-	libjournal-internal.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
@@ -3307,7 +3260,6 @@ endef
 
 test-libsystemd-sym.c: \
 		$(top_builddir)/src/libsystemd/libsystemd.sym \
-		src/systemd/sd-journal.h \
 		src/systemd/sd-daemon.h \
 		src/systemd/sd-login.h \
 		src/systemd/sd-bus.h \

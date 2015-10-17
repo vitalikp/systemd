@@ -9,58 +9,6 @@
 
 LIBSYSTEMD_209 {
 global:
-        /* sd-journal */
-        sd_journal_print;
-        sd_journal_printv;
-        sd_journal_send;
-        sd_journal_sendv;
-        sd_journal_stream_fd;
-        sd_journal_open;
-        sd_journal_close;
-        sd_journal_previous;
-        sd_journal_next;
-        sd_journal_previous_skip;
-        sd_journal_next_skip;
-        sd_journal_get_realtime_usec;
-        sd_journal_get_monotonic_usec;
-        sd_journal_get_data;
-        sd_journal_enumerate_data;
-        sd_journal_restart_data;
-        sd_journal_add_match;
-        sd_journal_flush_matches;
-        sd_journal_seek_head;
-        sd_journal_seek_tail;
-        sd_journal_seek_monotonic_usec;
-        sd_journal_seek_realtime_usec;
-        sd_journal_seek_cursor;
-        sd_journal_get_cursor;
-        sd_journal_get_fd;
-        sd_journal_process;
-        sd_journal_print_with_location;
-        sd_journal_printv_with_location;
-        sd_journal_send_with_location;
-        sd_journal_sendv_with_location;
-        sd_journal_get_cutoff_realtime_usec;
-        sd_journal_get_cutoff_monotonic_usec;
-        sd_journal_wait;
-        sd_journal_open_directory;
-        sd_journal_add_disjunction;
-        sd_journal_perror;
-        sd_journal_perror_with_location;
-        sd_journal_get_usage;
-        sd_journal_test_cursor;
-        sd_journal_query_unique;
-        sd_journal_enumerate_unique;
-        sd_journal_restart_unique;
-        sd_journal_set_data_threshold;
-        sd_journal_get_data_threshold;
-        sd_journal_reliable_fd;
-        sd_journal_get_events;
-        sd_journal_get_timeout;
-        sd_journal_add_conjunction;
-        sd_journal_open_files;
-        sd_journal_open_container;
-
         /* sd-dameon */
         sd_booted;
         sd_is_fifo;
