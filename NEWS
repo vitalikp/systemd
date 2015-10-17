@@ -18,6 +18,7 @@ systemd System and Service Manager
     - move journald service to separate module journal;
     - move journald to separate module journal;
     - move journal tests to separate module journal;
+    - move libjournal-core to separate module journal;
  * sd-messages.h:
     - remove unused id SD_MESSAGE_MACHINE_START;
     - remove unused id SD_MESSAGE_MACHINE_STOP;

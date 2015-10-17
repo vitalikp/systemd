@@ -2321,43 +2321,6 @@ systemd_activate_LDADD = \
 
 # ------------------------------------------------------------------------------
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-libjournal_core_la_SOURCES = \
-	src/journal/journald-kmsg.c \
-	src/journal/journald-kmsg.h \
-	src/journal/journald-syslog.c \
-	src/journal/journald-syslog.h \
-	src/journal/journald-stream.c \
-	src/journal/journald-stream.h \
-	src/journal/journald-server.c \
-	src/journal/journald-server.h \
-	src/journal/journald-console.c \
-	src/journal/journald-console.h \
-	src/journal/journald-wall.c \
-	src/journal/journald-wall.h \
-	src/journal/journald-native.c \
-	src/journal/journald-native.h \
-	src/journal/journald-rate-limit.c \
-	src/journal/journald-rate-limit.h \
-	src/journal/journal-internal.h
-
-nodist_libjournal_core_la_SOURCES = \
-	src/journal/journald-gperf.c
-
-libjournal_core_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(LIBUDEV_CFLAGS)
-
-libjournal_core_la_LIBADD = \
-	libjournal-internal.la \
-	$(LIBUDEV_LIBS) \
-	libsystemd-capability.la \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-noinst_LTLIBRARIES += \
-	libjournal-core.la
-
 journal-install-hook:
 	-$(MKDIR_P) $(DESTDIR)/var/log/journal
 	-chown 0:0 $(DESTDIR)/var/log/journal
@@ -2415,12 +2378,6 @@ noinst_LTLIBRARIES += \
 
 dist_pkgsysconf_DATA += \
 	src/journal/journald.conf
-
-EXTRA_DIST += \
-	src/journal/journald-gperf.gperf
-
-CLEANFILES += \
-	src/journal/journald-gperf.c
 
 # ------------------------------------------------------------------------------
 
