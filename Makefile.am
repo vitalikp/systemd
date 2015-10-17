@@ -766,14 +766,6 @@ endif
 
 # ------------------------------------------------------------------------------
 noinst_LTLIBRARIES += \
-	libsystemd-logs.la
-
-libsystemd_logs_la_SOURCES = \
-	src/shared/logs-show.c \
-	src/shared/logs-show.h
-
-# ------------------------------------------------------------------------------
-noinst_LTLIBRARIES += \
 	libsystemd-capability.la
 
 libsystemd_capability_la_SOURCES = \
@@ -1239,7 +1231,6 @@ test_tables_CFLAGS = \
 	$(SECCOMP_CFLAGS)
 
 test_tables_LDADD = \
-	libsystemd-logs.la \
 	libsystemd-core.la \
 	$(RT_LIBS)
 
@@ -2332,7 +2323,6 @@ systemd_socket_proxyd_SOURCES = \
 	src/socket-proxy/socket-proxyd.c
 
 systemd_socket_proxyd_LDADD = \
-	libsystemd-logs.la \
 	libsystemd-internal.la \
 	libsystemd-shared.la \
 	libsystemd-resolve.la

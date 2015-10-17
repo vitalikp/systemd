@@ -37,6 +37,7 @@ systemd System and Service Manager
     - remove output argument option;
     - don't show unit logs;
     - remove libsystemd-logs library;
+ * remove libsystemd-logs library;
  
    systemd (214.2)
 ~~~~~~~
