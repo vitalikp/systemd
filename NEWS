@@ -22,6 +22,7 @@ systemd System and Service Manager
     - move libjournal-internal to separate module journal;
     - move journald.conf to separate module journal;
     - move libjournal to separate module journal;
+    - move journal tmpfiles to separate module journal;
  * sd-messages.h:
     - remove unused id SD_MESSAGE_MACHINE_START;
     - remove unused id SD_MESSAGE_MACHINE_STOP;
