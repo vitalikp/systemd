@@ -53,10 +53,6 @@ LIBSYSTEMD_ID128_CURRENT=0
 LIBSYSTEMD_ID128_REVISION=28
 LIBSYSTEMD_ID128_AGE=0
 
-JOURNAL_CURRENT=11
-JOURNAL_REVISION=5
-JOURNAL_AGE=11
-
 # Dirs of external packages
 dbuspolicydir=@dbuspolicydir@
 dbussessionservicedir=@dbussessionservicedir@
@@ -169,7 +165,6 @@ AM_CPPFLAGS = \
 	-I $(top_builddir)/src/shared \
 	-I $(top_srcdir)/src/shared \
 	-I $(top_srcdir)/src/login \
-	-I $(top_srcdir)/src/journal \
 	-I $(top_srcdir)/src/systemd \
 	-I $(top_builddir)/src/core \
 	-I $(top_srcdir)/src/core \
@@ -2786,36 +2781,14 @@ if ENABLE_COMPAT_LIBS
 EXTRA_DIST += \
 	src/compat-libs/linkwarning.h
 
-libjournal.c: src/compat-libs/journal.sym
-	$(AM_V_at)$(MKDIR_P) $(dir $@)
-	$(AM_V_GEN)sed -r -n 's/^ +(sd_.*);/obsolete_lib(\1,$(notdir $(basename $<)));/p' <$< >$@
-
 libsystemd-%.c: src/compat-libs/libsystemd-%.sym
 	$(AM_V_at)$(MKDIR_P) $(dir $@)
 	$(AM_V_GEN)sed -r -n 's/^ +(sd_.*);/obsolete_lib(\1,$(notdir $(basename $<)));/p' <$< >$@
 
 BUILT_SOURCES += \
-	libjournal.c \
 	libsystemd-login.c \
 	libsystemd-id128.c \
 	libsystemd-daemon.c
-
-libjournal_la_SOURCES = \
-	libjournal.c \
-	src/compat-libs/journal.sym
-
-libjournal_la_CPPFLAGS = \
-	$(AM_CFLAGS) \
-	-imacros$(top_srcdir)/src/compat-libs/linkwarning.h
-
-libjournal_la_LDFLAGS = \
-	$(AM_LDFLAGS) \
-	-version-info $(JOURNAL_CURRENT):$(JOURNAL_REVISION):$(JOURNAL_AGE) \
-	-Wl,--version-script=$(top_srcdir)/src/compat-libs/journal.sym
-
-libjournal_la_LIBADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
 
 libsystemd_login_la_SOURCES = \
 	libsystemd-login.c \
@@ -2869,7 +2842,6 @@ libsystemd_daemon_la_LIBADD = \
 	libsystemd-shared.la
 
 lib_LTLIBRARIES += \
-	libjournal.la \
 	libsystemd-login.la \
 	libsystemd-id128.la \
 	libsystemd-daemon.la
@@ -2882,13 +2854,11 @@ pkgconfiglib_DATA += \
 # move lib from $(libdir) to $(rootlibdir) and update devel link, if needed
 compat-lib-install-hook:
 	libname=libsystemd-login.so && $(move-to-rootlibdir)
-	libname=journal.so && $(move-to-rootlibdir)
 	libname=libsystemd-id128.so && $(move-to-rootlibdir)
 	libname=libsystemd-daemon.so && $(move-to-rootlibdir)
 
 compat-lib-uninstall-hook:
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-login.so*
-	rm -f $(DESTDIR)$(rootlibdir)/journal.so*
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-id128.so*
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-daemon.so*
 
