@@ -340,16 +340,6 @@ man/systemd-binfmt.html: man/systemd-binfmt.service.html
 
 endif
 
-if ENABLE_BOOTCHART
-MANPAGES += \
-	man/bootchart.conf.5 \
-	man/systemd-bootchart.1
-MANPAGES_ALIAS += \
-	#
-
-
-endif
-
 if ENABLE_EFI
 MANPAGES += \
 	man/bootctl.1
@@ -1016,7 +1006,6 @@ endif
 
 EXTRA_DIST += \
 	man/binfmt.d.xml \
-	man/bootchart.conf.xml \
 	man/bootctl.xml \
 	man/bootup.xml \
 	man/busctl.xml \
@@ -1080,7 +1069,6 @@ EXTRA_DIST += \
 	man/systemd-ask-password-console.service.xml \
 	man/systemd-ask-password.xml \
 	man/systemd-binfmt.service.xml \
-	man/systemd-bootchart.xml \
 	man/systemd-bus-proxyd.xml \
 	man/systemd-bus-proxyd@.service.xml \
 	man/systemd-cgls.xml \

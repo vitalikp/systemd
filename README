@@ -76,7 +76,7 @@ REQUIREMENTS:
           CONFIG_AUTOFS4_FS
           CONFIG_SECCOMP
 
-        For systemd-bootchart, several proc debug interfaces are required:
+        For several proc debug interfaces are required:
           CONFIG_SCHEDSTATS
           CONFIG_SCHED_DEBUG
 

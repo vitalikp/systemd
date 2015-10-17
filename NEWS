@@ -39,6 +39,7 @@ systemd System and Service Manager
     - don't show unit logs;
     - remove libsystemd-logs library;
  * remove libsystemd-logs library;
+ * remove bootchart support;
  
    systemd (214.2)
 ~~~~~~~
