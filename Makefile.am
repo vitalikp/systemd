@@ -1774,7 +1774,6 @@ systemctl_LDADD = \
 	libsystemd-units.la \
 	libsystemd-label.la \
 	libsystemd-internal.la \
-	libsystemd-logs.la \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
