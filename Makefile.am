@@ -2332,9 +2332,6 @@ pkginclude_HEADERS += \
 	src/systemd/sd-messages.h \
 	src/systemd/_sd-common.h
 
-dist_pkgsysconf_DATA += \
-	src/journal/journald.conf
-
 # ------------------------------------------------------------------------------
 
 systemd_socket_proxyd_SOURCES = \
