@@ -33,6 +33,8 @@ systemd System and Service Manager
     - move systemd-coredumpctl to separate module journal;
     - move systemd-coredump to separate module journal;
     - remove support;
+ * systemctl:
+    - remove output argument option;
  
    systemd (214.2)
 ~~~~~~~

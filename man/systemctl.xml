@@ -489,17 +489,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
-        <term><option>-o</option></term>
-        <term><option>--output=</option></term>
-
-        <listitem>
-          <para>When used with <command>status</command>, controls the
-          formatting of the journal entries that are shown.
-          Defaults to <literal>short</literal>.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term><option>--plain</option></term>
 
         <listitem>

@@ -5272,8 +5272,6 @@ static int systemctl_help(void) {
                "                      When shutting down, execute action immediately\n"
                "     --root=PATH      Enable unit files in the specified root directory\n"
                "  -n --lines=INTEGER  Number of journal entries to show\n"
-               "  -o --output=STRING  Change journal output mode (short, short-monotonic,\n"
-               "                      verbose, export, json, json-pretty, json-sse, cat)\n"
                "     --plain          Print unit dependencies as a list instead of a tree\n\n"
                "Unit Commands:\n"
                "  list-units [PATTERN...]         List loaded units\n"
@@ -5496,7 +5494,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "machine",             required_argument, NULL, 'M'                     },
                 { "runtime",             no_argument,       NULL, ARG_RUNTIME             },
                 { "lines",               required_argument, NULL, 'n'                     },
-                { "output",              required_argument, NULL, 'o'                     },
                 { "plain",               no_argument,       NULL, ARG_PLAIN               },
                 { "state",               required_argument, NULL, ARG_STATE               },
                 { "recursive",           no_argument,       NULL, 'r'                     },
@@ -5719,14 +5716,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 case 'n':
                         if (safe_atou(optarg, &arg_lines) < 0) {
                                 log_error("Failed to parse lines '%s'", optarg);
-                                return -EINVAL;
-                        }
-                        break;
-
-                case 'o':
-                        arg_output = output_mode_from_string(optarg);
-                        if (arg_output < 0) {
-                                log_error("Unknown output '%s'.", optarg);
                                 return -EINVAL;
                         }
                         break;

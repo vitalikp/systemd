@@ -336,6 +336,5 @@ _arguments -s \
     {-H+,--host=}'[Operate on remote host]:userathost:_sd_hosts_or_user_at_host' \
     {-P,--privileged}'[Acquire privileges before execution]' \
     {-n+,--lines=}'[Journal entries to show]:number of entries' \
-    {-o+,--output=}'[Change journal output mode]:modes:_sd_outputmodes' \
     '--plain[When used with list-dependencies, print output as a list]' \
     '*::systemctl command:_systemctl_command'
