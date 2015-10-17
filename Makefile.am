@@ -2321,72 +2321,6 @@ systemd_activate_LDADD = \
 
 # ------------------------------------------------------------------------------
 # using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-test_journal_SOURCES = \
-	src/journal/test-journal.c
-
-test_journal_LDADD = \
-	libjournal-core.la
-
-test_journal_send_SOURCES = \
-	src/journal/test-journal-send.c
-
-test_journal_send_LDADD = \
-	libjournal-core.la
-
-test_journal_syslog_SOURCES = \
-	src/journal/test-journal-syslog.c
-
-test_journal_syslog_LDADD = \
-	libjournal-core.la
-
-test_journal_match_SOURCES = \
-	src/journal/test-journal-match.c
-
-test_journal_match_LDADD = \
-	libjournal-core.la
-
-test_journal_enum_SOURCES = \
-	src/journal/test-journal-enum.c
-
-test_journal_enum_LDADD = \
-	libjournal-core.la
-
-test_journal_stream_SOURCES = \
-	src/journal/test-journal-stream.c
-
-test_journal_stream_LDADD = \
-	libjournal-core.la
-
-test_journal_flush_SOURCES = \
-	src/journal/test-journal-flush.c
-
-test_journal_flush_LDADD = \
-	libjournal-core.la
-
-test_journal_init_SOURCES = \
-	src/journal/test-journal-init.c
-
-test_journal_init_LDADD = \
-	libjournal-core.la
-
-test_journal_verify_SOURCES = \
-	src/journal/test-journal-verify.c
-
-test_journal_verify_LDADD = \
-	libjournal-core.la
-
-test_journal_interleaving_SOURCES = \
-	src/journal/test-journal-interleaving.c
-
-test_journal_interleaving_LDADD = \
-	libjournal-core.la
-
-test_mmap_cache_SOURCES = \
-	src/journal/test-mmap-cache.c
-
-test_mmap_cache_LDADD = \
-	libjournal-core.la
-
 libjournal_core_la_SOURCES = \
 	src/journal/journald-kmsg.c \
 	src/journal/journald-kmsg.h \
@@ -2436,21 +2370,6 @@ INSTALL_EXEC_HOOKS += journal-install-hook
 UNINSTALL_EXEC_HOOKS += journal-uninstall-hook
 
 # ------------------------------------------------------------------------------
-manual_tests += \
-	test-journal-enum
-
-tests += \
-	test-journal \
-	test-journal-send \
-	test-journal-syslog \
-	test-journal-match \
-	test-journal-stream \
-	test-journal-init \
-	test-journal-verify \
-	test-journal-interleaving \
-	test-journal-flush \
-	test-mmap-cache
-
 pkginclude_HEADERS += \
 	src/systemd/sd-journal.h \
 	src/systemd/sd-messages.h \

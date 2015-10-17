@@ -113,16 +113,6 @@
 /test-install
 /test-ipcrm
 /test-job-type
-/test-journal
-/test-journal-enum
-/test-journal-flush
-/test-journal-init
-/test-journal-interleaving
-/test-journal-match
-/test-journal-send
-/test-journal-stream
-/test-journal-syslog
-/test-journal-verify
 /test-libsystemd-sym*
 /test-libsystemd-*-sym*
 /test-list
@@ -132,7 +122,6 @@
 /test-login-tables
 /test-loopback
 /test-machine-tables
-/test-mmap-cache
 /test-namespace
 /test-network
 /test-ns
