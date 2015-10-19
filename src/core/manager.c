@@ -2745,31 +2745,6 @@ int manager_set_default_rlimits(Manager *m, struct rlimit **default_rlimit) {
         return 0;
 }
 
-void manager_recheck_journal(Manager *m) {
-        Unit *u;
-
-        assert(m);
-
-        if (m->running_as != SYSTEMD_SYSTEM)
-                return;
-
-        u = manager_get_unit(m, SPECIAL_JOURNALD_SOCKET);
-        if (u && SOCKET(u)->state != SOCKET_RUNNING) {
-                log_close_journal();
-                return;
-        }
-
-        u = manager_get_unit(m, SPECIAL_JOURNALD_SERVICE);
-        if (u && SERVICE(u)->state != SERVICE_RUNNING) {
-                log_close_journal();
-                return;
-        }
-
-        /* Hmm, OK, so the socket is fully up and the service is up
-         * too, then let's make use of the thing. */
-        log_open();
-}
-
 void manager_set_show_status(Manager *m, ShowStatus mode) {
         assert(m);
         assert(IN_SET(mode, SHOW_STATUS_AUTO, SHOW_STATUS_NO, SHOW_STATUS_YES, SHOW_STATUS_TEMPORARY));

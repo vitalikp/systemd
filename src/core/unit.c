@@ -1764,7 +1764,9 @@ void unit_notify(Unit *u, UnitActiveState os, UnitActiveState ns, bool reload_su
                 }
         }
 
-        manager_recheck_journal(m);
+        if (m->running_as == SYSTEMD_SYSTEM)
+        	log_open();
+
         unit_trigger_notify(u);
 
         /* Maybe we finished startup and are now ready for being

@@ -330,8 +330,6 @@ void manager_check_finished(Manager *m);
 void manager_run_generators(Manager *m);
 void manager_undo_generators(Manager *m);
 
-void manager_recheck_journal(Manager *m);
-
 void manager_set_show_status(Manager *m, ShowStatus mode);
 void manager_status_printf(Manager *m, bool ephemeral, const char *status, const char *format, ...) _printf_(4,5);
 void manager_flip_auto_status(Manager *m, bool enable);
