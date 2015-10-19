@@ -42,6 +42,7 @@ systemd System and Service Manager
  * remove bootchart support;
  * unit:
     - don't check running state journald on unit notify;
+    - remove journald socket init dependency;
  
    systemd (214.2)
 ~~~~~~~
