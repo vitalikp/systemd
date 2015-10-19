@@ -27,6 +27,7 @@ systemd System and Service Manager
     - remove unused id SD_MESSAGE_MACHINE_START;
     - remove unused id SD_MESSAGE_MACHINE_STOP;
     - remove unused id SD_MESSAGE_TIMEZONE_CHANGE;
+    - move id's SD_MESSAGE_JOURNAL_* to separate module journal;
  * coredump:
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;
