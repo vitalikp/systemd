@@ -131,7 +131,6 @@ static enum action {
 } arg_action = ACTION_SYSTEMCTL;
 static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
 static char *arg_host = NULL;
-static unsigned arg_lines = 10;
 static bool arg_plain = false;
 
 static const struct {
@@ -5256,7 +5255,6 @@ static int systemctl_help(void) {
                "  -f --force          When enabling unit files, override existing symlinks\n"
                "                      When shutting down, execute action immediately\n"
                "     --root=PATH      Enable unit files in the specified root directory\n"
-               "  -n --lines=INTEGER  Number of journal entries to show\n"
                "     --plain          Print unit dependencies as a list instead of a tree\n\n"
                "Unit Commands:\n"
                "  list-units [PATTERN...]         List loaded units\n"
@@ -5478,7 +5476,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "host",                required_argument, NULL, 'H'                     },
                 { "machine",             required_argument, NULL, 'M'                     },
                 { "runtime",             no_argument,       NULL, ARG_RUNTIME             },
-                { "lines",               required_argument, NULL, 'n'                     },
                 { "plain",               no_argument,       NULL, ARG_PLAIN               },
                 { "state",               required_argument, NULL, ARG_STATE               },
                 { "recursive",           no_argument,       NULL, 'r'                     },
@@ -5696,13 +5693,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
 
                 case ARG_RUNTIME:
                         arg_runtime = true;
-                        break;
-
-                case 'n':
-                        if (safe_atou(optarg, &arg_lines) < 0) {
-                                log_error("Failed to parse lines '%s'", optarg);
-                                return -EINVAL;
-                        }
                         break;
 
                 case 'i':
