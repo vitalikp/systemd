@@ -42,8 +42,6 @@ Features:
 
 * add a kernel command line option to enable the debug shell
 
-* journalctl: add the ability to look for the most recent process of a binary. journalctl /usr/bin/X11 --pid=-1 or so...
-
 * set NOTIFY_SOCKET also for control processes
 
 * drop parsing of chkconfig header lines from service.c
@@ -72,11 +70,6 @@ Features:
   - Support LUKS for root devices
   - Define new partition type for encrypted swap? Support probed LUKS for encrypted swap?
   - Make /home automount rather than mount?
-
-* improve journalctl performance by loading journal files
-  lazily. Encode just enough information in the file name, so that we
-  do not have to open it to know that it is not interesting for us, for
-  the most common operations.
 
 * support transient mount units
 
@@ -131,7 +124,7 @@ Features:
 
 * when we detect low battery and no AC on boot, show pretty splash and refuse boot
 
-* libjournal, libsystemd-login, libudev: add calls to easily attach these objects to sd-event event loops
+* libsystemd-login, libudev: add calls to easily attach these objects to sd-event event loops
 
 * be more careful what we export on the bus as (usec_t) 0 and (usec_t) -1
 
@@ -240,13 +233,9 @@ Features:
 
 * systemd-inhibit: make taking delay locks useful: support sending SIGINT or SIGTERM on PrepareForSleep()
 
-* journal-or-kmsg is currently broken? See reverted commit 4a01181e460686d8b4a543b1dfa7f77c9e3c5ab8.
-
 * remove any syslog support from log.c -- we probably cannot do this before split-off udev is gone for good
 
 * shutdown logging: store to EFI var, and store to USB stick?
-
-* write UI tool that pops up emergency messages from the journal as notification
 
 * think about window-manager-run-as-user-service problem: exit 0 → activate shutdown.target; exit != 0 → restart service
 
@@ -290,49 +279,6 @@ Features:
 
 * service: watchdog logic: for testing purposes allow ping, but do not require pong
 
-* journal:
-  - import and delete pstore filesystem content at startup
-  - journald: also get thread ID from client, plus thread name
-  - journal: when waiting for journal additions in the client always sleep at least 1s or so, in order to minimize wakeups
-  - add API to close/reopen/get fd for journal client fd in libjournal.
-  - fallback to /dev/log based logging in libjournal, if we cannot log natively?
-  - declare the local journal protocol stable in the wiki interface chart
-  - journal: reuse XZ context
-  - sd-journal: speed up sd_journal_get_data() with transparent hash table in bg
-  - journald: when dropping msgs due to ratelimit make sure to write
-    "dropped %u messages" not only when we are about to print the next
-    message that works, but alraedy after a short tiemout
-  - check if we can make journalctl by default use --follow mode inside of less if called without args?
-  - maybe add API to send pairs of iovecs via sd_journal_send
-  - journal: when writing journal auto-rotate if time jumps backwards
-  - journal: add a setgid "journal" utility to invoke from libjournal, which passes fds via STDOUT and does PK access
-  - journactl: support negative filtering, i.e. FOOBAR!="waldo",
-    and !FOOBAR for events without FOOBAR.
-  - journal: send out marker messages every now and then, and immediately sync with fdatasync() afterwards, in order to have hourly guaranteed syncs.
-  - journal-send.c, log.c: when the log socket is clogged, and we drop, count this and write a message about this when it gets unclogged again.
-  - journal: find a way to allow dropping history early, based on priority, other rules
-  - journal: When used on NFS, check payload hashes
-  - journald: check whether it is OK if the client can still modify delivered journal entries
-  - journald: add kernel cmdline option to disable ratelimiting for debug purposes
-  - refuse taking lower-case variable names in sd_journal_send() and friends.
-  - journald: we currently rotate only after MaxUse+MaxFilesize has been reached.
-  - journal: deal nicely with byte-by-byte copied files, especially regards header
-  - journal: store euid in journal if it differs from uid
-  - journal: sanely deal with entries which are larger than the individual file size, but where the components would fit
-  - Replace utmp, wtmp, btmp, and lastlog completely with journal
-  - journalctl: instead --after-cursor= maybe have a --cursor=XYZ+1 syntax?
-  - tmpfiles: when applying ownership to /run/log/journal, also do this for the journal fails contained in it
-  - when a kernel driver logs in a tight loop, we should ratelimit that too.
-  - journald: optionally, log debug messages to /run but everything else to /var
-  - journald: when we drop syslog messages because the syslog socket is
-    full, make sure to write how many messages are lost as first thing
-    to syslog when it works again.
-  - journald: make sure ratelimit is actually really per-service with the new cgroup changes
-  - change journal-flush into a service that stays around during
-    boot, and causes the journal to be moved back to /run on shutdown,
-    so that we do not keep /var busy. This needs to happen synchronously,
-    hence doing this via signals is not going to work.
-
 * document:
   - document that deps in [Unit] sections ignore Alias= fields in
     [Install] units of other units, unless those units are disabled
@@ -341,7 +287,6 @@ Features:
   - document that service reload may be implemented as service reexec
   - document in wiki how to map ical recurrence events to systemd timer unit calendar specifications
   - add a man page containing packaging guidelines and recommending usage of things like Documentation=, PrivateTmp=, PrivateNetwork= and ReadOnlyDirectories=/etc /usr.
-  - document journal-flush.service properly
   - documentation: recommend to connect the timer units of a service to the service via Also= in [Install]
   - man: document the very specific env the shutdown drop-in tools live in
   - man: extend runlevel(8) to mention that runlevels suck, and are dead. Maybe add runlevel(7) with a note about that too
@@ -566,8 +511,6 @@ Features:
   - how to integrate cgconfig and suchlike with systemd
   - testing with Harald's awesome test kit
   - auto-restart
-  - how to develop against journal browsing APIs
-  - the journal HTTP iface
   - non-cgroup resource management
   - dynamic resource management with cgroups
   - refreshed, longer missions statement
