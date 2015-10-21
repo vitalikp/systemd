@@ -213,18 +213,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><varname>journald.forward_to_syslog=</varname></term>
-                                <term><varname>journald.forward_to_kmsg=</varname></term>
-                                <term><varname>journald.forward_to_console=</varname></term>
-                                <term><varname>journald.forward_to_wall=</varname></term>
-
-                                <listitem>
-                                        <para>Parameters understood by
-                                        the journal service.</para>
-                                </listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><varname>vconsole.keymap=</varname></term>
                                 <term><varname>vconsole.keymap.toggle=</varname></term>
                                 <term><varname>vconsole.font=</varname></term>
