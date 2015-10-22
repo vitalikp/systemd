@@ -2300,19 +2300,6 @@ systemd_activate_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
-# using _CFLAGS = in the conditional below would suppress AM_CFLAGS
-journal-install-hook:
-	-$(MKDIR_P) $(DESTDIR)/var/log/journal
-	-chown 0:0 $(DESTDIR)/var/log/journal
-	-chmod 755 $(DESTDIR)/var/log/journal
-
-journal-uninstall-hook:
-	-rmdir $(DESTDIR)/var/log/journal/
-
-INSTALL_EXEC_HOOKS += journal-install-hook
-UNINSTALL_EXEC_HOOKS += journal-uninstall-hook
-
-# ------------------------------------------------------------------------------
 pkginclude_HEADERS += \
 	src/systemd/sd-messages.h \
 	src/systemd/_sd-common.h
