@@ -669,7 +669,7 @@ int session_finalize(Session *s) {
 
         if (s->started)
                 log_struct(s->class == SESSION_BACKGROUND ? LOG_DEBUG : LOG_INFO,
-                           MESSAGE_ID(SD_MESSAGE_SESSION_STOP),
+                           "MESSAGE_ID=3354939424b4456d9802ca8333ed424a",
                            "SESSION_ID=%s", s->id,
                            "USER_ID=%s", s->user->name,
                            "LEADER="PID_FMT, s->leader,
