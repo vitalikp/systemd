@@ -403,7 +403,7 @@ int seat_stop(Seat *s, bool force) {
 
         if (s->started)
                 log_struct(LOG_INFO,
-                           MESSAGE_ID(SD_MESSAGE_SEAT_STOP),
+                           "MESSAGE_ID=e7852bfe46784ed0accde04bc864c2d5",
                            "SEAT_ID=%s", s->id,
                            "MESSAGE=Removed seat %s.", s->id,
                            NULL);
