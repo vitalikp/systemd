@@ -3,14 +3,6 @@ systemd System and Service Manager
    systemd (214.3-dev)
 ~~~~~~~
  * journal:
-    - use systemd/sd-id128.h include instead of sd-id128.h;
-    - remove URL field in journal.pc;
-    - remove 'deprecated' from Description filed in journal.pc;
-    - use systemd/sd-messages.h include instead of sd-messages.h;
-    - use systemd/sd-daemon.h include instead of sd-daemon.h;
-    - remove unused includes in journald;
-    - use sd-journal.h include instead of systemd/sd-journal.h;
-    - don't print systemd features;
     - move journal man pages to separate module journal;
     - move journal.pc to separate module journal;
     - move journal completions to separate module journal;
