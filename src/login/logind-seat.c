@@ -375,7 +375,7 @@ int seat_start(Seat *s) {
                 return 0;
 
         log_struct(LOG_INFO,
-                   MESSAGE_ID(SD_MESSAGE_SEAT_START),
+                   "MESSAGE_ID=fcbefc5da23d428093f97c82a9290f7b",
                    "SEAT_ID=%s", s->id,
                    "MESSAGE=New seat %s.", s->id,
                    NULL);
