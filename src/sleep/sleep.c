@@ -113,7 +113,7 @@ static int execute(char **modes, char **states) {
         execute_directory(SYSTEM_SLEEP_PATH, NULL, DEFAULT_TIMEOUT_USEC, arguments);
 
         log_struct(LOG_INFO,
-                   MESSAGE_ID(SD_MESSAGE_SLEEP_START),
+                   "MESSAGE_ID=6bbd95ee977941e497c48be27c254128",
                    "MESSAGE=Suspending system...",
                    note,
                    NULL);
