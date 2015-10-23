@@ -566,7 +566,7 @@ int session_start(Session *s) {
                 return r;
 
         log_struct(s->class == SESSION_BACKGROUND ? LOG_DEBUG : LOG_INFO,
-                   MESSAGE_ID(SD_MESSAGE_SESSION_START),
+                   "MESSAGE_ID=8d45620c1a4348dbb17410da57c60c66",
                    "SESSION_ID=%s", s->id,
                    "USER_ID=%s", s->user->name,
                    "LEADER="PID_FMT, s->leader,
