@@ -31,7 +31,6 @@
 #include "load-fragment.h"
 #include "load-dropin.h"
 #include "log.h"
-#include "sd-messages.h"
 #include "strv.h"
 #include "mkdir.h"
 #include "path-util.h"
@@ -877,7 +876,6 @@ void warn_if_dir_nonempty(const char *unit, const char* where) {
                    "MESSAGE=%s: Directory %s to mount over is not empty, mounting anyway.",
                    unit, where,
                    "WHERE=%s", where,
-                   MESSAGE_ID(SD_MESSAGE_OVERMOUNTING),
                    NULL);
 }
 
