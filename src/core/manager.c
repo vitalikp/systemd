@@ -42,7 +42,6 @@
 
 #include "sd-daemon.h"
 #include "sd-id128.h"
-#include "sd-messages.h"
 
 #include "manager.h"
 #include "transaction.h"
@@ -2500,7 +2499,6 @@ void manager_check_finished(Manager *m) {
 
                         if (!log_on_console())
                                 log_struct(LOG_INFO,
-                                           MESSAGE_ID(SD_MESSAGE_STARTUP_FINISHED),
                                            "KERNEL_USEC="USEC_FMT, kernel_usec,
                                            "INITRD_USEC="USEC_FMT, initrd_usec,
                                            "USERSPACE_USEC="USEC_FMT, userspace_usec,
@@ -2516,7 +2514,6 @@ void manager_check_finished(Manager *m) {
 
                         if (!log_on_console())
                                 log_struct(LOG_INFO,
-                                           MESSAGE_ID(SD_MESSAGE_STARTUP_FINISHED),
                                            "KERNEL_USEC="USEC_FMT, kernel_usec,
                                            "USERSPACE_USEC="USEC_FMT, userspace_usec,
                                            "MESSAGE=Startup finished in %s (kernel) + %s (userspace) = %s.",
@@ -2531,7 +2528,6 @@ void manager_check_finished(Manager *m) {
 
                 if (!log_on_console())
                         log_struct(LOG_INFO,
-                                   MESSAGE_ID(SD_MESSAGE_STARTUP_FINISHED),
                                    "USERSPACE_USEC="USEC_FMT, userspace_usec,
                                    "MESSAGE=Startup finished in %s.",
                                    format_timespan(sum, sizeof(sum), total_usec, USEC_PER_MSEC),
