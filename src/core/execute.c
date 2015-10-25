@@ -65,7 +65,6 @@
 #include "capability.h"
 #include "util.h"
 #include "log.h"
-#include "sd-messages.h"
 #include "ioprio.h"
 #include "securebits.h"
 #include "namespace.h"
@@ -1789,7 +1788,7 @@ int exec_spawn(ExecCommand *command,
         fail_child:
                 if (r != 0) {
                         log_open();
-                        log_struct(LOG_ERR, MESSAGE_ID(SD_MESSAGE_SPAWN_FAILED),
+                        log_struct(LOG_ERR,
                                    "EXECUTABLE=%s", command->path,
                                    "MESSAGE=Failed at step %s spawning %s: %s",
                                           exit_status_to_string(r, EXIT_STATUS_SYSTEMD),
