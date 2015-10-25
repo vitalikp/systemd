@@ -30,7 +30,6 @@
 #include <sys/stat.h>
 
 #include "sd-id128.h"
-#include "sd-messages.h"
 #include "set.h"
 #include "unit.h"
 #include "macro.h"
@@ -1210,7 +1209,6 @@ static void unit_status_print_starting_stopping(Unit *u, JobType t) {
 static void unit_status_log_starting_stopping_reloading(Unit *u, JobType t) {
         const char *format;
         char buf[LINE_MAX];
-        sd_id128_t mid;
 
         assert(u);
 
@@ -1231,13 +1229,8 @@ static void unit_status_log_starting_stopping_reloading(Unit *u, JobType t) {
         char_array_0(buf);
         REENABLE_WARNING;
 
-        mid = t == JOB_START ? SD_MESSAGE_UNIT_STARTING :
-              t == JOB_STOP  ? SD_MESSAGE_UNIT_STOPPING :
-                               SD_MESSAGE_UNIT_RELOADING;
-
         log_struct_unit(LOG_INFO,
                         u->id,
-                        MESSAGE_ID(mid),
                         "MESSAGE=%s", buf,
                         NULL);
 }

@@ -32,6 +32,7 @@ systemd System and Service Manager
     - remove id SD_MESSAGE_SLEEP_START;
     - remove id SD_MESSAGE_SLEEP_STOP;
     - remove id SD_MESSAGE_CONFIG_ERROR;
+    - remove id's SD_MESSAGE_UNIT_*;
  * coredump:
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;

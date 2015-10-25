@@ -25,7 +25,6 @@
 #include <sys/epoll.h>
 
 #include "sd-id128.h"
-#include "sd-messages.h"
 #include "set.h"
 #include "unit.h"
 #include "macro.h"
@@ -710,12 +709,9 @@ static void job_log_status_message(Unit *u, JobType t, JobResult result) {
         REENABLE_WARNING;
 
         if (t == JOB_START) {
-                sd_id128_t mid;
 
-                mid = result == JOB_DONE ? SD_MESSAGE_UNIT_STARTED : SD_MESSAGE_UNIT_FAILED;
                 log_struct_unit(result == JOB_DONE ? LOG_INFO : LOG_ERR,
                            u->id,
-                           MESSAGE_ID(mid),
                            "RESULT=%s", job_result_to_string(result),
                            "MESSAGE=%s", buf,
                            NULL);
@@ -723,7 +719,6 @@ static void job_log_status_message(Unit *u, JobType t, JobResult result) {
         } else if (t == JOB_STOP)
                 log_struct_unit(result == JOB_DONE ? LOG_INFO : LOG_ERR,
                            u->id,
-                           MESSAGE_ID(SD_MESSAGE_UNIT_STOPPED),
                            "RESULT=%s", job_result_to_string(result),
                            "MESSAGE=%s", buf,
                            NULL);
@@ -731,7 +726,6 @@ static void job_log_status_message(Unit *u, JobType t, JobResult result) {
         else if (t == JOB_RELOAD)
                 log_struct_unit(result == JOB_DONE ? LOG_INFO : LOG_ERR,
                            u->id,
-                           MESSAGE_ID(SD_MESSAGE_UNIT_RELOADED),
                            "RESULT=%s", job_result_to_string(result),
                            "MESSAGE=%s", buf,
                            NULL);
