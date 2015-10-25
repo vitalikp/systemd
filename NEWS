@@ -22,6 +22,7 @@ systemd System and Service Manager
     - remove unused id SD_MESSAGE_TIMEZONE_CHANGE;
     - move id's SD_MESSAGE_JOURNAL_* to separate module journal;
     - move id SD_MESSAGE_COREDUMP to separate module journal;
+    - move id SD_MESSAGE_FORWARD_SYSLOG_MISSED to separate module journal;
     - move id SD_MESSAGE_SHUTDOWN to logind module;
     - remove id SD_MESSAGE_TIME_CHANGE;
     - remove id SD_MESSAGE_SEAT_START;
