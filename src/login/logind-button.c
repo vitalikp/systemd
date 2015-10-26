@@ -209,7 +209,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 } else if (ev.code == SW_DOCK) {
                         log_struct(LOG_INFO,
                                    "MESSAGE=System undocked.",
-                                   MESSAGE_ID(SD_MESSAGE_SYSTEM_UNDOCKED),
                                    NULL);
 
                         b->docked = false;
