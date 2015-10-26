@@ -182,7 +182,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 if (ev.code == SW_LID) {
                         log_struct(LOG_INFO,
                                    "MESSAGE=Lid closed.",
-                                   MESSAGE_ID(SD_MESSAGE_LID_CLOSED),
                                    NULL);
 
                         b->lid_closed = true;
@@ -203,7 +202,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 if (ev.code == SW_LID) {
                         log_struct(LOG_INFO,
                                    "MESSAGE=Lid opened.",
-                                   MESSAGE_ID(SD_MESSAGE_LID_OPENED),
                                    NULL);
 
                         b->lid_closed = false;
