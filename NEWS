@@ -40,6 +40,7 @@ systemd System and Service Manager
     - remove id SD_MESSAGE_SYSTEM_DOCKED;
     - remove id SD_MESSAGE_SYSTEM_UNDOCKED;
     - remove id SD_MESSAGE_POWER_KEY;
+    - remove id SD_MESSAGE_SUSPEND_KEY;
  * coredump:
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;

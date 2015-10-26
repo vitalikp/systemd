@@ -160,7 +160,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 case KEY_SLEEP:
                         log_struct(LOG_INFO,
                                    "MESSAGE=Suspend key pressed.",
-                                   MESSAGE_ID(SD_MESSAGE_SUSPEND_KEY),
                                    NULL);
 
                         manager_handle_action(b->manager, INHIBIT_HANDLE_SUSPEND_KEY, b->manager->handle_suspend_key, b->manager->suspend_key_ignore_inhibited, true);
