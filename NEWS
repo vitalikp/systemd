@@ -37,6 +37,7 @@ systemd System and Service Manager
     - remove id SD_MESSAGE_SPAWN_FAILED;
     - remove id SD_MESSAGE_OVERMOUNTING;
     - remove id's SD_MESSAGE_LID_*;
+    - remove id SD_MESSAGE_SYSTEM_DOCKED;
  * coredump:
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;
