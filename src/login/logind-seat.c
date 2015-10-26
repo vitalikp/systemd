@@ -28,7 +28,6 @@
 #include <string.h>
 
 #include "sd-id128.h"
-#include "sd-messages.h"
 #include "logind-seat.h"
 #include "util.h"
 #include "mkdir.h"

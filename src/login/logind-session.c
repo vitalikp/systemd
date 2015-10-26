@@ -29,7 +29,6 @@
 #include <unistd.h>
 
 #include "sd-id128.h"
-#include "sd-messages.h"
 #include "strv.h"
 #include "util.h"
 #include "mkdir.h"

@@ -42,6 +42,7 @@ systemd System and Service Manager
     - remove id SD_MESSAGE_POWER_KEY;
     - remove id SD_MESSAGE_SUSPEND_KEY;
     - remove id SD_MESSAGE_HIBERNATE_KEY;
+    - remove header file;
  * coredump:
     - move coredump sysctl config to separate module journal;
     - move coredump man pages to separate module journal;

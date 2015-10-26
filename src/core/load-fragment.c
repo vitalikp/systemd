@@ -40,7 +40,6 @@
 #include <seccomp.h>
 #endif
 
-#include "sd-messages.h"
 #include "unit.h"
 #include "strv.h"
 #include "conf-parser.h"

@@ -40,7 +40,6 @@
 #endif
 
 #include "sd-daemon.h"
-#include "sd-messages.h"
 #include "sd-bus.h"
 #include "manager.h"
 #include "log.h"
