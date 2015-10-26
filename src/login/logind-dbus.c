@@ -26,7 +26,6 @@
 #include <sys/capability.h>
 
 #include "sd-id128.h"
-#include "sd-messages.h"
 #include "strv.h"
 #include "mkdir.h"
 #include "path-util.h"
@@ -43,10 +42,6 @@
 #include "logind.h"
 #include "bus-errors.h"
 #include "udev-util.h"
-
-
-#define SD_MESSAGE_SHUTDOWN         SD_ID128_MAKE(98,26,88,66,d1,d5,4a,49,9c,4e,98,92,1d,93,bc,40)
-
 
 static int property_get_idle_hint(
                 sd_bus *bus,
@@ -1304,7 +1299,7 @@ static int bus_manager_log_shutdown(
                 q = NULL;
         }
 
-        return log_struct(LOG_NOTICE, MESSAGE_ID(SD_MESSAGE_SHUTDOWN),
+        return log_struct(LOG_NOTICE,
                           p,
                           q, NULL);
 }
