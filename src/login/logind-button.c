@@ -27,7 +27,6 @@
 #include <unistd.h>
 #include <linux/input.h>
 
-#include "sd-messages.h"
 #include "conf-parser.h"
 #include "util.h"
 #include "special.h"
@@ -168,7 +167,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 case KEY_SUSPEND:
                         log_struct(LOG_INFO,
                                    "MESSAGE=Hibernate key pressed.",
-                                   MESSAGE_ID(SD_MESSAGE_HIBERNATE_KEY),
                                    NULL);
 
                         manager_handle_action(b->manager, INHIBIT_HANDLE_HIBERNATE_KEY, b->manager->handle_hibernate_key, b->manager->hibernate_key_ignore_inhibited, true);
