@@ -146,7 +146,6 @@ static int button_dispatch(sd_event_source *s, int fd, uint32_t revents, void *u
                 case KEY_POWER2:
                         log_struct(LOG_INFO,
                                    "MESSAGE=Power key pressed.",
-                                   MESSAGE_ID(SD_MESSAGE_POWER_KEY),
                                    NULL);
 
                         manager_handle_action(b->manager, INHIBIT_HANDLE_POWER_KEY, b->manager->handle_power_key, b->manager->power_key_ignore_inhibited, true);
