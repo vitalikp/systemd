@@ -44,11 +44,11 @@ systemd System and Service Manager
     - remove id SD_MESSAGE_HIBERNATE_KEY;
     - remove header file;
  * coredump:
-    - move coredump sysctl config to separate module journal;
-    - move coredump man pages to separate module journal;
-    - move coredump completions to separate module journal;
-    - move systemd-coredumpctl to separate module journal;
-    - move systemd-coredump to separate module journal;
+    - remove coredump sysctl config;
+    - remove coredump man pages;
+    - remove coredump completions;
+    - remove systemd-coredumpctl;
+    - remove systemd-coredump;
     - remove support;
  * systemctl:
     - remove output argument option;
