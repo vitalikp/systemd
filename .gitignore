@@ -45,7 +45,6 @@
 /systemd-delta
 /systemd-detect-virt
 /systemd-fsck
-/systemd-fstab-generator
 /systemd-getty-generator
 /systemd-gnome-ask-password-agent
 /systemd-inhibit

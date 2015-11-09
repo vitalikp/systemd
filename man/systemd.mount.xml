@@ -135,9 +135,7 @@
                 configuration of the system manager is reloaded. In
                 general, configuring mount points through
                 <filename>/etc/fstab</filename> is the preferred
-                approach. See
-                <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-                for details about the conversion.</para>
+                approach.</para>
 
                 <para>When reading <filename>/etc/fstab</filename> a
                 few special mount options are understood by systemd
@@ -302,8 +300,7 @@
                           <citerefentry><refentrytitle>systemd.service</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd.device</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>proc</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                          <citerefentry><refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                   </para>
         </refsect1>
 

@@ -275,8 +275,7 @@
                                 <listitem>
                                         <para>Configures the
                                         <filename>/etc/fstab</filename>
-                                        logic at boot. For details, see
-                                        <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+                                        logic at boot.</para>
                                 </listitem>
                         </varlistentry>
 
@@ -305,7 +304,6 @@
                           <citerefentry><refentrytitle>systemd-fsck@.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd-quotacheck.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>plymouth</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd-modules-load.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                           <citerefentry><refentrytitle>systemd-rfkill@.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                   </para>

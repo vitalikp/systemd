@@ -36,7 +36,6 @@ MANPAGES += \
 	man/systemd-delta.1 \
 	man/systemd-detect-virt.1 \
 	man/systemd-fsck@.service.8 \
-	man/systemd-fstab-generator.8 \
 	man/systemd-getty-generator.8 \
 	man/systemd-halt.service.8 \
 	man/systemd-inhibit.1 \
@@ -1075,7 +1074,6 @@ EXTRA_DIST += \
 	man/systemd-delta.xml \
 	man/systemd-detect-virt.xml \
 	man/systemd-fsck@.service.xml \
-	man/systemd-fstab-generator.xml \
 	man/systemd-getty-generator.xml \
 	man/systemd-halt.service.xml \
 	man/systemd-inhibit.xml \

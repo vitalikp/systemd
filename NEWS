@@ -60,6 +60,7 @@ systemd System and Service Manager
  * remove libsystemd-logs library;
  * remove bootchart support;
  * remove support system offline update;
+ * remove systemd-fstab-generator program;
  * unit:
     - don't check running state journald on unit notify;
     - remove journald socket init dependency;

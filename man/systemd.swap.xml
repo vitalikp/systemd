@@ -109,9 +109,7 @@
                 <filename>/etc/fstab</filename> will be converted into
                 native units dynamically at boot and when the
                 configuration of the system manager is
-                reloaded. See
-                <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-                for details about the conversion.</para>
+                reloaded.</para>
 
                 <para>If a swap device or file is configured in both
                 <filename>/etc/fstab</filename> and a unit file, the
@@ -209,8 +207,7 @@
                           <citerefentry><refentrytitle>systemd.resource-control</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd.device</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd.mount</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>swapon</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                          <citerefentry><refentrytitle>swapon</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                   </para>
         </refsect1>
 

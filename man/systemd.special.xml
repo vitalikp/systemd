@@ -296,23 +296,6 @@
                                 </listitem>
                         </varlistentry>
                         <varlistentry>
-                                <term><filename>initrd-fs.target</filename></term>
-                                <listitem>
-                                        <para><citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>3</manvolnum></citerefentry>
-                                        automatically adds
-                                        dependencies of type
-                                        <varname>Before=</varname> to
-                                        <filename>sysroot-usr.mount</filename>
-                                        and all mount points found in
-                                        <filename>/etc/fstab</filename>
-                                        that have the
-                                        <option>auto</option> and
-                                        <option>x-initrd.mount</option>
-                                        mount options set.
-                                        </para>
-                                </listitem>
-                        </varlistentry>
-                        <varlistentry>
                                 <term><filename>kbrequest.target</filename></term>
                                 <listitem>
                                         <para>systemd starts this
@@ -332,26 +315,6 @@
                                         <para>Applications wanting to
                                         reboot the system with kexec should start
                                         this unit.</para>
-                                </listitem>
-                        </varlistentry>
-                        <varlistentry>
-                                <term><filename>local-fs.target</filename></term>
-                                <listitem>
-                                        <para><citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>3</manvolnum></citerefentry>
-                                        automatically adds
-                                        dependencies of type
-                                        <varname>Before=</varname> to
-                                        all mount units that refer to
-                                        local mount points for this
-                                        target unit. In addition, it
-                                        adds dependencies of type
-                                        <varname>Wants=</varname> to
-                                        this target unit for those
-                                        mounts listed in
-                                        <filename>/etc/fstab</filename>
-                                        that have the
-                                        <option>auto</option> mount
-                                        option set.</para>
                                 </listitem>
                         </varlistentry>
                         <varlistentry>
@@ -506,20 +469,6 @@
                                         <para>A special target unit
                                         for setting up the base system
                                         and a rescue shell.</para>
-                                </listitem>
-                        </varlistentry>
-                        <varlistentry>
-                                <term><filename>initrd-root-fs.target</filename></term>
-                                <listitem>
-                                        <para><citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>3</manvolnum></citerefentry>
-                                        automatically adds
-                                        dependencies of type
-                                        <varname>Before=</varname> to
-                                        the
-                                        <filename>sysroot.mount</filename>
-                                        unit, which is generated from
-                                        the kernel command line.
-                                        </para>
                                 </listitem>
                         </varlistentry>
                         <varlistentry>
@@ -1059,8 +1008,7 @@
                           <citerefentry><refentrytitle>systemd.socket</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd.target</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                           <citerefentry><refentrytitle>systemd.slice</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>bootup</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd-fstab-generator</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                          <citerefentry><refentrytitle>bootup</refentrytitle><manvolnum>7</manvolnum></citerefentry>
                   </para>
         </refsect1>
 
