@@ -318,8 +318,7 @@ rootlibexec_PROGRAMS = \
 
 systemgenerator_PROGRAMS = \
 	systemd-getty-generator \
-	systemd-fstab-generator \
-	systemd-system-update-generator
+	systemd-fstab-generator
 
 dist_bashcompletion_DATA = \
 	shell-completion/bash/busctl \
@@ -402,7 +401,6 @@ dist_systemunit_DATA = \
 	units/smartcard.target \
 	units/systemd-ask-password-wall.path \
 	units/systemd-ask-password-console.path \
-	units/system-update.target \
 	units/initrd-switch-root.target
 
 nodist_systemunit_DATA = \
@@ -1682,15 +1680,7 @@ systemd_fstab_generator_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
-systemd_system_update_generator_SOURCES = \
-	src/system-update-generator/system-update-generator.c
-
-systemd_system_update_generator_LDADD = \
-	libsystemd-label.la \
-	libsystemd-shared.la
-
 if ENABLE_EFI
-# ------------------------------------------------------------------------------
 bootctl_SOURCES = \
 	src/boot/boot.h \
 	src/boot/boot-loader.h \

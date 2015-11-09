@@ -59,6 +59,7 @@ systemd System and Service Manager
     - remove 90-loaderentry.install script;
  * remove libsystemd-logs library;
  * remove bootchart support;
+ * remove support system offline update;
  * unit:
     - don't check running state journald on unit notify;
     - remove journald socket init dependency;

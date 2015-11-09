@@ -49,7 +49,6 @@ MANPAGES += \
 	man/systemd-sleep.conf.5 \
 	man/systemd-socket-proxyd.8 \
 	man/systemd-suspend.service.8 \
-	man/systemd-system-update-generator.8 \
 	man/systemd-system.conf.5 \
 	man/systemd-tmpfiles.8 \
 	man/systemd-tty-ask-password-agent.1 \
@@ -1095,7 +1094,6 @@ EXTRA_DIST += \
 	man/systemd-sleep.conf.xml \
 	man/systemd-socket-proxyd.xml \
 	man/systemd-suspend.service.xml \
-	man/systemd-system-update-generator.xml \
 	man/systemd-system.conf.xml \
 	man/systemd-tmpfiles.xml \
 	man/systemd-tty-ask-password-agent.xml \

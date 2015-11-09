@@ -15,5 +15,4 @@ Type=oneshot
 ExecStart=/bin/rm -f /.readahead
 
 [Install]
-WantedBy=system-update.target
 Also=systemd-readahead-collect.service
