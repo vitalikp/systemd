@@ -551,7 +551,7 @@ static void device_shutdown(Manager *m) {
         m->devices_by_sysfs = NULL;
 }
 
-static int device_enumerate(Manager *m) {
+static void device_enumerate(Manager *m) {
         _cleanup_udev_enumerate_unref_ struct udev_enumerate *e = NULL;
         struct udev_list_entry *item = NULL, *first = NULL;
         int r;
@@ -561,7 +561,7 @@ static int device_enumerate(Manager *m) {
         if (!m->udev_monitor) {
                 m->udev_monitor = udev_monitor_new_from_netlink(m->udev, "udev");
                 if (!m->udev_monitor) {
-                        r = -ENOMEM;
+                        log_oom();
                         goto fail;
                 }
 
@@ -571,45 +571,56 @@ static int device_enumerate(Manager *m) {
                 udev_monitor_set_receive_buffer_size(m->udev_monitor, 128*1024*1024);
 
                 r = udev_monitor_filter_add_match_tag(m->udev_monitor, "systemd");
-                if (r < 0)
+                if (r < 0) {
+                        log_error("Failed to add udev tag match: %s", strerror(-r));
                         goto fail;
+                }
 
                 r = udev_monitor_enable_receiving(m->udev_monitor);
-                if (r < 0)
+                if (r < 0) {
+                        log_error("Failed to enable udev event reception: %s", strerror(-r));
                         goto fail;
+                }
 
                 r = sd_event_add_io(m->event, &m->udev_event_source, udev_monitor_get_fd(m->udev_monitor), EPOLLIN, device_dispatch_io, m);
-                if (r < 0)
+                if (r < 0) {
+                        log_error("Failed to watch udev file descriptor: %s", strerror(-r));
                         goto fail;
+                }
         }
 
         e = udev_enumerate_new(m->udev);
         if (!e) {
-                r = -ENOMEM;
+                log_oom();
                 goto fail;
         }
 
         r = udev_enumerate_add_match_tag(e, "systemd");
-        if (r < 0)
+        if (r < 0) {
+                log_error("Failed to create udev tag enumeration: %s", strerror(-r));
                 goto fail;
+        }
 
         r = udev_enumerate_add_match_is_initialized(e);
-        if (r < 0)
+        if (r < 0) {
+                log_error("Failed to install initialization match into enumeration: %s", strerror(-r));
                 goto fail;
+        }
 
         r = udev_enumerate_scan_devices(e);
-        if (r < 0)
+        if (r < 0) {
+                log_error("Failed to enumerate devices: %s", strerror(-r));
                 goto fail;
+        }
 
         first = udev_enumerate_get_list_entry(e);
         udev_list_entry_foreach(item, first)
                 device_process_new_path(m, udev_list_entry_get_name(item));
 
-        return 0;
+        return;
 
 fail:
         device_shutdown(m);
-        return r;
 }
 
 static int device_dispatch_io(sd_event_source *source, int fd, uint32_t revents, void *userdata) {

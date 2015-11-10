@@ -279,7 +279,7 @@ struct Manager {
 int manager_new(SystemdRunningAs running_as, bool test_run, Manager **m);
 void manager_free(Manager *m);
 
-int manager_enumerate(Manager *m);
+void manager_enumerate(Manager *m);
 int manager_startup(Manager *m, FILE *serialization, FDSet *fds);
 
 Job *manager_get_job(Manager *m, uint32_t id);

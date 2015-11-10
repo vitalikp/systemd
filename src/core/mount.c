@@ -1543,14 +1543,14 @@ static int mount_get_timeout(Unit *u, uint64_t *timeout) {
         return 1;
 }
 
-static int mount_enumerate(Manager *m) {
+static void mount_enumerate(Manager *m) {
         int r;
         assert(m);
 
         if (!m->proc_self_mountinfo) {
                 m->proc_self_mountinfo = fopen("/proc/self/mountinfo", "re");
                 if (!m->proc_self_mountinfo)
-                        return -errno;
+                        return;
 
                 r = sd_event_add_io(m->event, &m->mount_event_source, fileno(m->proc_self_mountinfo), EPOLLPRI, mount_dispatch_io, m);
                 if (r < 0)
@@ -1568,11 +1568,10 @@ static int mount_enumerate(Manager *m) {
         if (r < 0)
                 goto fail;
 
-        return 0;
+        return;
 
 fail:
         mount_shutdown(m);
-        return r;
 }
 
 static int mount_dispatch_io(sd_event_source *source, int fd, uint32_t revents, void *userdata) {

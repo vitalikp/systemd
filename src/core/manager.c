@@ -848,8 +848,7 @@ void manager_free(Manager *m) {
         free(m);
 }
 
-int manager_enumerate(Manager *m) {
-        int r = 0, q;
+void manager_enumerate(Manager *m) {
         UnitType c;
 
         assert(m);
@@ -858,13 +857,10 @@ int manager_enumerate(Manager *m) {
          * that it might know */
         for (c = 0; c < _UNIT_TYPE_MAX; c++)
                 if (unit_vtable[c]->enumerate) {
-                        q = unit_vtable[c]->enumerate(m);
-                        if (q < 0)
-                                r = q;
+                unit_vtable[c]->enumerate(m);
                 }
 
         manager_dispatch_load_queue(m);
-        return r;
 }
 
 static int manager_coldplug(Manager *m) {
@@ -1000,7 +996,7 @@ int manager_startup(Manager *m, FILE *serialization, FDSet *fds) {
 
         /* First, enumerate what we can from all config files */
         dual_timestamp_get(&m->units_load_start_timestamp);
-        r = manager_enumerate(m);
+        manager_enumerate(m);
         dual_timestamp_get(&m->units_load_finish_timestamp);
 
         /* Second, deserialize if there is something to deserialize */
@@ -2397,9 +2393,7 @@ int manager_reload(Manager *m) {
         manager_build_unit_path_cache(m);
 
         /* First, enumerate what we can from all config files */
-        q = manager_enumerate(m);
-        if (q < 0)
-                r = q;
+        manager_enumerate(m);
 
         /* Second, deserialize our stored data */
         q = manager_deserialize(m, f, fds);
