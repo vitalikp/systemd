@@ -35,7 +35,6 @@
 int utmp_get_runlevel(int *runlevel, int *previous) {
         struct utmpx *found, lookup = { .ut_type = RUN_LVL };
         int r;
-        const char *e;
 
         assert(runlevel);
 
