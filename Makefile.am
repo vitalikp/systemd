@@ -387,7 +387,6 @@ dist_systemunit_DATA = \
 	units/x-.slice \
 	units/systemd-initctl.socket \
 	units/systemd-shutdownd.socket \
-	units/syslog.socket \
 	units/dev-hugepages.mount \
 	units/dev-mqueue.mount \
 	units/sys-kernel-config.mount \
