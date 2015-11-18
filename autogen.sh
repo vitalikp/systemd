@@ -39,7 +39,7 @@ args="\
 --sysconfdir=/etc \
 --localstatedir=/var \
 --libdir=$(libdir /usr/lib) \
-$gtkdocargs"
+"
 
 if [ ! -L /bin ]; then
 args="$args \
