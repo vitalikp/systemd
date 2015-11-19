@@ -1,6 +1,6 @@
 systemd System and Service Manager
 
-   systemd (214.4-dev)
+   systemd (214.4)
 ~~~~~~~
  * journal:
     - syslog socket unit to separate module journal;
