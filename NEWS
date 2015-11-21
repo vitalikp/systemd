@@ -2,6 +2,8 @@ systemd System and Service Manager
 
    systemd (214.5-dev)
 ~~~~~~~
+ * units:
+    - add conflict systemd-tmpfiles-setup-dev.service to shutdown.target;
 
    systemd (214.4)
 ~~~~~~~
