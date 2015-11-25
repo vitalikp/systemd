@@ -5,6 +5,7 @@ systemd System and Service Manager
  * units:
     - add conflict systemd-tmpfiles-setup-dev.service to shutdown.target;
  * add /usr/lib/os-release file;
+ * fix error pthread API;
 
    systemd (214.4)
 ~~~~~~~
