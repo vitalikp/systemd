@@ -1,0 +1,14 @@
+[Unit]
+Description=Hostname
+Documentation=man:hostname(1)
+DefaultDependencies=no
+Conflicts=shutdown.target
+Before=sysinit.target shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/hostname -b -F /etc/hostname ; /usr/bin/hostname
+
+[Install]
+WantedBy=default.target

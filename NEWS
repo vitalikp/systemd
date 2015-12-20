@@ -10,6 +10,7 @@ systemd System and Service Manager
    - minor clean-ups;
  * units:
     - add conflict systemd-tmpfiles-setup-dev.service to shutdown.target;
+    - add hostname service;
  * add /usr/lib/os-release file;
  * fix error pthread API;
 

@@ -407,6 +407,7 @@ nodist_systemunit_DATA = \
 	units/console-shell.service \
 	units/console-getty.service \
 	units/container-getty@.service \
+	units/hostname.service \
 	units/systemd-initctl.service \
 	units/systemd-shutdownd.service \
 	units/systemd-remount-fs.service \
