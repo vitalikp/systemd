@@ -2,6 +2,12 @@ systemd System and Service Manager
 
    systemd (214.5-dev)
 ~~~~~~~
+ * logind:
+   - fix set_controller fail if prepare_vt fails;
+   - get a fresh file descriptor to clean up a VT;
+   - fix mem leak;
+   - share VT-signal handler between sessions;
+   - minor clean-ups;
  * units:
     - add conflict systemd-tmpfiles-setup-dev.service to shutdown.target;
  * add /usr/lib/os-release file;
