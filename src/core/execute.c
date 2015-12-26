@@ -404,9 +404,6 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
 
         switch (o) {
 
-        case EXEC_OUTPUT_NULL:
-                return open_null_as(O_WRONLY, fileno);
-
         case EXEC_OUTPUT_TTY:
                 if (is_terminal_input(i))
                         return dup2(STDIN_FILENO, fileno) < 0 ? -errno : fileno;
@@ -435,10 +432,9 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
         case EXEC_OUTPUT_SOCKET:
                 assert(socket_fd >= 0);
                 return dup2(socket_fd, fileno) < 0 ? -errno : fileno;
-
-        default:
-                assert_not_reached("Unknown error type");
         }
+
+        return open_null_as(O_WRONLY, fileno);
 }
 
 static int chown_terminal(int fd, uid_t uid) {
