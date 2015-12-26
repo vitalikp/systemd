@@ -330,15 +330,7 @@
                                 encoded by prefixing individual log
                                 lines with strings like "&lt;4&gt;"
                                 (for log priority 4 "WARNING" in the
-                                syslog priority scheme), following a
-                                similar style as the Linux kernel's
-                                <function>printk()</function> priority system. In fact,
-                                using this style of logging also
-                                enables the init system to optionally
-                                direct all application logging to the
-                                kernel log buffer (kmsg), as
-                                accessible via
-                                <citerefentry><refentrytitle>dmesg</refentrytitle><manvolnum>1</manvolnum></citerefentry>. This
+                                syslog priority scheme). This
                                 kind of logging may be enabled by
                                 setting
                                 <varname>StandardError=syslog</varname>

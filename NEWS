@@ -5,6 +5,7 @@ systemd System and Service Manager
  * core:
     - use /dev/null as output if incorrect value is set;
     - use /dev/null as input if incorrect value is set;
+    - don't use /dev/kmsg as output;
 
    systemd (214.5)
 ~~~~~~~

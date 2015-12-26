@@ -419,10 +419,8 @@
                                 <option>null</option>,
                                 <option>tty</option>,
                                 <option>syslog</option>,
-                                <option>kmsg</option>,
                                 <option>journal</option>,
                                 <option>syslog+console</option>,
-                                <option>kmsg+console</option>,
                                 <option>journal+console</option> or
                                 <option>socket</option>. If set to
                                 <option>inherit</option>, the file
@@ -445,18 +443,14 @@
                                 connects standard output to the
                                 <citerefentry><refentrytitle>syslog</refentrytitle><manvolnum>3</manvolnum></citerefentry>
                                 system syslog
-                                service. <option>kmsg</option>
-                                connects it with the kernel log buffer
-                                which is accessible via
-                                <citerefentry><refentrytitle>dmesg</refentrytitle><manvolnum>1</manvolnum></citerefentry>. <option>journal</option>
+                                service. <option>journal</option>
                                 connects it with the journal
                                 (Note that everything that is written
-                                to syslog or kmsg is implicitly stored
+                                to syslog is implicitly stored
                                 in the journal as well, those options
                                 are hence supersets of this
-                                one). <option>syslog+console</option>,
-                                <option>journal+console</option> and
-                                <option>kmsg+console</option> work
+                                one). <option>syslog+console</option> and
+                                <option>journal+console</option> work
                                 similarly but copy the output to the
                                 system console as
                                 well. <option>socket</option> connects
@@ -539,8 +533,7 @@
                                 useful when
                                 <varname>StandardOutput=</varname> or
                                 <varname>StandardError=</varname> are
-                                set to <option>syslog</option> or
-                                <option>kmsg</option>.</para></listitem>
+                                set to <option>syslog</option>.</para></listitem>
                         </varlistentry>
                         <varlistentry>
                                 <term><varname>SyslogFacility=</varname></term>
@@ -593,8 +586,7 @@
                                 useful when
                                 <varname>StandardOutput=</varname> or
                                 <varname>StandardError=</varname> are
-                                set to <option>syslog</option> or
-                                <option>kmsg</option>. Note that
+                                set to <option>syslog</option>. Note that
                                 individual lines output by the daemon
                                 might be prefixed with a different log
                                 level which can be used to override
@@ -615,8 +607,7 @@
                                 argument. If true and
                                 <varname>StandardOutput=</varname> or
                                 <varname>StandardError=</varname> are
-                                set to <option>syslog</option>,
-                                <option>kmsg</option> or
+                                set to <option>syslog</option> or
                                 <option>journal</option>, log lines
                                 written by the executed process that
                                 are prefixed with a log level will be
