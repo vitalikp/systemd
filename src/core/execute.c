@@ -320,9 +320,6 @@ static int setup_input(const ExecContext *context, int socket_fd, bool apply_tty
 
         switch (i) {
 
-        case EXEC_INPUT_NULL:
-                return open_null_as(O_RDONLY, STDIN_FILENO);
-
         case EXEC_INPUT_TTY:
         case EXEC_INPUT_TTY_FORCE:
         case EXEC_INPUT_TTY_FAIL: {
@@ -347,10 +344,9 @@ static int setup_input(const ExecContext *context, int socket_fd, bool apply_tty
 
         case EXEC_INPUT_SOCKET:
                 return dup2(socket_fd, STDIN_FILENO) < 0 ? -errno : STDIN_FILENO;
-
-        default:
-                assert_not_reached("Unknown input type");
         }
+
+        return open_null_as(O_RDONLY, STDIN_FILENO);
 }
 
 static int setup_output(const ExecContext *context, int fileno, int socket_fd, const char *ident, const char *unit_id, bool apply_tty_stdin) {
