@@ -464,7 +464,7 @@
                                 in
                                 <citerefentry><refentrytitle>systemd-system.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                                 which defaults to
-                                <option>journal</option>.</para></listitem>
+                                <option>tty</option>.</para></listitem>
                         </varlistentry>
                         <varlistentry>
                                 <term><varname>StandardError=</varname></term>

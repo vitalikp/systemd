@@ -6,6 +6,7 @@ systemd System and Service Manager
     - use /dev/null as output if incorrect value is set;
     - use /dev/null as input if incorrect value is set;
     - don't use /dev/kmsg as output;
+    - redirect stdout to terminal by default;
 
    systemd (214.5)
 ~~~~~~~
