@@ -189,9 +189,7 @@ static void exec_context_tty_reset(const ExecContext *context) {
 }
 
 static bool is_terminal_output(ExecOutput o) {
-        return
-                o == EXEC_OUTPUT_TTY ||
-                o == EXEC_OUTPUT_JOURNAL_AND_CONSOLE;
+        return o == EXEC_OUTPUT_TTY;
 }
 
 static int open_null_as(int flags, int nfd) {
@@ -255,7 +253,7 @@ static int connect_logger_as(const ExecContext *context, ExecOutput output, cons
                 !!context->syslog_level_prefix,
                 output == EXEC_OUTPUT_SYSLOG,
                 0,
-                is_terminal_output(output));
+                0);
 
         if (fd != nfd) {
                 r = dup2(fd, nfd) < 0 ? -errno : nfd;
@@ -407,7 +405,6 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
 
         case EXEC_OUTPUT_SYSLOG:
         case EXEC_OUTPUT_JOURNAL:
-        case EXEC_OUTPUT_JOURNAL_AND_CONSOLE:
                 r = connect_logger_as(context, o, ident, unit_id, fileno);
                 if (r < 0) {
                         log_struct_unit(LOG_CRIT, unit_id,
@@ -2184,10 +2181,8 @@ void exec_context_dump(ExecContext *c, FILE* f, const char *prefix) {
 
         if (c->std_output == EXEC_OUTPUT_SYSLOG ||
             c->std_output == EXEC_OUTPUT_JOURNAL ||
-            c->std_output == EXEC_OUTPUT_JOURNAL_AND_CONSOLE ||
             c->std_error == EXEC_OUTPUT_SYSLOG ||
-            c->std_error == EXEC_OUTPUT_JOURNAL ||
-            c->std_error == EXEC_OUTPUT_JOURNAL_AND_CONSOLE) {
+            c->std_error == EXEC_OUTPUT_JOURNAL) {
 
                 _cleanup_free_ char *fac_str = NULL, *lvl_str = NULL;
 
@@ -2755,7 +2750,6 @@ static const char* const exec_output_table[_EXEC_OUTPUT_MAX] = {
         [EXEC_OUTPUT_TTY] = "tty",
         [EXEC_OUTPUT_SYSLOG] = "syslog",
         [EXEC_OUTPUT_JOURNAL] = "journal",
-        [EXEC_OUTPUT_JOURNAL_AND_CONSOLE] = "journal+console",
         [EXEC_OUTPUT_SOCKET] = "socket"
 };
 

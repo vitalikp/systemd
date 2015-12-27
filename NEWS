@@ -8,6 +8,7 @@ systemd System and Service Manager
     - don't use /dev/kmsg as output;
     - redirect stdout to terminal by default;
     - remove EXEC_OUTPUT_SYSLOG_AND_CONSOLE type output;
+    - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
 
    systemd (214.5)
 ~~~~~~~

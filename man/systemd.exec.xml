@@ -419,8 +419,7 @@
                                 <option>null</option>,
                                 <option>tty</option>,
                                 <option>syslog</option>,
-                                <option>journal</option>,
-                                <option>journal+console</option> or
+                                <option>journal</option> or
                                 <option>socket</option>. If set to
                                 <option>inherit</option>, the file
                                 descriptor of standard input is
@@ -448,10 +447,7 @@
                                 to syslog is implicitly stored
                                 in the journal as well, those options
                                 are hence supersets of this
-                                one). <option>journal+console</option> work
-                                similarly but copy the output to the
-                                system console as
-                                well. <option>socket</option> connects
+                                one). <option>socket</option> connects
                                 standard output to a socket from
                                 socket activation, semantics are
                                 similar to the respective option of
