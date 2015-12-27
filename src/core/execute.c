@@ -210,16 +210,13 @@ static int open_null_as(int flags, int nfd) {
         return r;
 }
 
-static int connect_logger_as(const ExecContext *context, ExecOutput output, const char *ident, const char *unit_id, int nfd) {
+static int connect_syslog(int nfd) {
         int fd, r;
         union sockaddr_union sa = {
                 .un.sun_family = AF_UNIX,
-                .un.sun_path = "/run/systemd/journal/stdout",
+                .un.sun_path = "/dev/log",
         };
 
-        assert(context);
-        assert(output < _EXEC_OUTPUT_MAX);
-        assert(ident);
         assert(nfd >= 0);
 
         fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -239,22 +236,6 @@ static int connect_logger_as(const ExecContext *context, ExecOutput output, cons
 
         fd_inc_sndbuf(fd, SNDBUF_SIZE);
 
-        dprintf(fd,
-                "%s\n"
-                "%s\n"
-                "%i\n"
-                "%i\n"
-                "%i\n"
-                "%i\n"
-                "%i\n",
-                context->syslog_identifier ? context->syslog_identifier : ident,
-                unit_id,
-                context->syslog_priority,
-                !!context->syslog_level_prefix,
-                output == EXEC_OUTPUT_SYSLOG,
-                0,
-                0);
-
         if (fd != nfd) {
                 r = dup2(fd, nfd) < 0 ? -errno : nfd;
                 safe_close(fd);
@@ -263,6 +244,7 @@ static int connect_logger_as(const ExecContext *context, ExecOutput output, cons
 
         return r;
 }
+
 static int open_terminal_as(const char *path, mode_t mode, int nfd) {
         int fd, r;
 
@@ -405,7 +387,7 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
 
         case EXEC_OUTPUT_SYSLOG:
         case EXEC_OUTPUT_JOURNAL:
-                r = connect_logger_as(context, o, ident, unit_id, fileno);
+                r = connect_syslog(fileno);
                 if (r < 0) {
                         log_struct_unit(LOG_CRIT, unit_id,
                                 "MESSAGE=Failed to connect std%s of %s to the journal socket: %s",
@@ -413,7 +395,7 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
                                 unit_id, strerror(-r),
                                 "ERRNO=%d", -r,
                                 NULL);
-                        r = open_null_as(O_WRONLY, fileno);
+                        break;
                 }
                 return r;
 

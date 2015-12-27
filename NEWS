@@ -9,6 +9,7 @@ systemd System and Service Manager
     - redirect stdout to terminal by default;
     - remove EXEC_OUTPUT_SYSLOG_AND_CONSOLE type output;
     - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
+    - redirect stdout to syslog if type output is syslog or journal;
 
    systemd (214.5)
 ~~~~~~~
