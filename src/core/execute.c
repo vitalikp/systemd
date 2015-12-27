@@ -191,7 +191,6 @@ static void exec_context_tty_reset(const ExecContext *context) {
 static bool is_terminal_output(ExecOutput o) {
         return
                 o == EXEC_OUTPUT_TTY ||
-                o == EXEC_OUTPUT_SYSLOG_AND_CONSOLE ||
                 o == EXEC_OUTPUT_JOURNAL_AND_CONSOLE;
 }
 
@@ -254,7 +253,7 @@ static int connect_logger_as(const ExecContext *context, ExecOutput output, cons
                 unit_id,
                 context->syslog_priority,
                 !!context->syslog_level_prefix,
-                output == EXEC_OUTPUT_SYSLOG || output == EXEC_OUTPUT_SYSLOG_AND_CONSOLE,
+                output == EXEC_OUTPUT_SYSLOG,
                 0,
                 is_terminal_output(output));
 
@@ -407,7 +406,6 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
                 return open_terminal_as(tty_path(context), O_WRONLY, fileno);
 
         case EXEC_OUTPUT_SYSLOG:
-        case EXEC_OUTPUT_SYSLOG_AND_CONSOLE:
         case EXEC_OUTPUT_JOURNAL:
         case EXEC_OUTPUT_JOURNAL_AND_CONSOLE:
                 r = connect_logger_as(context, o, ident, unit_id, fileno);
@@ -2186,11 +2184,9 @@ void exec_context_dump(ExecContext *c, FILE* f, const char *prefix) {
 
         if (c->std_output == EXEC_OUTPUT_SYSLOG ||
             c->std_output == EXEC_OUTPUT_JOURNAL ||
-            c->std_output == EXEC_OUTPUT_SYSLOG_AND_CONSOLE ||
             c->std_output == EXEC_OUTPUT_JOURNAL_AND_CONSOLE ||
             c->std_error == EXEC_OUTPUT_SYSLOG ||
             c->std_error == EXEC_OUTPUT_JOURNAL ||
-            c->std_error == EXEC_OUTPUT_SYSLOG_AND_CONSOLE ||
             c->std_error == EXEC_OUTPUT_JOURNAL_AND_CONSOLE) {
 
                 _cleanup_free_ char *fac_str = NULL, *lvl_str = NULL;
@@ -2758,7 +2754,6 @@ static const char* const exec_output_table[_EXEC_OUTPUT_MAX] = {
         [EXEC_OUTPUT_NULL] = "null",
         [EXEC_OUTPUT_TTY] = "tty",
         [EXEC_OUTPUT_SYSLOG] = "syslog",
-        [EXEC_OUTPUT_SYSLOG_AND_CONSOLE] = "syslog+console",
         [EXEC_OUTPUT_JOURNAL] = "journal",
         [EXEC_OUTPUT_JOURNAL_AND_CONSOLE] = "journal+console",
         [EXEC_OUTPUT_SOCKET] = "socket"

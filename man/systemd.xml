@@ -240,8 +240,7 @@
                                 <option>tty</option>,
                                 <option>journal</option>,
                                 <option>journal+console</option>,
-                                <option>syslog</option>,
-                                <option>syslog+console</option>.  If the
+                                <option>syslog</option>.  If the
                                 argument is omitted
                                 <option>--default-standard-output=</option>
                                 defaults to <option>tty</option>
