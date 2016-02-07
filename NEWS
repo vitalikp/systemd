@@ -12,6 +12,7 @@ systemd System and Service Manager
     - redirect stdout to syslog if type output is syslog or journal;
  * tools:
     - remove check-includes perl script;
+ * remove Travis CI build file;
 
    systemd (214.5)
 ~~~~~~~
