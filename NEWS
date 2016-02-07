@@ -10,6 +10,8 @@ systemd System and Service Manager
     - remove EXEC_OUTPUT_SYSLOG_AND_CONSOLE type output;
     - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
     - redirect stdout to syslog if type output is syslog or journal;
+ * tmpfiles:
+ 	- add "L+" command;
  * tools:
     - remove check-includes perl script;
  * remove Travis CI build file;
