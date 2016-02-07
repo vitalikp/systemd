@@ -11,6 +11,7 @@ systemd System and Service Manager
     - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
     - redirect stdout to syslog if type output is syslog or journal;
     - reset signal mask on re-exec to init;
+    - conditionalize kmod setup on CAP_SYS_MODULE, not whether we run in a container;
  * units:
     - introduce new DefaultInstance= field for [Install] sections;
  * systemctl:
