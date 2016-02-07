@@ -10,6 +10,7 @@ systemd System and Service Manager
     - remove EXEC_OUTPUT_SYSLOG_AND_CONSOLE type output;
     - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
     - redirect stdout to syslog if type output is syslog or journal;
+    - reset signal mask on re-exec to init;
  * tmpfiles:
  	- add "L+" command;
  * tools:
