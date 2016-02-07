@@ -13,6 +13,8 @@ systemd System and Service Manager
     - reset signal mask on re-exec to init;
  * tmpfiles:
  	- add "L+" command;
+ * tests:
+    - add test-socket-util;
  * tools:
     - remove check-includes perl script;
  * remove Travis CI build file;
