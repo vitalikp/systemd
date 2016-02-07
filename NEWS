@@ -17,6 +17,7 @@ systemd System and Service Manager
     - add test-socket-util;
     - add test-fdset;
     - add tests to test-hashmap;
+    - unlink temp file used in test-util;
  * tools:
     - remove check-includes perl script;
  * remove Travis CI build file;
