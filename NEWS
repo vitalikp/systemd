@@ -29,6 +29,7 @@ systemd System and Service Manager
     - fix detection of unit templates/instances(units);
     - fix search path --root= mode(units);
     - don't downgrade log level in non-PID 1 if "quiet" is passed on kernel cmdline;
+    - run sysctl service after load-modules;
  * remove Travis CI build file;
  * remove ycm and vim config file;
 
