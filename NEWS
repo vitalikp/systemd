@@ -13,6 +13,7 @@ systemd System and Service Manager
  * tools:
     - remove check-includes perl script;
  * remove Travis CI build file;
+ * remove ycm and vim config file;
 
    systemd (214.5)
 ~~~~~~~
