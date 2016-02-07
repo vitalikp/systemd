@@ -11,6 +11,8 @@ systemd System and Service Manager
     - remove EXEC_OUTPUT_JOURNAL_AND_CONSOLE type output;
     - redirect stdout to syslog if type output is syslog or journal;
     - reset signal mask on re-exec to init;
+ * units:
+    - introduce new DefaultInstance= field for [Install] sections;
  * systemctl:
     - add preset-all command;
  * tmpfiles:
@@ -24,6 +26,8 @@ systemd System and Service Manager
     - remove check-includes perl script;
  * bugfix:
     - fix detection of unit templates/instances(units);
+    - fix search path --root= mode(units);
+    - don't downgrade log level in non-PID 1 if "quiet" is passed on kernel cmdline;
  * remove Travis CI build file;
  * remove ycm and vim config file;
 
