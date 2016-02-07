@@ -15,6 +15,7 @@ systemd System and Service Manager
  	- add "L+" command;
  * tests:
     - add test-socket-util;
+    - add test-fdset;
  * tools:
     - remove check-includes perl script;
  * remove Travis CI build file;
