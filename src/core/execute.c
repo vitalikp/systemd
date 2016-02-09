@@ -289,7 +289,7 @@ static int fixup_output(ExecOutput std_output, int socket_fd) {
         return std_output;
 }
 
-static int setup_input(const ExecContext *context, int socket_fd, bool apply_tty_stdin) {
+static int setup_input(const ExecContext *context, int socket_fd, const char *unit_id, bool apply_tty_stdin) {
         ExecInput i;
 
         assert(context);
@@ -297,6 +297,8 @@ static int setup_input(const ExecContext *context, int socket_fd, bool apply_tty
         i = fixup_input(context->std_input, socket_fd, apply_tty_stdin);
 
         switch (i) {
+        case EXEC_INPUT_NULL:
+                break;
 
         case EXEC_INPUT_TTY:
         case EXEC_INPUT_TTY_FORCE:
@@ -322,6 +324,8 @@ static int setup_input(const ExecContext *context, int socket_fd, bool apply_tty
 
         case EXEC_INPUT_SOCKET:
                 return dup2(socket_fd, STDIN_FILENO) < 0 ? -errno : STDIN_FILENO;
+        default:
+                log_struct_unit(LOG_WARNING, unit_id, "MESSAGE=Unknown input type, using null by default", NULL);
         }
 
         return open_null_as(O_RDONLY, STDIN_FILENO);
@@ -377,6 +381,8 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
         }
 
         switch (o) {
+        case EXEC_OUTPUT_NULL:
+                break;
 
         case EXEC_OUTPUT_TTY:
                 if (is_terminal_input(i))
@@ -402,6 +408,8 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
         case EXEC_OUTPUT_SOCKET:
                 assert(socket_fd >= 0);
                 return dup2(socket_fd, fileno) < 0 ? -errno : fileno;
+        default:
+                log_struct_unit(LOG_WARNING, unit_id, "MESSAGE=Unknown error type, using null by default", NULL);
         }
 
         return open_null_as(O_WRONLY, fileno);
@@ -1353,7 +1361,7 @@ int exec_spawn(ExecCommand *command,
                 if (socket_fd >= 0)
                         fd_nonblock(socket_fd, false);
 
-                err = setup_input(context, socket_fd, apply_tty_stdin);
+                err = setup_input(context, socket_fd, unit_id, apply_tty_stdin);
                 if (err < 0) {
                         r = EXIT_STDIN;
                         goto fail_child;
