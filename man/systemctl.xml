@@ -499,7 +499,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         </listitem>
       </varlistentry>
 
-      <xi:include href="user-system-options.xml" xpointer="host" />
       <xi:include href="user-system-options.xml" xpointer="machine" />
 
       <xi:include href="standard-options.xml" xpointer="help" />
