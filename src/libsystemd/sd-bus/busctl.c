@@ -329,7 +329,6 @@ static int help(void) {
                "     --no-legend          Do not show the headers and footers\n"
                "     --system             Connect to system bus\n"
                "     --user               Connect to user bus\n"
-               "  -H --host=[USER@]HOST   Operate on remote host\n"
                "  -M --machine=CONTAINER  Operate on local container\n"
                "     --address=ADDRESS    Connect to bus specified by address\n"
                "     --show-machine       Show machine ID column in list\n"
@@ -376,7 +375,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "acquired",     no_argument,       NULL, ARG_ACQUIRED     },
                 { "activatable",  no_argument,       NULL, ARG_ACTIVATABLE  },
                 { "match",        required_argument, NULL, ARG_MATCH        },
-                { "host",         required_argument, NULL, 'H'              },
                 { "machine",      required_argument, NULL, 'M'              },
                 {},
         };
@@ -386,7 +384,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hH:M:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "hM:", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -437,11 +435,6 @@ static int parse_argv(int argc, char *argv[]) {
                 case ARG_MATCH:
                         if (strv_extend(&arg_matches, optarg) < 0)
                                 return log_oom();
-                        break;
-
-                case 'H':
-                        arg_transport = BUS_TRANSPORT_REMOTE;
-                        arg_host = optarg;
                         break;
 
                 case 'M':
@@ -537,10 +530,6 @@ int main(int argc, char *argv[]) {
                                 r = bus_set_address_user(bus);
                         else
                                 r = bus_set_address_system(bus);
-                        break;
-
-                case BUS_TRANSPORT_REMOTE:
-                        r = bus_set_address_system_remote(bus, arg_host);
                         break;
 
                 case BUS_TRANSPORT_CONTAINER:

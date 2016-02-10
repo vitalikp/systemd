@@ -42,7 +42,7 @@ _busctl() {
         local -A OPTS=(
                [STANDALONE]='-h --help --version --no-pager --no-legend --system --user
                              --show-machine --unique --acquired --activatable'
-                      [ARG]='-H --host -M --machine --address --match'
+                      [ARG]='-M --machine --address --match'
         )
 
         if __contains_word "--user" ${COMP_WORDS[*]}; then
@@ -53,9 +53,6 @@ _busctl() {
 
         if __contains_word "$prev" ${OPTS[ARG]}; then
                 case $prev in
-                        --host|-H)
-                                comps=$(compgen -A hostname)
-                        ;;
                         --machine|-M)
                                 comps=$( __get_machines )
                 esac
