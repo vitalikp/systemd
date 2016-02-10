@@ -1056,7 +1056,6 @@ static int help(void) {
                "     --no-pager          Do not pipe output into a pager\n"
                "     --no-legend         Do not show the headers and footers\n"
                "     --no-ask-password   Don't prompt for password\n"
-               "  -H --host=[USER@]HOST  Operate on remote host\n"
                "  -M --machine=CONTAINER Operate on local container\n"
                "  -p --property=NAME     Show only properties by this name\n"
                "  -a --all               Show all properties, including empty ones\n"
@@ -1112,7 +1111,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "no-legend",       no_argument,       NULL, ARG_NO_LEGEND       },
                 { "kill-who",        required_argument, NULL, ARG_KILL_WHO        },
                 { "signal",          required_argument, NULL, 's'                 },
-                { "host",            required_argument, NULL, 'H'                 },
                 { "machine",         required_argument, NULL, 'M'                 },
                 { "no-ask-password", no_argument,       NULL, ARG_NO_ASK_PASSWORD },
                 {}
@@ -1123,7 +1121,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hp:als:H:M:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "hp:als:M:", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -1177,11 +1175,6 @@ static int parse_argv(int argc, char *argv[]) {
                                 log_error("Failed to parse signal string %s.", optarg);
                                 return -EINVAL;
                         }
-                        break;
-
-                case 'H':
-                        arg_transport = BUS_TRANSPORT_REMOTE;
-                        arg_host = optarg;
                         break;
 
                 case 'M':

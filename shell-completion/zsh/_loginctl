@@ -101,7 +101,6 @@ _arguments -s \
     {-a,--all}'[Show all properties, including empty ones]' \
     '--kill-who=[Who to send signal to]:killwho:(main control all)' \
     {-s+,--signal=}'[Which signal to send]:signal:_signals' \
-    {-H+,--host=}'[Operate on remote host]:userathost:_sd_hosts_or_user_at_host' \
     {-M+,--machine=}'[Operate on local container]:machine' \
     {-P,--privileged}'[Acquire privileges before execution]' \
     {-l,--full}'[Do not ellipsize output]' \

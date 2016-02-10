@@ -34,7 +34,7 @@ _loginctl () {
 
         local -A OPTS=(
                [STANDALONE]='--all -a --help -h --no-pager --privileged -P --version'
-                      [ARG]='--host -H --kill-who --property -p --signal -s'
+                      [ARG]='--kill-who --property -p --signal -s'
         )
 
         if __contains_word "$prev" ${OPTS[ARG]}; then
@@ -44,9 +44,6 @@ _loginctl () {
                         ;;
                         --kill-who)
                                 comps='all leader'
-                        ;;
-                        --host|-H)
-                                comps=$(compgen -A hostname)
                         ;;
                         --property|-p)
                                 comps=''
