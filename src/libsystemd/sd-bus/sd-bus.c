@@ -1213,53 +1213,6 @@ fail:
         return r;
 }
 
-int bus_set_address_system_remote(sd_bus *b, const char *host) {
-        _cleanup_free_ char *e = NULL;
-
-        assert(b);
-        assert(host);
-
-        e = bus_address_escape(host);
-        if (!e)
-                return -ENOMEM;
-
-        b->address = strjoin("unixexec:path=ssh,argv1=-xT,argv2=", e, ",argv3=systemd-stdio-bridge", NULL);
-        if (!b->address)
-                return -ENOMEM;
-
-        return 0;
- }
-
-_public_ int sd_bus_open_system_remote(sd_bus **ret, const char *host) {
-        sd_bus *bus;
-        int r;
-
-        assert_return(host, -EINVAL);
-        assert_return(ret, -EINVAL);
-
-        r = sd_bus_new(&bus);
-        if (r < 0)
-                return r;
-
-        r = bus_set_address_system_remote(bus, host);
-        if (r < 0)
-                goto fail;
-
-        bus->bus_client = true;
-        bus->trusted = false;
-
-        r = sd_bus_start(bus);
-        if (r < 0)
-                goto fail;
-
-        *ret = bus;
-        return 0;
-
-fail:
-        bus_free(bus);
-        return r;
-}
-
 int bus_set_address_system_container(sd_bus *b, const char *machine) {
         _cleanup_free_ char *e = NULL;
 

@@ -45,7 +45,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refnamediv>
     <refname>sd_bus_open_user</refname>
     <refname>sd_bus_open_system</refname>
-    <refname>sd_bus_open_system_remote</refname>
     <refname>sd_bus_open_system_container</refname>
 
     <refname>sd_bus_default_user</refname>
@@ -65,12 +64,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
       <funcprototype>
         <funcdef>int <function>sd_bus_open_system</function></funcdef>
-        <paramdef>sd_bus **<parameter>bus</parameter></paramdef>
-      </funcprototype>
-
-      <funcprototype>
-        <funcdef>int <function>sd_bus_open_system_remote</function></funcdef>
-        <paramdef>const char *<parameter>host</parameter></paramdef>
         <paramdef>sd_bus **<parameter>bus</parameter></paramdef>
       </funcprototype>
 
@@ -115,13 +108,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     not set, a suitable default for the default system D-Bus instance
     will be used.</para>
 
-    <para><function>sd_bus_open_system_remote()</function> connects to
-    the system bus on the specified <parameter>host</parameter> using
-    SSH. <parameter>host</parameter> consists of an optional user name
-    followed by the <literal>@</literal> symbol, and the hostname.
-    </para>
-
-    <para><function>sd_bus_open_system_remote()</function> connects to
+    <para><function>sd_bus_open_system_machine()</function> connects to
     the system bus in the specified <parameter>machine</parameter>,
     where <parameter>machine</parameter> is the name of a container.
     </para>
@@ -148,8 +135,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refsect1>
     <title>Reference ownership</title>
     <para>Functions <function>sd_bus_open_user()</function>,
-    <function>sd_bus_open_system()</function>,
-    <function>sd_bus_open_system_remote()</function>, and
+    <function>sd_bus_open_system()</function>, and
     <function>sd_bus_open_system_machine()</function> return a new
     object and the caller owns the sole reference. When not needed
     anymore, this reference should be destroyed with

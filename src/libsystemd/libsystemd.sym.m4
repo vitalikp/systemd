@@ -104,7 +104,6 @@ global:
         sd_bus_open;
         sd_bus_open_user;
         sd_bus_open_system;
-        sd_bus_open_system_remote;
         sd_bus_open_system_container;
         sd_bus_new;
         sd_bus_set_address;

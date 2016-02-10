@@ -417,7 +417,6 @@ MANPAGES_ALIAS += \
 	man/sd_bus_negotiate_timestamps.3 \
 	man/sd_bus_open_system.3 \
 	man/sd_bus_open_system_container.3 \
-	man/sd_bus_open_system_remote.3 \
 	man/sd_bus_path_decode.3 \
 	man/sd_bus_ref.3 \
 	man/sd_bus_release_name.3 \
@@ -479,7 +478,6 @@ man/sd_bus_negotiate_creds.3: man/sd_bus_negotiate_fds.3
 man/sd_bus_negotiate_timestamps.3: man/sd_bus_negotiate_fds.3
 man/sd_bus_open_system.3: man/sd_bus_open_user.3
 man/sd_bus_open_system_container.3: man/sd_bus_open_user.3
-man/sd_bus_open_system_remote.3: man/sd_bus_open_user.3
 man/sd_bus_path_decode.3: man/sd_bus_path_encode.3
 man/sd_bus_ref.3: man/sd_bus_new.3
 man/sd_bus_release_name.3: man/sd_bus_request_name.3
@@ -637,9 +635,6 @@ man/sd_bus_open_system.html: man/sd_bus_open_user.html
 	$(html-alias)
 
 man/sd_bus_open_system_container.html: man/sd_bus_open_user.html
-	$(html-alias)
-
-man/sd_bus_open_system_remote.html: man/sd_bus_open_user.html
 	$(html-alias)
 
 man/sd_bus_path_decode.html: man/sd_bus_path_encode.html

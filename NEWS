@@ -17,6 +17,8 @@ systemd System and Service Manager
     - remove RefuseManualStart from units which are always around;
     - local-fs.target - don't pull in default dependencies;
     - remove systemd-bus-proxyd socket and service;
+ * kdbus:
+    - remove sd_bus_open_system_remote function;
  * busctl:
     - remove host argument option;
  * systemctl:

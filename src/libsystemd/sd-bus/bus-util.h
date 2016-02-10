@@ -29,7 +29,6 @@
 
 typedef enum BusTransport {
         BUS_TRANSPORT_LOCAL,
-        BUS_TRANSPORT_REMOTE,
         BUS_TRANSPORT_CONTAINER,
         _BUS_TRANSPORT_MAX,
         _BUS_TRANSPORT_INVALID = -1
