@@ -1803,21 +1803,6 @@ bus-proxyd-uninstall-hook:
 INSTALL_EXEC_HOOKS += bus-proxyd-install-hook
 UNINSTALL_EXEC_HOOKS += bus-proxyd-uninstall-hook
 
-if ENABLE_KDBUS
-nodist_systemunit_DATA += \
-	units/systemd-bus-proxyd@.service
-
-dist_systemunit_DATA += \
-	units/systemd-bus-proxyd.socket
-
-dist_userunit_DATA += \
-	units/user/systemd-bus-proxyd.socket \
-	units/user/systemd-bus-proxyd@.service
-endif
-
-EXTRA_DIST += \
-	units/systemd-bus-proxyd@.service.in
-
 # ------------------------------------------------------------------------------
 systemd_tty_ask_password_agent_SOURCES = \
 	src/tty-ask-password-agent/tty-ask-password-agent.c

@@ -16,6 +16,7 @@ systemd System and Service Manager
     - introduce new DefaultInstance= field for [Install] sections;
     - remove RefuseManualStart from units which are always around;
     - local-fs.target - don't pull in default dependencies;
+    - remove systemd-bus-proxyd socket and service;
  * systemctl:
     - add preset-all command;
  * tmpfiles:
