@@ -55,7 +55,6 @@ static int help(void) {
                "  -h --help                 Show this help\n"
                "     --version              Show package version\n"
                "     --user                 Run as user unit\n"
-               "  -H --host=[USER@]HOST     Operate on remote host\n"
                "  -M --machine=CONTAINER    Operate on local container\n"
                "     --scope                Run this as scope rather than service\n"
                "     --unit=UNIT            Run under the specified unit name\n"
@@ -103,7 +102,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "slice",             required_argument, NULL, ARG_SLICE        },
                 { "remain-after-exit", no_argument,       NULL, 'r'              },
                 { "send-sighup",       no_argument,       NULL, ARG_SEND_SIGHUP  },
-                { "host",              required_argument, NULL, 'H'              },
                 { "machine",           required_argument, NULL, 'M'              },
                 { "service-type",      required_argument, NULL, ARG_SERVICE_TYPE },
                 { "uid",               required_argument, NULL, ARG_EXEC_USER    },
@@ -119,7 +117,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "+hrH:M:p:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "+hrM:p:", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -161,11 +159,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case 'r':
                         arg_remain_after_exit = true;
-                        break;
-
-                case 'H':
-                        arg_transport = BUS_TRANSPORT_REMOTE;
-                        arg_host = optarg;
                         break;
 
                 case 'M':
