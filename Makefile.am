@@ -1708,31 +1708,6 @@ dist_zshcompletion_DATA += \
 endif
 
 # ------------------------------------------------------------------------------
-if ENABLE_KDBUS
-systemgenerator_PROGRAMS +=  \
-	systemd-dbus1-generator
-
-systemd_dbus1_generator_SOURCES = \
-	src/dbus1-generator/dbus1-generator.c
-
-systemd_dbus1_generator_LDADD = \
-	libsystemd-label.la \
-	libsystemd-shared.la \
-	libsystemd-internal.la
-
-dbus1-generator-install-hook:
-	$(AM_V_at)$(MKDIR_P) $(DESTDIR)$(usergeneratordir)
-	$(AM_V_RM)rm -f $(DESTDIR)$(usergeneratordir)/systemd-dbus1-generator
-	$(AM_V_LN)$(LN_S) --relative -f $(DESTDIR)$(systemgeneratordir)/systemd-dbus1-generator $(DESTDIR)$(usergeneratordir)/systemd-dbus1-generator
-
-dbus1-generator-uninstall-hook:
-	rm -f $(DESTDIR)$(usergeneratordir)/systemd-dbus1-generator
-
-INSTALL_EXEC_HOOKS += dbus1-generator-install-hook
-UNINSTALL_EXEC_HOOKS += dbus1-generator-uninstall-hook
-endif
-
-# ------------------------------------------------------------------------------
 systemd_remount_fs_SOURCES = \
 	src/remount-fs/remount-fs.c \
 	src/core/mount-setup.c \

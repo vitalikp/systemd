@@ -41,7 +41,6 @@
 /systemd-cgls
 /systemd-cgroups-agent
 /systemd-cgtop
-/systemd-dbus1-generator
 /systemd-delta
 /systemd-detect-virt
 /systemd-fsck

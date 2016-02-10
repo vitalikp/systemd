@@ -34,6 +34,7 @@ systemd System and Service Manager
     - run sysctl service after load-modules;
  * remove Travis CI build file;
  * remove ycm and vim config file;
+ * remove systemd-dbus1-generator program;
 
    systemd (214.5)
 ~~~~~~~
