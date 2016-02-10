@@ -19,6 +19,7 @@ systemd System and Service Manager
     - remove systemd-bus-proxyd socket and service;
  * systemctl:
     - add preset-all command;
+    - remove host argument option;
  * tmpfiles:
  	- add "L+" command;
  * tests:

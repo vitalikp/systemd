@@ -333,7 +333,6 @@ _arguments -s \
     {-f,--force}'[When enabling unit files, override existing symlinks. When shutting down, execute action immediately]' \
     '--root=[Enable unit files in the specified root directory]:directory:_directories' \
     '--runtime[Enable unit files only temporarily until next reboot]' \
-    {-H+,--host=}'[Operate on remote host]:userathost:_sd_hosts_or_user_at_host' \
     {-P,--privileged}'[Acquire privileges before execution]' \
     '--plain[When used with list-dependencies, print output as a list]' \
     '*::systemctl command:_systemctl_command'

@@ -5289,8 +5289,6 @@ static int systemctl_help(void) {
                "     --version        Show package version\n"
                "     --system         Connect to system manager\n"
                "     --user           Connect to user service manager\n"
-               "  -H --host=[USER@]HOST\n"
-               "                      Operate on remote host\n"
                "  -M --machine=CONTAINER\n"
                "                      Operate on local container\n"
                "  -t --type=TYPE      List only units of a particular type\n"
@@ -5546,7 +5544,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "kill-who",            required_argument, NULL, ARG_KILL_WHO            },
                 { "signal",              required_argument, NULL, 's'                     },
                 { "no-ask-password",     no_argument,       NULL, ARG_NO_ASK_PASSWORD     },
-                { "host",                required_argument, NULL, 'H'                     },
                 { "machine",             required_argument, NULL, 'M'                     },
                 { "runtime",             no_argument,       NULL, ARG_RUNTIME             },
                 { "plain",               no_argument,       NULL, ARG_PLAIN               },
@@ -5561,7 +5558,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "ht:p:alqfs:H:M:n:o:ir", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "ht:p:alqfs:M:n:o:ir", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -5753,11 +5750,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
 
                 case ARG_NO_ASK_PASSWORD:
                         arg_ask_password = false;
-                        break;
-
-                case 'H':
-                        arg_transport = BUS_TRANSPORT_REMOTE;
-                        arg_host = optarg;
                         break;
 
                 case 'M':
