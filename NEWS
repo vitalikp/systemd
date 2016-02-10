@@ -47,6 +47,7 @@ systemd System and Service Manager
  * remove Travis CI build file;
  * remove ycm and vim config file;
  * remove systemd-dbus1-generator program;
+ * remove systemd-stdio-bridge program;
 
    systemd (214.5)
 ~~~~~~~

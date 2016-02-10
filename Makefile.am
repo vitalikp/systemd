@@ -148,7 +148,6 @@ AM_CPPFLAGS = \
 	-DSYSTEMD_SLEEP_BINARY_PATH=\"$(rootlibexecdir)/systemd-sleep\" \
 	-DSYSTEMCTL_BINARY_PATH=\"$(rootbindir)/systemctl\" \
 	-DSYSTEMD_TTY_ASK_PASSWORD_AGENT_BINARY_PATH=\"$(rootbindir)/systemd-tty-ask-password-agent\" \
-	-DSYSTEMD_STDIO_BRIDGE_BINARY_PATH=\"$(bindir)/systemd-stdio-bridge\" \
 	-DROOTPREFIX=\"$(rootprefix)\" \
 	-DRANDOM_SEED_DIR=\"$(localstatedir)/lib/systemd/\" \
 	-DRANDOM_SEED=\"$(localstatedir)/lib/systemd/random-seed\" \
@@ -1790,17 +1789,6 @@ systemd_bus_proxyd_SOURCES = \
 systemd_bus_proxyd_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
-
-bus-proxyd-install-hook:
-	$(AM_V_at)$(MKDIR_P) $(DESTDIR)$(bindir)
-	$(AM_V_RM)rm -f $(DESTDIR)$(bindir)/systemd-stdio-bridge
-	$(AM_V_LN)$(LN_S) --relative -f $(DESTDIR)$(rootlibexecdir)/systemd-bus-proxyd $(DESTDIR)$(bindir)/systemd-stdio-bridge
-
-bus-proxyd-uninstall-hook:
-	rm -f $(DESTDIR)$(bindir)/systemd-stdio-bridge
-
-INSTALL_EXEC_HOOKS += bus-proxyd-install-hook
-UNINSTALL_EXEC_HOOKS += bus-proxyd-uninstall-hook
 
 # ------------------------------------------------------------------------------
 systemd_tty_ask_password_agent_SOURCES = \
