@@ -22,6 +22,8 @@ systemd System and Service Manager
     - remove host argument option;
  * loginctl:
     - remove host argument option;
+ * systemd-analyze:
+    - remove host argument option;
  * systemd-run:
     - remove host argument option;
  * tmpfiles:

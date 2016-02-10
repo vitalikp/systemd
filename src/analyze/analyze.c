@@ -1118,7 +1118,6 @@ static int help(void) {
                "     --no-pager           Do not pipe output into a pager\n"
                "     --system             Connect to system manager\n"
                "     --user               Connect to user manager\n"
-               "  -H --host=[USER@]HOST   Operate on remote host\n"
                "  -M --machine=CONTAINER  Operate on local container\n"
                "     --order              When generating a dependency graph, show only order\n"
                "     --require            When generating a dependency graph, show only requirement\n"
@@ -1170,7 +1169,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "to-pattern",   required_argument, NULL, ARG_DOT_TO_PATTERN   },
                 { "fuzz",         required_argument, NULL, ARG_FUZZ             },
                 { "no-pager",     no_argument,       NULL, ARG_NO_PAGER         },
-                { "host",         required_argument, NULL, 'H'                  },
                 { "machine",      required_argument, NULL, 'M'                  },
                 {}
         };
@@ -1180,7 +1178,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hH:M:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "hM:", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -1228,11 +1226,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case ARG_NO_PAGER:
                         arg_no_pager = true;
-                        break;
-
-                case 'H':
-                        arg_transport = BUS_TRANSPORT_REMOTE;
-                        arg_host = optarg;
                         break;
 
                 case 'M':
