@@ -48,6 +48,7 @@ systemd System and Service Manager
  * remove ycm and vim config file;
  * remove systemd-dbus1-generator program;
  * remove systemd-stdio-bridge program;
+ * remove systemd-bus-proxyd program;
 
    systemd (214.5)
 ~~~~~~~

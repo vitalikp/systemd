@@ -312,7 +312,6 @@ rootlibexec_PROGRAMS = \
 	systemd-fsck \
 	systemd-ac-power \
 	systemd-sleep \
-	systemd-bus-proxyd \
 	systemd-socket-proxyd
 
 systemgenerator_PROGRAMS = \
@@ -1779,14 +1778,6 @@ systemd_run_SOURCES = \
 systemd_run_LDADD = \
 	libsystemd-label.la \
 	libsystemd-capability.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_bus_proxyd_SOURCES = \
-	src/bus-proxyd/bus-proxyd.c
-
-systemd_bus_proxyd_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 

@@ -37,7 +37,6 @@
 /systemd-analyze
 /systemd-ask-password
 /systemd-binfmt
-/systemd-bus-proxyd
 /systemd-cgls
 /systemd-cgroups-agent
 /systemd-cgtop
