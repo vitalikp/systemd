@@ -12,4 +12,4 @@ Before=sysinit.target shutdown.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=@prefix@/sbin/sysctl --system
+ExecStart=@prefix@/sbin/sysctl -q --system
