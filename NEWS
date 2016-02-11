@@ -2,6 +2,8 @@ systemd System and Service Manager
 
    systemd (214.7-dev)
 ~~~~~~~
+ * units:
+    - don't output hostname to terminal at startup;
 
    systemd (214.6)
 ~~~~~~~

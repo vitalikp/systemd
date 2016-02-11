@@ -8,7 +8,7 @@ Before=sysinit.target shutdown.target
 [Service]
 Type=oneshot
 RemainAfterExit=no
-ExecStart=/usr/bin/hostname -b -F /etc/hostname ; /usr/bin/hostname
+ExecStart=/usr/bin/hostname -b -F /etc/hostname
 
 [Install]
 WantedBy=default.target
