@@ -55,7 +55,6 @@ typedef enum ExecOutput {
         EXEC_OUTPUT_NULL,
         EXEC_OUTPUT_TTY,
         EXEC_OUTPUT_SYSLOG,
-        EXEC_OUTPUT_JOURNAL,
         EXEC_OUTPUT_SOCKET,
         _EXEC_OUTPUT_MAX,
         _EXEC_OUTPUT_INVALID = -1

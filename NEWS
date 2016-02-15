@@ -4,6 +4,7 @@ systemd System and Service Manager
 ~~~~~~~
  * core:
     - redirect stdout to syslog by default;
+    - remove EXEC_OUTPUT_JOURNAL type output;
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;

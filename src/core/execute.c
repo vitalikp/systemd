@@ -392,7 +392,6 @@ static int setup_output(const ExecContext *context, int fileno, int socket_fd, c
                 return open_terminal_as(tty_path(context), O_WRONLY, fileno);
 
         case EXEC_OUTPUT_SYSLOG:
-        case EXEC_OUTPUT_JOURNAL:
                 r = connect_syslog(fileno);
                 if (r < 0) {
                         log_struct_unit(LOG_CRIT, unit_id,
@@ -2169,10 +2168,7 @@ void exec_context_dump(ExecContext *c, FILE* f, const char *prefix) {
                         prefix, yes_no(c->tty_vhangup),
                         prefix, yes_no(c->tty_vt_disallocate));
 
-        if (c->std_output == EXEC_OUTPUT_SYSLOG ||
-            c->std_output == EXEC_OUTPUT_JOURNAL ||
-            c->std_error == EXEC_OUTPUT_SYSLOG ||
-            c->std_error == EXEC_OUTPUT_JOURNAL) {
+        if (c->std_output == EXEC_OUTPUT_SYSLOG || c->std_error == EXEC_OUTPUT_SYSLOG) {
 
                 _cleanup_free_ char *fac_str = NULL, *lvl_str = NULL;
 
@@ -2739,7 +2735,6 @@ static const char* const exec_output_table[_EXEC_OUTPUT_MAX] = {
         [EXEC_OUTPUT_NULL] = "null",
         [EXEC_OUTPUT_TTY] = "tty",
         [EXEC_OUTPUT_SYSLOG] = "syslog",
-        [EXEC_OUTPUT_JOURNAL] = "journal",
         [EXEC_OUTPUT_SOCKET] = "socket"
 };
 
