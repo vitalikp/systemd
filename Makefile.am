@@ -1681,30 +1681,6 @@ systemd_getty_generator_LDADD = \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
-if ENABLE_EFI
-bootctl_SOURCES = \
-	src/boot/boot.h \
-	src/boot/boot-loader.h \
-	src/boot/bootctl.c \
-	src/boot/boot-loader.c \
-	src/boot/boot-efi.c
-
-bootctl_LDADD = \
-	libsystemd-shared.la \
-	libsystemd-internal.la
-
-bin_PROGRAMS += \
-	bootctl
-
-dist_bashcompletion_DATA += \
-	shell-completion/bash/bootctl
-
-dist_zshcompletion_DATA += \
-	shell-completion/zsh/_bootctl
-
-endif
-
-# ------------------------------------------------------------------------------
 systemd_remount_fs_SOURCES = \
 	src/remount-fs/remount-fs.c \
 	src/core/mount-setup.c \

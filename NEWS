@@ -10,6 +10,7 @@ systemd System and Service Manager
     - don't output sysctl keys to terminal at startup;
  * bugfix:
     - fix open syslog stdout socket on execute;
+ * remove bootctl program;
 
    systemd (214.6)
 ~~~~~~~

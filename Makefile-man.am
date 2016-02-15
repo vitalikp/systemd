@@ -338,15 +338,6 @@ man/systemd-binfmt.html: man/systemd-binfmt.service.html
 
 endif
 
-if ENABLE_EFI
-MANPAGES += \
-	man/bootctl.1
-MANPAGES_ALIAS += \
-	#
-
-
-endif
-
 if ENABLE_KDBUS
 MANPAGES += \
 	man/sd_bus_creds_get_pid.3 \
@@ -992,7 +983,6 @@ endif
 
 EXTRA_DIST += \
 	man/binfmt.d.xml \
-	man/bootctl.xml \
 	man/bootup.xml \
 	man/busctl.xml \
 	man/daemon.xml \
