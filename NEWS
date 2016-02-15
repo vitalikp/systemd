@@ -5,6 +5,8 @@ systemd System and Service Manager
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;
+ * bugfix:
+    - fix open syslog stdout socket on execute;
 
    systemd (214.6)
 ~~~~~~~

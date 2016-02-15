@@ -219,7 +219,7 @@ static int connect_syslog(int nfd) {
 
         assert(nfd >= 0);
 
-        fd = socket(AF_UNIX, SOCK_STREAM, 0);
+        fd = socket(AF_UNIX, SOCK_DGRAM, 0);
         if (fd < 0)
                 return -errno;
 
