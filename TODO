@@ -160,7 +160,6 @@ Features:
 * sd-bus:
   - make AddMatch calls on dbus1 transports async
   - when kdbus does not take our message without memfds, try again with memfds
-  - systemd-bus-proxyd needs to enforce good old XML policy
   - allow updating attach flags during runtime
   - pid1: peek into activating message when activating a service
   - introduce sd_bus_emit_object_added()/sd_bus_emit_object_removed() that automatically includes the build-in interfaces in the list
