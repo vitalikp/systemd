@@ -244,7 +244,6 @@ Features:
 * EFI:
   - honor language efi variables for default language selection (if there are any?)
   - honor timezone efi variables for default timezone selection (if there are any?)
-  - change bootctl to be backed by systemd-bootd to control temporary and persistent default boot goal plus efi variables
 
 * maybe do not install getty@tty1.service symlink in /etc but in /usr?
 
