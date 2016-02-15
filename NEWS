@@ -2,6 +2,8 @@ systemd System and Service Manager
 
    systemd (214.7-dev)
 ~~~~~~~
+ * core:
+    - redirect stdout to syslog by default;
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;

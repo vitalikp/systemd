@@ -242,7 +242,7 @@
                                 <option>syslog</option>.  If the
                                 argument is omitted
                                 <option>--default-standard-output=</option>
-                                defaults to <option>tty</option>
+                                defaults to <option>syslog</option>
                                 and
                                 <option>--default-standard-error=</option>
                                 to

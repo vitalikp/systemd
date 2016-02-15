@@ -458,7 +458,7 @@
                                 in
                                 <citerefentry><refentrytitle>systemd-system.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                                 which defaults to
-                                <option>tty</option>.</para></listitem>
+                                <option>syslog</option>.</para></listitem>
                         </varlistentry>
                         <varlistentry>
                                 <term><varname>StandardError=</varname></term>
