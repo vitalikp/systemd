@@ -25,7 +25,6 @@
 #include "util.h"
 #include "log.h"
 #include "build.h"
-#include "pager.h"
 
 #include "sd-bus.h"
 #include "bus-message.h"
@@ -33,7 +32,6 @@
 #include "bus-util.h"
 #include "bus-dump.h"
 
-static bool arg_no_pager = false;
 static bool arg_legend = true;
 static char *arg_address = NULL;
 static bool arg_unique = false;
@@ -45,14 +43,6 @@ static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
 static char *arg_host = NULL;
 static bool arg_user = false;
 
-static void pager_open_if_enabled(void) {
-
-        /* Cache result before we open the pager */
-        if (arg_no_pager)
-                return;
-
-        pager_open(false);
-}
 
 static int list_bus_names(sd_bus *bus, char **argv) {
         _cleanup_strv_free_ char **acquired = NULL, **activatable = NULL;
@@ -73,8 +63,6 @@ static int list_bus_names(sd_bus *bus, char **argv) {
                 log_error("Failed to list names: %s", strerror(-r));
                 return r;
         }
-
-        pager_open_if_enabled();
 
         names = hashmap_new(string_hash_func, string_compare_func);
         if (!names)
@@ -325,7 +313,6 @@ static int help(void) {
                "Introspect the bus.\n\n"
                "  -h --help               Show this help\n"
                "     --version            Show package version\n"
-               "     --no-pager           Do not pipe output into a pager\n"
                "     --no-legend          Do not show the headers and footers\n"
                "     --system             Connect to system bus\n"
                "     --user               Connect to user bus\n"
@@ -350,7 +337,6 @@ static int parse_argv(int argc, char *argv[]) {
 
         enum {
                 ARG_VERSION = 0x100,
-                ARG_NO_PAGER,
                 ARG_NO_LEGEND,
                 ARG_SYSTEM,
                 ARG_USER,
@@ -365,7 +351,6 @@ static int parse_argv(int argc, char *argv[]) {
         static const struct option options[] = {
                 { "help",         no_argument,       NULL, 'h'              },
                 { "version",      no_argument,       NULL, ARG_VERSION      },
-                { "no-pager",     no_argument,       NULL, ARG_NO_PAGER     },
                 { "no-legend",    no_argument,       NULL, ARG_NO_LEGEND    },
                 { "system",       no_argument,       NULL, ARG_SYSTEM       },
                 { "user",         no_argument,       NULL, ARG_USER         },
@@ -395,10 +380,6 @@ static int parse_argv(int argc, char *argv[]) {
                         puts(PACKAGE_STRING);
                         puts(SYSTEMD_FEATURES);
                         return 0;
-
-                case ARG_NO_PAGER:
-                        arg_no_pager = true;
-                        break;
 
                 case ARG_NO_LEGEND:
                         arg_legend = false;
@@ -560,8 +541,6 @@ int main(int argc, char *argv[]) {
         r = busctl_main(bus, argc, argv);
 
 finish:
-        pager_close();
-
         strv_free(arg_matches);
 
         return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
