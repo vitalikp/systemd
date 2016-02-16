@@ -8,6 +8,7 @@ systemd System and Service Manager
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;
+    - move hostname service to multi-user.target;
  * busctl:
     - remove pager;
     - remove machine argument option;
