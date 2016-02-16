@@ -25,11 +25,6 @@ __contains_word () {
         done
 }
 
-__get_machines() {
-        local a b
-        machinectl list --no-legend --no-pager | { while read a b; do echo " $a"; done; };
-}
-
 __get_endpoints() {
         local mode=$1
         local a b
@@ -42,7 +37,7 @@ _busctl() {
         local -A OPTS=(
                [STANDALONE]='-h --help --version --no-pager --no-legend --system --user
                              --show-machine --unique --acquired --activatable'
-                      [ARG]='-M --machine --address --match'
+                      [ARG]='--address --match'
         )
 
         if __contains_word "--user" ${COMP_WORDS[*]}; then
@@ -52,10 +47,6 @@ _busctl() {
         fi
 
         if __contains_word "$prev" ${OPTS[ARG]}; then
-                case $prev in
-                        --machine|-M)
-                                comps=$( __get_machines )
-                esac
                 COMPREPLY=( $(compgen -W '$comps' -- "$cur") )
                 return 0
         fi

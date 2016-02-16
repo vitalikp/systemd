@@ -39,8 +39,6 @@ static bool arg_acquired = false;
 static bool arg_activatable = false;
 static bool arg_show_machine = false;
 static char **arg_matches = NULL;
-static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
-static char *arg_host = NULL;
 static bool arg_user = false;
 
 
@@ -316,7 +314,6 @@ static int help(void) {
                "     --no-legend          Do not show the headers and footers\n"
                "     --system             Connect to system bus\n"
                "     --user               Connect to user bus\n"
-               "  -M --machine=CONTAINER  Operate on local container\n"
                "     --address=ADDRESS    Connect to bus specified by address\n"
                "     --show-machine       Show machine ID column in list\n"
                "     --unique             Only show unique names\n"
@@ -360,7 +357,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "acquired",     no_argument,       NULL, ARG_ACQUIRED     },
                 { "activatable",  no_argument,       NULL, ARG_ACTIVATABLE  },
                 { "match",        required_argument, NULL, ARG_MATCH        },
-                { "machine",      required_argument, NULL, 'M'              },
                 {},
         };
 
@@ -369,7 +365,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hM:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "h", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -416,11 +412,6 @@ static int parse_argv(int argc, char *argv[]) {
                 case ARG_MATCH:
                         if (strv_extend(&arg_matches, optarg) < 0)
                                 return log_oom();
-                        break;
-
-                case 'M':
-                        arg_transport = BUS_TRANSPORT_CONTAINER;
-                        arg_host = optarg;
                         break;
 
                 case '?':
@@ -504,22 +495,10 @@ int main(int argc, char *argv[]) {
         if (arg_address)
                 r = sd_bus_set_address(bus, arg_address);
         else {
-                switch (arg_transport) {
-
-                case BUS_TRANSPORT_LOCAL:
-                        if (arg_user)
-                                r = bus_set_address_user(bus);
-                        else
-                                r = bus_set_address_system(bus);
-                        break;
-
-                case BUS_TRANSPORT_CONTAINER:
-                        r = bus_set_address_system_container(bus, arg_host);
-                        break;
-
-                default:
-                        assert_not_reached("Hmm, unknown transport type.");
-                }
+                if (arg_user)
+                        r = bus_set_address_user(bus);
+                else
+                        r = bus_set_address_system(bus);
         }
         if (r < 0) {
                 log_error("Failed to set address: %s", strerror(-r));
