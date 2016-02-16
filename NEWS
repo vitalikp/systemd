@@ -16,6 +16,7 @@ systemd System and Service Manager
  * bugfix:
     - fix open syslog stdout socket on execute;
  * remove bootctl program;
+ * remove git mailmap file;
 
    systemd (214.6)
 ~~~~~~~
