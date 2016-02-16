@@ -36,7 +36,7 @@ _busctl() {
         local cur=${COMP_WORDS[COMP_CWORD]} prev=${COMP_WORDS[COMP_CWORD-1]}
         local -A OPTS=(
                [STANDALONE]='-h --help --version --no-pager --no-legend --system --user
-                             --show-machine --unique --acquired --activatable'
+                             --unique --acquired --activatable'
                       [ARG]='--address --match'
         )
 

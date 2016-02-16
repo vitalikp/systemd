@@ -81,14 +81,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
-          <term><option>--show-machine</option></term>
-
-          <listitem><para>When showing the list of endpoints, show a
-          column containing the names of containers they belong to.
-          </para></listitem>
-      </varlistentry>
-
-      <varlistentry>
           <term><option>--unique</option></term>
 
           <listitem><para>When showing the list of endpoints, show

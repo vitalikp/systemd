@@ -37,7 +37,6 @@ static char *arg_address = NULL;
 static bool arg_unique = false;
 static bool arg_acquired = false;
 static bool arg_activatable = false;
-static bool arg_show_machine = false;
 static char **arg_matches = NULL;
 static bool arg_user = false;
 
@@ -94,13 +93,8 @@ static int list_bus_names(sd_bus *bus, char **argv) {
         strv_sort(merged);
 
         if (arg_legend) {
-                printf("%-*s %*s %-*s %-*s %-*s %-*s %-*s %-*s",
+                printf("%-*s %*s %-*s %-*s %-*s %-*s %-*s %-*s\n",
                        (int) max_i, "NAME", 10, "PID", 15, "PROCESS", 16, "USER", 13, "CONNECTION", 25, "UNIT", 10, "SESSION", 19, "CONNECTION-NAME");
-
-                if (arg_show_machine)
-                        puts(" MACHINE");
-                else
-                        putchar('\n');
         }
 
         STRV_FOREACH(i, merged) {
@@ -111,11 +105,7 @@ static int list_bus_names(sd_bus *bus, char **argv) {
                         /* Activatable */
 
                         printf("%-*s", (int) max_i, *i);
-                        printf("          - -               -                (activatable) -                         -         ");
-                        if (arg_show_machine)
-                                puts(" -");
-                        else
-                                putchar('\n');
+                        printf("          - -               -                (activatable) -                         -         \n");
                         continue;
 
                 }
@@ -195,15 +185,7 @@ static int list_bus_names(sd_bus *bus, char **argv) {
                 } else
                         printf("          - -               -                -             -                         -          -                  ");
 
-                if (arg_show_machine) {
-                        r = sd_bus_get_owner_machine_id(bus, *i, &mid);
-                        if (r >= 0) {
-                                char m[SD_ID128_STRING_MAX];
-                                printf(" %s\n", sd_id128_to_string(mid, m));
-                        } else
-                                puts(" -");
-                } else
-                        putchar('\n');
+                putchar('\n');
         }
 
         return 0;
@@ -315,7 +297,6 @@ static int help(void) {
                "     --system             Connect to system bus\n"
                "     --user               Connect to user bus\n"
                "     --address=ADDRESS    Connect to bus specified by address\n"
-               "     --show-machine       Show machine ID column in list\n"
                "     --unique             Only show unique names\n"
                "     --acquired           Only show acquired names\n"
                "     --activatable        Only show activatable names\n"
@@ -339,7 +320,6 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_USER,
                 ARG_ADDRESS,
                 ARG_MATCH,
-                ARG_SHOW_MACHINE,
                 ARG_UNIQUE,
                 ARG_ACQUIRED,
                 ARG_ACTIVATABLE
@@ -352,7 +332,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "system",       no_argument,       NULL, ARG_SYSTEM       },
                 { "user",         no_argument,       NULL, ARG_USER         },
                 { "address",      required_argument, NULL, ARG_ADDRESS      },
-                { "show-machine", no_argument,       NULL, ARG_SHOW_MACHINE },
                 { "unique",       no_argument,       NULL, ARG_UNIQUE       },
                 { "acquired",     no_argument,       NULL, ARG_ACQUIRED     },
                 { "activatable",  no_argument,       NULL, ARG_ACTIVATABLE  },
@@ -391,10 +370,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case ARG_ADDRESS:
                         arg_address = optarg;
-                        break;
-
-                case ARG_SHOW_MACHINE:
-                        arg_show_machine = true;
                         break;
 
                 case ARG_UNIQUE:
