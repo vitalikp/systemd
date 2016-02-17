@@ -21,6 +21,7 @@ systemd System and Service Manager
     - fix open syslog stdout socket on execute;
  * remove bootctl program;
  * remove git mailmap file;
+ * remove .dir-locals.el file;
 
    systemd (214.6)
 ~~~~~~~
