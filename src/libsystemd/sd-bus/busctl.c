@@ -99,7 +99,6 @@ static int list_bus_names(sd_bus *bus, char **argv) {
 
         STRV_FOREACH(i, merged) {
                 _cleanup_bus_creds_unref_ sd_bus_creds *creds = NULL;
-                sd_id128_t mid;
 
                 if (hashmap_get(names, *i) == INT_TO_PTR(2)) {
                         /* Activatable */
