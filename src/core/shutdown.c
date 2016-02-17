@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
                 goto error;
 
         /* The log target defaults to console, but may
-         * have been changed by commandline options. */
+         * have been changed by command line options. */
 
         log_close_console(); /* force reopen of /dev/console */
         log_open();
