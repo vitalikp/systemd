@@ -10,6 +10,7 @@ systemd System and Service Manager
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;
     - move hostname service to multi-user.target;
+    - order systemd-tmpfiles-clean.service after time-sync.target;
  * busctl:
     - remove pager;
     - remove machine argument option;
@@ -17,12 +18,17 @@ systemd System and Service Manager
  * shared:
     - rename stream_bytes to copy_bytes function;
     - add copy_bytes function to header file;
+    - simplify rm_rf_children_dangerous function;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
     - do not fail when copying an empty directory;
+    - make sure "C" doesn't copy anything if the destination already exists;
  * man:
     - update info for kernel-command-line;
+  * tests:
+    - add tests to test-util;
+    - add tests to test-strv;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
