@@ -42,10 +42,9 @@ static int parse_proc_cmdline_item(const char *key, const char *value) {
                 else if (streq(value, "skip"))
                         arg_skip = true;
                 else
-                        log_warning("Invalid quotacheck.mode= parameter. Ignoring.");
+                        log_warning("Invalid quotacheck.mode= parameter '%s'. Ignoring.", value);
 
-        } else if (startswith(key, "quotacheck."))
-                log_warning("Invalid quotacheck parameter. Ignoring.");
+        }
 
         return 0;
 }

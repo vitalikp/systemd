@@ -31,6 +31,7 @@ systemd System and Service Manager
  * remove .dir-locals.el file;
  * sort gitignore;
  * stop warning about unknown kernel cmdline options in fsck;
+ * stop warning about unknown kernel cmdline options in quotacheck;
 
    systemd (214.6)
 ~~~~~~~
