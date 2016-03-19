@@ -13,12 +13,16 @@ systemd System and Service Manager
     - remove pager;
     - remove machine argument option;
     - remove show-machine argument option;
+ * tmpfiles:
+    - allow following symlinks for w lines;
+    - create directories already with the right label;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
     - properly quote m4 macro arguments in CC_CHECK_FLAGS_APPEND;
  * bugfix:
     - fix open syslog stdout socket on execute;
+    - fix properly label created device nodes;
  * remove bootctl program;
  * remove git mailmap file;
  * remove .dir-locals.el file;
