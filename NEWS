@@ -6,6 +6,10 @@ systemd System and Service Manager
     - redirect stdout to syslog by default;
     - remove EXEC_OUTPUT_JOURNAL type output;
     - honour rd.systemd.unit= only in the initrd, not the host;
+    - clean-up signal reset logic when reexec;
+ * logind:
+    - rename pam_systemd source file to match the module;
+    - replace regex with pam_systemd sym file;
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;
@@ -19,23 +23,35 @@ systemd System and Service Manager
     - rename stream_bytes to copy_bytes function;
     - add copy_bytes function to header file;
     - simplify rm_rf_children_dangerous function;
+    - rename path_strv_canonicalize_absolute functions;
+    - do not strip /dev prefix twice;
+    - treat fuse.sshfs as a network filesystem;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
     - do not fail when copying an empty directory;
     - make sure "C" doesn't copy anything if the destination already exists;
+    - copy/link /usr/share/factory/ files when the source argument is omitted;
+ * po:
+    - add German translation;
  * man:
     - update info for kernel-command-line;
   * tests:
     - add tests to test-util;
     - add tests to test-strv;
+    - add tests to test-path-util;
+    - add test-conf-files test;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
     - properly quote m4 macro arguments in CC_CHECK_FLAGS_APPEND;
+    - replace nm with $(NM);
+    - add -pthread flag for libsystemd-shared;
  * bugfix:
     - fix open syslog stdout socket on execute;
     - fix properly label created device nodes;
+    - fix escape instance names in getty-generator;
+    - fix search_and_fopen with alternate roots;
  * remove bootctl program;
  * remove git mailmap file;
  * remove .dir-locals.el file;
