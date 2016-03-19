@@ -26,6 +26,7 @@ systemd System and Service Manager
  * remove bootctl program;
  * remove git mailmap file;
  * remove .dir-locals.el file;
+ * sort gitignore;
 
    systemd (214.6)
 ~~~~~~~

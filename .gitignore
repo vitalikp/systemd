@@ -73,10 +73,10 @@
 /test-architecture
 /test-boot-timestamp
 /test-bus-chat
+/test-bus-cleanup
 /test-bus-creds
 /test-bus-error
 /test-bus-gvariant
-/test-bus-cleanup
 /test-bus-introspect
 /test-bus-kernel
 /test-bus-kernel-benchmark
@@ -95,7 +95,6 @@
 /test-daemon
 /test-date
 /test-device-nodes
-/test-resolve
 /test-ellipsize
 /test-engine
 /test-env-replace
@@ -123,8 +122,10 @@
 /test-path-util
 /test-prioq
 /test-replace-var
+/test-resolve
 /test-ring
 /test-rtnl
+/test-rtnl-manual
 /test-sched-prio
 /test-sleep
 /test-socket-util
@@ -134,7 +135,6 @@
 /test-strv
 /test-strxcpyx
 /test-tables
-/test-rtnl-manual
 /test-time
 /test-tmpfiles
 /test-unit-file
