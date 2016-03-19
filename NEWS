@@ -17,6 +17,7 @@ systemd System and Service Manager
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
+    - do not fail when copying an empty directory;
  * man:
     - update info for kernel-command-line;
  * build;
