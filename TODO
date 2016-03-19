@@ -40,8 +40,6 @@ Features:
 
 * figure out a nice way how we can let the admin know what child/sibling unit causes cgroup membership for a specific unit
 
-* add a kernel command line option to enable the debug shell
-
 * set NOTIFY_SOCKET also for control processes
 
 * mount_cgroup_controllers(): symlinks need to get the label applied
@@ -502,8 +500,6 @@ Features:
   - hooking a script into various stages of shutdown/rearly booot
 
 * allow port=0 in .socket units
-
-* support systemd.mask= on the kernel command line.
 
 * recreate systemd's D-Bus private socket file on SIGUSR2
 
