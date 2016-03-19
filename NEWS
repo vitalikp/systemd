@@ -14,6 +14,8 @@ systemd System and Service Manager
     - remove pager;
     - remove machine argument option;
     - remove show-machine argument option;
+ * shared:
+    - rename stream_bytes to copy_bytes function;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
