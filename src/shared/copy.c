@@ -22,7 +22,7 @@
 #include "util.h"
 #include "copy.h"
 
-static int copy_bytes(int fdf, int fdt) {
+int copy_bytes(int fdf, int fdt) {
         assert(fdf >= 0);
         assert(fdt >= 0);
 
