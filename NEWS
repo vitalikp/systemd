@@ -16,6 +16,7 @@ systemd System and Service Manager
     - remove show-machine argument option;
  * shared:
     - rename stream_bytes to copy_bytes function;
+    - add copy_bytes function to header file;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
