@@ -47,6 +47,7 @@ systemd System and Service Manager
     - check home path is absolute;
     - update arch macros;
     - add is_localhost function;
+    - add machine_name_is_valid function;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
