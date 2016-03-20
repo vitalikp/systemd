@@ -41,6 +41,7 @@ systemd System and Service Manager
     - refuse considering UID 0xFFFF and 0xFFFFFFFF valid;
     - return -ENXIO for -1 uids in parse_uid function;
     - check home path is absolute;
+    - update arch macros;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
