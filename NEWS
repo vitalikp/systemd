@@ -9,6 +9,10 @@ systemd System and Service Manager
     - clean-up signal reset logic when reexec;
     - log info when snapshots are created and removed;
     - make sure Environment fields passed in for transient units are properly written to unit files;
+    - rework messages during shutdown;
+    - use correct format string for UIDs;
+    - don't require cgroups xattr support;
+    - name the stamp file consistently;
  * logind:
     - rename pam_systemd source file to match the module;
     - replace regex with pam_systemd sym file;
@@ -21,6 +25,10 @@ systemd System and Service Manager
     - remove pager;
     - remove machine argument option;
     - remove show-machine argument option;
+ * systemctl:
+    - add new "is-system-running" command;
+ * fsck:
+    - consider a fsck implementation linked to /bin/true non-existant;
  * shared:
     - rename stream_bytes to copy_bytes function;
     - add copy_bytes function to header file;
@@ -38,6 +46,7 @@ systemd System and Service Manager
     - add German translation;
  * man:
     - update info for kernel-command-line;
+    - fix sd_watchdog_enabled function prototype;
   * tests:
     - add tests to test-util;
     - add tests to test-strv;
@@ -55,11 +64,16 @@ systemd System and Service Manager
     - replace nm with $(NM);
     - add -pthread flag for libsystemd-shared;
     - avoid gcc warning about format for readahead;
+    - do not run coverage if build failed;
+    - add explicit support for --disable-nls;
+    - disable NLS support if intltool is not found;
+    - include PolicyKit files as part of distribution;
  * bugfix:
     - fix open syslog stdout socket on execute;
     - fix properly label created device nodes;
     - fix escape instance names in getty-generator;
     - fix search_and_fopen with alternate roots;
+    - fix cycle break attempts outside transaction;
  * remove bootctl program;
  * remove git mailmap file;
  * remove .dir-locals.el file;
