@@ -14,6 +14,10 @@ systemd System and Service Manager
     - don't require cgroups xattr support;
     - name the stamp file consistently;
     - remove x-systemd-device.timeout handling;
+ * libsystemd:
+    - drop bus/message GC logic;
+    - when an event loop terminates, explicitly close the bus;
+    - close a bus that failed to connect;
  * logind:
     - rename pam_systemd source file to match the module;
     - replace regex with pam_systemd sym file;
@@ -42,6 +46,7 @@ systemd System and Service Manager
     - return -ENXIO for -1 uids in parse_uid function;
     - check home path is absolute;
     - update arch macros;
+    - add is_localhost function;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
