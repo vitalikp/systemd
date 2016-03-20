@@ -13,6 +13,7 @@ systemd System and Service Manager
     - use correct format string for UIDs;
     - don't require cgroups xattr support;
     - name the stamp file consistently;
+    - remove x-systemd-device.timeout handling;
  * logind:
     - rename pam_systemd source file to match the module;
     - replace regex with pam_systemd sym file;
@@ -21,6 +22,7 @@ systemd System and Service Manager
     - don't output sysctl keys to terminal at startup;
     - move hostname service to multi-user.target;
     - order systemd-tmpfiles-clean.service after time-sync.target;
+    - skip mounting /tmp if it is a symlink;
  * busctl:
     - remove pager;
     - remove machine argument option;
@@ -36,17 +38,27 @@ systemd System and Service Manager
     - rename path_strv_canonicalize_absolute functions;
     - do not strip /dev prefix twice;
     - treat fuse.sshfs as a network filesystem;
+    - refuse considering UID 0xFFFF and 0xFFFFFFFF valid;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
     - do not fail when copying an empty directory;
     - make sure "C" doesn't copy anything if the destination already exists;
     - copy/link /usr/share/factory/ files when the source argument is omitted;
+ * pc:
+    - export $libdir in the .pc file;
+    - expose more drop-in dirs in the .pc file;
+    - no longer expose exec_prefix in .pc file;
  * po:
     - add German translation;
  * man:
     - update info for kernel-command-line;
     - fix sd_watchdog_enabled function prototype;
+    - add file-hierarchy man page;
+    - drop references to manual StandardError=syslog from daemon(7);
+    - beef up systemd-fsck description;
+    - mention that x-systemd.device-timeout is only for fstab;
+    - mention x-initrd.mount option in fstab options list;
   * tests:
     - add tests to test-util;
     - add tests to test-strv;
@@ -57,6 +69,7 @@ systemd System and Service Manager
     - add tests to test-fdset;
     - add tests to test-unit-name;
     - add test-ratelimit test;
+    - add missing XDG_RUNTIME_DIR env variable;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
