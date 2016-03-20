@@ -7,6 +7,8 @@ systemd System and Service Manager
     - remove EXEC_OUTPUT_JOURNAL type output;
     - honour rd.systemd.unit= only in the initrd, not the host;
     - clean-up signal reset logic when reexec;
+    - log info when snapshots are created and removed;
+    - make sure Environment fields passed in for transient units are properly written to unit files;
  * logind:
     - rename pam_systemd source file to match the module;
     - replace regex with pam_systemd sym file;
@@ -41,12 +43,18 @@ systemd System and Service Manager
     - add tests to test-strv;
     - add tests to test-path-util;
     - add test-conf-files test;
+    - add test-capability test;
+    - add test-async test;
+    - add tests to test-fdset;
+    - add tests to test-unit-name;
+    - add test-ratelimit test;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
     - properly quote m4 macro arguments in CC_CHECK_FLAGS_APPEND;
     - replace nm with $(NM);
     - add -pthread flag for libsystemd-shared;
+    - avoid gcc warning about format for readahead;
  * bugfix:
     - fix open syslog stdout socket on execute;
     - fix properly label created device nodes;
