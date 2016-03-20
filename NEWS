@@ -40,6 +40,7 @@ systemd System and Service Manager
     - treat fuse.sshfs as a network filesystem;
     - refuse considering UID 0xFFFF and 0xFFFFFFFF valid;
     - return -ENXIO for -1 uids in parse_uid function;
+    - check home path is absolute;
  * tmpfiles:
     - allow following symlinks for w lines;
     - create directories already with the right label;
