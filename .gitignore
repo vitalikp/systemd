@@ -71,6 +71,7 @@
 /systemd-user-sessions
 /tags
 /test-architecture
+/test-async
 /test-boot-timestamp
 /test-bus-chat
 /test-bus-cleanup
@@ -89,6 +90,7 @@
 /test-bus-signature
 /test-bus-zero-copy
 /test-calendarspec
+/test-capability
 /test-cgroup
 /test-cgroup-mask
 /test-cgroup-util
