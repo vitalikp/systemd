@@ -14,6 +14,10 @@ systemd System and Service Manager
     - don't require cgroups xattr support;
     - name the stamp file consistently;
     - remove x-systemd-device.timeout handling;
+    - introduce new RestartForceExitStatus= service setting;
+    - add exit_status_set_is_empty function;
+    - fix uninitialized memory access;
+    - make sure /tmp, /var/tmp and /dev are writable in namespaces we set up;
  * libsystemd:
     - drop bus/message GC logic;
     - when an event loop terminates, explicitly close the bus;
@@ -21,6 +25,7 @@ systemd System and Service Manager
  * logind:
     - rename pam_systemd source file to match the module;
     - replace regex with pam_systemd sym file;
+    - use the same code for verfiying machine names everywhere;
  * units:
     - don't output hostname to terminal at startup;
     - don't output sysctl keys to terminal at startup;
@@ -68,6 +73,7 @@ systemd System and Service Manager
     - beef up systemd-fsck description;
     - mention that x-systemd.device-timeout is only for fstab;
     - mention x-initrd.mount option in fstab options list;
+    - reference RestartForceExitStatus= from the Restart= description;
   * tests:
     - add tests to test-util;
     - add tests to test-strv;
@@ -79,6 +85,7 @@ systemd System and Service Manager
     - add tests to test-unit-name;
     - add test-ratelimit test;
     - add missing XDG_RUNTIME_DIR env variable;
+    - print library tuple in test-architecture;
  * build;
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
