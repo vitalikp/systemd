@@ -36,7 +36,7 @@ SUBDIRS = . po
 .PRECIOUS: $(TEST_SUITE_LOG) Makefile
 
 LIBSYSTEMD_CURRENT=3
-LIBSYSTEMD_REVISION=0
+LIBSYSTEMD_REVISION=1
 LIBSYSTEMD_AGE=3
 
 # The following four libraries only exist for compatibility reasons,
