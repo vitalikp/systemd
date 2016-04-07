@@ -163,9 +163,6 @@ static bool condition_test(Condition *c) {
         case CONDITION_HOST:
                 return condition_test_host(c);
 
-        case CONDITION_AC_POWER:
-                return condition_test_ac_power(c);
-
         case CONDITION_ARCHITECTURE:
                 return condition_test_architecture(c);
 

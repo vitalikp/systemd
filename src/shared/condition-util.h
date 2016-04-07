@@ -42,7 +42,6 @@ typedef enum ConditionType {
         CONDITION_SECURITY,
         CONDITION_CAPABILITY,
         CONDITION_HOST,
-        CONDITION_AC_POWER,
         CONDITION_ARCHITECTURE,
         CONDITION_NULL,
         _CONDITION_TYPE_MAX,
@@ -70,7 +69,6 @@ bool condition_test_kernel_command_line(Condition *c);
 bool condition_test_virtualization(Condition *c);
 bool condition_test_architecture(Condition *c);
 bool condition_test_host(Condition *c);
-bool condition_test_ac_power(Condition *c);
 
 void condition_dump(Condition *c, FILE *f, const char *prefix);
 void condition_dump_list(Condition *c, FILE *f, const char *prefix);

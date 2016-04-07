@@ -32,6 +32,7 @@ systemd System and Service Manager
     - move hostname service to multi-user.target;
     - order systemd-tmpfiles-clean.service after time-sync.target;
     - skip mounting /tmp if it is a symlink;
+    - remove ConditionACPower condition;
  * busctl:
     - remove pager;
     - remove machine argument option;

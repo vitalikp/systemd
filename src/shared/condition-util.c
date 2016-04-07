@@ -201,20 +201,6 @@ bool condition_test_host(Condition *c) {
         return (fnmatch(c->parameter, h, FNM_CASEFOLD) == 0) == !c->negate;
 }
 
-bool condition_test_ac_power(Condition *c) {
-        int r;
-
-        assert(c);
-        assert(c->parameter);
-        assert(c->type == CONDITION_AC_POWER);
-
-        r = parse_boolean(c->parameter);
-        if (r < 0)
-                return !c->negate;
-
-        return ((on_ac_power() != 0) == !!r) == !c->negate;
-}
-
 void condition_dump(Condition *c, FILE *f, const char *prefix) {
         assert(c);
         assert(f);
@@ -254,7 +240,6 @@ static const char* const condition_type_table[_CONDITION_TYPE_MAX] = {
         [CONDITION_SECURITY] = "ConditionSecurity",
         [CONDITION_CAPABILITY] = "ConditionCapability",
         [CONDITION_HOST] = "ConditionHost",
-        [CONDITION_AC_POWER] = "ConditionACPower",
         [CONDITION_ARCHITECTURE] = "ConditionArchitecture",
         [CONDITION_NULL] = "ConditionNull"
 };
