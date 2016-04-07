@@ -724,8 +724,6 @@ char *strreplace(const char *text, const char *old_string, const char *new_strin
 
 char *strip_tab_ansi(char **p, size_t *l);
 
-int on_ac_power(void);
-
 int search_and_fopen(const char *path, const char *mode, const char *root, const char **search, FILE **_f);
 int search_and_fopen_nulstr(const char *path, const char *mode, const char *root, const char *search, FILE **_f);
 

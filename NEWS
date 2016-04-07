@@ -105,6 +105,7 @@ systemd System and Service Manager
     - fix search_and_fopen with alternate roots;
     - fix cycle break attempts outside transaction;
  * remove bootctl program;
+ * remove systemd-ac-power program;
  * remove git mailmap file;
  * remove .dir-locals.el file;
  * sort gitignore;

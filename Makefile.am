@@ -312,7 +312,6 @@ rootlibexec_PROGRAMS = \
 	systemd-remount-fs \
 	systemd-reply-password \
 	systemd-fsck \
-	systemd-ac-power \
 	systemd-sleep \
 	systemd-socket-proxyd
 
@@ -1671,18 +1670,6 @@ systemd_fsck_CFLAGS = \
 
 systemd_fsck_LDADD = \
 	libsystemd-internal.la \
-	$(LIBUDEV_LIBS) \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_ac_power_SOURCES = \
-	src/ac-power/ac-power.c
-
-systemd_ac_power_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(LIBUDEV_CFLAGS)
-
-systemd_ac_power_LDADD = \
 	$(LIBUDEV_LIBS) \
 	libsystemd-shared.la
 
