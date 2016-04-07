@@ -1,6 +1,6 @@
 systemd System and Service Manager
 
-   systemd (214.7-dev)
+   systemd (214.7)
 ~~~~~~~
  * core:
     - redirect stdout to syslog by default;
