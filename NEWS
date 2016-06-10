@@ -4,6 +4,11 @@ systemd System and Service Manager
 ~~~~~~~
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
+ 	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
+ 	- conditionalize configfs and debugfs with CAP_SYS_RAWIO;
+ * shared:
+ 	- consider 0x7F(DEL) a control chracter;
+ 	- don't consider tabs special in string_has_cc() anymore;
  * man:
  	- add link to Open Group Base Specifications;
 
