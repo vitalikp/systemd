@@ -2,6 +2,8 @@ systemd System and Service Manager
 
    systemd (214.8-dev)
 ~~~~~~~
+ * man:
+ 	- add link to Open Group Base Specifications;
 
    systemd (214.7)
 ~~~~~~~
