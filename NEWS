@@ -8,6 +8,7 @@ systemd System and Service Manager
  	- remove ConfirmSpawn manager dbus property;
  	- don't confirm when spawning process;
  	- add status_errno field to Service struct;
+ 	- add StatusErrno service dbus property;
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
