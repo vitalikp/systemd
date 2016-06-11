@@ -1020,16 +1020,6 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><varname>systemd.confirm_spawn=</varname></term>
-
-                                <listitem><para>Takes a boolean
-                                argument. If <option>true</option>,
-                                asks for confirmation when spawning
-                                processes. Defaults to
-                                <option>false</option>.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><varname>systemd.show_status=</varname></term>
 
                                 <listitem><para>Takes a boolean

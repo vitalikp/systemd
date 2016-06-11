@@ -330,14 +330,6 @@ static int parse_proc_cmdline_item(const char *key, const char *value) {
                 else
                         arg_crash_chvt = r;
 
-        } else if (streq(key, "systemd.confirm_spawn") && value) {
-
-                r = parse_boolean(value);
-                if (r < 0)
-                        log_warning("Failed to parse confirm spawn switch %s. Ignoring.", value);
-                else
-                        arg_confirm_spawn = r;
-
         } else if (streq(key, "systemd.show_status") && value) {
 
                 r = parse_show_status(value, &arg_show_status);

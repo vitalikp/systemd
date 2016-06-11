@@ -2,6 +2,8 @@ systemd System and Service Manager
 
    systemd (214.8-dev)
 ~~~~~~~
+ * core:
+ 	- remove systemd.confirm_spawn kernel parameter;
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
