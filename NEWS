@@ -5,6 +5,7 @@ systemd System and Service Manager
  * core:
  	- remove systemd.confirm_spawn kernel parameter;
  	- remove confirm-spawn argument option;
+ 	- remove ConfirmSpawn manager dbus property;
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
