@@ -30,6 +30,7 @@ systemd System and Service Manager
  	- add link to Open Group Base Specifications;
  	- add missing archs to ConditionArchitecture= description;
  	- chroot jails are no longer detected by ConditionVirtualization=;
+ 	- remove machine-info page;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);

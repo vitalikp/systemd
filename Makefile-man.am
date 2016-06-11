@@ -13,7 +13,6 @@ MANPAGES += \
 	man/kernel-install.8 \
 	man/localtime.5 \
 	man/machine-id.5 \
-	man/machine-info.5 \
 	man/os-release.5 \
 	man/runlevel.8 \
 	man/sd-daemon.3 \
@@ -997,7 +996,6 @@ EXTRA_DIST += \
 	man/loginctl.xml \
 	man/logind.conf.xml \
 	man/machine-id.xml \
-	man/machine-info.xml \
 	man/modules-load.d.xml \
 	man/nss-myhostname.xml \
 	man/os-release.xml \
