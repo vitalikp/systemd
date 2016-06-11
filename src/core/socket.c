@@ -1334,7 +1334,6 @@ static int socket_spawn(Socket *s, ExecCommand *c, pid_t *_pid) {
                        true,
                        true,
                        true,
-                       UNIT(s)->manager->confirm_spawn,
                        UNIT(s)->manager->cgroup_supported,
                        UNIT(s)->cgroup_path,
                        manager_get_runtime_prefix(UNIT(s)->manager),

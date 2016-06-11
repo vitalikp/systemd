@@ -230,7 +230,6 @@ struct Manager {
         bool taint_usr:1;
 
         ShowStatus show_status;
-        bool confirm_spawn;
         bool no_console_output;
 
         ExecOutput default_std_output, default_std_error;

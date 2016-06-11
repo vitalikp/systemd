@@ -2472,9 +2472,6 @@ void manager_check_finished(Manager *m) {
         m->idle_pipe_event_source = sd_event_source_unref(m->idle_pipe_event_source);
         manager_close_idle_pipe(m);
 
-        /* Turn off confirm spawn now */
-        m->confirm_spawn = false;
-
         if (dual_timestamp_is_set(&m->finish_timestamp))
                 return;
 

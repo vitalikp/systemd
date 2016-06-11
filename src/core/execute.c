@@ -432,124 +432,6 @@ static int chown_terminal(int fd, uid_t uid) {
         return 0;
 }
 
-static int setup_confirm_stdio(int *_saved_stdin,
-                               int *_saved_stdout) {
-        int fd = -1, saved_stdin, saved_stdout = -1, r;
-
-        assert(_saved_stdin);
-        assert(_saved_stdout);
-
-        saved_stdin = fcntl(STDIN_FILENO, F_DUPFD, 3);
-        if (saved_stdin < 0)
-                return -errno;
-
-        saved_stdout = fcntl(STDOUT_FILENO, F_DUPFD, 3);
-        if (saved_stdout < 0) {
-                r = errno;
-                goto fail;
-        }
-
-        fd = acquire_terminal(
-                        "/dev/console",
-                        false,
-                        false,
-                        false,
-                        DEFAULT_CONFIRM_USEC);
-        if (fd < 0) {
-                r = fd;
-                goto fail;
-        }
-
-        r = chown_terminal(fd, getuid());
-        if (r < 0)
-                goto fail;
-
-        if (dup2(fd, STDIN_FILENO) < 0) {
-                r = -errno;
-                goto fail;
-        }
-
-        if (dup2(fd, STDOUT_FILENO) < 0) {
-                r = -errno;
-                goto fail;
-        }
-
-        if (fd >= 2)
-                safe_close(fd);
-
-        *_saved_stdin = saved_stdin;
-        *_saved_stdout = saved_stdout;
-
-        return 0;
-
-fail:
-        safe_close(saved_stdout);
-        safe_close(saved_stdin);
-        safe_close(fd);
-
-        return r;
-}
-
-_printf_(1, 2) static int write_confirm_message(const char *format, ...) {
-        _cleanup_close_ int fd = -1;
-        va_list ap;
-
-        assert(format);
-
-        fd = open_terminal("/dev/console", O_WRONLY|O_NOCTTY|O_CLOEXEC);
-        if (fd < 0)
-                return fd;
-
-        va_start(ap, format);
-        vdprintf(fd, format, ap);
-        va_end(ap);
-
-        return 0;
-}
-
-static int restore_confirm_stdio(int *saved_stdin,
-                                 int *saved_stdout) {
-
-        int r = 0;
-
-        assert(saved_stdin);
-        assert(saved_stdout);
-
-        release_terminal();
-
-        if (*saved_stdin >= 0)
-                if (dup2(*saved_stdin, STDIN_FILENO) < 0)
-                        r = -errno;
-
-        if (*saved_stdout >= 0)
-                if (dup2(*saved_stdout, STDOUT_FILENO) < 0)
-                        r = -errno;
-
-        safe_close(*saved_stdin);
-        safe_close(*saved_stdout);
-
-        return r;
-}
-
-static int ask_for_confirmation(char *response, char **argv) {
-        int saved_stdout = -1, saved_stdin = -1, r;
-        _cleanup_free_ char *line = NULL;
-
-        r = setup_confirm_stdio(&saved_stdin, &saved_stdout);
-        if (r < 0)
-                return r;
-
-        line = exec_command_line(argv);
-        if (!line)
-                return -ENOMEM;
-
-        r = ask(response, "yns", "Execute %s? [Yes, No, Skip] ", line);
-
-        restore_confirm_stdio(&saved_stdin, &saved_stdout);
-
-        return r;
-}
-
 static int enforce_groups(const ExecContext *context, const char *username, gid_t gid) {
         bool keep_groups = false;
         int r;
@@ -1203,7 +1085,6 @@ int exec_spawn(ExecCommand *command,
                bool apply_permissions,
                bool apply_chroot,
                bool apply_tty_stdin,
-               bool confirm_spawn,
                CGroupControllerMask cgroup_supported,
                const char *cgroup_path,
                const char *runtime_prefix,
@@ -1333,26 +1214,6 @@ int exec_spawn(ExecCommand *command,
                         }
 
                 exec_context_tty_reset(context);
-
-                if (confirm_spawn) {
-                        char response;
-
-                        err = ask_for_confirmation(&response, argv);
-                        if (err == -ETIMEDOUT)
-                                write_confirm_message("Confirmation question timed out, assuming positive response.\n");
-                        else if (err < 0)
-                                write_confirm_message("Couldn't ask confirmation question, assuming positive response: %s\n", strerror(-err));
-                        else if (response == 's') {
-                                write_confirm_message("Skipping execution.\n");
-                                err = -ECANCELED;
-                                r = EXIT_CONFIRM;
-                                goto fail_child;
-                        } else if (response == 'n') {
-                                write_confirm_message("Failing execution.\n");
-                                err = r = 0;
-                                goto fail_child;
-                        }
-                }
 
                 /* If a socket is connected to STDIN/STDOUT/STDERR, we
                  * must sure to drop O_NONBLOCK */

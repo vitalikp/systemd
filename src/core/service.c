@@ -968,7 +968,6 @@ static int service_spawn(
                        apply_permissions,
                        apply_chroot,
                        apply_tty_stdin,
-                       UNIT(s)->manager->confirm_spawn,
                        UNIT(s)->manager->cgroup_supported,
                        path,
                        manager_get_runtime_prefix(UNIT(s)->manager),
