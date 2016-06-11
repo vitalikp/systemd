@@ -1624,54 +1624,6 @@ int read_one_char(FILE *f, char *ret, usec_t t, bool *need_nl) {
         return 0;
 }
 
-int ask(char *ret, const char *replies, const char *text, ...) {
-        int r;
-
-        assert(ret);
-        assert(replies);
-        assert(text);
-
-        for (;;) {
-                va_list ap;
-                char c;
-                bool need_nl = true;
-
-                if (on_tty())
-                        fputs(ANSI_HIGHLIGHT_ON, stdout);
-
-                va_start(ap, text);
-                vprintf(text, ap);
-                va_end(ap);
-
-                if (on_tty())
-                        fputs(ANSI_HIGHLIGHT_OFF, stdout);
-
-                fflush(stdout);
-
-                r = read_one_char(stdin, &c, (usec_t) -1, &need_nl);
-                if (r < 0) {
-
-                        if (r == -EBADMSG) {
-                                puts("Bad input, please try again.");
-                                continue;
-                        }
-
-                        putchar('\n');
-                        return r;
-                }
-
-                if (need_nl)
-                        putchar('\n');
-
-                if (strchr(replies, c)) {
-                        *ret = c;
-                        return 0;
-                }
-
-                puts("Read unexpected character, please try again.");
-        }
-}
-
 int reset_terminal_fd(int fd, bool switch_to_text) {
         struct termios termios;
         int r = 0;

@@ -15,6 +15,7 @@ systemd System and Service Manager
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;
  	- add string table entries for mips-le archs which were missing;
+ 	- remove unused functions;
  * virt:
  	- rework container detection logic;
  * man:
