@@ -89,7 +89,6 @@ static SystemdRunningAs arg_running_as = _SYSTEMD_RUNNING_AS_INVALID;
 static bool arg_dump_core = true;
 static bool arg_crash_shell = false;
 static int arg_crash_chvt = -1;
-static bool arg_confirm_spawn = false;
 static ShowStatus arg_show_status = _SHOW_STATUS_UNSET;
 static bool arg_switched_root = false;
 static char ***arg_join_controllers = NULL;
@@ -708,7 +707,6 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_DUMP_CONFIGURATION_ITEMS,
                 ARG_DUMP_CORE,
                 ARG_CRASH_SHELL,
-                ARG_CONFIRM_SPAWN,
                 ARG_SHOW_STATUS,
                 ARG_DESERIALIZE,
                 ARG_SWITCHED_ROOT,
@@ -730,7 +728,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "dump-configuration-items", no_argument,       NULL, ARG_DUMP_CONFIGURATION_ITEMS },
                 { "dump-core",                optional_argument, NULL, ARG_DUMP_CORE                },
                 { "crash-shell",              optional_argument, NULL, ARG_CRASH_SHELL              },
-                { "confirm-spawn",            optional_argument, NULL, ARG_CONFIRM_SPAWN            },
                 { "show-status",              optional_argument, NULL, ARG_SHOW_STATUS              },
                 { "deserialize",              required_argument, NULL, ARG_DESERIALIZE              },
                 { "switched-root",            no_argument,       NULL, ARG_SWITCHED_ROOT            },
@@ -860,15 +857,6 @@ static int parse_argv(int argc, char *argv[]) {
                         arg_crash_shell = r;
                         break;
 
-                case ARG_CONFIRM_SPAWN:
-                        r = optarg ? parse_boolean(optarg) : 1;
-                        if (r < 0) {
-                                log_error("Failed to parse confirm spawn boolean %s.", optarg);
-                                return r;
-                        }
-                        arg_confirm_spawn = r;
-                        break;
-
                 case ARG_SHOW_STATUS:
                         if (optarg) {
                                 r = parse_show_status(optarg, &arg_show_status);
@@ -990,7 +978,6 @@ static int help(void) {
                "     --user                      Run a user instance\n"
                "     --dump-core[=0|1]           Dump core on crash\n"
                "     --crash-shell[=0|1]         Run shell on crash\n"
-               "     --confirm-spawn[=0|1]       Ask for confirmation when spawning processes\n"
                "     --show-status[=0|1]         Show status updates on the console during bootup\n"
                "     --log-target=TARGET         Set log target (console, journal, syslog, kmsg, journal-or-kmsg, syslog-or-kmsg, null)\n"
                "     --log-level=LEVEL           Set log level (debug, info, notice, warning, err, crit, alert, emerg)\n"
@@ -1585,7 +1572,6 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        m->confirm_spawn = arg_confirm_spawn;
         m->default_timer_accuracy_usec = arg_default_timer_accuracy_usec;
         m->default_std_output = arg_default_std_output;
         m->default_std_error = arg_default_std_error;

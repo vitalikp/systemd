@@ -155,14 +155,6 @@
                                 instance.</para></listitem>
                         </varlistentry>
                         <varlistentry>
-                                <term><option>--confirm-spawn</option></term>
-
-                                <listitem><para>Ask for confirmation
-                                when spawning processes. This switch
-                                has no effect when run as user
-                                instance.</para></listitem>
-                        </varlistentry>
-                        <varlistentry>
                                 <term><option>--show-status=</option></term>
 
                                 <listitem><para>Show terse service
