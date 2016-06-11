@@ -9,8 +9,13 @@ systemd System and Service Manager
  * shared:
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;
+ 	- add string table entries for mips-le archs which were missing;
+ * virt:
+ 	- rework container detection logic;
  * man:
  	- add link to Open Group Base Specifications;
+ 	- add missing archs to ConditionArchitecture= description;
+ 	- chroot jails are no longer detected by ConditionVirtualization=;
 
    systemd (214.7)
 ~~~~~~~
