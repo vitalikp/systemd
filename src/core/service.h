@@ -179,6 +179,7 @@ struct Service {
         char *bus_name;
 
         char *status_text;
+        int status_errno;
 
         FailureAction failure_action;
 
