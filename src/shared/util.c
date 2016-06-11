@@ -3751,7 +3751,8 @@ void execute_directory(const char *directory, DIR *d, usec_t timeout, char *argv
                         if (!dirent_is_file(de))
                                 continue;
 
-                        if (asprintf(&path, "%s/%s", directory, de->d_name) < 0) {
+                        path = strjoin(directory, "/", de->d_name, NULL);
+                        if (!path) {
                                 log_oom();
                                 _exit(EXIT_FAILURE);
                         }
