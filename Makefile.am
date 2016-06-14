@@ -1061,7 +1061,6 @@ tests += \
 	test-utf8 \
 	test-ellipsize \
 	test-util \
-	test-ring \
 	test-tmpfiles \
 	test-namespace \
 	test-date \
@@ -1218,12 +1217,6 @@ test_socket_util_SOURCES = \
 	src/test/test-socket-util.c
 
 test_socket_util_LDADD = \
-	libsystemd-core.la
-
-test_ring_SOURCES = \
-	src/test/test-ring.c
-
-test_ring_LDADD = \
 	libsystemd-core.la
 
 test_tmpfiles_SOURCES = \

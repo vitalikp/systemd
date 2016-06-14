@@ -128,7 +128,6 @@
 /test-ratelimit
 /test-replace-var
 /test-resolve
-/test-ring
 /test-rtnl
 /test-rtnl-manual
 /test-sched-prio
