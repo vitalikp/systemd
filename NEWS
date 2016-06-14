@@ -16,6 +16,7 @@ systemd System and Service Manager
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
  	- conditionalize configfs and debugfs with CAP_SYS_RAWIO;
+ 	- make ExecStopPost action part of ExecStart;
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  * shared:
