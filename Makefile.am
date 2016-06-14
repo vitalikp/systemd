@@ -680,8 +680,6 @@ libsystemd_shared_la_SOURCES = \
 	src/shared/clean-ipc.c \
 	src/shared/login-shared.c \
 	src/shared/login-shared.h \
-	src/shared/ring.c \
-	src/shared/ring.h \
 	src/shared/async.c \
 	src/shared/async.h \
 	src/shared/eventfd-util.c \

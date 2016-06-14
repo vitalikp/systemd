@@ -25,6 +25,7 @@ systemd System and Service Manager
  	- add string table entries for mips-le archs which were missing;
  	- remove unused functions;
  	- use strjoin in execute_directory function;
+ 	- remove ring util;
  * virt:
  	- rework container detection logic;
  * man:
