@@ -2406,29 +2406,6 @@ BUSNAMES_TARGET_WANTS += \
 endif
 
 # ------------------------------------------------------------------------------
-if HAVE_MYHOSTNAME
-libnss_myhostname_la_SOURCES = \
-	src/nss-myhostname/nss-myhostname.c \
-	src/nss-myhostname/ifconf.h \
-	src/nss-myhostname/netlink.c
-
-libnss_myhostname_la_LDFLAGS = \
-	$(AM_LDFLAGS) \
-	-module \
-	-export-dynamic \
-	-avoid-version \
-	-shared \
-	-shrext .so.2
-
-libnss_myhostname_la_LIBADD = \
-	libsystemd-shared.la \
-	libsystemd-internal.la
-
-lib_LTLIBRARIES += \
-	libnss_myhostname.la
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_LOGIND
 systemd_logind_SOURCES = \
 	src/login/logind.c \

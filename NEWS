@@ -35,6 +35,7 @@ systemd System and Service Manager
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
+ * remove nss-myhostname support;
 
    systemd (214.7)
 ~~~~~~~

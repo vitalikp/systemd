@@ -751,15 +751,6 @@ man/systemd-modules-load.html: man/systemd-modules-load.service.html
 
 endif
 
-if HAVE_MYHOSTNAME
-MANPAGES += \
-	man/nss-myhostname.8
-MANPAGES_ALIAS += \
-	#
-
-
-endif
-
 if HAVE_PAM
 MANPAGES += \
 	man/pam_systemd.8 \
@@ -997,7 +988,6 @@ EXTRA_DIST += \
 	man/logind.conf.xml \
 	man/machine-id.xml \
 	man/modules-load.d.xml \
-	man/nss-myhostname.xml \
 	man/os-release.xml \
 	man/pam_systemd.xml \
 	man/runlevel.xml \
