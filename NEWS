@@ -29,6 +29,9 @@ systemd System and Service Manager
  	- remove unused functions;
  	- use strjoin in execute_directory function;
  	- remove ring util;
+ 	- add function to open temp files in selinux mode;
+ 	- don't make ~/.local/share/systemd/user a symlink;
+ 	- quote more shell characters in envfiles;
  * virt:
  	- rework container detection logic;
  * man:
@@ -36,6 +39,7 @@ systemd System and Service Manager
  	- add missing archs to ConditionArchitecture= description;
  	- chroot jails are no longer detected by ConditionVirtualization=;
  	- remove machine-info page;
+ 	- mention XDG_DATA_HOME in systemd.unit;
  * tests:
  	- remove test-ring test;
  * build:
