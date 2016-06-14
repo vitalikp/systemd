@@ -10,6 +10,9 @@ systemd System and Service Manager
  	- add status_errno field to Service struct;
  	- add StatusErrno service dbus property;
  	- flush status text and errno values each time a service is started;
+ * libsystemd:
+ 	- always call epoll_ctl() on mask-updates if edge-triggered;
+ 	- don't require a signal event source to be enabled for the child event source to work;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  * units:
@@ -35,6 +38,8 @@ systemd System and Service Manager
  	- remove machine-info page;
  * tests:
  	- remove test-ring test;
+ * build:
+ 	- do not distribute generated emergency.service;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
@@ -115,7 +120,7 @@ systemd System and Service Manager
     - mention that x-systemd.device-timeout is only for fstab;
     - mention x-initrd.mount option in fstab options list;
     - reference RestartForceExitStatus= from the Restart= description;
-  * tests:
+ * tests:
     - add tests to test-util;
     - add tests to test-strv;
     - add tests to test-path-util;
@@ -127,7 +132,7 @@ systemd System and Service Manager
     - add test-ratelimit test;
     - add missing XDG_RUNTIME_DIR env variable;
     - print library tuple in test-architecture;
- * build;
+ * build:
     - fix conftest.c to work on arm;
     - make sure to test for -Wflag instead of -Wno-flag;
     - properly quote m4 macro arguments in CC_CHECK_FLAGS_APPEND;
