@@ -42,6 +42,8 @@ systemd System and Service Manager
  	- mention XDG_DATA_HOME in systemd.unit;
  * tests:
  	- remove test-ring test;
+ * rules:
+ 	- consistently use "?*" instead of "*?";
  * build:
  	- do not distribute generated emergency.service;
  * bugfix:
