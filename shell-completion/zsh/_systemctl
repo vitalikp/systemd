@@ -306,7 +306,6 @@ _arguments -s \
     '--version[Show package version]' \
     {-t+,--type=}'[List only units of a particular type]:unit type:_unit_types' \
     '--state=[Display units in the specifyied state]:unit state:_unit_states' \
-    \*{-p+,--property=}'[Show only properties by specific name]:unit property' \
     {-a,--all}'[Show all units/properties, including dead/empty ones]' \
     '--reverse[Show reverse dependencies]' \
     '--after[Show units ordered after]' \

@@ -74,7 +74,6 @@
 
 static char **arg_types = NULL;
 static char **arg_states = NULL;
-static char **arg_properties = NULL;
 static bool arg_all = false;
 static enum dependency {
         DEPENDENCY_FORWARD,
@@ -3826,12 +3825,6 @@ static int print_property(const char *name, sd_bus_message *m, const char *conte
         /* This is a low-level property printer, see
          * print_status_info() for the nicer output */
 
-        if (arg_properties && !strv_find(arg_properties, name)) {
-                /* skip what we didn't read */
-                r = sd_bus_message_skip(m, contents);
-                return r;
-        }
-
         switch (contents[0]) {
 
         case SD_BUS_TYPE_STRUCT_BEGIN:
@@ -5322,7 +5315,6 @@ static int systemctl_help(void) {
                "                      Operate on local container\n"
                "  -t --type=TYPE      List only units of a particular type\n"
                "     --state=STATE    List only units with particular LOAD or SUB or ACTIVE state\n"
-               "  -p --property=NAME  Show only properties by this name\n"
                "  -a --all            Show all loaded units/properties, including dead/empty\n"
                "                      ones. To list all units installed on the system, use\n"
                "                      the 'list-unit-files' command instead.\n"
@@ -5547,7 +5539,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "help",                no_argument,       NULL, 'h'                     },
                 { "version",             no_argument,       NULL, ARG_VERSION             },
                 { "type",                required_argument, NULL, 't'                     },
-                { "property",            required_argument, NULL, 'p'                     },
                 { "all",                 no_argument,       NULL, 'a'                     },
                 { "reverse",             no_argument,       NULL, ARG_REVERSE             },
                 { "after",               no_argument,       NULL, ARG_AFTER               },
@@ -5638,37 +5629,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                                 log_info("Use -t help to see a list of allowed values.");
                                 return -EINVAL;
                         }
-
-                        break;
-                }
-
-                case 'p': {
-                        /* Make sure that if the empty property list
-                           was specified, we won't show any properties. */
-                        if (isempty(optarg) && !arg_properties) {
-                                arg_properties = new0(char*, 1);
-                                if (!arg_properties)
-                                        return log_oom();
-                        } else {
-                                char *word, *state;
-                                size_t size;
-
-                                FOREACH_WORD_SEPARATOR(word, size, optarg, ",", state) {
-                                        char *prop;
-
-                                        prop = strndup(word, size);
-                                        if (!prop)
-                                                return log_oom();
-
-                                        if (strv_consume(&arg_properties, prop) < 0)
-                                                return log_oom();
-                                }
-                        }
-
-                        /* If the user asked for a particular
-                         * property, show it to him, even if it is
-                         * empty. */
-                        arg_all = true;
 
                         break;
                 }
@@ -6783,7 +6743,6 @@ finish:
 
         strv_free(arg_types);
         strv_free(arg_states);
-        strv_free(arg_properties);
 
         return r < 0 ? EXIT_FAILURE : r;
 }

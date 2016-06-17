@@ -103,21 +103,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
-        <term><option>-p</option></term>
-        <term><option>--property=</option></term>
-
-        <listitem>
-          <para>When showing unit/job/manager properties with the
-          <command>show</command> command, limit display to certain
-          properties as specified as argument. If not specified, all
-          set properties are shown. The argument should be a
-          comma-separated list of property names, such as
-          <literal>MainPID</literal>. If specified more than once, all
-          properties with the specified names are shown.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term><option>-a</option></term>
         <term><option>--all</option></term>
 

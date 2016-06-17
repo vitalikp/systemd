@@ -22,15 +22,6 @@ __systemctl() {
         systemctl $mode --full --no-legend "$@"
 }
 
-__systemd_properties() {
-        local mode=$1
-        { __systemctl -a $mode show;
-         systemd --dump-configuration-items; } |
-        while IFS='=' read -r key value; do
-            [[ $value ]] && echo "$key"
-        done
-}
-
 __contains_word () {
         local w word=$1; shift
         for w in "$@"; do
@@ -102,9 +93,6 @@ _systemctl () {
                         --root)
                                 comps=$(compgen -A directory -- "$cur" )
                                 compopt -o filenames
-                        ;;
-                        --property|-p)
-                                comps=$(__systemd_properties $mode)
                         ;;
                 esac
                 COMPREPLY=( $(compgen -W '$comps' -- "$cur") )
