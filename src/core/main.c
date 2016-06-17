@@ -81,7 +81,6 @@ static enum {
         ACTION_HELP,
         ACTION_VERSION,
         ACTION_TEST,
-        ACTION_DUMP_CONFIGURATION_ITEMS,
         ACTION_DONE
 } arg_action = ACTION_RUN;
 static char *arg_default_unit = NULL;
@@ -704,7 +703,6 @@ static int parse_argv(int argc, char *argv[]) {
                 ARG_USER,
                 ARG_TEST,
                 ARG_VERSION,
-                ARG_DUMP_CONFIGURATION_ITEMS,
                 ARG_DUMP_CORE,
                 ARG_CRASH_SHELL,
                 ARG_SHOW_STATUS,
@@ -725,7 +723,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "test",                     no_argument,       NULL, ARG_TEST                     },
                 { "help",                     no_argument,       NULL, 'h'                          },
                 { "version",                  no_argument,       NULL, ARG_VERSION                  },
-                { "dump-configuration-items", no_argument,       NULL, ARG_DUMP_CONFIGURATION_ITEMS },
                 { "dump-core",                optional_argument, NULL, ARG_DUMP_CORE                },
                 { "crash-shell",              optional_argument, NULL, ARG_CRASH_SHELL              },
                 { "show-status",              optional_argument, NULL, ARG_SHOW_STATUS              },
@@ -833,10 +830,6 @@ static int parse_argv(int argc, char *argv[]) {
 
                 case ARG_VERSION:
                         arg_action = ACTION_VERSION;
-                        break;
-
-                case ARG_DUMP_CONFIGURATION_ITEMS:
-                        arg_action = ACTION_DUMP_CONFIGURATION_ITEMS;
                         break;
 
                 case ARG_DUMP_CORE:
@@ -972,7 +965,6 @@ static int help(void) {
                "Starts up and maintains the system or user services.\n\n"
                "  -h --help                      Show this help\n"
                "     --test                      Determine startup sequence, dump it and exit\n"
-               "     --dump-configuration-items  Dump understood unit configuration items\n"
                "     --unit=UNIT                 Set default unit\n"
                "     --system                    Run a system instance, even if PID != 1\n"
                "     --user                      Run a user instance\n"
@@ -1431,10 +1423,6 @@ int main(int argc, char *argv[]) {
                 goto finish;
         } else if (arg_action == ACTION_VERSION) {
                 retval = version();
-                goto finish;
-        } else if (arg_action == ACTION_DUMP_CONFIGURATION_ITEMS) {
-                unit_dump_config_items(stdout);
-                retval = EXIT_SUCCESS;
                 goto finish;
         } else if (arg_action == ACTION_DONE) {
                 retval = EXIT_SUCCESS;

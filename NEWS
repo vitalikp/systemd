@@ -5,6 +5,7 @@ systemd System and Service Manager
  * core:
  	- remove systemd.confirm_spawn kernel parameter;
  	- remove confirm-spawn argument option;
+ 	- remove dump-configuration-items argument option;
  	- remove ConfirmSpawn manager dbus property;
  	- don't confirm when spawning process;
  	- add status_errno field to Service struct;

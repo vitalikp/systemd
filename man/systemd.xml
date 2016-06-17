@@ -98,15 +98,6 @@
                                 only.</para></listitem>
                         </varlistentry>
                         <varlistentry>
-                                <term><option>--dump-configuration-items</option></term>
-
-                                <listitem><para>Dump understood unit
-                                configuration items. This outputs a
-                                terse but complete list of
-                                configuration items understood in unit
-                                definition files.</para></listitem>
-                        </varlistentry>
-                        <varlistentry>
                                 <term><option>--unit=</option></term>
 
                                 <listitem><para>Set default unit to
