@@ -58,6 +58,7 @@ systemd System and Service Manager
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
  	- fix oneshot service resource control;
+ 	- use the default RestartSec for serial getty services;
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
 
