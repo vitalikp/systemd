@@ -100,8 +100,6 @@ MANPAGES_ALIAS += \
 	man/sd_is_socket_unix.3 \
 	man/sd_is_special.3 \
 	man/sd_notifyf.3 \
-	man/systemd-ask-password-wall.path.8 \
-	man/systemd-ask-password-wall.service.8 \
 	man/systemd-fsck-root.service.8 \
 	man/systemd-fsck.8 \
 	man/systemd-hibernate.service.8 \

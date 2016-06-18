@@ -22,6 +22,7 @@ systemd System and Service Manager
  	- conditionalize configfs and debugfs with CAP_SYS_RAWIO;
  	- make ExecStopPost action part of ExecStart;
  	- remove systemd-ask-password-console path and service;
+ 	- remove systemd-ask-password-wall path and service;
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  	- remove property argument option;

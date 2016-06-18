@@ -394,7 +394,6 @@ dist_systemunit_DATA = \
 	units/sound.target \
 	units/bluetooth.target \
 	units/smartcard.target \
-	units/systemd-ask-password-wall.path \
 	units/initrd-switch-root.target
 
 nodist_systemunit_DATA = \
@@ -409,7 +408,6 @@ nodist_systemunit_DATA = \
 	units/systemd-remount-fs.service \
 	units/systemd-update-utmp.service \
 	units/systemd-update-utmp-runlevel.service \
-	units/systemd-ask-password-wall.service \
 	units/sysctl.service \
 	units/emergency.service \
 	units/rescue.service \
@@ -448,7 +446,6 @@ EXTRA_DIST += \
 	units/systemd-remount-fs.service.in \
 	units/systemd-update-utmp.service.in \
 	units/systemd-update-utmp-runlevel.service.in \
-	units/systemd-ask-password-wall.service.in \
 	units/sysctl.service.in \
 	units/emergency.service.in \
 	units/systemd-halt.service.in \
@@ -2898,8 +2895,7 @@ LOCAL_FS_TARGET_WANTS += \
 	systemd-remount-fs.service \
 	tmp.mount
 MULTI_USER_TARGET_WANTS += \
-	getty.target \
-	systemd-ask-password-wall.path
+	getty.target
 SYSINIT_TARGET_WANTS += \
 	dev-hugepages.mount \
 	dev-mqueue.mount \
