@@ -237,6 +237,8 @@ static inline unsigned long ALIGN_POWER2(unsigned long u) {
 #define PTR_TO_UINT64(p) ((uint64_t) ((uintptr_t) (p)))
 #define UINT64_TO_PTR(u) ((void *) ((uintptr_t) (u)))
 
+#define PTR_TO_SIZE(p) ((size_t) ((uintptr_t) (p)))
+
 #define memzero(x,l) (memset((x), 0, (l)))
 #define zero(x) (memzero(&(x), sizeof(x)))
 
