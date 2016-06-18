@@ -96,7 +96,6 @@ static bool arg_quiet = false;
 static bool arg_full = false;
 static bool arg_recursive = false;
 static int arg_force = 0;
-static bool arg_ask_password = true;
 static bool arg_runtime = false;
 static UnitFilePresetMode arg_preset_mode = UNIT_FILE_PRESET_FULL;
 static char **arg_wall = NULL;
@@ -173,9 +172,6 @@ static void pager_open_if_enabled(void) {
 static void polkit_agent_open_if_enabled(void) {
 
         /* Open the polkit agent as a child process if necessary */
-
-        if (!arg_ask_password)
-                return;
 
         if (arg_scope != UNIT_FILE_SYSTEM)
                 return;
@@ -5316,8 +5312,6 @@ static int systemctl_help(void) {
                "                      configuration\n"
                "     --no-legend      Do not print a legend (column headers and hints)\n"
                "     --no-pager       Do not pipe output into a pager\n"
-               "     --no-ask-password\n"
-               "                      Do not ask for system passwords\n"
                "     --global         Enable/disable unit files globally\n"
                "     --runtime        Enable unit files only temporarily until next reboot\n"
                "  -f --force          When enabling unit files, override existing symlinks\n"
@@ -5506,7 +5500,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 ARG_ROOT,
                 ARG_NO_RELOAD,
                 ARG_KILL_WHO,
-                ARG_NO_ASK_PASSWORD,
                 ARG_FAILED,
                 ARG_RUNTIME,
                 ARG_FORCE,
@@ -5545,7 +5538,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "no-reload",           no_argument,       NULL, ARG_NO_RELOAD           },
                 { "kill-who",            required_argument, NULL, ARG_KILL_WHO            },
                 { "signal",              required_argument, NULL, 's'                     },
-                { "no-ask-password",     no_argument,       NULL, ARG_NO_ASK_PASSWORD     },
                 { "machine",             required_argument, NULL, 'M'                     },
                 { "runtime",             no_argument,       NULL, ARG_RUNTIME             },
                 { "plain",               no_argument,       NULL, ARG_PLAIN               },
@@ -5717,10 +5709,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                                 log_error("Failed to parse signal string %s.", optarg);
                                 return -EINVAL;
                         }
-                        break;
-
-                case ARG_NO_ASK_PASSWORD:
-                        arg_ask_password = false;
                         break;
 
                 case 'M':
