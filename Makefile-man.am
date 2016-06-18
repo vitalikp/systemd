@@ -29,7 +29,6 @@ MANPAGES += \
 	man/systemctl.1 \
 	man/systemd-activate.8 \
 	man/systemd-analyze.1 \
-	man/systemd-ask-password-console.service.8 \
 	man/systemd-ask-password.1 \
 	man/systemd-cgls.1 \
 	man/systemd-cgtop.1 \
@@ -101,7 +100,6 @@ MANPAGES_ALIAS += \
 	man/sd_is_socket_unix.3 \
 	man/sd_is_special.3 \
 	man/sd_notifyf.3 \
-	man/systemd-ask-password-console.path.8 \
 	man/systemd-ask-password-wall.path.8 \
 	man/systemd-ask-password-wall.service.8 \
 	man/systemd-fsck-root.service.8 \
@@ -151,9 +149,6 @@ man/sd_is_socket_inet.3: man/sd_is_fifo.3
 man/sd_is_socket_unix.3: man/sd_is_fifo.3
 man/sd_is_special.3: man/sd_is_fifo.3
 man/sd_notifyf.3: man/sd_notify.3
-man/systemd-ask-password-console.path.8: man/systemd-ask-password-console.service.8
-man/systemd-ask-password-wall.path.8: man/systemd-ask-password-console.service.8
-man/systemd-ask-password-wall.service.8: man/systemd-ask-password-console.service.8
 man/systemd-fsck-root.service.8: man/systemd-fsck@.service.8
 man/systemd-fsck.8: man/systemd-fsck@.service.8
 man/systemd-hibernate.service.8: man/systemd-suspend.service.8
@@ -251,15 +246,6 @@ man/sd_is_special.html: man/sd_is_fifo.html
 	$(html-alias)
 
 man/sd_notifyf.html: man/sd_notify.html
-	$(html-alias)
-
-man/systemd-ask-password-console.path.html: man/systemd-ask-password-console.service.html
-	$(html-alias)
-
-man/systemd-ask-password-wall.path.html: man/systemd-ask-password-console.service.html
-	$(html-alias)
-
-man/systemd-ask-password-wall.service.html: man/systemd-ask-password-console.service.html
 	$(html-alias)
 
 man/systemd-fsck-root.service.html: man/systemd-fsck@.service.html
@@ -1032,7 +1018,6 @@ EXTRA_DIST += \
 	man/systemctl.xml \
 	man/systemd-activate.xml \
 	man/systemd-analyze.xml \
-	man/systemd-ask-password-console.service.xml \
 	man/systemd-ask-password.xml \
 	man/systemd-binfmt.service.xml \
 	man/systemd-cgls.xml \

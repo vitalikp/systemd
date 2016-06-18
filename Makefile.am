@@ -395,7 +395,6 @@ dist_systemunit_DATA = \
 	units/bluetooth.target \
 	units/smartcard.target \
 	units/systemd-ask-password-wall.path \
-	units/systemd-ask-password-console.path \
 	units/initrd-switch-root.target
 
 nodist_systemunit_DATA = \
@@ -411,7 +410,6 @@ nodist_systemunit_DATA = \
 	units/systemd-update-utmp.service \
 	units/systemd-update-utmp-runlevel.service \
 	units/systemd-ask-password-wall.service \
-	units/systemd-ask-password-console.service \
 	units/sysctl.service \
 	units/emergency.service \
 	units/rescue.service \
@@ -451,7 +449,6 @@ EXTRA_DIST += \
 	units/systemd-update-utmp.service.in \
 	units/systemd-update-utmp-runlevel.service.in \
 	units/systemd-ask-password-wall.service.in \
-	units/systemd-ask-password-console.service.in \
 	units/sysctl.service.in \
 	units/emergency.service.in \
 	units/systemd-halt.service.in \
@@ -2909,8 +2906,7 @@ SYSINIT_TARGET_WANTS += \
 	sys-kernel-config.mount \
 	sys-kernel-debug.mount \
 	sys-fs-fuse-connections.mount \
-	sysctl.service \
-	systemd-ask-password-console.path
+	sysctl.service
 
 SYSTEM_UNIT_ALIASES += \
 	graphical.target default.target \

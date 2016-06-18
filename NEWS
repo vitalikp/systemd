@@ -21,6 +21,7 @@ systemd System and Service Manager
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
  	- conditionalize configfs and debugfs with CAP_SYS_RAWIO;
  	- make ExecStopPost action part of ExecStart;
+ 	- remove systemd-ask-password-console path and service;
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  	- remove property argument option;
