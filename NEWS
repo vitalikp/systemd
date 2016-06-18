@@ -34,6 +34,7 @@ systemd System and Service Manager
  	- add function to open temp files in selinux mode;
  	- don't make ~/.local/share/systemd/user a symlink;
  	- quote more shell characters in envfiles;
+ 	- fix error message in socket label util;
  * virt:
  	- rework container detection logic;
  * man:
@@ -46,11 +47,13 @@ systemd System and Service Manager
  	- remove test-ring test;
  * rules:
  	- consistently use "?*" instead of "*?";
+ 	- uaccess - add ID_SOFTWARE_RADIO;
  * build:
  	- do not distribute generated emergency.service;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
+ 	- fix oneshot service resource control;
  * remove nss-myhostname support;
 
    systemd (214.7)
