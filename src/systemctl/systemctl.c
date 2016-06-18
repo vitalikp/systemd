@@ -61,7 +61,6 @@
 #include "build.h"
 #include "unit-name.h"
 #include "pager.h"
-#include "spawn-ask-password-agent.h"
 #include "spawn-polkit-agent.h"
 #include "install.h"
 #include "socket-util.h"
@@ -168,22 +167,6 @@ static void pager_open_if_enabled(void) {
                 return;
 
         pager_open(false);
-}
-
-static void ask_password_agent_open_if_enabled(void) {
-
-        /* Open the password agent as a child process if necessary */
-
-        if (!arg_ask_password)
-                return;
-
-        if (arg_scope != UNIT_FILE_SYSTEM)
-                return;
-
-        if (arg_transport != BUS_TRANSPORT_LOCAL)
-                return;
-
-        ask_password_agent_open();
 }
 
 #ifdef HAVE_LOGIND
@@ -2698,8 +2681,6 @@ static int start_unit(sd_bus *bus, char **args) {
         int r = 0;
 
         assert(bus);
-
-        ask_password_agent_open_if_enabled();
 
         if (arg_action == ACTION_SYSTEMCTL) {
                 enum action action;
@@ -6738,7 +6719,6 @@ int main(int argc, char*argv[]) {
 
 finish:
         pager_close();
-        ask_password_agent_close();
         polkit_agent_close();
 
         strv_free(arg_types);

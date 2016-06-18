@@ -26,6 +26,7 @@ systemd System and Service Manager
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  	- remove property argument option;
+ 	- don't open the password agent;
  * shared:
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;
