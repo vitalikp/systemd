@@ -50,6 +50,7 @@ systemd System and Service Manager
  	- mention XDG_DATA_HOME in systemd.unit;
  * tests:
  	- remove test-ring test;
+ 	- add tests to test-tables;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
