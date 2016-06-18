@@ -39,6 +39,7 @@ systemd System and Service Manager
  	- don't make ~/.local/share/systemd/user a symlink;
  	- quote more shell characters in envfiles;
  	- fix error message in socket label util;
+ 	- rename id _UNIT_FILE_PRESET_MODE_MAX to _UNIT_FILE_PRESET_MAX;
  * virt:
  	- rework container detection logic;
  * man:
