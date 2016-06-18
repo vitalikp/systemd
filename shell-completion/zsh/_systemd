@@ -1,4 +1,4 @@
-#compdef systemd-ask-password systemd-cgls systemd-cgtop systemd-detect-virt systemd-machine-id-setup systemd-notify systemd-tty-ask-password-agent
+#compdef systemd-ask-password systemd-cgls systemd-cgtop systemd-detect-virt systemd-machine-id-setup systemd-notify
 
 local curcontext="$curcontext" state lstate line
 case "$service" in
@@ -56,17 +56,6 @@ case "$service" in
             '--status=[Send a free-form status string for the daemon to the init systemd]' \
             '--booted[Returns 0 if the system was booted up with systemd]' \
             '--readahead=[Controls disk read-ahead operations]:arguments:(cancel done noreply)'
-    ;;
-    systemd-tty-ask-password-agent)
-        _arguments \
-            {-h,--help}'[Prints a short help text and exits.]' \
-            '--version[Prints a short version string and exits.]' \
-            '--list[Lists all currently pending system password requests.]' \
-            '--query[Process all currently pending system password requests by querying the user on the calling TTY.]' \
-            '--watch[Continuously process password requests.]' \
-            '--wall[Forward password requests to wall(1).]' \
-            '--plymouth[Ask question with plymouth(8).]' \
-            '--console[Ask question on /dev/console.]'
     ;;
     *) _message 'eh?' ;;
 esac

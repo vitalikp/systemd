@@ -149,7 +149,6 @@ AM_CPPFLAGS = \
 	-DSYSTEMD_SHUTDOWN_BINARY_PATH=\"$(rootlibexecdir)/systemd-shutdown\" \
 	-DSYSTEMD_SLEEP_BINARY_PATH=\"$(rootlibexecdir)/systemd-sleep\" \
 	-DSYSTEMCTL_BINARY_PATH=\"$(rootbindir)/systemctl\" \
-	-DSYSTEMD_TTY_ASK_PASSWORD_AGENT_BINARY_PATH=\"$(rootbindir)/systemd-tty-ask-password-agent\" \
 	-DROOTPREFIX=\"$(rootprefix)\" \
 	-DRANDOM_SEED_DIR=\"$(localstatedir)/lib/systemd/\" \
 	-DRANDOM_SEED=\"$(localstatedir)/lib/systemd/random-seed\" \
@@ -285,7 +284,6 @@ rootbin_PROGRAMS = \
 	systemctl \
 	systemd-notify \
 	systemd-ask-password \
-	systemd-tty-ask-password-agent \
 	systemd-machine-id-setup
 
 bin_PROGRAMS = \
@@ -626,8 +624,6 @@ libsystemd_shared_la_SOURCES = \
 	src/shared/utmp-wtmp.h \
 	src/shared/watchdog.c \
 	src/shared/watchdog.h \
-	src/shared/spawn-ask-password-agent.c \
-	src/shared/spawn-ask-password-agent.h \
 	src/shared/replace-var.c \
 	src/shared/replace-var.h \
 	src/shared/spawn-polkit-agent.c \
@@ -1757,14 +1753,6 @@ systemd_run_LDADD = \
 	libsystemd-label.la \
 	libsystemd-capability.la \
 	libsystemd-internal.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_tty_ask_password_agent_SOURCES = \
-	src/tty-ask-password-agent/tty-ask-password-agent.c
-
-systemd_tty_ask_password_agent_LDADD = \
-	libsystemd-label.la \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------

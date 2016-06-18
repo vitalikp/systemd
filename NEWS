@@ -59,6 +59,7 @@ systemd System and Service Manager
  	- fix format string for usec_t type(generator);
  	- fix oneshot service resource control;
  * remove nss-myhostname support;
+ * remove systemd-tty-ask-password-agent program;
 
    systemd (214.7)
 ~~~~~~~

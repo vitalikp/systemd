@@ -67,7 +67,6 @@
 /systemd-sleep
 /systemd-socket-proxyd
 /systemd-tmpfiles
-/systemd-tty-ask-password-agent
 /systemd-uaccess
 /systemd-update-utmp
 /systemd-user-sessions
