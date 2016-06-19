@@ -1,0 +1,170 @@
+# Ukrainian translation for systemd.
+# Vitaliy Perevertun <vitalik.perevertun@gmail.com>, 2016
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: systemd\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-18 19:28+0300\n"
+"PO-Revision-Date: 2016-06-18 19:28+0300\n"
+"Last-Translator: Vitaliy Perevertun <vitalik.perevertun@gmail.com>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Allow applications to inhibit system shutdown"
+msgstr "Надати дозвіл додаткам блокувати вимкнення системи"
+
+msgid "Authentication is required to allow an application to inhibit system shutdown."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати вимкнення системи."
+
+msgid "Allow applications to delay system shutdown"
+msgstr "Надати дозвіл додаткам затримувати вимкнення системи"
+
+msgid "Authentication is required to allow an application to delay system shutdown."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додатками затримувати вимкнення системи."
+
+msgid "Allow applications to inhibit system sleep"
+msgstr "Надати дозвіл додаткам блокувати засинання системи"
+
+msgid "Authentication is required to allow an application to inhibit system sleep."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати засинання системи."
+
+msgid "Allow applications to delay system sleep"
+msgstr "Надати дозвіл додаткам затримувати засинання системи"
+
+msgid "Authentication is required to allow an application to delay system sleep."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам затримувати засинання системи."
+
+msgid "Allow applications to inhibit automatic system suspend"
+msgstr "Надати дозвіл додаткам блокувати автоматичне призупинення системи"
+
+msgid "Authentication is required to allow an application to inhibit automatic system suspend."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати автоматичне призупинення системи."
+
+msgid "Allow applications to inhibit system handling of the power key"
+msgstr "Надати дозвіл додаткам блокувати обробку натиснення кнопки живлення"
+
+msgid "Authentication is required to allow an application to inhibit system handling of the power key."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати обробку натиснення кнопки живлення."
+
+msgid "Allow applications to inhibit system handling of the suspend key"
+msgstr "Надати дозвіл додаткам блокувати обробку натиснення кнопки призупинення системи"
+
+msgid "Authentication is required to allow an application to inhibit system handling of the suspend key."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати обробку натиснення кнопки призупинення системи."
+
+msgid "Allow applications to inhibit system handling of the hibernate key"
+msgstr "Надати дозвіл додаткам блокувати обробку натиснення кнопки глибокого засинання системи"
+
+msgid "Authentication is required to allow an application to inhibit system handling of the hibernate key."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати обробку натиснення кнопки глибокого засинання системи."
+
+msgid "Allow applications to inhibit system handling of the lid switch"
+msgstr "Надати дозвіл додаткам блокувати обробку закриття кришки ноутбука"
+
+msgid "Authentication is required to allow an application to inhibit system handling of the lid switch."
+msgstr "Потрібна автентифікація, щоб надати дозвіл додаткам блокувати обробку закриття кришки ноутбука."
+
+msgid "Allow non-logged-in users to run programs"
+msgstr "Надати дозвіл не авторизованим користувачам запуск програм"
+
+msgid "Authentication is required to allow a non-logged-in user to run programs."
+msgstr "Потрібна автентифікація, щоб надати дозвіл не авторизованим користувачам запуск програм."
+
+msgid "Allow attaching devices to seats"
+msgstr "Надати дозвіл прикріплення пристроїв до робочих місць"
+
+msgid "Authentication is required for attaching a device to a seat."
+msgstr "Потрібна автентифікація, щоб надати дозвіл прикріплення пристроїв до робочих місць."
+
+msgid "Flush device to seat attachments"
+msgstr "Скинути прикріплення пристроїв до робочих місць"
+
+msgid "Authentication is required for resetting how devices are attached to seats."
+msgstr "Потрібна автентифікація, щоб скинути прикріплення пристроїв до робочих місць."
+
+msgid "Power off the system"
+msgstr "Вимкнути систему"
+
+msgid "Authentication is required for powering off the system."
+msgstr "Потрібна автентифікація, щоб вимкнути систему."
+
+msgid "Power off the system while other users are logged in"
+msgstr "Вимкнути систему коли інші користувачі знаходяться в ній"
+
+msgid "Authentication is required for powering off the system while other users are logged in."
+msgstr "Потрібна автентифікація, щоб вимкнути систему коли інші користувачі знаходяться в ній."
+
+msgid "Power off the system while an application asked to inhibit it"
+msgstr "Вимкнути систему коли додаток запитав це блокувати"
+
+msgid "Authentication is required for powering off the system while an application asked to inhibit it."
+msgstr "Потрібна автентифікація, щоб вимкнути систему коли додаток запитав це блокувати."
+
+msgid "Reboot the system"
+msgstr "Перезавантажити систему"
+
+msgid "Authentication is required for rebooting the system."
+msgstr "Потрібна автентифікація, щоб перезавантажити систему."
+
+msgid "Reboot the system while other users are logged in"
+msgstr "Перезавантажити систему коли інші користувачі знаходяться в ній"
+
+msgid "Authentication is required for rebooting the system while other users are logged in."
+msgstr "Потрібна автентифікація, щоб перезавантажити систему коли інші користувачі знаходяться в ній."
+
+msgid "Reboot the system while an application asked to inhibit it"
+msgstr "Перезавантажити систему коли додаток запитав це блокувати"
+
+msgid "Authentication is required for rebooting the system while an application asked to inhibit it."
+msgstr "Потрібна автентифікація, щоб перезавантажити систему коли додаток запитав це блокувати."
+
+msgid "Suspend the system"
+msgstr "Призупинити систему"
+
+msgid "Authentication is required for suspending the system."
+msgstr "Потрібна автентифікація, щоб призупинити систему."
+
+msgid "Suspend the system while other users are logged in"
+msgstr "Призупинити систему коли інші користувачі знаходяться в ній"
+
+msgid "Authentication is required for suspending the system while other users are logged in."
+msgstr "Потрібна автентифікація, щоб призупинити систему коли інші користувачі знаходяться в ній."
+
+msgid "Suspend the system while an application asked to inhibit it"
+msgstr "Призупинити систему коли додаток запитав це блокувати"
+
+msgid "Authentication is required for suspending the system while an application asked to inhibit it."
+msgstr "Потрібна автентифікація, щоб призупинити систему коли додаток запитав це блокувати."
+
+msgid "Hibernate the system"
+msgstr "Перевести систему до глубокого сну"
+
+msgid "Authentication is required for hibernating the system."
+msgstr "Потрібна автентифікація, щоб перевести систему до глубокого сну."
+
+msgid "Hibernate the system while other users are logged in"
+msgstr "Перевести систему до глубокого сну коли інші користувачі знаходяться в ній"
+
+msgid "Authentication is required for hibernating the system while other users are logged in."
+msgstr "Потрібна автентифікація, щоб перевести систему до глубокого сну коли інші користувачі знаходяться в ній."
+
+msgid "Hibernate the system while an application asked to inhibit it"
+msgstr "Перевести систему до глубокого сну коли додаток запитав це блокувати"
+
+msgid "Authentication is required for hibernating the system while an application asked to inhibit it."
+msgstr "Потрібна автентифікація, щоб перевести систему до глубокого сну коли додаток запитав це блокувати."
+
+msgid "Send passphrase back to system"
+msgstr "Надіслати ключову фразу назад в систему"
+
+msgid "Authentication is required to send the entered passphrase back to the system."
+msgstr "Потрібна автентифікація, щоб надіслати ключову фразу назад в систему."
+
+msgid "Privileged system and service manager access"
+msgstr "Привілейований доступ до системи та менеджера служб"
+
+msgid "Authentication is required to access the system and service manager."
+msgstr "Потрібна автентифікація для привілейованого доступу до системи та менеджера служб."

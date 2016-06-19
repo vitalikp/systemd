@@ -42,6 +42,8 @@ systemd System and Service Manager
  	- rename id _UNIT_FILE_PRESET_MODE_MAX to _UNIT_FILE_PRESET_MAX;
  * virt:
  	- rework container detection logic;
+ * po:
+ 	- add Ukrainian translation;
  * man:
  	- add link to Open Group Base Specifications;
  	- add missing archs to ConditionArchitecture= description;
