@@ -11,6 +11,7 @@ systemd System and Service Manager
  	- add status_errno field to Service struct;
  	- add StatusErrno service dbus property;
  	- flush status text and errno values each time a service is started;
+ 	- nicer message when inotify watches are exhausted;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -50,6 +51,7 @@ systemd System and Service Manager
  	- chroot jails are no longer detected by ConditionVirtualization=;
  	- remove machine-info page;
  	- mention XDG_DATA_HOME in systemd.unit;
+ 	- document yearly and annually in systemd.time(7);
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
