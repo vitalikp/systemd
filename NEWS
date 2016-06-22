@@ -15,6 +15,7 @@ systemd System and Service Manager
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
+ 	- change type for address family to "int";
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  * units:
@@ -44,6 +45,7 @@ systemd System and Service Manager
  	- remove eventfd util;
  * virt:
  	- rework container detection logic;
+ 	- detect s390 virtualization;
  * po:
  	- add Ukrainian translation;
  * man:
@@ -66,6 +68,7 @@ systemd System and Service Manager
  	- fix format string for usec_t type(generator);
  	- fix oneshot service resource control;
  	- use the default RestartSec for serial getty services;
+ 	- fix Xen domU discovery(virt);
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
 
