@@ -36,7 +36,6 @@
 /systemd
 /systemd-activate
 /systemd-analyze
-/systemd-ask-password
 /systemd-binfmt
 /systemd-cgls
 /systemd-cgroups-agent

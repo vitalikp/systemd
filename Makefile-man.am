@@ -29,7 +29,6 @@ MANPAGES += \
 	man/systemctl.1 \
 	man/systemd-activate.8 \
 	man/systemd-analyze.1 \
-	man/systemd-ask-password.1 \
 	man/systemd-cgls.1 \
 	man/systemd-cgtop.1 \
 	man/systemd-delta.1 \
@@ -1015,7 +1014,6 @@ EXTRA_DIST += \
 	man/systemctl.xml \
 	man/systemd-activate.xml \
 	man/systemd-analyze.xml \
-	man/systemd-ask-password.xml \
 	man/systemd-binfmt.service.xml \
 	man/systemd-cgls.xml \
 	man/systemd-cgtop.xml \

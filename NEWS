@@ -71,6 +71,7 @@ systemd System and Service Manager
  	- fix Xen domU discovery(virt);
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
+ * remove systemd-ask-password program;
 
    systemd (214.7)
 ~~~~~~~

@@ -283,7 +283,6 @@ AM_V_RM_0 = @echo "  RM      " $@;
 rootbin_PROGRAMS = \
 	systemctl \
 	systemd-notify \
-	systemd-ask-password \
 	systemd-machine-id-setup
 
 bin_PROGRAMS = \
@@ -1711,14 +1710,6 @@ systemd_notify_SOURCES = \
 
 systemd_notify_LDADD = \
 	libsystemd-internal.la \
-	libsystemd-shared.la
-
-# ------------------------------------------------------------------------------
-systemd_ask_password_SOURCES = \
-	src/ask-password/ask-password.c
-
-systemd_ask_password_LDADD = \
-	libsystemd-label.la \
 	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
