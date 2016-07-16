@@ -47,6 +47,8 @@ systemd System and Service Manager
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
+ * tmpfiles:
+ 	- remove unused /run/systemd/ask-password directory;
  * po:
  	- add Ukrainian translation;
  * man:
