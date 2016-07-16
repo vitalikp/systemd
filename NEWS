@@ -48,6 +48,7 @@ systemd System and Service Manager
  	- rename id _UNIT_FILE_PRESET_MODE_MAX to _UNIT_FILE_PRESET_MAX;
  	- remove eventfd util;
  	- remove ask-password-api util;
+ 	- add quotes to warning message in log module;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
