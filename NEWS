@@ -12,6 +12,7 @@ systemd System and Service Manager
  	- add StatusErrno service dbus property;
  	- flush status text and errno values each time a service is started;
  	- nicer message when inotify watches are exhausted;
+ 	- show socket path name when bind error;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
