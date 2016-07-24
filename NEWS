@@ -72,6 +72,7 @@ systemd System and Service Manager
  	- pass on kernels without memory controller;
  	- fix masks in test-cgroup-mask test;
  	- add test-cgroup-mask test;
+ 	- add test units;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
