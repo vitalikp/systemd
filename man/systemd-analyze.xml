@@ -185,17 +185,16 @@
                         <varlistentry>
                                 <term><option>--user</option></term>
 
-                                <listitem><para>Shows performance data
-                                of user sessions instead of the system
-                                manager.</para></listitem>
+                                <listitem><para>Operates on the user
+                                systemd instance.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
                                 <term><option>--system</option></term>
 
-                                <listitem><para>Shows performance data
-                                of the system manager. This is the
-                                implied default.</para></listitem>
+                                <listitem><para>Operates on the system
+                                systemd instance. This is the implied
+                                default.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -274,20 +273,22 @@
         </refsect1>
 
         <refsect1>
-                <title>Examples</title>
+                <title>Examples for <command>dot</command></title>
 
-                <para>This plots all dependencies of any unit whose
-                name starts with <literal>avahi-daemon.</literal>:</para>
+                <example>
+                        <title>Plots all dependencies of any unit whose
+                        name starts with <literal>avahi-daemon</literal></title>
 
-                <programlisting>$ systemd-analyze dot 'avahi-daemon.*' | dot -Tsvg > avahi.svg
+                        <programlisting>$ systemd-analyze dot 'avahi-daemon.*' | dot -Tsvg > avahi.svg
 $ eog avahi.svg</programlisting>
+                </example>
 
-                <para>This plots the dependencies between all known target units:</para>
+                <example>
+                        <title>Plots the dependencies between all known target units</title>
 
-                <programlisting>systemd-analyze dot --to-pattern='*.target' --from-pattern='*.target' | dot -Tsvg > targets.svg
+                        <programlisting>systemd-analyze dot --to-pattern='*.target' --from-pattern='*.target' | dot -Tsvg > targets.svg
 $ eog targets.svg</programlisting>
-
-
+                </example>
         </refsect1>
 
         <xi:include href="less-variables.xml" />

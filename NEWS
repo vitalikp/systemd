@@ -68,6 +68,7 @@ systemd System and Service Manager
  	- remove machine-info page;
  	- mention XDG_DATA_HOME in systemd.unit;
  	- document yearly and annually in systemd.time(7);
+ 	- update systemd-analyze page;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
