@@ -31,7 +31,6 @@
     "disable:Disable one or more unit files"
     "reenable:Reenable one or more unit files"
     "preset:Enable/disable one or more unit files based on preset configuration"
-    "help:Show documentation for specified units"
     "list-dependencies:Show unit dependency tree"
     "mask:Mask one or more units"
     "unmask:Unmask one or more units"
@@ -146,7 +145,7 @@ _systemctl_disabled_units(){_sys_disabled_units=($(__systemctl list-unit-files  
 _systemctl_masked_units()  {_sys_masked_units=(  $(__systemctl list-unit-files     | { while read a b; do [[ $b == "masked" ]] && echo " $a"; done; }) )}
 
 # Completion functions for ALL_UNITS
-for fun in is-active is-failed is-enabled status show cat mask preset help list-dependencies ; do
+for fun in is-active is-failed is-enabled status show cat mask preset list-dependencies ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
     _systemctl_really_all_units
