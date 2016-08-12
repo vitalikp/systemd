@@ -1107,17 +1107,17 @@ static int set_log_level(sd_bus *bus, char **args) {
         return 0;
 }
 
-static int help(void) {
+static void help(void) {
 
         pager_open_if_enabled();
 
         printf("%s [OPTIONS...] {COMMAND} ...\n\n"
-               "Process systemd profiling information.\n\n"
+               "Profile systemd, show unit dependencies.\n\n"
                "  -h --help               Show this help\n"
                "     --version            Show package version\n"
                "     --no-pager           Do not pipe output into a pager\n"
-               "     --system             Connect to system manager\n"
-               "     --user               Connect to user manager\n"
+               "     --system             Operate on system systemd instance\n"
+               "     --user               Operate on user systemd instance\n"
                "  -M --machine=CONTAINER  Operate on local container\n"
                "     --order              When generating a dependency graph, show only order\n"
                "     --require            When generating a dependency graph, show only requirement\n"
@@ -1140,9 +1140,7 @@ static int help(void) {
 
         /* When updating this list, including descriptions, apply
          * changes to shell-completion/bash/systemd and
-         * shell-completion/systemd-zsh-completion.zsh too. */
-
-        return 0;
+         * shell-completion/zsh/_systemd-analyze too. */
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -1178,12 +1176,15 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
+        opterr = 0;
+
         while ((c = getopt_long(argc, argv, "hM:", options, NULL)) >= 0) {
 
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
@@ -1234,14 +1235,19 @@ static int parse_argv(int argc, char *argv[]) {
                         break;
 
                 case '?':
+                        log_error("Unknown option %s.", argv[optind-1]);
+                        return -EINVAL;
+
+                case ':':
+                        log_error("Missing argument to %s.", argv[optind-1]);
                         return -EINVAL;
 
                 default:
-                        assert_not_reached("Unhandled option");
+                        assert_not_reached("Unhandled option code.");
                 }
         }
 
-        return 1;
+        return 1; /* work to do */
 }
 
 int main(int argc, char *argv[]) {
