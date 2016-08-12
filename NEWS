@@ -51,6 +51,7 @@ systemd System and Service Manager
  	- remove eventfd util;
  	- remove ask-password-api util;
  	- add quotes to warning message in log module;
+ 	- make SYSTEMD_UNIT_PATH more flexible;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
