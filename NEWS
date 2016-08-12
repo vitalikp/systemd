@@ -17,6 +17,7 @@ systemd System and Service Manager
  	- remove systemd_running_as lookup functions;
  	- change return value of the unit's enumerate() call to void;
  	- return the first error from manager_startup();
+ 	- add socket_instantiate_service function to socket header file;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
