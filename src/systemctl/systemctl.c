@@ -3456,62 +3456,6 @@ static void print_status_info(
                        arg_scope == UNIT_FILE_SYSTEM ? "" : "--user ");
 }
 
-static void show_unit_help(UnitStatusInfo *i) {
-        char **p;
-
-        assert(i);
-
-        if (!i->documentation) {
-                log_info("Documentation for %s not known.", i->id);
-                return;
-        }
-
-        STRV_FOREACH(p, i->documentation) {
-
-                if (startswith(*p, "man:")) {
-                        const char *args[4] = { "man", NULL, NULL, NULL };
-                        _cleanup_free_ char *page = NULL, *section = NULL;
-                        char *e = NULL;
-                        pid_t pid;
-                        size_t k;
-
-                        k = strlen(*p);
-
-                        if ((*p)[k-1] == ')')
-                                e = strrchr(*p, '(');
-
-                        if (e) {
-                                page = strndup((*p) + 4, e - *p - 4);
-                                section = strndup(e + 1, *p + k - e - 2);
-                                if (!page || !section) {
-                                        log_oom();
-                                        return;
-                                }
-
-                                args[1] = section;
-                                args[2] = page;
-                        } else
-                                args[1] = *p + 4;
-
-                        pid = fork();
-                        if (pid < 0) {
-                                log_error("Failed to fork: %m");
-                                continue;
-                        }
-
-                        if (pid == 0) {
-                                /* Child */
-                                execvp(args[0], (char**) args);
-                                log_error("Failed to execute man: %m");
-                                _exit(EXIT_FAILURE);
-                        }
-
-                        wait_for_terminate(pid, NULL);
-                } else
-                        log_info("Can't show: %s", *p);
-        }
-}
-
 static int status_property(const char *name, sd_bus_message *m, UnitStatusInfo *i, const char *contents) {
         int r;
 
@@ -4167,10 +4111,7 @@ static int show_one(
         r = 0;
 
         if (!show_properties) {
-                if (streq(verb, "help"))
-                        show_unit_help(&info);
-                else
-                        print_status_info(&info, ellipsized);
+                print_status_info(&info, ellipsized);
         }
 
         strv_free(info.documentation);
@@ -5342,7 +5283,6 @@ static int systemctl_help(void) {
                "                                  units/jobs or the manager\n"
                "  cat PATTERN...                  Show files and drop-ins of one or more units\n"
                "  set-property NAME ASSIGNMENT... Sets one or more properties of a unit\n"
-               "  help PATTERN...|PID...          Show manual for one or more units\n"
                "  reset-failed [PATTERN...]       Reset failed state for all, one, or more\n"
                "                                  units\n"
                "  list-dependencies [NAME]        Recursively show units which are required\n"
@@ -6289,7 +6229,6 @@ static int systemctl_main(sd_bus *bus, int argc, char *argv[], int bus_error) {
                 { "show",                  MORE,  1, show              },
                 { "cat",                   MORE,  2, cat               },
                 { "status",                MORE,  1, show              },
-                { "help",                  MORE,  2, show              },
                 { "snapshot",              LESS,  2, snapshot          },
                 { "delete",                MORE,  2, delete_snapshot   },
                 { "daemon-reload",         EQUAL, 1, daemon_reload     },
@@ -6337,12 +6276,6 @@ static int systemctl_main(sd_bus *bus, int argc, char *argv[], int bus_error) {
 
         /* Special rule: no arguments (left == 0) means "list-units" */
         if (left > 0) {
-                if (streq(argv[optind], "help") && !argv[optind+1]) {
-                        log_error("This command expects one or more "
-                                  "unit names. Did you mean --help?");
-                        return -EINVAL;
-                }
-
                 for (; verb->verb; verb++)
                         if (streq(argv[optind], verb->verb))
                                 goto found;

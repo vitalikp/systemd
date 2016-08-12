@@ -37,6 +37,7 @@ systemd System and Service Manager
  	- remove property argument option;
  	- don't open the password agent;
  	- remove no-ask-password argument option;
+ 	- remove help command;
  * shared:
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;

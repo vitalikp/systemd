@@ -748,16 +748,6 @@ LISTEN           UNIT                        ACTIVATES
         </varlistentry>
 
         <varlistentry>
-          <term><command>help <replaceable>PATTERN</replaceable>...|<replaceable>PID</replaceable>...</command></term>
-
-          <listitem>
-            <para>Show manual pages for one or more units, if
-            available. If a PID is given, the manual pages for the unit
-            the process belongs to are shown.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
           <term><command>reset-failed [<replaceable>PATTERN</replaceable>...]</command></term>
 
           <listitem>
