@@ -505,10 +505,6 @@ Features:
      on Path= matching
    - check MTUBytes parsing (expecting size_t but we are using unsigned)
 
-* sd-rtnl:
-   - add support for more attribute types
-   - inbuilt piping support (essentially degenerate async)? see loopback-setup.c and other places
-
 * dhcp:
    - figure out how much we can increase Maximum Message Size
    - export timezone information
