@@ -125,8 +125,6 @@
 /test-ratelimit
 /test-replace-var
 /test-resolve
-/test-rtnl
-/test-rtnl-manual
 /test-sched-prio
 /test-sleep
 /test-socket-util

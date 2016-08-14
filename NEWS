@@ -23,6 +23,7 @@ systemd System and Service Manager
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
  	- change type for address family to "int";
+ 	- remove sd-rtnl module;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;

@@ -171,7 +171,6 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/src/core \
 	-I $(top_srcdir)/src/libsystemd/sd-bus \
 	-I $(top_srcdir)/src/libsystemd/sd-event \
-	-I $(top_srcdir)/src/libsystemd/sd-rtnl \
 	$(OUR_CPPFLAGS)
 
 AM_CFLAGS = $(OUR_CFLAGS)
@@ -1022,11 +1021,6 @@ manual_tests += \
 	test-log \
 	test-ipcrm
 
-if HAVE_KMOD
-manual_tests += \
-	test-rtnl-manual
-endif
-
 tests += \
 	test-engine \
 	test-cgroup-mask \
@@ -1271,18 +1265,6 @@ test_ipcrm_SOURCES = \
 test_ipcrm_LDADD = \
 	libsystemd-shared.la \
 	-lrt
-
-test_rtnl_manual_SOURCES = \
-	src/test/test-rtnl-manual.c
-
-test_rtnl_manual_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(KMOD_CFLAGS)
-
-test_rtnl_manual_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	$(KMOD_LIBS)
 
 test_ellipsize_SOURCES = \
 	src/test/test-ellipsize.c
@@ -1742,7 +1724,6 @@ libsystemd_internal_la_SOURCES = \
 	src/systemd/sd-memfd.h \
 	src/systemd/sd-utf8.h \
 	src/systemd/sd-event.h \
-	src/systemd/sd-rtnl.h \
 	src/systemd/sd-resolve.h \
 	src/systemd/sd-login.h \
 	src/systemd/sd-id128.h \
@@ -1791,13 +1772,6 @@ libsystemd_internal_la_SOURCES = \
 	src/libsystemd/sd-utf8/sd-utf8.c \
 	src/libsystemd/sd-event/sd-event.c \
 	src/libsystemd/sd-event/event-util.h \
-	src/libsystemd/sd-rtnl/sd-rtnl.c \
-	src/libsystemd/sd-rtnl/rtnl-internal.h \
-	src/libsystemd/sd-rtnl/rtnl-message.c \
-	src/libsystemd/sd-rtnl/rtnl-types.h \
-	src/libsystemd/sd-rtnl/rtnl-types.c \
-	src/libsystemd/sd-rtnl/rtnl-util.h \
-	src/libsystemd/sd-rtnl/rtnl-util.c \
 	src/libsystemd/sd-id128/sd-id128.c \
 	src/libsystemd/sd-daemon/sd-daemon.c \
 	src/libsystemd/sd-login/sd-login.c
@@ -1899,7 +1873,6 @@ pkginclude_HEADERS += \
 	src/systemd/sd-memfd.h \
 	src/systemd/sd-utf8.h \
 	src/systemd/sd-event.h \
-	src/systemd/sd-rtnl.h \
 	src/systemd/sd-resolve.h
 endif
 
@@ -1924,7 +1897,6 @@ tests += \
 	test-bus-creds \
 	test-bus-gvariant \
 	test-event \
-	test-rtnl \
 	test-resolve
 
 bin_PROGRAMS += \
@@ -2102,13 +2074,6 @@ test_event_SOURCES = \
 	src/libsystemd/sd-event/test-event.c
 
 test_event_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-test_rtnl_SOURCES = \
-	src/libsystemd/sd-rtnl/test-rtnl.c
-
-test_rtnl_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
