@@ -864,8 +864,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/machine-id-setup.h \
 	src/core/mount-setup.c \
 	src/core/mount-setup.h \
-	src/core/loopback-setup.h \
-	src/core/loopback-setup.c \
 	src/core/condition.c \
 	src/core/condition.h \
 	src/core/namespace.c \
@@ -1017,7 +1015,6 @@ CLEANFILES += \
 # ------------------------------------------------------------------------------
 manual_tests += \
 	test-ns \
-	test-loopback \
 	test-daemon \
 	test-cgroup \
 	test-install \
@@ -1118,12 +1115,6 @@ test_ns_CFLAGS = \
 	$(SECCOMP_CFLAGS)
 
 test_ns_LDADD = \
-	libsystemd-core.la
-
-test_loopback_SOURCES = \
-	src/test/test-loopback.c
-
-test_loopback_LDADD = \
 	libsystemd-core.la
 
 if ENABLE_EFI

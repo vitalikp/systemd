@@ -38,7 +38,6 @@
 #include "namespace.h"
 #include "missing.h"
 #include "execute.h"
-#include "loopback-setup.h"
 #include "mkdir.h"
 #include "dev-setup.h"
 #include "def.h"
@@ -551,8 +550,6 @@ int setup_netns(int netns_storage_socket[2]) {
                         r = -errno;
                         goto fail;
                 }
-
-                loopback_setup();
 
                 netns = open("/proc/self/ns/net", O_RDONLY|O_CLOEXEC|O_NOCTTY);
                 if (netns < 0) {

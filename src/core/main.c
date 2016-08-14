@@ -67,7 +67,6 @@
 #include "bus-util.h"
 
 #include "mount-setup.h"
-#include "loopback-setup.h"
 #include "machine-id-setup.h"
 #include "selinux-setup.h"
 #include "ima-setup.h"
@@ -1505,7 +1504,6 @@ int main(int argc, char *argv[]) {
                 kmod_setup();
 #endif
                 machine_id_setup(NULL);
-                loopback_setup();
 
                 test_mtab();
                 test_usr();
