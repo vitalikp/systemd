@@ -1995,7 +1995,7 @@ test_bus_gvariant_LDADD = \
 
 test_bus_gvariant_CFLAGS = \
 	$(AM_CFLAGS) \
-	$(GLIB_CFLAGS)
+	$(GLIB_CFLAGS) \
 	$(CAP_CFLAGS)
 
 test_bus_creds_SOURCES = \
