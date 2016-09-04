@@ -20,11 +20,13 @@ systemd System and Service Manager
  	- add socket_instantiate_service function to socket header file;
  	- remove setup loppback device;
  	- add ProtectSystem and ProtectHome service settings;
+ 	- fix use duplicating CLD_KILLED value;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
  	- change type for address family to "int";
  	- remove sd-rtnl module;
+ 	- add support for CLOCK_BOOTTIME in sd-event module;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;
@@ -57,6 +59,7 @@ systemd System and Service Manager
  	- remove ask-password-api util;
  	- add quotes to warning message in log module;
  	- make SYSTEMD_UNIT_PATH more flexible;
+ 	- add clock_boottime_or_monotonic in time util;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -72,6 +75,8 @@ systemd System and Service Manager
  	- mention XDG_DATA_HOME in systemd.unit;
  	- document yearly and annually in systemd.time(7);
  	- update systemd-analyze page;
+ 	- remove repeating words;
+ 	- fix path for system-sleep hook directory;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
@@ -83,6 +88,8 @@ systemd System and Service Manager
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
+ * sysctl:
+ 	- enable promote_secondaries by default;
  * build:
  	- do not distribute generated emergency.service;
  	- add TEST_DIR path;
