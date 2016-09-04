@@ -87,6 +87,7 @@ systemd System and Service Manager
  	- do not distribute generated emergency.service;
  	- add TEST_DIR path;
  	- add -Wno-typedef-redefinition;
+ 	- disable SMACK support by default;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);

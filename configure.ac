@@ -456,15 +456,9 @@ AC_SUBST(PAM_LIBS)
 AM_CONDITIONAL([HAVE_PAM], [test "x$have_pam" != xno])
 
 # ------------------------------------------------------------------------------
-AC_ARG_ENABLE([smack], AS_HELP_STRING([--disable-smack],[Disable optional SMACK support]),
-                [case "${enableval}" in
-                        yes) have_smack=yes ;;
-                        no) have_smack=no ;;
-                        *) AC_MSG_ERROR(bad value ${enableval} for --disable-smack) ;;
-                esac],
-                [have_smack=auto])
-
-if test "x${have_smack}" = xauto; then
+have_smack=no
+AC_ARG_ENABLE([smack], AS_HELP_STRING([--disable-smack],[disable optional SMACK support]))
+if test "x${have_smack}" != "xno"; then
         M4_DEFINES="$M4_DEFINES -DHAVE_SMACK"
         have_smack=yes
 fi
