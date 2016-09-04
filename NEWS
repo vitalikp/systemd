@@ -19,6 +19,7 @@ systemd System and Service Manager
  	- return the first error from manager_startup();
  	- add socket_instantiate_service function to socket header file;
  	- remove setup loppback device;
+ 	- add ProtectSystem and ProtectHome service settings;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;

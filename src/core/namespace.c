@@ -144,7 +144,7 @@ static int mount_dev(BindMount *m) {
                 "/dev/tty\0";
 
         char temporary_mount[] = "/tmp/namespace-dev-XXXXXX";
-        const char *d, *dev = NULL, *devpts = NULL, *devshm = NULL, *devkdbus = NULL, *devhugepages = NULL, *devmqueue = NULL;
+        const char *d, *dev = NULL, *devpts = NULL, *devshm = NULL, *devkdbus = NULL, *devhugepages = NULL, *devmqueue = NULL, *devlog = NULL, *devptmx = NULL;
         _cleanup_umask_ mode_t u = 0000;
         int r;
 
@@ -169,6 +169,9 @@ static int mount_dev(BindMount *m) {
                 goto fail;
         }
 
+        devptmx = strappenda(temporary_mount, "/dev/ptmx");
+        symlink("pts/ptmx", devptmx);
+
         devshm = strappenda(temporary_mount, "/dev/shm");
         mkdir(devshm, 01777);
         r = mount("/dev/shm", devshm, NULL, MS_BIND, NULL);
@@ -188,6 +191,9 @@ static int mount_dev(BindMount *m) {
         devhugepages = strappenda(temporary_mount, "/dev/hugepages");
         mkdir(devhugepages, 0755);
         mount("/dev/hugepages", devhugepages, NULL, MS_BIND, NULL);
+
+        devlog = strappenda(temporary_mount, "/dev/log");
+        symlink("/dev/log", devlog);
 
         NULSTR_FOREACH(d, devnodes) {
                 _cleanup_free_ char *dn = NULL;
@@ -345,6 +351,8 @@ int setup_namespace(
                 char* tmp_dir,
                 char* var_tmp_dir,
                 bool private_dev,
+                ProtectHome protect_home,
+                ProtectSystem protect_system,
                 unsigned mount_flags) {
 
         BindMount *m, *mounts = NULL;
@@ -361,7 +369,10 @@ int setup_namespace(
                 strv_length(read_write_dirs) +
                 strv_length(read_only_dirs) +
                 strv_length(inaccessible_dirs) +
-                private_dev;
+                private_dev +
+				(protect_home != PROTECT_HOME_NO ? 3 : 0) +
+				(protect_system != PROTECT_SYSTEM_NO ? 2 : 0) +
+                (protect_system == PROTECT_SYSTEM_FULL ? 1 : 0);
 
         if (n > 0) {
                 m = mounts = (BindMount *) alloca0(n * sizeof(BindMount));
@@ -393,6 +404,18 @@ int setup_namespace(
                         m->path = "/dev";
                         m->mode = PRIVATE_DEV;
                         m++;
+                }
+
+                if (protect_home != PROTECT_HOME_NO) {
+                        r = append_mounts(&m, STRV_MAKE("-/home", "-/run/user", "-/root"), protect_home == PROTECT_HOME_READ_ONLY ? READONLY : INACCESSIBLE);
+                        if (r < 0)
+                                return r;
+                }
+
+                if (protect_system != PROTECT_SYSTEM_NO) {
+                        r = append_mounts(&m, protect_system == PROTECT_SYSTEM_FULL ? STRV_MAKE("/usr", "-/boot", "/etc") : STRV_MAKE("/usr", "-/boot"), READONLY);
+                        if (r < 0)
+                                return r;
                 }
 
                 assert(mounts + n == m);
@@ -593,3 +616,19 @@ fail:
 
         return r;
 }
+
+static const char *const protect_home_table[_PROTECT_HOME_MAX] = {
+        [PROTECT_HOME_NO] = "no",
+        [PROTECT_HOME_YES] = "yes",
+        [PROTECT_HOME_READ_ONLY] = "read-only",
+};
+
+DEFINE_STRING_TABLE_LOOKUP(protect_home, ProtectHome);
+
+static const char *const protect_system_table[_PROTECT_SYSTEM_MAX] = {
+        [PROTECT_SYSTEM_NO] = "no",
+        [PROTECT_SYSTEM_YES] = "yes",
+        [PROTECT_SYSTEM_FULL] = "full",
+};
+
+DEFINE_STRING_TABLE_LOOKUP(protect_system, ProtectSystem);

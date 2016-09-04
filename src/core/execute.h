@@ -39,6 +39,7 @@ typedef struct ExecRuntime ExecRuntime;
 #include "set.h"
 #include "fdset.h"
 #include "missing.h"
+#include "namespace.h"
 
 typedef enum ExecInput {
         EXEC_INPUT_NULL,
@@ -151,6 +152,8 @@ struct ExecContext {
         bool private_tmp;
         bool private_network;
         bool private_devices;
+        ProtectSystem protect_system;
+        ProtectHome protect_home;
 
         bool no_new_privileges;
 
