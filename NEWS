@@ -69,6 +69,7 @@ systemd System and Service Manager
  	- add utility function to append root to path;
  	- require exact matches in parse_boolean function;
  	- add and use USEC/NSEC_INFINIY;
+ 	- add safe_atou8 function;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
