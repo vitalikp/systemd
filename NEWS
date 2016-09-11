@@ -119,6 +119,7 @@ systemd System and Service Manager
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
+ * always prefer our headers to system headers;
 
    systemd (214.7)
 ~~~~~~~
