@@ -104,6 +104,7 @@ systemd System and Service Manager
  	- add TEST_DIR path;
  	- add -Wno-typedef-redefinition;
  	- disable SMACK support by default;
+ 	- add missing files for distcheck;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
