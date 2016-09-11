@@ -101,6 +101,7 @@ systemd System and Service Manager
  	- fix oneshot service resource control;
  	- use the default RestartSec for serial getty services;
  	- fix Xen domU discovery(virt);
+ 	- check asprintf return code;
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
