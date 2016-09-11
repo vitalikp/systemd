@@ -51,6 +51,7 @@ systemd System and Service Manager
  	- remove help command;
  	- use list-unit-files to get "all" units in bash-completion;
  	- prevent mangling unit names in bash-completion;
+ 	- hide legend by arg_no_legend argument;
  * shared:
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;
