@@ -21,6 +21,9 @@ systemd System and Service Manager
  	- remove setup loppback device;
  	- add ProtectSystem and ProtectHome service settings;
  	- fix use duplicating CLD_KILLED value;
+ 	- print kdbus path when opening fails;
+ 	- only set the kernel's timezone when the RTC runs in local time;
+ 	- copy full BindMount struct drop_duplicates function;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -43,6 +46,8 @@ systemd System and Service Manager
  	- don't open the password agent;
  	- remove no-ask-password argument option;
  	- remove help command;
+ 	- use list-unit-files to get "all" units in bash-completion;
+ 	- prevent mangling unit names in bash-completion;
  * shared:
  	- consider 0x7F(DEL) a control chracter;
  	- don't consider tabs special in string_has_cc() anymore;
@@ -60,6 +65,9 @@ systemd System and Service Manager
  	- add quotes to warning message in log module;
  	- make SYSTEMD_UNIT_PATH more flexible;
  	- add clock_boottime_or_monotonic in time util;
+ 	- add utility function to append root to path;
+ 	- require exact matches in parse_boolean function;
+ 	- add and use USEC/NSEC_INFINIY;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
