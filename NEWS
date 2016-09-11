@@ -24,6 +24,8 @@ systemd System and Service Manager
  	- print kdbus path when opening fails;
  	- only set the kernel's timezone when the RTC runs in local time;
  	- copy full BindMount struct drop_duplicates function;
+ 	- report invalid quoted strings;
+ 	- correct argument sign and split up long lines;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -95,6 +97,7 @@ systemd System and Service Manager
  	- fix masks in test-cgroup-mask test;
  	- add test-cgroup-mask test;
  	- add test units;
+ 	- add test which shows access to random memory to test-strv;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
