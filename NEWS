@@ -102,6 +102,7 @@ systemd System and Service Manager
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
+ 	- allow systemd to manage loop device partitions;
  * sysctl:
  	- enable promote_secondaries by default;
  * build:
@@ -110,6 +111,7 @@ systemd System and Service Manager
  	- add -Wno-typedef-redefinition;
  	- disable SMACK support by default;
  	- add missing files for distcheck;
+ 	- check for intltool also when polkit is enabled;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
