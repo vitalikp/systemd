@@ -29,12 +29,15 @@ systemd System and Service Manager
  	- umount the old root correctly in switch-root;
  	- assert on unhandled option in systemd;
  	- define '/org/freedesktop/plymouthd' as PLYMOUTH_SOCKET in def.h;
+ 	- do not add dependencies to self;
+ 	- warn when merged units have conflicting dependencies;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
  	- change type for address family to "int";
  	- remove sd-rtnl module;
  	- add support for CLOCK_BOOTTIME in sd-event module;
+ 	- always explicitly close bus from main programs;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;
@@ -82,6 +85,7 @@ systemd System and Service Manager
  	- add and use USEC/NSEC_INFINIY;
  	- add safe_atou8 function;
  	- change return type to char* in first_word function;
+ 	- added arch tuple for PPC64LE;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -100,6 +104,7 @@ systemd System and Service Manager
  	- update systemd-analyze page;
  	- remove repeating words;
  	- fix path for system-sleep hook directory;
+ 	- correct references to DefaultTimeout*Sec;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
@@ -109,6 +114,7 @@ systemd System and Service Manager
  	- add test-cgroup-mask test;
  	- add test units;
  	- add test which shows access to random memory to test-strv;
+ 	- use fabs on doubles in test-util;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
