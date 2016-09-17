@@ -38,6 +38,8 @@ systemd System and Service Manager
  	- remove sd-rtnl module;
  	- add support for CLOCK_BOOTTIME in sd-event module;
  	- always explicitly close bus from main programs;
+ * initctl:
+ 	- don't hide error code;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;
@@ -87,6 +89,7 @@ systemd System and Service Manager
  	- change return type to char* in first_word function;
  	- added arch tuple for PPC64LE;
  	- remove unused bus error names;
+ 	- avoid considering dpkg temporary files relevant for anything;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -106,6 +109,8 @@ systemd System and Service Manager
  	- remove repeating words;
  	- fix path for system-sleep hook directory;
  	- correct references to DefaultTimeout*Sec;
+ 	- document that we look for both the instance's and
+ 	  the template's .d/ directory when looking for unit file drop-ins;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
