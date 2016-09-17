@@ -31,6 +31,7 @@ systemd System and Service Manager
  	- define '/org/freedesktop/plymouthd' as PLYMOUTH_SOCKET in def.h;
  	- do not add dependencies to self;
  	- warn when merged units have conflicting dependencies;
+ 	- fix counting of early mounts without SMACK;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -38,6 +39,7 @@ systemd System and Service Manager
  	- remove sd-rtnl module;
  	- add support for CLOCK_BOOTTIME in sd-event module;
  	- always explicitly close bus from main programs;
+ 	- fix bloom filter calculation in sd-bus module;
  * initctl:
  	- don't hide error code;
  * logind:
@@ -111,6 +113,7 @@ systemd System and Service Manager
  	- correct references to DefaultTimeout*Sec;
  	- document that we look for both the instance's and
  	  the template's .d/ directory when looking for unit file drop-ins;
+ 	- improve documentation for StandardOutput= and StandardInput=;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
@@ -144,6 +147,7 @@ systemd System and Service Manager
  	- use the default RestartSec for serial getty services;
  	- fix Xen domU discovery(virt);
  	- check asprintf return code;
+ 	- fix a couple of more lazy "return -1";
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
