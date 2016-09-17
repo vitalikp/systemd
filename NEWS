@@ -37,6 +37,8 @@ systemd System and Service Manager
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;
  	- update systemd-user PAM configuration file;
+ * loginctl:
+ 	- change return type to void in help function;
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
