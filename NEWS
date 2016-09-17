@@ -75,6 +75,7 @@ systemd System and Service Manager
  	- require exact matches in parse_boolean function;
  	- add and use USEC/NSEC_INFINIY;
  	- add safe_atou8 function;
+ 	- change return type to char* in first_word function;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
