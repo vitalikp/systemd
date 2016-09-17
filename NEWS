@@ -82,6 +82,7 @@ systemd System and Service Manager
  	- detect s390 virtualization;
  * tmpfiles:
  	- remove unused /run/systemd/ask-password directory;
+ 	- change return type to void in help function;
  * po:
  	- add Ukrainian translation;
  * man:
