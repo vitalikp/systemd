@@ -473,7 +473,7 @@ static int process_suffix_chop(const char *arg) {
         return -EINVAL;
 }
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...] [SUFFIX...]\n\n"
                "Find overridden configuration files.\n\n"
@@ -481,10 +481,8 @@ static int help(void) {
                "     --version        Show package version\n"
                "     --no-pager       Do not pipe output into a pager\n"
                "     --diff[=1|0]     Show a diff when overridden files differ\n"
-               "  -t --type=LIST...   Only display a selected set of override types\n",
-               program_invocation_short_name);
-
-        return 0;
+               "  -t --type=LIST...   Only display a selected set of override types\n"
+               , program_invocation_short_name);
 }
 
 static int parse_flags(const char *flag_str, int flags) {

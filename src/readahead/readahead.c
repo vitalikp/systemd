@@ -36,31 +36,26 @@ unsigned arg_files_max = 16*1024;
 off_t arg_file_size_max = READAHEAD_FILE_SIZE_MAX;
 usec_t arg_timeout = 2*USEC_PER_MINUTE;
 
-static int help(void) {
-
-        printf("%s [OPTIONS...] collect [DIRECTORY]\n\n"
+static void help(void) {
+        printf("%1$s [OPTIONS...] collect [DIRECTORY]\n\n"
                "Collect read-ahead data on early boot.\n\n"
                "  -h --help                 Show this help\n"
                "     --version              Show package version\n"
                "     --files-max=INT        Maximum number of files to read ahead\n"
                "     --file-size-max=BYTES  Maximum size of files to read ahead\n"
-               "     --timeout=USEC         Maximum time to spend collecting data\n\n\n",
-               program_invocation_short_name);
-
-        printf("%s [OPTIONS...] replay [DIRECTORY]\n\n"
+               "     --timeout=USEC         Maximum time to spend collecting data\n"
+               "\n\n"
+               "%1$s [OPTIONS...] replay [DIRECTORY]\n\n"
                "Replay collected read-ahead data on early boot.\n\n"
                "  -h --help                 Show this help\n"
                "     --version              Show package version\n"
-               "     --file-size-max=BYTES  Maximum size of files to read ahead\n\n\n",
-               program_invocation_short_name);
-
-        printf("%s [OPTIONS...] analyze [PACK FILE]\n\n"
+               "     --file-size-max=BYTES  Maximum size of files to read ahead\n"
+               "\n\n"
+               "%1$s [OPTIONS...] analyze [PACK-FILE]\n\n"
                "Analyze collected read-ahead data.\n\n"
                "  -h --help                 Show this help\n"
                "     --version              Show package version\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -91,7 +86,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
@@ -135,7 +131,8 @@ static int parse_argv(int argc, char *argv[]) {
 
         if (optind != argc-1 &&
             optind != argc-2) {
-                help();
+                log_error("%s: wrong number of arguments.",
+                          program_invocation_short_name);
                 return -EINVAL;
         }
 

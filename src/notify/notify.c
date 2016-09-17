@@ -42,7 +42,7 @@ static const char *arg_status = NULL;
 static bool arg_booted = false;
 static const char *arg_readahead = NULL;
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...] [VARIABLE=VALUE...]\n\n"
                "Notify the init system about service status updates.\n\n"
@@ -54,8 +54,6 @@ static int help(void) {
                "     --booted           Returns 0 if the system was booted up with systemd, non-zero otherwise\n"
                "     --readahead=ACTION Controls read-ahead operations\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -90,7 +88,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);

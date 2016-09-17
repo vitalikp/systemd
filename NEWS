@@ -131,6 +131,7 @@ systemd System and Service Manager
  * remove systemd-ask-password program;
  * always prefer our headers to system headers;
  * remove systemd-socket-proxyd program;
+ * change return type to void in help function for systemd-* programs;
 
    systemd (214.7)
 ~~~~~~~

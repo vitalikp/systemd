@@ -36,7 +36,7 @@ static enum {
         ONLY_CONTAINER
 } arg_mode = ANY_VIRTUALIZATION;
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...]\n\n"
                "Detect execution in a virtualized environment.\n\n"
@@ -44,10 +44,8 @@ static int help(void) {
                "     --version          Show package version\n"
                "  -c --container        Only detect whether we are run in a container\n"
                "  -v --vm               Only detect whether we are run in a VM\n"
-               "  -q --quiet            Don't output anything, just set return value\n",
-               program_invocation_short_name);
-
-        return 0;
+               "  -q --quiet            Don't output anything, just set return value\n"
+               , program_invocation_short_name);
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -75,7 +73,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
@@ -103,7 +102,8 @@ static int parse_argv(int argc, char *argv[]) {
         }
 
         if (optind < argc) {
-                help();
+                log_error("%s takes no arguments.",
+                          program_invocation_short_name);
                 return -EINVAL;
         }
 

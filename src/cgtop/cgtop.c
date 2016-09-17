@@ -548,7 +548,7 @@ static int display(Hashmap *a) {
         return 0;
 }
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...]\n\n"
                "Show top control groups by their resource usage.\n\n"
@@ -563,10 +563,8 @@ static int help(void) {
                "  -d --delay=DELAY    Delay between updates\n"
                "  -n --iterations=N   Run for N iterations before exiting\n"
                "  -b --batch          Run in batch mode, accepting no input\n"
-               "     --depth=DEPTH    Maximum traversal depth (default: %u)\n",
-               program_invocation_short_name, arg_depth);
-
-        return 0;
+               "     --depth=DEPTH    Maximum traversal depth (default: %u)\n"
+               , program_invocation_short_name, arg_depth);
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -599,7 +597,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);

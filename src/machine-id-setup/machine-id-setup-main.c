@@ -31,7 +31,7 @@
 
 static const char *arg_root = "";
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...]\n\n"
                "Initialize /etc/machine-id from a random source.\n\n"
@@ -39,8 +39,6 @@ static int help(void) {
                "     --version          Show package version\n"
                "     --root=ROOT        Filesystem root\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -67,7 +65,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);

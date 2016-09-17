@@ -48,7 +48,7 @@ static bool arg_nice_set = false;
 static char **arg_environment = NULL;
 static char **arg_property = NULL;
 
-static int help(void) {
+static void help(void) {
 
         printf("%s [OPTIONS...] COMMAND [ARGS...]\n\n"
                "Run the specified command in a transient scope or service unit.\n\n"
@@ -69,8 +69,6 @@ static int help(void) {
                "     --nice=NICE            Nice level\n"
                "     --setenv=NAME=VALUE    Set environment\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
 static int parse_argv(int argc, char *argv[]) {
@@ -122,7 +120,8 @@ static int parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return help();
+                        help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
