@@ -1039,7 +1039,6 @@ tests += \
 	test-hashmap \
 	test-list \
 	test-tables \
-	test-device-nodes \
 	test-xml \
 	test-architecture \
 	test-socket-util \
@@ -1077,12 +1076,6 @@ EXTRA_DIST += \
 
 EXTRA_DIST += \
 	src/test/test-helper.h
-
-test_device_nodes_SOURCES = \
-	src/test/test-device-nodes.c
-
-test_device_nodes_LDADD = \
-	libsystemd-shared.la
 
 test_engine_SOURCES = \
 	src/test/test-engine.c

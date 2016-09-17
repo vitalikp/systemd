@@ -121,6 +121,7 @@ systemd System and Service Manager
  	- add test units;
  	- add test which shows access to random memory to test-strv;
  	- use fabs on doubles in test-util;
+ 	- move test-device-nodes test to separate module udev;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
