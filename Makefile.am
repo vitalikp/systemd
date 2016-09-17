@@ -309,8 +309,7 @@ rootlibexec_PROGRAMS = \
 	systemd-remount-fs \
 	systemd-reply-password \
 	systemd-fsck \
-	systemd-sleep \
-	systemd-socket-proxyd
+	systemd-sleep
 
 systemgenerator_PROGRAMS = \
 	systemd-getty-generator
@@ -2159,16 +2158,6 @@ systemd_activate_LDADD = \
 # ------------------------------------------------------------------------------
 pkginclude_HEADERS += \
 	src/systemd/_sd-common.h
-
-# ------------------------------------------------------------------------------
-
-systemd_socket_proxyd_SOURCES = \
-	src/socket-proxy/socket-proxyd.c
-
-systemd_socket_proxyd_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	libsystemd-resolve.la
 
 # ------------------------------------------------------------------------------
 if ENABLE_BINFMT
