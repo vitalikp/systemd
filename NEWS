@@ -43,6 +43,8 @@ systemd System and Service Manager
  	- make ExecStopPost action part of ExecStart;
  	- remove systemd-ask-password-console path and service;
  	- remove systemd-ask-password-wall path and service;
+ * kdbus:
+ 	- update header;
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  	- remove property argument option;
