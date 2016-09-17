@@ -2925,11 +2925,6 @@ DISTCHECK_CONFIGURE_FLAGS = \
 linkcheck:
 	$(MAKE) CFLAGS='-fno-lto' LDFLAGS='-Wl,-fuse-ld=gold -Wl,--as-needed -Wl,--no-gc-sections' distcheck
 
-.PHONY: kdbus-update
-kdbus-update:
-	( cd $(top_srcdir)/src/libsystemd/sd-bus/ && \
-	wget -N https://d-bus.googlecode.com/git/kdbus.h )
-
 .PHONY: git-tag
 git-tag:
 	git tag -s "v$(VERSION)" -m "systemd $(VERSION)"

@@ -112,6 +112,7 @@ systemd System and Service Manager
  	- disable SMACK support by default;
  	- add missing files for distcheck;
  	- check for intltool also when polkit is enabled;
+ 	- remove kdbus-update build target;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
