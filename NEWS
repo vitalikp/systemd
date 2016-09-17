@@ -86,6 +86,7 @@ systemd System and Service Manager
  	- add safe_atou8 function;
  	- change return type to char* in first_word function;
  	- added arch tuple for PPC64LE;
+ 	- remove unused bus error names;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
