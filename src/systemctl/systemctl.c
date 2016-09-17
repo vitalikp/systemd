@@ -5219,7 +5219,7 @@ static int is_system_running(sd_bus *bus, char **args) {
         return streq(state, "running") ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-static int systemctl_help(void) {
+static void systemctl_help(void) {
 
         pager_open_if_enabled();
 
@@ -5335,11 +5335,9 @@ static int systemctl_help(void) {
                "  hibernate                       Hibernate the system\n"
                "  hybrid-sleep                    Hibernate and suspend the system\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
-static int halt_help(void) {
+static void halt_help(void) {
 
         printf("%s [OPTIONS...]%s\n\n"
                "%s the system.\n\n"
@@ -5356,11 +5354,9 @@ static int halt_help(void) {
                arg_action == ACTION_REBOOT   ? "Reboot" :
                arg_action == ACTION_POWEROFF ? "Power off" :
                                                "Halt");
-
-        return 0;
 }
 
-static int shutdown_help(void) {
+static void shutdown_help(void) {
 
         printf("%s [OPTIONS...] [TIME] [WALL...]\n\n"
                "Shut down the system.\n\n"
@@ -5373,11 +5369,9 @@ static int shutdown_help(void) {
                "     --no-wall   Don't send wall message before halt/power-off/reboot\n"
                "  -c             Cancel a pending shutdown\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
-static int telinit_help(void) {
+static void telinit_help(void) {
 
         printf("%s [OPTIONS...] {COMMAND}\n\n"
                "Send control commands to the init daemon.\n\n"
@@ -5391,18 +5385,14 @@ static int telinit_help(void) {
                "  q, Q           Reload init daemon configuration\n"
                "  u, U           Reexecute init daemon\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
-static int runlevel_help(void) {
+static void runlevel_help(void) {
 
         printf("%s [OPTIONS...]\n\n"
                "Prints the previous and current runlevel of the init system.\n\n"
                "     --help      Show this help\n",
                program_invocation_short_name);
-
-        return 0;
 }
 
 static void help_types(void) {
@@ -5496,7 +5486,8 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case 'h':
-                        return systemctl_help();
+                        systemctl_help();
+                        return 0;
 
                 case ARG_VERSION:
                         puts(PACKAGE_STRING);
@@ -5753,7 +5744,8 @@ static int halt_parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case ARG_HELP:
-                        return halt_help();
+                        halt_help();
+                        return 0;
 
                 case ARG_HALT:
                         arg_action = ACTION_HALT;
@@ -5885,7 +5877,8 @@ static int shutdown_parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case ARG_HELP:
-                        return shutdown_help();
+                        shutdown_help();
+                        return 0;
 
                 case 'H':
                         arg_action = ACTION_HALT;
@@ -5999,7 +5992,8 @@ static int telinit_parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case ARG_HELP:
-                        return telinit_help();
+                        telinit_help();
+                        return 0;
 
                 case ARG_NO_WALL:
                         arg_no_wall = true;
@@ -6014,7 +6008,8 @@ static int telinit_parse_argv(int argc, char *argv[]) {
         }
 
         if (optind >= argc) {
-                telinit_help();
+                log_error("%s: required argument missing.",
+                          program_invocation_short_name);
                 return -EINVAL;
         }
 
@@ -6064,7 +6059,8 @@ static int runlevel_parse_argv(int argc, char *argv[]) {
                 switch (c) {
 
                 case ARG_HELP:
-                        return runlevel_help();
+                        runlevel_help();
+                        return 0;
 
                 case '?':
                         return -EINVAL;
