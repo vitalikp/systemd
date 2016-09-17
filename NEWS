@@ -27,6 +27,7 @@ systemd System and Service Manager
  	- report invalid quoted strings;
  	- correct argument sign and split up long lines;
  	- umount the old root correctly in switch-root;
+ 	- assert on unhandled option in systemd;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
