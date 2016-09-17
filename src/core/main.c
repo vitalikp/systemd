@@ -1294,7 +1294,7 @@ int main(int argc, char *argv[]) {
 
                 if (!skip_setup) {
                         if (clock_is_localtime() > 0) {
-                                int min;
+                                int min = -1;
 
                                 /*
                                  * The very first call of settimeofday() also does a time warp in the kernel.
