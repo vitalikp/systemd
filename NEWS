@@ -42,6 +42,7 @@ systemd System and Service Manager
  	- use bus_job_method_cancel function in common code for dbus methods that cancel a job;
  	- rename job.subscribed field to job.clients;
  	- don't parse cmdline in containers;
+ 	- only generate warnings if actually writing to cgroup attributes failed;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -52,6 +53,8 @@ systemd System and Service Manager
  	- fix bloom filter calculation in sd-bus module;
  	- do not arm timers unnecessarily in sd-event module;
  	- remove bus arg from bus_verify_polkit_async_registry_free function;
+ 	- add api to check if a client has privileges;
+ 	- return 'r' rather than '-errno';
  * initctl:
  	- don't hide error code;
  * logind:
