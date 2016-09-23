@@ -327,7 +327,6 @@ MANPAGES += \
 	man/sd_bus_message_append.3 \
 	man/sd_bus_message_append_array.3 \
 	man/sd_bus_message_append_basic.3 \
-	man/sd_bus_message_append_string_memfd.3 \
 	man/sd_bus_message_append_strv.3 \
 	man/sd_bus_message_get_cookie.3 \
 	man/sd_bus_message_get_monotonic_usec.3 \
@@ -968,7 +967,6 @@ EXTRA_DIST += \
 	man/sd_bus_message_append.xml \
 	man/sd_bus_message_append_array.xml \
 	man/sd_bus_message_append_basic.xml \
-	man/sd_bus_message_append_string_memfd.xml \
 	man/sd_bus_message_append_strv.xml \
 	man/sd_bus_message_get_cookie.xml \
 	man/sd_bus_message_get_monotonic_usec.xml \
