@@ -60,6 +60,8 @@ systemd System and Service Manager
  	- remove sd_bus_message_append_string_space function;
  	- remove sd_bus_message_append_string_memfd function;
  	- remove sd-memfd module;
+ 	- add api to query which handler/callback is currently being dispatched;
+ 	- simplify bus_verify_polkit_async() a bit;
  * initctl:
  	- don't hide error code;
  * logind:
@@ -79,6 +81,7 @@ systemd System and Service Manager
  	- remove spurious newline in systemd fsck root service;
  * kdbus:
  	- update header;
+ 	- switch over to generic memfd implementation (ABI+API break);
  * systemctl:
  	- show StatusErrno value in "systemctl status";
  	- remove property argument option;
