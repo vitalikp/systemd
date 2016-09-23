@@ -41,6 +41,7 @@ systemd System and Service Manager
  	- downgrade log messages about non-existant cgroup attributes to LOG_DEBUG;
  	- use bus_job_method_cancel function in common code for dbus methods that cancel a job;
  	- rename job.subscribed field to job.clients;
+ 	- don't parse cmdline in containers;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;

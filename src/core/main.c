@@ -912,37 +912,6 @@ static int parse_argv(int argc, char *argv[]) {
                 return -EINVAL;
         }
 
-        if (detect_container(NULL) > 0) {
-                char **a;
-
-                /* All /proc/cmdline arguments the kernel didn't
-                 * understand it passed to us. We're not really
-                 * interested in that usually since /proc/cmdline is
-                 * more interesting and complete. With one exception:
-                 * if we are run in a container /proc/cmdline is not
-                 * relevant for the container, hence we rely on argv[]
-                 * instead. */
-
-                for (a = argv; a < argv + argc; a++) {
-                        _cleanup_free_ char *w = NULL;
-                        char *value;
-
-                        w = strdup(*a);
-                        if (!w)
-                                return log_oom();
-
-                        value = strchr(w, '=');
-                        if (value)
-                                *(value++) = 0;
-
-                        r = parse_proc_cmdline_item(w, value);
-                        if (r < 0) {
-                                log_error("Failed on cmdline argument %s: %s", *a, strerror(-r));
-                                return r;
-                        }
-                }
-        }
-
         return 0;
 }
 
