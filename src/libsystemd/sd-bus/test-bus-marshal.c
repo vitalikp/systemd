@@ -89,7 +89,6 @@ int main(int argc, char *argv[]) {
         size_t sz;
         char *h;
         const int32_t integer_array[] = { -1, -2, 0, 1, 2 }, *return_array;
-        char *s;
         _cleanup_free_ char *first = NULL, *second = NULL, *third = NULL;
         _cleanup_fclose_ FILE *ms = NULL;
         size_t first_size = 0, second_size = 0, third_size = 0;
@@ -250,10 +249,6 @@ int main(int argc, char *argv[]) {
         assert_se(r > 0);
         assert_se(streq(x, "foobar"));
         assert_se(streq(y, "waldo"));
-
-        r = sd_bus_message_read_basic(m, 's', &s);
-        assert_se(r > 0);
-        assert_se(streq(s, "hallo"));
 
         r = sd_bus_message_read_array(m, 'i', (const void**) &return_array, &sz);
         assert_se(r > 0);
