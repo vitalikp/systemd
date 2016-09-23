@@ -82,7 +82,6 @@
 /test-bus-kernel-bloom
 /test-bus-marshal
 /test-bus-match
-/test-bus-memfd
 /test-bus-objects
 /test-bus-server
 /test-bus-signature
