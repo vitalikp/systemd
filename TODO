@@ -505,11 +505,6 @@ Features:
      on Path= matching
    - check MTUBytes parsing (expecting size_t but we are using unsigned)
 
-* dhcp:
-   - figure out how much we can increase Maximum Message Size
-   - export timezone information
-   - FORCERENEW
-
 External:
 
 * dbus:
