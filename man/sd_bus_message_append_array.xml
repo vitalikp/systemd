@@ -45,7 +45,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
   <refnamediv>
     <refname>sd_bus_message_append_array</refname>
-    <refname>sd_bus_message_append_array_memfd</refname>
     <refname>sd_bus_message_append_array_iovec</refname>
     <refname>sd_bus_message_append_array_space</refname>
 
@@ -62,13 +61,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <paramdef>char <parameter>type</parameter></paramdef>
         <paramdef>char void *<parameter>ptr</parameter></paramdef>
         <paramdef>size_t <parameter>size</parameter></paramdef>
-      </funcprototype>
-
-      <funcprototype>
-        <funcdef>int sd_bus_message_append_array_memfd</funcdef>
-        <paramdef>sd_bus_message *<parameter>m</parameter></paramdef>
-        <paramdef>char <parameter>type</parameter></paramdef>
-        <paramdef>sd_memfd *<parameter>memfd</parameter></paramdef>
       </funcprototype>
 
       <funcprototype>
@@ -115,17 +107,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <para>The memory pointed at by <parameter>p</parameter> is copied
     into the memory area containing the message and may be changed
     after this call.</para>
-
-    <para>The
-    <function>sd_bus_message_append_array_memfd</function> function appends
-    items to message <parameter>m</parameter>, similarly to
-    <function>sd_bus_message_append_array</function>. Contents of the
-    memory file descriptor <parameter>memfd</parameter> are used as
-    the contents of the array. Their size must be a multiple of the
-    size of the type <parameter>type</parameter>.</para>
-
-    <para>The descriptor specified with <parameter>memfd</parameter>
-    will be sealed and cannot be modified after this call.</para>
 
     <para>The
     <function>sd_bus_message_append_array_iovec</function> function appends

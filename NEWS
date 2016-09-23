@@ -55,6 +55,7 @@ systemd System and Service Manager
  	- remove bus arg from bus_verify_polkit_async_registry_free function;
  	- add api to check if a client has privileges;
  	- return 'r' rather than '-errno';
+ 	- remove sd_bus_message_append_array_memfd function;
  * initctl:
  	- don't hide error code;
  * logind:
