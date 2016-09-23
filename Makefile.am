@@ -1887,7 +1887,6 @@ tests += \
 	test-bus-kernel \
 	test-bus-kernel-bloom \
 	test-bus-kernel-benchmark \
-	test-bus-zero-copy \
 	test-bus-introspect \
 	test-bus-objects \
 	test-bus-error \
@@ -2038,20 +2037,6 @@ test_bus_kernel_benchmark_SOURCES = \
 test_bus_kernel_benchmark_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
-
-test_bus_zero_copy_SOURCES = \
-	src/libsystemd/sd-bus/test-bus-zero-copy.c
-
-test_bus_zero_copy_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	libsystemd-dump.la \
-	libsystemd-capability.la \
-	$(CAP_LIBS)
-
-test_bus_zero_copy_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(CAP_CFLAGS)
 
 test_bus_introspect_SOURCES = \
 	src/libsystemd/sd-bus/test-bus-introspect.c

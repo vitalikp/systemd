@@ -152,6 +152,7 @@ systemd System and Service Manager
  	- move test-device-nodes test to separate module udev;
  	- fix strtod test for real in test-util;
  	- remove test-bus-memfd test;
+ 	- remove test-bus-zero-copy test;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
