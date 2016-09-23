@@ -45,7 +45,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
   <refnamediv>
     <refname>sd_bus_message_append_string_memfd</refname>
-    <refname>sd_bus_message_append_string_space</refname>
 
     <refpurpose>Attach a string to a message</refpurpose>
   </refnamediv>
@@ -58,13 +57,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <funcdef>int sd_bus_message_append_string_memfd</funcdef>
         <paramdef>sd_bus_message *<parameter>m</parameter></paramdef>
         <paramdef>sd_memfd *<parameter>memfd</parameter></paramdef>
-      </funcprototype>
-
-      <funcprototype>
-        <funcdef>int sd_bus_message_append_string_space</funcdef>
-        <paramdef>sd_bus_message *<parameter>m</parameter></paramdef>
-        <paramdef>size_t <parameter>size</parameter></paramdef>
-        <paramdef>char **<parameter>s</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
@@ -83,16 +75,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     satisfy the same constraints as described for the
     <literal>s</literal> type in
     <citerefentry><refentrytitle>sd_bus_message_append_basic</refentrytitle><manvolnum>3</manvolnum></citerefentry>.</para>
-
-    <para>The
-    <function>sd_bus_message_append_string_space</function> function appends
-    space for a string to message <parameter>m</parameter>. It behaves
-    similar to <function>sd_bus_message_append_basic</function> with
-    type <literal>s</literal>, but instead of copying a string into
-    the message, it returns a pointer to the destination area to
-    the caller in pointer <parameter>p</parameter>. Space for the string
-    of length <parameter>size</parameter> plus the terminating
-    <constant>NUL</constant> is allocated.</para>
   </refsect1>
 
   <refsect1>

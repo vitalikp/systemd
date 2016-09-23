@@ -135,10 +135,6 @@ int main(int argc, char *argv[]) {
         r = sd_bus_message_close_container(m);
         assert_se(r >= 0);
 
-        r = sd_bus_message_append_string_space(m, 5, &s);
-        assert_se(r >= 0);
-        strcpy(s, "hallo");
-
         r = sd_bus_message_append_array(m, 'i', integer_array, sizeof(integer_array));
         assert_se(r >= 0);
 

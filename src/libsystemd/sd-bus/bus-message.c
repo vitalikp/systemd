@@ -1479,63 +1479,6 @@ _public_ int sd_bus_message_append_basic(sd_bus_message *m, char type, const voi
         return message_append_basic(m, type, p, NULL);
 }
 
-_public_ int sd_bus_message_append_string_space(
-                sd_bus_message *m,
-                size_t size,
-                char **s) {
-
-        struct bus_container *c;
-        void *a;
-
-        assert_return(m, -EINVAL);
-        assert_return(s, -EINVAL);
-        assert_return(!m->sealed, -EPERM);
-        assert_return(!m->poisoned, -ESTALE);
-
-        c = message_get_container(m);
-
-        if (c->signature && c->signature[c->index]) {
-                /* Container signature is already set */
-
-                if (c->signature[c->index] != SD_BUS_TYPE_STRING)
-                        return -ENXIO;
-        } else {
-                char *e;
-
-                /* Maybe we can append to the signature? But only if this is the top-level container*/
-                if (c->enclosing != 0)
-                        return -ENXIO;
-
-                e = strextend(&c->signature, CHAR_TO_STR(SD_BUS_TYPE_STRING), NULL);
-                if (!e) {
-                        m->poisoned = true;
-                        return -ENOMEM;
-                }
-        }
-
-        if (BUS_MESSAGE_IS_GVARIANT(m)) {
-                a = message_extend_body(m, 1, size + 1, true);
-                if (!a)
-                        return -ENOMEM;
-
-                *s = a;
-        } else {
-                a = message_extend_body(m, 4, 4 + size + 1, false);
-                if (!a)
-                        return -ENOMEM;
-
-                *(uint32_t*) a = size;
-                *s = (char*) a + 4;
-        }
-
-        (*s)[size] = 0;
-
-        if (c->enclosing != SD_BUS_TYPE_ARRAY)
-                c->index++;
-
-        return 0;
-}
-
 static int bus_message_open_array(
                 sd_bus_message *m,
                 struct bus_container *c,

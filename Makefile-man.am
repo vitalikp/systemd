@@ -378,7 +378,6 @@ MANPAGES_ALIAS += \
 	man/sd_bus_error_set_errnof.3 \
 	man/sd_bus_message_append_array_iovec.3 \
 	man/sd_bus_message_append_array_space.3 \
-	man/sd_bus_message_append_string_space.3 \
 	man/sd_bus_message_get_realtime_usec.3 \
 	man/sd_bus_message_get_reply_cookie.3 \
 	man/sd_bus_message_get_seqnum.3 \
@@ -437,7 +436,6 @@ man/sd_bus_error_set_errno.3: man/sd_bus_error.3
 man/sd_bus_error_set_errnof.3: man/sd_bus_error.3
 man/sd_bus_message_append_array_iovec.3: man/sd_bus_message_append_array.3
 man/sd_bus_message_append_array_space.3: man/sd_bus_message_append_array.3
-man/sd_bus_message_append_string_space.3: man/sd_bus_message_append_string_memfd.3
 man/sd_bus_message_get_realtime_usec.3: man/sd_bus_message_get_monotonic_usec.3
 man/sd_bus_message_get_reply_cookie.3: man/sd_bus_message_get_cookie.3
 man/sd_bus_message_get_seqnum.3: man/sd_bus_message_get_monotonic_usec.3
@@ -572,9 +570,6 @@ man/sd_bus_message_append_array_iovec.html: man/sd_bus_message_append_array.html
 	$(html-alias)
 
 man/sd_bus_message_append_array_space.html: man/sd_bus_message_append_array.html
-	$(html-alias)
-
-man/sd_bus_message_append_string_space.html: man/sd_bus_message_append_string_memfd.html
 	$(html-alias)
 
 man/sd_bus_message_get_realtime_usec.html: man/sd_bus_message_get_monotonic_usec.html
