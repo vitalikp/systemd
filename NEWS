@@ -38,6 +38,9 @@ systemd System and Service Manager
  	- refuse mount on symlink;
  	- add support for tcp keep alive variables;
  	- add support for tcp defer accept;
+ 	- downgrade log messages about non-existant cgroup attributes to LOG_DEBUG;
+ 	- use bus_job_method_cancel function in common code for dbus methods that cancel a job;
+ 	- rename job.subscribed field to job.clients;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -47,6 +50,7 @@ systemd System and Service Manager
  	- always explicitly close bus from main programs;
  	- fix bloom filter calculation in sd-bus module;
  	- do not arm timers unnecessarily in sd-event module;
+ 	- remove bus arg from bus_verify_polkit_async_registry_free function;
  * initctl:
  	- don't hide error code;
  * logind:
@@ -63,6 +67,7 @@ systemd System and Service Manager
  	- make ExecStopPost action part of ExecStart;
  	- remove systemd-ask-password-console path and service;
  	- remove systemd-ask-password-wall path and service;
+ 	- remove spurious newline in systemd fsck root service;
  * kdbus:
  	- update header;
  * systemctl:
@@ -102,6 +107,10 @@ systemd System and Service Manager
  	- avoid considering dpkg temporary files relevant for anything;
  	- allow strappenda to take any number of args;
  	- move status line ellipsation to 50% of the line;
+ 	- never try to create files in cgroupfs, only open them for writing;
+ 	- make is_localhost() check for 'localdomain' too;
+ 	- const'ify MIN/MAX/... macros;
+ 	- add CONST_MAX() macro;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -136,12 +145,14 @@ systemd System and Service Manager
  	- add test which shows access to random memory to test-strv;
  	- use fabs on doubles in test-util;
  	- move test-device-nodes test to separate module udev;
+ 	- fix strtod test for real in test-util;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
  	- allow systemd to manage loop device partitions;
  * sysctl:
  	- enable promote_secondaries by default;
+ 	- always write net.ipv4.conf.all.xyz= in addition to net.ipv4.conf.default.xyz=;
  * build:
  	- do not distribute generated emergency.service;
  	- add TEST_DIR path;
