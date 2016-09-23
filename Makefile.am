@@ -343,6 +343,7 @@ dist_systemunit_DATA = \
 	units/sysinit.target \
 	units/basic.target \
 	units/getty.target \
+	units/hostname.service \
 	units/halt.target \
 	units/kexec.target \
 	units/local-fs.target \
@@ -398,7 +399,6 @@ nodist_systemunit_DATA = \
 	units/console-shell.service \
 	units/console-getty.service \
 	units/container-getty@.service \
-	units/hostname.service \
 	units/systemd-initctl.service \
 	units/systemd-shutdownd.service \
 	units/systemd-remount-fs.service \

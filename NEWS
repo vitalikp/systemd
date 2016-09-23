@@ -151,6 +151,7 @@ systemd System and Service Manager
  	- check for intltool also when polkit is enabled;
  	- remove kdbus-update build target;
  	- use a common rule for some gperf commands;
+ 	- fix clean hostname service;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
