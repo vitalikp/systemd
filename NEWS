@@ -32,6 +32,12 @@ systemd System and Service Manager
  	- do not add dependencies to self;
  	- warn when merged units have conflicting dependencies;
  	- fix counting of early mounts without SMACK;
+ 	- order OnCalendar units after timer-sync.target if DefaultDependencies=no;
+ 	- add support for tcp no delay;
+ 	- do not add default dependencies to /usr mount unit;
+ 	- refuse mount on symlink;
+ 	- add support for tcp keep alive variables;
+ 	- add support for tcp defer accept;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -40,12 +46,14 @@ systemd System and Service Manager
  	- add support for CLOCK_BOOTTIME in sd-event module;
  	- always explicitly close bus from main programs;
  	- fix bloom filter calculation in sd-bus module;
+ 	- do not arm timers unnecessarily in sd-event module;
  * initctl:
  	- don't hide error code;
  * logind:
  	- allow switching to unused VTs via SwitchTo();
  	- use const modifier for id field in Session struct;
  	- update systemd-user PAM configuration file;
+ 	- add new session type "web" for PAM web clients, such as cockpit;
  * loginctl:
  	- change return type to void in help function;
  * units:
@@ -92,6 +100,8 @@ systemd System and Service Manager
  	- added arch tuple for PPC64LE;
  	- remove unused bus error names;
  	- avoid considering dpkg temporary files relevant for anything;
+ 	- allow strappenda to take any number of args;
+ 	- move status line ellipsation to 50% of the line;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -114,6 +124,7 @@ systemd System and Service Manager
  	- document that we look for both the instance's and
  	  the template's .d/ directory when looking for unit file drop-ins;
  	- improve documentation for StandardOutput= and StandardInput=;
+ 	- drop references to removed and obsolete 'systemctl load' command;
  * tests:
  	- remove test-ring test;
  	- add tests to test-tables;
