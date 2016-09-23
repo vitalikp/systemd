@@ -1536,40 +1536,6 @@ _public_ int sd_bus_message_append_string_space(
         return 0;
 }
 
-_public_ int sd_bus_message_append_string_iovec(
-                sd_bus_message *m,
-                const struct iovec *iov,
-                unsigned n) {
-
-        size_t size;
-        unsigned i;
-        char *p;
-        int r;
-
-        assert_return(m, -EINVAL);
-        assert_return(!m->sealed, -EPERM);
-        assert_return(iov || n == 0, -EINVAL);
-        assert_return(!m->poisoned, -ESTALE);
-
-        size = IOVEC_TOTAL_SIZE(iov, n);
-
-        r = sd_bus_message_append_string_space(m, size, &p);
-        if (r < 0)
-                return r;
-
-        for (i = 0; i < n; i++) {
-
-                if (iov[i].iov_base)
-                        memcpy(p, iov[i].iov_base, iov[i].iov_len);
-                else
-                        memset(p, ' ', iov[i].iov_len);
-
-                p += iov[i].iov_len;
-        }
-
-        return 0;
-}
-
 static int bus_message_open_array(
                 sd_bus_message *m,
                 struct bus_container *c,

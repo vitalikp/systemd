@@ -56,6 +56,7 @@ systemd System and Service Manager
  	- add api to check if a client has privileges;
  	- return 'r' rather than '-errno';
  	- remove sd_bus_message_append_array_memfd function;
+ 	- remove sd_bus_message_append_string_iovec function;
  * initctl:
  	- don't hide error code;
  * logind:

@@ -45,7 +45,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
   <refnamediv>
     <refname>sd_bus_message_append_string_memfd</refname>
-    <refname>sd_bus_message_append_string_iovec</refname>
     <refname>sd_bus_message_append_string_space</refname>
 
     <refpurpose>Attach a string to a message</refpurpose>
@@ -62,13 +61,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </funcprototype>
 
       <funcprototype>
-        <funcdef>int sd_bus_message_append_string_iovec</funcdef>
-        <paramdef>sd_bus_message *<parameter>m</parameter></paramdef>
-        <paramdef>const struct iovec *<parameter>iov</parameter></paramdef>
-        <paramdef>unsigned <parameter>n</parameter></paramdef>
-      </funcprototype>
-
-      <funcprototype>
         <funcdef>int sd_bus_message_append_string_space</funcdef>
         <paramdef>sd_bus_message *<parameter>m</parameter></paramdef>
         <paramdef>size_t <parameter>size</parameter></paramdef>
@@ -80,9 +72,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refsect1>
     <title>Description</title>
 
-    <para>The functions
-    <function>sd_bus_message_append_string_memfd</function> and
-    <function>sd_bus_message_append_string_iovec</function> can be
+    <para>The function
+    <function>sd_bus_message_append_string_memfd</function> can be
     used to append a single string (item of type <literal>s</literal>)
     to message <parameter>m</parameter>.</para>
 
@@ -92,23 +83,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     satisfy the same constraints as described for the
     <literal>s</literal> type in
     <citerefentry><refentrytitle>sd_bus_message_append_basic</refentrytitle><manvolnum>3</manvolnum></citerefentry>.</para>
-
-    <para>In case of
-    <function>sd_bus_message_append_string_iovec</function>, the
-    payload of <parameter>iov</parameter> is the string. It must
-    satisfy the same constraints as described for the
-    <literal>s</literal> type in
-    <citerefentry><refentrytitle>sd_bus_message_append_basic</refentrytitle><manvolnum>3</manvolnum></citerefentry>.</para>
-
-    <para>The <parameter>iov</parameter> argument must point to
-    <parameter>n</parameter> <structname>struct iovec</structname>
-    structures. Each structure may have the
-    <structname>iov_base</structname> field set, in which case the
-    memory pointed to will be copied into the message, or unset, in
-    which case a block of spaces (ASCII 32) of length
-    <structname>iov_len</structname> will be inserted. The
-    memory pointed at by <parameter>iov</parameter> may be changed
-    after this call.</para>
 
     <para>The
     <function>sd_bus_message_append_string_space</function> function appends

@@ -200,7 +200,6 @@ global:
         sd_bus_message_append_array_space;
         sd_bus_message_append_array_iovec;
         sd_bus_message_append_string_space;
-        sd_bus_message_append_string_iovec;
         sd_bus_message_append_string_memfd;
         sd_bus_message_append_strv;
         sd_bus_message_open_container;
