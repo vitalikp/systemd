@@ -111,6 +111,7 @@ systemd System and Service Manager
  	- make is_localhost() check for 'localdomain' too;
  	- const'ify MIN/MAX/... macros;
  	- add CONST_MAX() macro;
+ 	- don't use "debug" from kernel cmdline to set log level in non-PID 1;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;

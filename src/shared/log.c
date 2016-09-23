@@ -863,26 +863,7 @@ int log_set_max_level_from_string(const char *e) {
 }
 
 void log_parse_environment(void) {
-        _cleanup_free_ char *line = NULL;
         const char *e;
-        int r;
-
-        r = proc_cmdline(&line);
-        if (r < 0)
-                log_warning("Failed to read /proc/cmdline. Ignoring: %s", strerror(-r));
-        else if (r > 0) {
-                const char *word, *state;
-                size_t l;
-
-                FOREACH_WORD_QUOTED(word, l, line, state) {
-                        if (l == 5 && startswith(word, "debug")) {
-                                log_set_max_level(LOG_DEBUG);
-                                break;
-                        }
-                }
-                if (!isempty(state))
-                        log_warning("Trailing garbage and the end of kernel commandline, ignoring.");
-        }
 
         e = secure_getenv("SYSTEMD_LOG_TARGET");
         if (e && log_set_target_from_string(e) < 0)
