@@ -169,6 +169,7 @@ systemd System and Service Manager
  	- add tests to test-fdset;
  	- add tests to test-util;
  	- add test-condition-util test;
+ 	- add missing entries to test-tables;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
