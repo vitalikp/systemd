@@ -44,6 +44,7 @@ systemd System and Service Manager
  	- don't parse cmdline in containers;
  	- only generate warnings if actually writing to cgroup attributes failed;
  	- verify systemd1 dbus method callers via polkit;
+ 	- suffix newly added tcp sockopt time properties with "Sec";
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -63,6 +64,8 @@ systemd System and Service Manager
  	- remove sd-memfd module;
  	- add api to query which handler/callback is currently being dispatched;
  	- simplify bus_verify_polkit_async() a bit;
+ 	- fix cgroup handling in sd-bus module;
+ 	- map sealed memfds as MAP_PRIVATE in sd-bus module;
  * initctl:
  	- don't hide error code;
  * logind:
@@ -125,6 +128,9 @@ systemd System and Service Manager
  	- const'ify MIN/MAX/... macros;
  	- add CONST_MAX() macro;
  	- don't use "debug" from kernel cmdline to set log level in non-PID 1;
+ 	- try to be a bit more nfs compatible when checking whether an fs is writable;
+ 	- try to use the existing 64bit hash functions for dev_t if it is 64bit;
+ 	- remove unused FOREACH_WORD_SEPARATOR_QUOTED;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
@@ -196,6 +202,7 @@ systemd System and Service Manager
  	- fix Xen domU discovery(virt);
  	- check asprintf return code;
  	- fix a couple of more lazy "return -1";
+ 	- fix BindsTo= logic when applied relative to services with Type=oneshot;
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
