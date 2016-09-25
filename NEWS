@@ -194,6 +194,7 @@ systemd System and Service Manager
  	- use a common rule for some gperf commands;
  	- fix clean hostname service;
  	- enable compatibility libraries by default;
+ 	- include more optional modules in build string;
  * bugfix:
  	- fix add comma when removed option is in the middle(fstab-generator);
  	- fix format string for usec_t type(generator);
@@ -203,6 +204,7 @@ systemd System and Service Manager
  	- check asprintf return code;
  	- fix a couple of more lazy "return -1";
  	- fix BindsTo= logic when applied relative to services with Type=oneshot;
+ 	- fix systemctl fail in the case that no unit files were found;
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
