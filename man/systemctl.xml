@@ -1227,7 +1227,7 @@ LISTEN           UNIT                        ACTIVATES
           <listitem>
             <para>Checks whether the system is running. This returns
             success when the system is fully up and running, meaning
-            not in startup, shutdown or maintainance mode. Failure is
+            not in startup, shutdown or maintenance mode. Failure is
             returned otherwise. In addition, the current state is
             printed in a short string to standard output. Use
             <option>--quiet</option> to suppress output of this state
