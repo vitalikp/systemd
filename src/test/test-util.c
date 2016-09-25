@@ -610,40 +610,6 @@ static void test_split_pair(void) {
         assert_se(streq(b, "="));
 }
 
-static void test_fstab_node_to_udev_node(void) {
-        char *n;
-
-        n = fstab_node_to_udev_node("LABEL=applé/jack");
-        puts(n);
-        assert_se(streq(n, "/dev/disk/by-label/applé\\x2fjack"));
-        free(n);
-
-        n = fstab_node_to_udev_node("PARTLABEL=pinkié pie");
-        puts(n);
-        assert_se(streq(n, "/dev/disk/by-partlabel/pinkié\\x20pie"));
-        free(n);
-
-        n = fstab_node_to_udev_node("UUID=037b9d94-148e-4ee4-8d38-67bfe15bb535");
-        puts(n);
-        assert_se(streq(n, "/dev/disk/by-uuid/037b9d94-148e-4ee4-8d38-67bfe15bb535"));
-        free(n);
-
-        n = fstab_node_to_udev_node("PARTUUID=037b9d94-148e-4ee4-8d38-67bfe15bb535");
-        puts(n);
-        assert_se(streq(n, "/dev/disk/by-partuuid/037b9d94-148e-4ee4-8d38-67bfe15bb535"));
-        free(n);
-
-        n = fstab_node_to_udev_node("PONIES=awesome");
-        puts(n);
-        assert_se(streq(n, "PONIES=awesome"));
-        free(n);
-
-        n = fstab_node_to_udev_node("/dev/xda1");
-        puts(n);
-        assert_se(streq(n, "/dev/xda1"));
-        free(n);
-}
-
 static void test_get_files_in_directory(void) {
         _cleanup_strv_free_ char **l = NULL, **t = NULL;
 
@@ -1139,7 +1105,6 @@ int main(int argc, char *argv[]) {
         test_strextend();
         test_strrep();
         test_split_pair();
-        test_fstab_node_to_udev_node();
         test_get_files_in_directory();
         test_in_set();
         test_writing_tmpfile();

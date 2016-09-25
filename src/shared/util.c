@@ -80,7 +80,6 @@
 #include "hashmap.h"
 #include "env-util.h"
 #include "fileio.h"
-#include "device-nodes.h"
 #include "utf8.h"
 #include "gunicode.h"
 #include "virt.h"
@@ -3599,43 +3598,6 @@ int signal_from_string_try_harder(const char *s) {
                         return signal_from_string(s+3);
 
         return signo;
-}
-
-static char *tag_to_udev_node(const char *tagvalue, const char *by) {
-        _cleanup_free_ char *t = NULL, *u = NULL;
-        size_t enc_len;
-
-        u = unquote(tagvalue, "\"\'");
-        if (!u)
-                return NULL;
-
-        enc_len = strlen(u) * 4 + 1;
-        t = new(char, enc_len);
-        if (!t)
-                return NULL;
-
-        if (encode_devnode_name(u, t, enc_len) < 0)
-                return NULL;
-
-        return strjoin("/dev/disk/by-", by, "/", t, NULL);
-}
-
-char *fstab_node_to_udev_node(const char *p) {
-        assert(p);
-
-        if (startswith(p, "LABEL="))
-                return tag_to_udev_node(p+6, "label");
-
-        if (startswith(p, "UUID="))
-                return tag_to_udev_node(p+5, "uuid");
-
-        if (startswith(p, "PARTUUID="))
-                return tag_to_udev_node(p+9, "partuuid");
-
-        if (startswith(p, "PARTLABEL="))
-                return tag_to_udev_node(p+10, "partlabel");
-
-        return strdup(p);
 }
 
 bool tty_is_vc(const char *tty) {
