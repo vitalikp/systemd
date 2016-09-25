@@ -35,9 +35,9 @@ SUBDIRS = . po
 # Keep the test-suite.log
 .PRECIOUS: $(TEST_SUITE_LOG) Makefile
 
-LIBSYSTEMD_CURRENT=3
-LIBSYSTEMD_REVISION=1
-LIBSYSTEMD_AGE=3
+LIBSYSTEMD_CURRENT=4
+LIBSYSTEMD_REVISION=0
+LIBSYSTEMD_AGE=4
 
 # The following four libraries only exist for compatibility reasons,
 # their version info should not be bumped anymore
