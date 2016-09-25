@@ -134,6 +134,7 @@ systemd System and Service Manager
  	- try to be a bit more nfs compatible when checking whether an fs is writable;
  	- try to use the existing 64bit hash functions for dev_t if it is 64bit;
  	- remove unused FOREACH_WORD_SEPARATOR_QUOTED;
+ 	- remove generator module;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;

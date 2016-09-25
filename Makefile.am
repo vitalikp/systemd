@@ -705,9 +705,7 @@ libsystemd_label_la_SOURCES = \
 	src/shared/dev-setup.c \
 	src/shared/dev-setup.h \
 	src/shared/dropin.c \
-	src/shared/dropin.h \
-	src/shared/generator.h \
-	src/shared/generator.c
+	src/shared/dropin.h
 
 libsystemd_label_la_CFLAGS = \
 	$(AM_CFLAGS) \
