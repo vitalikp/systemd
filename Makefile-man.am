@@ -10,7 +10,6 @@ MANPAGES += \
 	man/file-hierarchy.7 \
 	man/halt.8 \
 	man/kernel-command-line.7 \
-	man/kernel-install.8 \
 	man/localtime.5 \
 	man/machine-id.5 \
 	man/os-release.5 \
@@ -945,7 +944,6 @@ EXTRA_DIST += \
 	man/file-hierarchy.xml \
 	man/halt.xml \
 	man/kernel-command-line.xml \
-	man/kernel-install.xml \
 	man/less-variables.xml \
 	man/libsystemd-pkgconfig.xml \
 	man/localtime.xml \

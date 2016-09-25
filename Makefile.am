@@ -293,9 +293,6 @@ bin_PROGRAMS = \
 	systemd-analyze \
 	systemd-run
 
-dist_bin_SCRIPTS = \
-	src/kernel-install/kernel-install
-
 rootlibexec_PROGRAMS = \
 	systemd \
 	systemd-cgroups-agent \
@@ -319,12 +316,10 @@ dist_bashcompletion_DATA = \
 	shell-completion/bash/systemd-cgtop \
 	shell-completion/bash/systemd-delta \
 	shell-completion/bash/systemd-detect-virt \
-	shell-completion/bash/systemd-run \
-	shell-completion/bash/kernel-install
+	shell-completion/bash/systemd-run
 
 dist_zshcompletion_DATA = \
 	shell-completion/zsh/_systemctl \
-	shell-completion/zsh/_kernel-install \
 	shell-completion/zsh/_systemd-analyze \
 	shell-completion/zsh/_systemd-run \
 	shell-completion/zsh/_systemd-delta \
