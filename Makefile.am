@@ -296,9 +296,6 @@ bin_PROGRAMS = \
 dist_bin_SCRIPTS = \
 	src/kernel-install/kernel-install
 
-dist_kernelinstall_SCRIPTS = \
-	src/kernel-install/50-depmod.install
-
 rootlibexec_PROGRAMS = \
 	systemd \
 	systemd-cgroups-agent \

@@ -92,8 +92,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           the arguments
           <programlisting>add <replaceable>KERNEL-VERSION</replaceable> <filename>/boot/<replaceable>MACHINE-ID</replaceable>/<replaceable>KERNEL-VERSION</replaceable>/</filename></programlisting>
           </para>
-
-          <para>The kernel-install plugin <filename>50-depmod.install</filename> runs depmod for the <replaceable>KERNEL-VERSION</replaceable>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>

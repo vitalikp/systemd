@@ -75,6 +75,8 @@ systemd System and Service Manager
  	- add new session type "web" for PAM web clients, such as cockpit;
  * loginctl:
  	- change return type to void in help function;
+ * kernel-install:
+ 	- move depmod install script to separate module;
  * units:
  	- bring systemd-tmpfiles-setup-dev.service closer to systemd-tmpfiles-setup.service;
  	- conditionalize static device node logic on CAP_SYS_MODULES instead of CAP_MKNOD;
