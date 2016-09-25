@@ -43,6 +43,7 @@ systemd System and Service Manager
  	- rename job.subscribed field to job.clients;
  	- don't parse cmdline in containers;
  	- only generate warnings if actually writing to cgroup attributes failed;
+ 	- verify systemd1 dbus method callers via polkit;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -130,6 +131,7 @@ systemd System and Service Manager
  * tmpfiles:
  	- remove unused /run/systemd/ask-password directory;
  	- change return type to void in help function;
+ 	- only execute chmod()/chown() when needed;
  * po:
  	- add Ukrainian translation;
  * man:
@@ -161,6 +163,12 @@ systemd System and Service Manager
  	- fix strtod test for real in test-util;
  	- remove test-bus-memfd test;
  	- remove test-bus-zero-copy test;
+ 	- add tests to test-socket-util;
+ 	- add missing unlink in test-async;
+ 	- add tests to test-fileio;
+ 	- add tests to test-fdset;
+ 	- add tests to test-util;
+ 	- add test-condition-util test;
  * rules:
  	- consistently use "?*" instead of "*?";
  	- uaccess - add ID_SOFTWARE_RADIO;
