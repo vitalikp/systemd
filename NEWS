@@ -135,6 +135,7 @@ systemd System and Service Manager
  	- try to use the existing 64bit hash functions for dev_t if it is 64bit;
  	- remove unused FOREACH_WORD_SEPARATOR_QUOTED;
  	- remove generator module;
+ 	- remove device-nodes module;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
