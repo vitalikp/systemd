@@ -91,4 +91,4 @@
         _XZ_FEATURE_ " "                                                \
         _SECCOMP_FEATURE_ " "                                           \
         _BLKID_FEATURE_ " "                                             \
-        _KMOD_FEATURE_ " "                                              \
+        _KMOD_FEATURE_ " "
