@@ -1947,7 +1947,7 @@ int unit_file_preset_all(
 
         STRV_FOREACH(i, paths.unit_path) {
                 _cleanup_closedir_ DIR *d = NULL;
-                _cleanup_free_ char *units_dir;
+                _cleanup_free_ char *units_dir = NULL;
 
                 units_dir = path_join(root_dir, *i, NULL);
                 if (!units_dir)
@@ -2056,7 +2056,7 @@ int unit_file_get_list(
 
         STRV_FOREACH(i, paths.unit_path) {
                 _cleanup_closedir_ DIR *d = NULL;
-                _cleanup_free_ char *units_dir;
+                _cleanup_free_ char *units_dir = NULL;
 
                 units_dir = path_join(root_dir, *i, NULL);
                 if (!units_dir)
