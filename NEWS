@@ -144,6 +144,7 @@ systemd System and Service Manager
  	- remove generator module;
  	- remove device-nodes module;
  	- reset signals when we fork off agents;
+ 	- add raw_clone() inline function;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;

@@ -459,3 +459,13 @@ enum {
 
 #define IFLA_BOND_MAX	(__IFLA_BOND_MAX - 1)
 #endif
+
+static inline long raw_clone(unsigned long flags, void *child_stack) {
+#if defined(__s390__) || defined(__CRIS__)
+        /* On s390 and cris the order of the first and second arguments
+         * of the raw clone() system call is reversed. */
+        return syscall(__NR_clone, child_stack, flags);
+#else
+        return syscall(__NR_clone, flags, child_stack);
+#endif
+}
