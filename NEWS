@@ -74,6 +74,7 @@ systemd System and Service Manager
  	- simplify bus_verify_polkit_async() a bit;
  	- fix cgroup handling in sd-bus module;
  	- map sealed memfds as MAP_PRIVATE in sd-bus module;
+ 	- remove libsystemd-id128 compatibility library;
  * initctl:
  	- don't hide error code;
  * logind:

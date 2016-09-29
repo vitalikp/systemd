@@ -49,10 +49,6 @@ LIBSYSTEMD_DAEMON_CURRENT=0
 LIBSYSTEMD_DAEMON_REVISION=12
 LIBSYSTEMD_DAEMON_AGE=0
 
-LIBSYSTEMD_ID128_CURRENT=0
-LIBSYSTEMD_ID128_REVISION=28
-LIBSYSTEMD_ID128_AGE=0
-
 # Dirs of external packages
 dbuspolicydir=@dbuspolicydir@
 dbussessionservicedir=@dbussessionservicedir@
@@ -2520,7 +2516,6 @@ libsystemd-%.c: src/compat-libs/libsystemd-%.sym
 
 BUILT_SOURCES += \
 	libsystemd-login.c \
-	libsystemd-id128.c \
 	libsystemd-daemon.c
 
 libsystemd_login_la_SOURCES = \
@@ -2537,23 +2532,6 @@ libsystemd_login_la_LDFLAGS = \
 	-Wl,--version-script=$(top_srcdir)/src/compat-libs/libsystemd-login.sym
 
 libsystemd_login_la_LIBADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-libsystemd_id128_la_SOURCES = \
-	libsystemd-id128.c \
-	src/compat-libs/libsystemd-id128.sym
-
-libsystemd_id128_la_CPPFLAGS = \
-	$(AM_CFLAGS) \
-	-imacros$(top_srcdir)/src/compat-libs/linkwarning.h
-
-libsystemd_id128_la_LDFLAGS = \
-	$(AM_LDFLAGS) \
-	-version-info $(LIBSYSTEMD_ID128_CURRENT):$(LIBSYSTEMD_ID128_REVISION):$(LIBSYSTEMD_ID128_AGE) \
-	-Wl,--version-script=$(top_srcdir)/src/compat-libs/libsystemd-id128.sym
-
-libsystemd_id128_la_LIBADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
@@ -2576,23 +2554,19 @@ libsystemd_daemon_la_LIBADD = \
 
 lib_LTLIBRARIES += \
 	libsystemd-login.la \
-	libsystemd-id128.la \
 	libsystemd-daemon.la
 
 pkgconfiglib_DATA += \
 	src/compat-libs/libsystemd-login.pc \
-	src/compat-libs/libsystemd-id128.pc \
 	src/compat-libs/libsystemd-daemon.pc
 
 # move lib from $(libdir) to $(rootlibdir) and update devel link, if needed
 compat-lib-install-hook:
 	libname=libsystemd-login.so && $(move-to-rootlibdir)
-	libname=libsystemd-id128.so && $(move-to-rootlibdir)
 	libname=libsystemd-daemon.so && $(move-to-rootlibdir)
 
 compat-lib-uninstall-hook:
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-login.so*
-	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-id128.so*
 	rm -f $(DESTDIR)$(rootlibdir)/libsystemd-daemon.so*
 
 INSTALL_EXEC_HOOKS += compat-lib-install-hook
@@ -2601,7 +2575,6 @@ endif
 
 EXTRA_DIST += \
 	src/compat-libs/libsystemd-login.pc.in \
-	src/compat-libs/libsystemd-id128.pc.in \
 	src/compat-libs/libsystemd-daemon.pc.in
 
 # ------------------------------------------------------------------------------
