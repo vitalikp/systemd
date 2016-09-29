@@ -53,6 +53,7 @@ systemd System and Service Manager
  	- disarm shutdown watchdog if we fail to set timeout;
  	- remove explicit plymouth integration;
  	- use raw_clone instead of fork in signal handler;
+ 	- set ShowStatus for systemd to yes by default;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
