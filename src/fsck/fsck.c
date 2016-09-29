@@ -105,7 +105,7 @@ static int parse_proc_cmdline_item(const char *key, const char *value) {
 
 static void test_files(void) {
 
-        if (access("/run/systemd/show-status", F_OK) >= 0 || plymouth_running())
+        if (access("/run/systemd/show-status", F_OK) >= 0)
                 arg_show_progress = true;
 }
 
