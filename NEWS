@@ -46,6 +46,12 @@ systemd System and Service Manager
  	- verify systemd1 dbus method callers via polkit;
  	- suffix newly added tcp sockopt time properties with "Sec";
  	- don't print starting/stopping/reloading status unit;
+ 	- make use of newly added reset_signal_mask();
+ 	- map the 'rescue' argument to rescue.target;
+ 	- fix typo in log message;
+ 	- don't reset log level to NOTICE if we get quiet on the kernel cmdline;
+ 	- disarm shutdown watchdog if we fail to set timeout;
+ 	- remove explicit plymouth integration;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
@@ -137,6 +143,7 @@ systemd System and Service Manager
  	- remove unused FOREACH_WORD_SEPARATOR_QUOTED;
  	- remove generator module;
  	- remove device-nodes module;
+ 	- reset signals when we fork off agents;
  * virt:
  	- rework container detection logic;
  	- detect s390 virtualization;
