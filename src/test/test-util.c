@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 
 #include "util.h"
+#include "missing.h"
 #include "mkdir.h"
 #include "strv.h"
 #include "def.h"
