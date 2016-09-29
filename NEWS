@@ -223,6 +223,7 @@ systemd System and Service Manager
  	- fix BindsTo= logic when applied relative to services with Type=oneshot;
  	- fix systemctl fail in the case that no unit files were found;
  	- make setting the shutdown watchdog configuration via dbus work;
+ 	- don't return any error in manager_dispatch_notify_fd(pid1);
  * remove nss-myhostname support;
  * remove systemd-tty-ask-password-agent program;
  * remove systemd-ask-password program;
