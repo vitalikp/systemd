@@ -1722,6 +1722,7 @@ int main(int argc, char *argv[]) {
 
 finish:
         if (m) {
+                arg_shutdown_watchdog = m->shutdown_watchdog;
                 manager_free(m);
                 m = NULL;
         }
