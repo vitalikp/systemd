@@ -2940,10 +2940,6 @@ const UnitVTable service_vtable = {
         .can_transient = true,
 
         .status_message_formats = {
-                .starting_stopping = {
-                        [0] = "Starting %s...",
-                        [1] = "Stopping %s...",
-                },
                 .finished_start_job = {
                         [JOB_DONE]       = "Started %s.",
                         [JOB_FAILED]     = "Failed to start %s.",

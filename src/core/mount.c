@@ -1787,10 +1787,6 @@ const UnitVTable mount_vtable = {
         .shutdown = mount_shutdown,
 
         .status_message_formats = {
-                .starting_stopping = {
-                        [0] = "Mounting %s...",
-                        [1] = "Unmounting %s...",
-                },
                 .finished_start_job = {
                         [JOB_DONE]       = "Mounted %s.",
                         [JOB_FAILED]     = "Failed to mount %s.",

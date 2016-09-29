@@ -1485,10 +1485,6 @@ const UnitVTable swap_vtable = {
         .shutdown = swap_shutdown,
 
         .status_message_formats = {
-                .starting_stopping = {
-                        [0] = "Activating swap %s...",
-                        [1] = "Deactivating swap %s...",
-                },
                 .finished_start_job = {
                         [JOB_DONE]       = "Activated swap %s.",
                         [JOB_FAILED]     = "Failed to activate swap %s.",

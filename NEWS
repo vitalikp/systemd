@@ -45,6 +45,7 @@ systemd System and Service Manager
  	- only generate warnings if actually writing to cgroup attributes failed;
  	- verify systemd1 dbus method callers via polkit;
  	- suffix newly added tcp sockopt time properties with "Sec";
+ 	- don't print starting/stopping/reloading status unit;
  * libsystemd:
  	- always call epoll_ctl() on mask-updates if edge-triggered;
  	- don't require a signal event source to be enabled for the child event source to work;
