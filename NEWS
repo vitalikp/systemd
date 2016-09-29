@@ -1,6 +1,6 @@
 systemd System and Service Manager
 
-   systemd (214.8-dev)
+   systemd (214.8)
 ~~~~~~~
  * core:
  	- remove systemd.confirm_spawn kernel parameter;
