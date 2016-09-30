@@ -5,6 +5,7 @@ systemd System and Service Manager
  * core:
  	- remove dbus CanStart get property;
  	- remove dbus CanStop get property;
+ 	- remove dbus CanReload get property;
  
    systemd (214.8)
 ~~~~~~~
