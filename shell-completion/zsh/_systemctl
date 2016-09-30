@@ -120,23 +120,6 @@ _systemctl_really_all_units()
   fi
 }
 
-_filter_units_by_property() {
-  local property=$1 value=$2 ; shift ; shift
-  local -a units ; units=($*)
-  local prop unit
-  for ((i=1; $i <= ${#units[*]}; i++)); do
-    # FIXME: "Failed to issue method call: Unknown unit" errors are ignored for
-    # now (related to DBUS_ERROR_UNKNOWN_OBJECT). in the future, we need to
-    # revert to calling 'systemctl show' once for all units, which is way
-    # faster
-    unit=${units[i]}
-    prop=${(f)"$(_call_program units "$service show --no-pager --property="$property" ${unit} 2>/dev/null")"}
-    if [[ "${prop}" = "$property=$value" ]]; then
-      echo " ${unit}"
-    fi
-  done
-}
-
 _systemctl_active_units()  {_sys_active_units=(  $(__systemctl list-units          | { while read -r a b; do echo -E - " $a"; done; }) )}
 _systemctl_inactive_units(){_sys_inactive_units=($(__systemctl list-units --all    | { while read -r a b c d; do [[ $c == "inactive" || $c == "failed" ]] && echo -E - " $a"; done; }) )}
 _systemctl_failed_units()  {_sys_failed_units=(  $(__systemctl list-units --failed | { while read -r a b; do echo -E - " $a"; done; }) )}
@@ -189,8 +172,7 @@ for fun in stop kill try-restart condrestart ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
     _systemctl_active_units
-    compadd "$@" - $( _filter_units_by_property CanStop yes \
-      ${_sys_active_units[*]} )
+    compadd "$@" - _sys_active_units
   }
 done
 
@@ -198,8 +180,7 @@ done
 (( $+functions[_systemctl_isolate] )) || _systemctl_isolate()
 {
   _systemctl_all_units
-  compadd "$@" - $( _filter_units_by_property AllowIsolate yes \
-    ${_sys_all_units[*]} )
+  compadd "$@" - _sys_all_units
 }
 
 # Completion functions for RELOADABLE_UNITS
@@ -207,8 +188,7 @@ for fun in reload reload-or-try-restart force-reload ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
     _systemctl_active_units
-    compadd "$@" - $( _filter_units_by_property CanReload yes \
-      ${_sys_active_units[*]} )
+    compadd "$@" - _sys_active_units
   }
 done
 
@@ -217,8 +197,7 @@ for fun in restart reload-or-restart ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
     _systemctl_all_units
-    compadd "$@" - $( _filter_units_by_property CanStart yes \
-      ${_sys_all_units[*]} | while read -r line; do \
+    compadd "$@" - $( _sys_all_units | while read -r line; do \
       [[ "$line" =~ \.device$ ]] || echo -E - " $line"; \
       done )
   }

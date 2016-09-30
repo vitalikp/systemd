@@ -5485,7 +5485,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "ht:p:alqfs:M:n:o:ir", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "ht:alqfs:M:n:o:ir", options, NULL)) >= 0) {
 
                 switch (c) {
 
