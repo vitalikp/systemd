@@ -186,27 +186,6 @@ static int property_get_unit_file_state(
         return sd_bus_message_append(reply, "s", unit_file_state_to_string(unit_get_unit_file_state(u)));
 }
 
-static int property_get_can_stop(
-                sd_bus *bus,
-                const char *path,
-                const char *interface,
-                const char *property,
-                sd_bus_message *reply,
-                void *userdata,
-                sd_bus_error *error) {
-
-        Unit *u = userdata;
-
-        assert(bus);
-        assert(reply);
-        assert(u);
-
-        /* On the lower levels we assume that every unit we can start
-         * we can also stop */
-
-        return sd_bus_message_append(reply, "b", unit_can_start(u) && !u->refuse_manual_stop);
-}
-
 static int property_get_can_reload(
                 sd_bus *bus,
                 const char *path,
@@ -529,7 +508,6 @@ const sd_bus_vtable bus_unit_vtable[] = {
         BUS_PROPERTY_DUAL_TIMESTAMP("ActiveEnterTimestamp", offsetof(Unit, active_enter_timestamp), SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
         BUS_PROPERTY_DUAL_TIMESTAMP("ActiveExitTimestamp", offsetof(Unit, active_exit_timestamp), SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
         BUS_PROPERTY_DUAL_TIMESTAMP("InactiveEnterTimestamp", offsetof(Unit, inactive_enter_timestamp), SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
-        SD_BUS_PROPERTY("CanStop", "b", property_get_can_stop, 0, SD_BUS_VTABLE_PROPERTY_CONST),
         SD_BUS_PROPERTY("CanReload", "b", property_get_can_reload, 0, SD_BUS_VTABLE_PROPERTY_CONST),
         SD_BUS_PROPERTY("CanIsolate", "b", property_get_can_isolate, 0, SD_BUS_VTABLE_PROPERTY_CONST),
         SD_BUS_PROPERTY("Job", "(uo)", property_get_job, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
