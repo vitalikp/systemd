@@ -19,6 +19,8 @@
   along with systemd; If not, see <http://www.gnu.org/licenses/>.
 ***/
 
+#include <stdlib.h>
+
 #include "util.h"
 #include "mkdir.h"
 #include "fileio.h"
