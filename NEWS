@@ -7,6 +7,7 @@ systemd System and Service Manager
  	- remove dbus CanStop get property;
  	- remove dbus CanReload get property;
  	- remove dbus CanIsolate get property;
+ * load full selinux db;
  
    systemd (214.8)
 ~~~~~~~

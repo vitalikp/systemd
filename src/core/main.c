@@ -1262,7 +1262,7 @@ int main(int argc, char *argv[]) {
                         dual_timestamp_get(&security_finish_timestamp);
                 }
 
-                if (label_init(NULL) < 0)
+                if (label_init() < 0)
                         goto finish;
 
                 if (!skip_setup) {

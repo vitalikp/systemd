@@ -1608,7 +1608,7 @@ int main(int argc, char *argv[]) {
 
         umask(0022);
 
-        label_init(NULL);
+        label_init();
 
         items = hashmap_new(string_hash_func, string_compare_func);
         globs = hashmap_new(string_hash_func, string_compare_func);
