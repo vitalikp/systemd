@@ -842,8 +842,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/ima-setup.h \
 	src/core/locale-setup.h \
 	src/core/locale-setup.c \
-	src/core/machine-id-setup.c \
-	src/core/machine-id-setup.h \
 	src/core/mount-setup.c \
 	src/core/mount-setup.h \
 	src/core/condition.c \

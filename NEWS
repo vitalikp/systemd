@@ -7,6 +7,7 @@ systemd System and Service Manager
  	- remove dbus CanStop get property;
  	- remove dbus CanReload get property;
  	- remove dbus CanIsolate get property;
+ 	- don't generate /{etc,run}/machine-id file;
  * load full selinux db;
  
    systemd (214.8)
