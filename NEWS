@@ -8,6 +8,7 @@ systemd System and Service Manager
  	- remove dbus CanReload get property;
  	- remove dbus CanIsolate get property;
  	- don't generate /{etc,run}/machine-id file;
+ 	- don't dispatch sd_notify() messages and SIGCHLD multiple times to the same units;
  * shared:
  	- introduce strv_find_startswith() and make use of it;
  * load full selinux db;

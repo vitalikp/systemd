@@ -527,7 +527,7 @@ static int manager_setup_notify(Manager *m) {
         if (m->notify_fd < 0) {
                 _cleanup_close_ int fd = -1;
                 struct sockaddr_un sa = {
-                        .sa_family = AF_UNIX,
+                        .sun_family = AF_UNIX,
                 };
                 int one = 1;
 
@@ -561,7 +561,7 @@ static int manager_setup_notify(Manager *m) {
                 strncpy(sa.sun_path, m->notify_socket, sizeof(sa.sun_path)-1);
                 r = bind(fd, &sa, offsetof(struct sockaddr_un, sun_path) + strlen(sa.sun_path));
                 if (r < 0) {
-                        log_error("bind(@%s) failed: %m", sa.sun_path+1);
+                        log_error("bind(%s) failed: %m", sa.sun_path);
                         return -errno;
                 }
 
@@ -1393,7 +1393,7 @@ static int manager_dispatch_notify_fd(sd_event_source *source, int fd, uint32_t 
                         .msg_controllen = sizeof(control),
                 };
                 struct ucred *ucred;
-                Unit *u;
+                Unit *u1, *u2, *u3;
 
                 n = recvmsg(m->notify_fd, &msghdr, MSG_DONTWAIT);
                 if (n <= 0) {
@@ -1422,21 +1422,23 @@ static int manager_dispatch_notify_fd(sd_event_source *source, int fd, uint32_t 
                 assert((size_t) n < sizeof(buf));
                 buf[n] = 0;
 
-                u = manager_get_unit_by_pid(m, ucred->pid);
-                if (u) {
-                        manager_invoke_notify_message(m, u, ucred->pid, buf, n);
+                /* Notify every unit that might be interested, but try
+                 * to avoid notifying the same one multiple times. */
+                u1 = manager_get_unit_by_pid(m, ucred->pid);
+                if (u1) {
+                        manager_invoke_notify_message(m, u1, ucred->pid, buf, n);
                         found = true;
                 }
 
-                u = hashmap_get(m->watch_pids1, LONG_TO_PTR(ucred->pid));
-                if (u) {
-                        manager_invoke_notify_message(m, u, ucred->pid, buf, n);
+                u2 = hashmap_get(m->watch_pids1, LONG_TO_PTR(ucred->pid));
+                if (u2 && u2 != u1) {
+                        manager_invoke_notify_message(m, u2, ucred->pid, buf, n);
                         found = true;
                 }
 
-                u = hashmap_get(m->watch_pids2, LONG_TO_PTR(ucred->pid));
-                if (u) {
-                        manager_invoke_notify_message(m, u, ucred->pid, buf, n);
+                u3 = hashmap_get(m->watch_pids2, LONG_TO_PTR(ucred->pid));
+                if (u3 && u3 != u2 && u3 != u1) {
+                        manager_invoke_notify_message(m, u3, ucred->pid, buf, n);
                         found = true;
                 }
 
@@ -1483,7 +1485,7 @@ static int manager_dispatch_sigchld(Manager *m) {
 
                 if (si.si_code == CLD_EXITED || si.si_code == CLD_KILLED || si.si_code == CLD_DUMPED) {
                         _cleanup_free_ char *name = NULL;
-                        Unit *u;
+                        Unit *u1, *u2, *u3;
 
                         get_process_comm(si.si_pid, &name);
 
@@ -1497,15 +1499,15 @@ static int manager_dispatch_sigchld(Manager *m) {
 
                         /* And now figure out the unit this belongs
                          * to, it might be multiple... */
-                        u = manager_get_unit_by_pid(m, si.si_pid);
-                        if (u)
-                                invoke_sigchld_event(m, u, &si);
-                        u = hashmap_get(m->watch_pids1, LONG_TO_PTR(si.si_pid));
-                        if (u)
-                                invoke_sigchld_event(m, u, &si);
-                        u = hashmap_get(m->watch_pids2, LONG_TO_PTR(si.si_pid));
-                        if (u)
-                                invoke_sigchld_event(m, u, &si);
+                        u1 = manager_get_unit_by_pid(m, si.si_pid);
+                        if (u1)
+                                invoke_sigchld_event(m, u1, &si);
+                        u2 = hashmap_get(m->watch_pids1, LONG_TO_PTR(si.si_pid));
+                        if (u2 && u2 != u1)
+                                invoke_sigchld_event(m, u2, &si);
+                        u3 = hashmap_get(m->watch_pids2, LONG_TO_PTR(si.si_pid));
+                        if (u3 && u3 != u2 && u3 != u1)
+                                invoke_sigchld_event(m, u3, &si);
                 }
 
                 /* And now, we actually reap the zombie. */
