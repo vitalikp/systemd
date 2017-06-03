@@ -526,11 +526,8 @@ static int manager_setup_notify(Manager *m) {
 
         if (m->notify_fd < 0) {
                 _cleanup_close_ int fd = -1;
-                union {
-                        struct sockaddr sa;
-                        struct sockaddr_un un;
-                } sa = {
-                        .sa.sa_family = AF_UNIX,
+                struct sockaddr_un sa = {
+                        .sa_family = AF_UNIX,
                 };
                 int one = 1;
 
@@ -561,10 +558,10 @@ static int manager_setup_notify(Manager *m) {
                 if (!m->notify_socket)
                         return log_oom();
 
-                strncpy(sa.un.sun_path, m->notify_socket, sizeof(sa.un.sun_path)-1);
-                r = bind(fd, &sa.sa, offsetof(struct sockaddr_un, sun_path) + strlen(sa.un.sun_path));
+                strncpy(sa.sun_path, m->notify_socket, sizeof(sa.sun_path)-1);
+                r = bind(fd, &sa, offsetof(struct sockaddr_un, sun_path) + strlen(sa.sun_path));
                 if (r < 0) {
-                        log_error("bind(@%s) failed: %m", sa.un.sun_path+1);
+                        log_error("bind(@%s) failed: %m", sa.sun_path+1);
                         return -errno;
                 }
 
