@@ -9,6 +9,7 @@ systemd System and Service Manager
  	- remove dbus CanIsolate get property;
  	- don't generate /{etc,run}/machine-id file;
  * load full selinux db;
+ * remove systemd-machine-id-setup program;
  
    systemd (214.8)
 ~~~~~~~

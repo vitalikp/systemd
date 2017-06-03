@@ -48,7 +48,6 @@
 /systemd-initctl
 /systemd-kmsg-syslogd
 /systemd-logind
-/systemd-machine-id-setup
 /systemd-modules-load
 /systemd-multi-seat-x
 /systemd-notify

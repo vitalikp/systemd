@@ -37,7 +37,6 @@ MANPAGES += \
 	man/systemd-halt.service.8 \
 	man/systemd-inhibit.1 \
 	man/systemd-initctl.service.8 \
-	man/systemd-machine-id-setup.1 \
 	man/systemd-notify.1 \
 	man/systemd-remount-fs.service.8 \
 	man/systemd-run.1 \
@@ -1005,7 +1004,6 @@ EXTRA_DIST += \
 	man/systemd-inhibit.xml \
 	man/systemd-initctl.service.xml \
 	man/systemd-logind.service.xml \
-	man/systemd-machine-id-setup.xml \
 	man/systemd-modules-load.service.xml \
 	man/systemd-notify.xml \
 	man/systemd-quotacheck.service.xml \

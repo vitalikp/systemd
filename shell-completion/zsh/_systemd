@@ -1,4 +1,4 @@
-#compdef systemd-cgls systemd-cgtop systemd-detect-virt systemd-machine-id-setup systemd-notify
+#compdef systemd-cgls systemd-cgtop systemd-detect-virt systemd-notify
 
 local curcontext="$curcontext" state lstate line
 case "$service" in
@@ -32,11 +32,6 @@ case "$service" in
             {-c,--container}'[Only detect whether we are run in a container]' \
             {-v,--vm}'[Only detect whether we are run in a VM]' \
             {-q,--quiet}"[Don't output anything, just set return value]"
-    ;;
-    systemd-machine-id-setup)
-        _arguments \
-            {-h,--help}'[Show this help]' \
-            '--version[Show package version]'
     ;;
     systemd-notify)
         _arguments \

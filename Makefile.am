@@ -278,8 +278,7 @@ AM_V_RM_0 = @echo "  RM      " $@;
 # ------------------------------------------------------------------------------
 rootbin_PROGRAMS = \
 	systemctl \
-	systemd-notify \
-	systemd-machine-id-setup
+	systemd-notify
 
 bin_PROGRAMS = \
 	systemd-cgls \
@@ -1579,17 +1578,6 @@ EXTRA_DIST += \
 	units/systemd-tmpfiles-setup-dev.service.in \
 	units/systemd-tmpfiles-setup.service.in \
 	units/systemd-tmpfiles-clean.service.in
-
-# ------------------------------------------------------------------------------
-systemd_machine_id_setup_SOURCES = \
-	src/machine-id-setup/machine-id-setup-main.c \
-	src/core/machine-id-setup.c \
-	src/core/machine-id-setup.h
-
-systemd_machine_id_setup_LDADD = \
-	libsystemd-label.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
 
 # ------------------------------------------------------------------------------
 systemd_sleep_SOURCES = \
