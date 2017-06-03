@@ -25,7 +25,7 @@
 #include <stdbool.h>
 #include <sys/socket.h>
 
-int label_init();
+int label_init(void);
 void label_finish(void);
 
 int label_fix(const char *path, bool ignore_enoent, bool ignore_erofs);

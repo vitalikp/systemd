@@ -85,7 +85,7 @@ static int smack_relabel_in_dev(const char *path) {
         return r;
 }
 
-int label_init() {
+int label_init(void) {
         int r = 0;
 
 #ifdef HAVE_SELINUX
