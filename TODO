@@ -368,10 +368,6 @@ Features:
 
 * properly handle loop back mounts via fstab, especially regards to fsck/passno
 
-* allow services with no ExecStart= but with an ExecStop=
-
-* dracut-shutdown needs to be ordered before unmounting /boot
-
 * rename "userspace" to "core-os"
 
 * load-fragment: when loading a unit file via a chain of symlinks
