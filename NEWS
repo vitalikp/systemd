@@ -9,6 +9,8 @@ systemd System and Service Manager
  	- remove dbus CanIsolate get property;
  	- don't generate /{etc,run}/machine-id file;
  	- don't dispatch sd_notify() messages and SIGCHLD multiple times to the same units;
+ * libsystemd:
+ 	- don't generate bus-error-mapping.c source file;
  * rpm:
  	- add user macros;
  * shared:
