@@ -18,6 +18,7 @@ systemd System and Service Manager
  * build:
  	- add check for gperf lookup function signature;
  	- add missing include “sys/sysmacros.h” header file;
+ 	- add fallthrough comment to suppress warning;
  * load full selinux db;
  * remove systemd-machine-id-setup program;
  * code optimization;

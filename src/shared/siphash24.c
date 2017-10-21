@@ -92,17 +92,17 @@ void siphash24(uint8_t out[8], const void *_in, size_t inlen, const uint8_t k[16
   switch( left )
   {
   case 7: b |= ( ( u64 )in[ 6] )  << 48;
-
+          /* fallthrough */
   case 6: b |= ( ( u64 )in[ 5] )  << 40;
-
+          /* fallthrough */
   case 5: b |= ( ( u64 )in[ 4] )  << 32;
-
+          /* fallthrough */
   case 4: b |= ( ( u64 )in[ 3] )  << 24;
-
+          /* fallthrough */
   case 3: b |= ( ( u64 )in[ 2] )  << 16;
-
+          /* fallthrough */
   case 2: b |= ( ( u64 )in[ 1] )  <<  8;
-
+          /* fallthrough */
   case 1: b |= ( ( u64 )in[ 0] ); break;
 
   case 0: break;

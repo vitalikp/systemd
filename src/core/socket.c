@@ -2218,10 +2218,11 @@ const char* socket_port_type_to_string(SocketPort *p) {
                 case SOCK_RAW:
                         if (socket_address_family(&p->address) == AF_NETLINK)
                                 return "Netlink";
-
-                default:
-                        return NULL;
+                        /* fallthrough */
                 }
+
+                return NULL;
+
 
         case SOCKET_SPECIAL:
                 return "Special";
