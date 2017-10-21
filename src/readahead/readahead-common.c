@@ -27,6 +27,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <sys/sysmacros.h>
 
 #include "log.h"
 #include "readahead-common.h"

@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/capability.h>
+#include <sys/sysmacros.h>
 
 #include "util.h"
 #include "strv.h"

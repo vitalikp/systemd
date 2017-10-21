@@ -21,6 +21,7 @@
 
 #include <fcntl.h>
 #include <fnmatch.h>
+#include <sys/sysmacros.h>
 
 #include "path-util.h"
 #include "special.h"

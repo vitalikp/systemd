@@ -34,6 +34,7 @@
 #include <getopt.h>
 #include <stdbool.h>
 #include <time.h>
+#include <sys/sysmacros.h>
 #include <sys/types.h>
 #include <sys/param.h>
 #include <glob.h>

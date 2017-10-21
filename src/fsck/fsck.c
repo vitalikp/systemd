@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/file.h>
+#include <sys/sysmacros.h>
 
 #include "sd-bus.h"
 #include "libudev.h"

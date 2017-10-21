@@ -24,6 +24,7 @@
 #include <string.h>
 #include <sys/mount.h>
 #include <sys/swap.h>
+#include <sys/sysmacros.h>
 #include <unistd.h>
 #include <linux/loop.h>
 #include <linux/dm-ioctl.h>
