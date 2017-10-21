@@ -36,8 +36,6 @@ Features:
 
 * Add RPM macros for registering/unregistering binfmt drop-ins
 
-* Add timeout to early-boot, and shut down the system if it is hit. Solves the laptop-in-bag problem and is useful for embedded cases
-
 * Run most system services with cgroupfs read-only and procfs with a more secure mode
 
 * sd-event: generate a failure of a default event loop is executed out-of-thread
