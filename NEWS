@@ -10,6 +10,10 @@ systemd System and Service Manager
  	  sd_notify() messages;
  	- use the right timeout for stop processes we fork;
  	- allow services of Type=oneshot that specify no ExecStart= commands;
+ 	- add support for a configurable system-wide start-up timeout;
+ 	- print 'startup finished' messages even if we log to console;
+ 	- introduce "poweroff" as new failure action types;
+ 	- split up “starting” manager state into “initializing” and “starting”;
  * libsystemd:
  	- don't generate bus-error-mapping.c source file;
  * systemctl:
