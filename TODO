@@ -439,10 +439,6 @@ Features:
 * implement Register= switch in .socket units to enable registration
   in Avahi, RPC and other socket registration services.
 
-* support sd_notify() style notification when reload begins (RELOADING=1), reload is finished (READY=1), and add ReloadSignal= then to use in combination
-
-* support sd_notify() style notification when shutting down, to make auto-exit bus services work (STOPPING=1)
-
 * verify that the AF_UNIX sockets of a service in the fs still exist
   when we start a service in order to avoid confusion when a user
   assumes starting a service is enough to make it accessible
