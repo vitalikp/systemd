@@ -15,6 +15,8 @@ systemd System and Service Manager
  	- add user macros;
  * shared:
  	- introduce strv_find_startswith() and make use of it;
+ * build:
+ 	- add check for gperf lookup function signature;
  * load full selinux db;
  * remove systemd-machine-id-setup program;
  * code optimization;

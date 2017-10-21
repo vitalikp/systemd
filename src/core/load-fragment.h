@@ -100,5 +100,5 @@ int config_parse_protect_home(const char* unit, const char *filename, unsigned l
 int config_parse_protect_system(const char* unit, const char *filename, unsigned line, const char *section, unsigned section_line, const char *lvalue, int ltype, const char *rvalue, void *data, void *userdata);
 
 /* gperf prototypes */
-const struct ConfigPerfItem* load_fragment_gperf_lookup(const char *key, unsigned length);
+const struct ConfigPerfItem* load_fragment_gperf_lookup(const char *key, GPERF_LEN_TYPE length);
 extern const char load_fragment_gperf_nulstr[];
