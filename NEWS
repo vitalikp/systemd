@@ -18,8 +18,11 @@ systemd System and Service Manager
  	- don't generate bus-error-mapping.c source file;
  	- split sd-event run into prepare/wait/dispatch;
  	- remove unused call bus_kernel_create_monitor();
+ 	- split bus_map_all_properties into multiple helpers;
+ 	- fix use-after-free in slot-release;
  * logind:
  	- add HandleLidSwitchDocked= option to logind.conf + documentation;
+ 	- fix memory-leak on DropController();
  * units:
  	- order “systemd-fsck@.service” after “local-fs-pre.target”;
  * systemctl:
@@ -29,6 +32,11 @@ systemd System and Service Manager
  	- add user macros;
  * shared:
  	- introduce strv_find_startswith() and make use of it;
+ 	- drop UNIQUE() macro;
+ 	- make container_of() use unique variable names;
+ 	- make lookup_uid() global;
+ 	- fix minimal race where we might miss SIGTERMs when forking off an agent;
+ 	- use unique variable names for math-macros;
  * po:
  	- update Polish translation;
  	- update Ukrainian translation;
