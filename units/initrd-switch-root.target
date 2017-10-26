@@ -9,8 +9,6 @@
 Description=Switch Root
 ConditionPathExists=/etc/initrd-release
 DefaultDependencies=no
-Requires=initrd-switch-root.service
-Before=initrd-switch-root.service
 AllowIsolate=yes
 Wants=initrd-root-fs.target
 After=initrd-root-fs.target emergency.service emergency.target

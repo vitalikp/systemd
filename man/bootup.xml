@@ -196,10 +196,7 @@
                 reached.  Additional entries marked with the
                 <emphasis>x-initrd.mount</emphasis> option. All
                 entries found are mounted below
-                <filename>/sysroot</filename>. As the very last step, the
-                <filename>initrd-switch-root.service</filename> is
-                activated, which will cause the system to switch its
-                root to <filename>/sysroot</filename>.
+                <filename>/sysroot</filename>.
                 </para>
 
 <programlisting>                                               : (beginning identical to above)
@@ -247,8 +244,8 @@
                                                v
                                    initrd-switch-root.target
                                                |
-                                               v
-                                   initrd-switch-root.service
+                                               |
+                                               |
                                                |
                                                v
                                      Transition to Host OS</programlisting>

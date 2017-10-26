@@ -403,8 +403,7 @@ nodist_systemunit_DATA = \
 	units/systemd-kexec.service \
 	units/systemd-fsck@.service \
 	units/systemd-fsck-root.service \
-	units/debug-shell.service \
-	units/initrd-switch-root.service
+	units/debug-shell.service
 
 dist_userunit_DATA = \
 	units/user/basic.target \
@@ -440,8 +439,7 @@ EXTRA_DIST += \
 	units/systemd-hibernate.service.in \
 	units/systemd-hybrid-sleep.service.in \
 	units/systemd-suspend.service.in \
-	units/quotaon.service.in \
-	units/initrd-switch-root.service.in
+	units/quotaon.service.in
 
 CLEANFILES += \
 	units/console-shell.service.m4 \
