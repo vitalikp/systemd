@@ -210,10 +210,7 @@
                     <term><option>x-initrd.mount</option></term>
 
                     <listitem><para>An additional filesystem to be
-                    mounted in the initramfs. See
-                    <filename>initrd-fs.target</filename> description
-                    in
-                    <citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry>.
+                    mounted in the initramfs.
                     </para></listitem>
                   </varlistentry>
                 </variablelist>

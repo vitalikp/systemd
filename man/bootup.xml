@@ -196,8 +196,7 @@
                 reached.  Additional entries marked with the
                 <emphasis>x-initrd.mount</emphasis> option. All
                 entries found are mounted below
-                <filename>/sysroot</filename>, and
-                <filename>initrd-fs.target</filename> is reached. The
+                <filename>/sysroot</filename>. The
                 service <filename>initrd-cleanup.service</filename>
                 isolates to the
                 <filename>initrd-switch-root.target</filename>, where
@@ -219,7 +218,7 @@
                        |                       v
                        |             initrd-root-fs.target
                        |                       |
-                       |                       v
+                       |                       |
                        v                       |
                 (custom initrd                 |
                  services...)                  v
@@ -228,8 +227,8 @@
                        |               with fstab option
                        |              x-initrd.mount...)
                        |                       |
-                       |                       v
-                       |                initrd-fs.target
+                       |                       |
+                       |                       |
                        \______________________ |
                                               \|
                                                v

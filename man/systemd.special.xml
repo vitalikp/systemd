@@ -63,7 +63,6 @@
                 <filename>halt.target</filename>,
                 <filename>hibernate.target</filename>,
                 <filename>hybrid-sleep.target</filename>,
-                <filename>initrd-fs.target</filename>,
                 <filename>kbrequest.target</filename>,
                 <filename>kexec.target</filename>,
                 <filename>local-fs.target</filename>,
