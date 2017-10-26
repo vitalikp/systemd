@@ -16,6 +16,7 @@ systemd System and Service Manager
  	- introduce "poweroff" as new failure action types;
  	- split up “starting” manager state into “initializing” and “starting”;
  	- remove “x-initrd.mount” mount option;
+ 	- remove switch-root module;
  * libsystemd:
  	- don't generate bus-error-mapping.c source file;
  	- split sd-event run into prepare/wait/dispatch;

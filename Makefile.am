@@ -839,8 +839,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/namespace.h \
 	src/core/build.h \
 	src/core/sysfs-show.h \
-	src/core/switch-root.h \
-	src/core/switch-root.c \
 	src/core/killall.h \
 	src/core/killall.c \
 	src/core/audit-fd.c \
