@@ -357,8 +357,7 @@ static bool should_umount(Mount *m) {
                 return false;
 
         p = get_mount_parameters(m);
-        if (p && mount_test_option(p->options, "x-initrd.mount") &&
-            !in_initrd())
+        if (p && !in_initrd())
                 return false;
 
         return true;

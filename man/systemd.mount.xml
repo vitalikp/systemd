@@ -205,14 +205,6 @@
                     opposite meaning and is the default.</para>
                     </listitem>
                   </varlistentry>
-
-                  <varlistentry>
-                    <term><option>x-initrd.mount</option></term>
-
-                    <listitem><para>An additional filesystem to be
-                    mounted in the initramfs.
-                    </para></listitem>
-                  </varlistentry>
                 </variablelist>
 
                 <para>If a mount point is configured in both

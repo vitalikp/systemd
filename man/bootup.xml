@@ -189,10 +189,7 @@
                 <filename>basic.target</filename>. If the root device
                 can be mounted at <filename>/sysroot</filename>, the
                 <filename>sysroot.mount</filename> unit becomes active.
-                Additional entries marked with the
-                <emphasis>x-initrd.mount</emphasis> option. All
-                entries found are mounted below
-                <filename>/sysroot</filename>.
+                All found are mounted below <filename>/sysroot</filename>.
                 </para>
 
 <programlisting>                                               : (beginning identical to above)
@@ -211,10 +208,10 @@
                        v                       |
                 (custom initrd                 |
                  services...)                  v
-                       |            (sysroot-usr.mount and
-                       |             various mounts marked
-                       |               with fstab option
-                       |              x-initrd.mount...)
+                       |             sysroot-usr.mount
+                       |                       |
+                       |                       |
+                       |                       |
                        |                       |
                        |                       |
                        |                       |
