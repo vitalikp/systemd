@@ -4730,67 +4730,6 @@ static int show_environment(sd_bus *bus, char **args) {
         return 0;
 }
 
-static int switch_root(sd_bus *bus, char **args) {
-        _cleanup_bus_error_free_ sd_bus_error error = SD_BUS_ERROR_NULL;
-        _cleanup_free_ char *cmdline_init = NULL;
-        const char *root, *init;
-        unsigned l;
-        int r;
-
-        l = strv_length(args);
-        if (l < 2 || l > 3) {
-                log_error("Wrong number of arguments.");
-                return -EINVAL;
-        }
-
-        root = args[1];
-
-        if (l >= 3)
-                init = args[2];
-        else {
-                r = parse_env_file("/proc/cmdline", WHITESPACE,
-                                   "init", &cmdline_init,
-                                   NULL);
-                if (r < 0)
-                        log_debug("Failed to parse /proc/cmdline: %s", strerror(-r));
-
-                init = cmdline_init;
-        }
-
-        if (isempty(init))
-                init = NULL;
-
-        if (init) {
-                const char *root_systemd_path = NULL, *root_init_path = NULL;
-
-                root_systemd_path = strappenda(root, "/" SYSTEMD_BINARY_PATH);
-                root_init_path = strappenda(root, "/", init);
-
-                /* If the passed init is actually the same as the
-                 * systemd binary, then let's suppress it. */
-                if (files_same(root_init_path, root_systemd_path) > 0)
-                        init = NULL;
-        }
-
-        log_debug("Switching root - root: %s; init: %s", root, strna(init));
-
-        r = sd_bus_call_method(
-                        bus,
-                        "org.freedesktop.systemd1",
-                        "/org/freedesktop/systemd1",
-                        "org.freedesktop.systemd1.Manager",
-                        "SwitchRoot",
-                        &error,
-                        NULL,
-                        "ss", root, init);
-        if (r < 0) {
-                log_error("Failed to switch root: %s", bus_error_message(&error, r));
-                return r;
-        }
-
-        return 0;
-}
-
 static int set_environment(sd_bus *bus, char **args) {
         _cleanup_bus_error_free_ sd_bus_error error = SD_BUS_ERROR_NULL;
         _cleanup_bus_message_unref_ sd_bus_message *m = NULL;
@@ -5330,7 +5269,6 @@ static void systemctl_help(void) {
                "  reboot [ARG]                    Shut down and reboot the system\n"
                "  kexec                           Shut down and reboot the system with kexec\n"
                "  exit                            Request user instance exit\n"
-               "  switch-root ROOT [INIT]         Change to a different root file system\n"
                "  suspend                         Suspend the system\n"
                "  hibernate                       Hibernate the system\n"
                "  hybrid-sleep                    Hibernate and suspend the system\n",
@@ -6253,7 +6191,6 @@ static int systemctl_main(sd_bus *bus, int argc, char *argv[], int bus_error) {
                 { "mask",                  MORE,  2, enable_unit,      NOBUS },
                 { "unmask",                MORE,  2, enable_unit,      NOBUS },
                 { "link",                  MORE,  2, enable_unit,      NOBUS },
-                { "switch-root",           MORE,  2, switch_root       },
                 { "list-dependencies",     LESS,  2, list_dependencies },
                 { "set-default",           EQUAL, 2, set_default,      NOBUS },
                 { "get-default",           EQUAL, 1, get_default,      NOBUS },
