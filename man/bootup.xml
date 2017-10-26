@@ -183,13 +183,10 @@
                 inside the initrd follows the following
                 structure.</para>
 
-                <para>The default target in the initrd is
-                <filename>initrd.target</filename>. The bootup process
+                <para>The bootup process
                 begins identical to the system manager bootup (see
                 above) until it reaches
-                <filename>basic.target</filename>. From there, systemd
-                approaches the special target
-                <filename>initrd.target</filename>. If the root device
+                <filename>basic.target</filename>. If the root device
                 can be mounted at <filename>/sysroot</filename>, the
                 <filename>sysroot.mount</filename> unit becomes active.
                 Additional entries marked with the
@@ -223,8 +220,8 @@
                        |                       |
                        \______________________ |
                                               \|
-                                               v
-                                          initrd.target
+                                               |
+                                               |
                                                |
                                                |
                                                |
