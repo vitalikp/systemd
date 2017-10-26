@@ -196,11 +196,7 @@
                 reached.  Additional entries marked with the
                 <emphasis>x-initrd.mount</emphasis> option. All
                 entries found are mounted below
-                <filename>/sysroot</filename>. The
-                service <filename>initrd-cleanup.service</filename>
-                isolates to the
-                <filename>initrd-switch-root.target</filename>, where
-                cleanup services can run. As the very last step, the
+                <filename>/sysroot</filename>. As the very last step, the
                 <filename>initrd-switch-root.service</filename> is
                 activated, which will cause the system to switch its
                 root to <filename>/sysroot</filename>.
@@ -234,9 +230,9 @@
                                                v
                                           initrd.target
                                                |
+                                               |
+                                               |
                                                v
-                                     initrd-cleanup.service
-                                          isolates to
                                     initrd-switch-root.target
                                                |
                                                v

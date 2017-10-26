@@ -25,7 +25,7 @@ systemd System and Service Manager
  	- fix memory-leak on DropController();
  * units:
  	- order “systemd-fsck@.service” after “local-fs-pre.target”;
- 	- remove “initrd-parse-etc” service;
+ 	- remove services: initrd-parse-etc, initrd-cleanup;
  	- remove “initrd-fs” target;
  * systemctl:
  	- always show legend in list-unit-files, even if we know about no unit files;

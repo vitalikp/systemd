@@ -404,7 +404,6 @@ nodist_systemunit_DATA = \
 	units/systemd-fsck@.service \
 	units/systemd-fsck-root.service \
 	units/debug-shell.service \
-	units/initrd-cleanup.service \
 	units/initrd-switch-root.service
 
 dist_userunit_DATA = \
@@ -442,7 +441,6 @@ EXTRA_DIST += \
 	units/systemd-hybrid-sleep.service.in \
 	units/systemd-suspend.service.in \
 	units/quotaon.service.in \
-	units/initrd-cleanup.service.in \
 	units/initrd-switch-root.service.in
 
 CLEANFILES += \
