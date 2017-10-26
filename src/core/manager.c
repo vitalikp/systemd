@@ -838,9 +838,6 @@ void manager_free(Manager *m) {
         hashmap_free(m->cgroup_unit);
         set_free_free(m->unit_path_cache);
 
-        free(m->switch_root);
-        free(m->switch_root_init);
-
         for (i = 0; i < _RLIMIT_MAX; i++)
                 free(m->rlimit[i]);
 

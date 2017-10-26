@@ -57,7 +57,6 @@ typedef enum ManagerExitCode {
         MANAGER_POWEROFF,
         MANAGER_HALT,
         MANAGER_KEXEC,
-        MANAGER_SWITCH_ROOT,
         _MANAGER_EXIT_CODE_MAX,
         _MANAGER_EXIT_CODE_INVALID = -1
 } ManagerExitCode;
@@ -268,9 +267,6 @@ struct Manager {
         /* Type=idle pipes */
         int idle_pipe[4];
         sd_event_source *idle_pipe_event_source;
-
-        char *switch_root;
-        char *switch_root_init;
 
         /* This maps all possible path prefixes to the units needing
          * them. It's a hashmap with a path string as key and a Set as

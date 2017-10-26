@@ -3,7 +3,8 @@ systemd System and Service Manager
    systemd (214.9-dev)
 ~~~~~~~
  * core:
- 	- remove dbus  get properties: CanStart, CanStop, CanReload, CanIsolate;
+ 	- remove dbus get properties: CanStart, CanStop, CanReload, CanIsolate;
+ 	- remove dbus “SwitchRoot” method;
  	- don't generate /{etc,run}/machine-id file;
  	- don't dispatch sd_notify() messages and SIGCHLD multiple times to the same units;
  	- allow informing systemd about service status changes with RELOADING=1 and STOPPING=1

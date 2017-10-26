@@ -57,7 +57,6 @@
 #include "architecture.h"
 #include "watchdog.h"
 #include "path-util.h"
-#include "switch-root.h"
 #include "capability.h"
 #include "killall.h"
 #include "env-util.h"
@@ -1211,7 +1210,6 @@ int main(int argc, char *argv[]) {
         bool loaded_policy = false;
         bool arm_reboot_watchdog = false;
         bool queue_default_job = false;
-        char *switch_root_dir = NULL, *switch_root_init = NULL;
         struct rlimit saved_rlimit_nofile = RLIMIT_MAKE_CONST(0);
 
         dual_timestamp_from_monotonic(&kernel_timestamp, 0);
@@ -1691,20 +1689,6 @@ int main(int argc, char *argv[]) {
                         log_notice("Reexecuting.");
                         goto finish;
 
-                case MANAGER_SWITCH_ROOT:
-                        /* Steal the switch root parameters */
-                        switch_root_dir = m->switch_root;
-                        switch_root_init = m->switch_root_init;
-                        m->switch_root = m->switch_root_init = NULL;
-
-                        if (!switch_root_init)
-                                if (prepare_reexecute(m, &arg_serialization, &fds, true) < 0)
-                                        goto finish;
-
-                        reexecute = true;
-                        log_notice("Switching root.");
-                        goto finish;
-
                 case MANAGER_REBOOT:
                 case MANAGER_POWEROFF:
                 case MANAGER_HALT:
@@ -1771,52 +1755,31 @@ finish:
                 if (saved_rlimit_nofile.rlim_cur > 0)
                         setrlimit(RLIMIT_NOFILE, &saved_rlimit_nofile);
 
-                if (switch_root_dir) {
-                        /* Kill all remaining processes from the
-                         * initrd, but don't wait for them, so that we
-                         * can handle the SIGCHLD for them after
-                         * deserializing. */
-                        broadcast_signal(SIGTERM, false, true);
-
-                        /* And switch root */
-                        r = switch_root(switch_root_dir);
-                        if (r < 0)
-                                log_error("Failed to switch root, ignoring: %s", strerror(-r));
-                }
-
                 args_size = MAX(6, argc+1);
                 args = newa(const char*, args_size);
 
-                if (!switch_root_init) {
-                        char sfd[16];
+                char sfd[16];
 
-                        /* First try to spawn ourselves with the right
-                         * path, and with full serialization. We do
-                         * this only if the user didn't specify an
-                         * explicit init to spawn. */
+                /* First try to spawn ourselves with the right
+                 * path, and with full serialization. We do
+                 * this only if the user didn't specify an
+                 * explicit init to spawn. */
 
-                        assert(arg_serialization);
-                        assert(fds);
+                assert(arg_serialization);
+                assert(fds);
 
-                        snprintf(sfd, sizeof(sfd), "%i", fileno(arg_serialization));
-                        char_array_0(sfd);
+                snprintf(sfd, sizeof(sfd), "%i", fileno(arg_serialization));
+                char_array_0(sfd);
 
-                        i = 0;
-                        args[i++] = SYSTEMD_BINARY_PATH;
-                        if (switch_root_dir)
-                                args[i++] = "--switched-root";
-                        args[i++] = arg_running_as == SYSTEMD_SYSTEM ? "--system" : "--user";
-                        args[i++] = "--deserialize";
-                        args[i++] = sfd;
-                        args[i++] = NULL;
+                i = 0;
+                args[i++] = SYSTEMD_BINARY_PATH;
+                args[i++] = arg_running_as == SYSTEMD_SYSTEM ? "--system" : "--user";
+                args[i++] = "--deserialize";
+                args[i++] = sfd;
+                args[i++] = NULL;
 
-                        /* do not pass along the environment we inherit from the kernel or initrd */
-                        if (switch_root_dir)
-                                clearenv();
-
-                        assert(i <= args_size);
-                        execv(args[0], (char* const*) args);
-                }
+                assert(i <= args_size);
+                execv(args[0], (char* const*) args);
 
                 /* Try the fallback, if there is any, without any
                  * serialization. We pass the original argv[] and
@@ -1846,12 +1809,6 @@ finish:
                  * if we switch from initial ramdisk to init=... */
                 reset_all_signal_handlers();
                 reset_signal_mask();
-
-                if (switch_root_init) {
-                        args[0] = switch_root_init;
-                        execv(args[0], (char* const*) args);
-                        log_warning("Failed to execute configured init, trying fallback: %m");
-                }
 
                 args[0] = "/sbin/init";
                 execv(args[0], (char* const*) args);
