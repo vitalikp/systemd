@@ -12,6 +12,5 @@ OnFailure=emergency.target
 OnFailureJobMode=replace-irreversibly
 ConditionPathExists=/etc/initrd-release
 Requires=basic.target
-Wants=initrd-root-fs.target
-After=initrd-root-fs.target basic.target rescue.service rescue.target
+After=basic.target rescue.service rescue.target
 AllowIsolate=yes

@@ -80,7 +80,6 @@
                 <filename>remote-fs.target</filename>,
                 <filename>remote-fs-pre.target</filename>,
                 <filename>rescue.target</filename>,
-                <filename>initrd-root-fs.target</filename>,
                 <filename>rpcbind.target</filename>,
                 <filename>shutdown.target</filename>,
                 <filename>sigpwr.target</filename>,

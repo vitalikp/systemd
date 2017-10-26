@@ -191,9 +191,8 @@
                 approaches the special target
                 <filename>initrd.target</filename>. If the root device
                 can be mounted at <filename>/sysroot</filename>, the
-                <filename>sysroot.mount</filename> unit becomes active
-                and <filename>initrd-root-fs.target</filename> is
-                reached.  Additional entries marked with the
+                <filename>sysroot.mount</filename> unit becomes active.
+                Additional entries marked with the
                 <emphasis>x-initrd.mount</emphasis> option. All
                 entries found are mounted below
                 <filename>/sysroot</filename>.
@@ -208,8 +207,8 @@
                        /                       |                                         v
                        |                  sysroot.mount                          <emphasis>emergency.target</emphasis>
                        |                       |
-                       |                       v
-                       |             initrd-root-fs.target
+                       |                       |
+                       |                       |
                        |                       |
                        |                       |
                        v                       |

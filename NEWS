@@ -26,7 +26,7 @@ systemd System and Service Manager
  * units:
  	- order “systemd-fsck@.service” after “local-fs-pre.target”;
  	- remove services: initrd-parse-etc, initrd-cleanup, initrd-switch-root;
- 	- remove targets: initrd-fs, initrd-switch-root;
+ 	- remove targets: initrd-fs, initrd-switch-root, initrd-root-fs;
  * systemctl:
  	- always show legend in list-unit-files, even if we know about no unit files;
  	- correct error message printed when bus_process_wait fails;
