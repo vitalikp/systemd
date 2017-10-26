@@ -376,8 +376,7 @@ dist_systemunit_DATA = \
 	units/printer.target \
 	units/sound.target \
 	units/bluetooth.target \
-	units/smartcard.target \
-	units/initrd-switch-root.target
+	units/smartcard.target
 
 nodist_systemunit_DATA = \
 	units/getty@.service \

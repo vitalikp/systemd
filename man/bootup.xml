@@ -229,20 +229,20 @@
                                                |
                                                |
                                                |
-                                               v
-                                    initrd-switch-root.target
                                                |
-                                               v
-                        ______________________/|
-                       /                       |
-                       |                       |
-                       v                       |
-                (custom initrd                 |
-                 services...)                  |
-                       \______________________ |
-                                              \|
-                                               v
-                                   initrd-switch-root.target
+                                               |
+                                               |
+                                               |
+                        ______________________/
+                       /
+                       |
+                       v
+                (custom initrd
+                 services...) 
+                       \______________________
+                                              \
+                                               |
+                                               |
                                                |
                                                |
                                                |
