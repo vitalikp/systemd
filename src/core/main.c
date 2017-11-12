@@ -1741,6 +1741,7 @@ finish:
         label_finish();
 
         if (reexecute) {
+                char sfd[16];
                 const char **args;
                 unsigned i, args_size;
 
@@ -1757,8 +1758,6 @@ finish:
 
                 args_size = MAX(6, argc+1);
                 args = newa(const char*, args_size);
-
-                char sfd[16];
 
                 /* First try to spawn ourselves with the right
                  * path, and with full serialization. We do
