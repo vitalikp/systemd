@@ -1,6 +1,6 @@
 systemd System and Service Manager
 
-   systemd (214.9-dev)
+   systemd (214.9)
 ~~~~~~~
  * core:
  	- remove dbus get properties: CanStart, CanStop, CanReload, CanIsolate;
