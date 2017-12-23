@@ -363,13 +363,6 @@ static int nftw_cb(
 
         label_fix(fpath, false, false);
 
-        /* /run/initramfs is static data and big, no need to
-         * dynamically relabel its contents at boot... */
-        if (_unlikely_(ftwbuf->level == 1 &&
-                      tflag == FTW_D &&
-                      streq(fpath, "/run/initramfs")))
-                return FTW_SKIP_SUBTREE;
-
         return FTW_CONTINUE;
 };
 

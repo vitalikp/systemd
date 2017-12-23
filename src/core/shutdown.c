@@ -131,87 +131,6 @@ static int parse_argv(int argc, char *argv[]) {
         return 0;
 }
 
-static int prepare_new_root(void) {
-        static const char dirs[] =
-                "/run/initramfs/oldroot\0"
-                "/run/initramfs/proc\0"
-                "/run/initramfs/sys\0"
-                "/run/initramfs/dev\0"
-                "/run/initramfs/run\0";
-
-        const char *dir;
-
-        if (mount("/run/initramfs", "/run/initramfs", NULL, MS_BIND, NULL) < 0) {
-                log_error("Failed to mount bind /run/initramfs on /run/initramfs: %m");
-                return -errno;
-        }
-
-        if (mount(NULL, "/run/initramfs", NULL, MS_PRIVATE, NULL) < 0) {
-                log_error("Failed to make /run/initramfs private mount: %m");
-                return -errno;
-        }
-
-        NULSTR_FOREACH(dir, dirs)
-                if (mkdir_p_label(dir, 0755) < 0 && errno != EEXIST) {
-                        log_error("Failed to mkdir %s: %m", dir);
-                        return -errno;
-                }
-
-        if (mount("/sys", "/run/initramfs/sys", NULL, MS_BIND, NULL) < 0) {
-                log_error("Failed to mount bind /sys on /run/initramfs/sys: %m");
-                return -errno;
-        }
-
-        if (mount("/proc", "/run/initramfs/proc", NULL, MS_BIND, NULL) < 0) {
-                log_error("Failed to mount bind /proc on /run/initramfs/proc: %m");
-                return -errno;
-        }
-
-        if (mount("/dev", "/run/initramfs/dev", NULL, MS_BIND, NULL) < 0) {
-                log_error("Failed to mount bind /dev on /run/initramfs/dev: %m");
-                return -errno;
-        }
-
-        if (mount("/run", "/run/initramfs/run", NULL, MS_BIND, NULL) < 0) {
-                log_error("Failed to mount bind /run on /run/initramfs/run: %m");
-                return -errno;
-        }
-
-        return 0;
-}
-
-static int pivot_to_new_root(void) {
-
-        if (chdir("/run/initramfs") < 0) {
-                log_error("Failed to change directory to /run/initramfs: %m");
-                return -errno;
-        }
-
-        /* Work-around for a kernel bug: for some reason the kernel
-         * refuses switching root if any file systems are mounted
-         * MS_SHARED. Hence remount them MS_PRIVATE here as a
-         * work-around.
-         *
-         * https://bugzilla.redhat.com/show_bug.cgi?id=847418 */
-        if (mount(NULL, "/", NULL, MS_REC|MS_PRIVATE, NULL) < 0)
-                log_warning("Failed to make \"/\" private mount: %m");
-
-        if (pivot_root(".", "oldroot") < 0) {
-                log_error("pivot failed: %m");
-                /* only chroot if pivot root succeeded */
-                return -errno;
-        }
-
-        chroot(".");
-
-        setsid();
-        make_console_stdio();
-
-        log_info("Successfully changed into root pivot.");
-
-        return 0;
-}
-
 int main(int argc, char *argv[]) {
         bool need_umount, need_swapoff, need_loop_detach, need_dm_detach;
         bool in_container, use_watchdog = false;
@@ -369,20 +288,6 @@ int main(int argc, char *argv[]) {
         arguments[1] = arg_verb;
         arguments[2] = NULL;
         execute_directory(SYSTEM_SHUTDOWN_PATH, NULL, DEFAULT_TIMEOUT_USEC, arguments);
-
-        if (!in_container && !in_initrd() &&
-            access("/run/initramfs/shutdown", X_OK) == 0) {
-
-                if (prepare_new_root() >= 0 &&
-                    pivot_to_new_root() >= 0) {
-                        arguments[0] = (char*) "/shutdown";
-
-                        log_info("Returning to initrd...");
-
-                        execv("/shutdown", arguments);
-                        log_error("Failed to execute shutdown binary: %m");
-                }
-        }
 
         if (need_umount || need_swapoff || need_loop_detach || need_dm_detach)
                 log_error("Failed to finalize %s%s%s%s ignoring",
