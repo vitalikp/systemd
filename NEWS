@@ -6,6 +6,7 @@ systemd System and Service Manager
  	- remove initramfs support;
  * kdbus:
  	- remove “sd-resolve” module;
+ 	- remove “sd-utf8” module;
  * tests:
  	- remove “test-resolve” test;
 

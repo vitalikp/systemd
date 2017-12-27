@@ -1688,7 +1688,6 @@ libsystemd_internal_la_SOURCES = \
 	src/systemd/sd-bus.h \
 	src/systemd/sd-bus-protocol.h \
 	src/systemd/sd-bus-vtable.h \
-	src/systemd/sd-utf8.h \
 	src/systemd/sd-event.h \
 	src/systemd/sd-login.h \
 	src/systemd/sd-id128.h \
@@ -1733,7 +1732,6 @@ libsystemd_internal_la_SOURCES = \
 	src/libsystemd/sd-bus/bus-slot.h \
 	src/libsystemd/sd-bus/bus-protocol.h \
 	src/libsystemd/sd-bus/kdbus.h \
-	src/libsystemd/sd-utf8/sd-utf8.c \
 	src/libsystemd/sd-event/sd-event.c \
 	src/libsystemd/sd-event/event-util.h \
 	src/libsystemd/sd-id128/sd-id128.c \
@@ -1819,7 +1817,6 @@ pkginclude_HEADERS += \
 	src/systemd/sd-bus.h \
 	src/systemd/sd-bus-protocol.h \
 	src/systemd/sd-bus-vtable.h \
-	src/systemd/sd-utf8.h \
 	src/systemd/sd-event.h
 endif
 
@@ -2871,8 +2868,7 @@ test-libsystemd-sym.c: \
 		$(top_builddir)/src/libsystemd/libsystemd.sym \
 		src/systemd/sd-daemon.h \
 		src/systemd/sd-login.h \
-		src/systemd/sd-bus.h \
-		src/systemd/sd-utf8.h
+		src/systemd/sd-bus.h
 	$(generate-sym-test)
 
 test_libsystemd_sym_SOURCES = \

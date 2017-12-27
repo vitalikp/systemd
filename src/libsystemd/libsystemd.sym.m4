@@ -338,9 +338,5 @@ global:
         sd_event_source_get_signal;
         sd_event_source_get_child_pid;
         sd_event_source_get_event;
-
-        /* sd-utf8 */
-        sd_utf8_is_valid;
-        sd_ascii_is_valid;
 } LIBSYSTEMD_214;
 )
