@@ -1690,7 +1690,6 @@ libsystemd_internal_la_SOURCES = \
 	src/systemd/sd-bus-vtable.h \
 	src/systemd/sd-utf8.h \
 	src/systemd/sd-event.h \
-	src/systemd/sd-resolve.h \
 	src/systemd/sd-login.h \
 	src/systemd/sd-id128.h \
 	src/systemd/sd-daemon.h \
@@ -1751,20 +1750,8 @@ libsystemd_internal_la_CFLAGS = \
 libsystemd_internal_la_LIBADD = \
 	$(RT_LIBS)
 
-libsystemd_resolve_la_SOURCES = \
-	src/libsystemd/sd-resolve/sd-resolve.c \
-	src/libsystemd/sd-resolve/resolve-util.h
-
-libsystemd_resolve_la_CFLAGS = \
-	$(AM_CFLAGS) \
-	-pthread
-
-libsystemd_resolve_la_LIBADD = \
-	-lresolv
-
 noinst_LTLIBRARIES += \
-	libsystemd-internal.la \
-	libsystemd-resolve.la
+	libsystemd-internal.la
 
 libsystemd_dump_la_SOURCES = \
 	src/libsystemd/sd-bus/bus-dump.c \
@@ -1833,8 +1820,7 @@ pkginclude_HEADERS += \
 	src/systemd/sd-bus-protocol.h \
 	src/systemd/sd-bus-vtable.h \
 	src/systemd/sd-utf8.h \
-	src/systemd/sd-event.h \
-	src/systemd/sd-resolve.h
+	src/systemd/sd-event.h
 endif
 
 lib_LTLIBRARIES += \
@@ -2886,8 +2872,7 @@ test-libsystemd-sym.c: \
 		src/systemd/sd-daemon.h \
 		src/systemd/sd-login.h \
 		src/systemd/sd-bus.h \
-		src/systemd/sd-utf8.h \
-		src/systemd/sd-resolve.h
+		src/systemd/sd-utf8.h
 	$(generate-sym-test)
 
 test_libsystemd_sym_SOURCES = \
