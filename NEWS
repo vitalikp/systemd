@@ -4,6 +4,8 @@ systemd System and Service Manager
 ~~~~~~~
  * core:
  	- remove initramfs support;
+ * tests:
+ 	- remove “test-resolve” test;
 
    systemd (214.9)
 ~~~~~~~

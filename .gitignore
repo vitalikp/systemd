@@ -120,7 +120,6 @@
 /test-prioq
 /test-ratelimit
 /test-replace-var
-/test-resolve
 /test-sched-prio
 /test-sleep
 /test-socket-util

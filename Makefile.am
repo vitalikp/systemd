@@ -1855,8 +1855,7 @@ tests += \
 	test-bus-error \
 	test-bus-creds \
 	test-bus-gvariant \
-	test-event \
-	test-resolve
+	test-event
 
 bin_PROGRAMS += \
 	busctl
@@ -2014,18 +2013,6 @@ test_event_SOURCES = \
 test_event_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
-
-test_resolve_SOURCES = \
-	src/libsystemd/sd-resolve/test-resolve.c
-
-test_resolve_LDADD = \
-	libsystemd-resolve.la \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-test_resolve_CFLAGS = \
-	$(AM_CFLAGS) \
-	-pthread
 
 busctl_SOURCES = \
 	src/libsystemd/sd-bus/busctl.c
