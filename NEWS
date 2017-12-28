@@ -6,6 +6,7 @@ systemd System and Service Manager
  	- remove initramfs support;
  * libsystemd:
  	- remove “bus_message_map_properties_changed” function;
+ 	- remove “BusTransport” enum;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

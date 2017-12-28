@@ -1284,7 +1284,7 @@ int main(int argc, char *argv[]) {
         if (r <= 0)
                 goto finish;
 
-        r = bus_open_transport(BUS_TRANSPORT_LOCAL, NULL, false, &bus);
+        r = bus_open_transport(false, &bus);
         if (r < 0) {
                 log_error("Failed to create bus connection: %s", strerror(-r));
                 goto finish;

@@ -6171,7 +6171,7 @@ int main(int argc, char*argv[]) {
         }
 
         if (!avoid_bus())
-                r = bus_open_transport_systemd(BUS_TRANSPORT_LOCAL, NULL, arg_scope != UNIT_FILE_SYSTEM, &bus);
+                r = bus_open_transport_systemd(arg_scope != UNIT_FILE_SYSTEM, &bus);
 
         /* systemctl_main() will print an error message for the bus
          * connection, but only if it needs to */

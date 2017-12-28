@@ -1069,64 +1069,28 @@ int bus_map_all_properties(sd_bus *bus,
         return bus_message_map_all_properties(bus, m, map, userdata);
 }
 
-int bus_open_transport(BusTransport transport, const char *host, bool user, sd_bus **bus) {
+int bus_open_transport(bool user, sd_bus **bus) {
         int r;
 
-        assert(transport >= 0);
-        assert(transport < _BUS_TRANSPORT_MAX);
         assert(bus);
 
-        assert_return((transport == BUS_TRANSPORT_LOCAL) == !host, -EINVAL);
-        assert_return(transport == BUS_TRANSPORT_LOCAL || !user, -ENOTSUP);
-
-        switch (transport) {
-
-        case BUS_TRANSPORT_LOCAL:
-                if (user)
-                        r = sd_bus_default_user(bus);
-                else
-                        r = sd_bus_default_system(bus);
-
-                break;
-
-        case BUS_TRANSPORT_CONTAINER:
-                r = sd_bus_open_system_container(bus, host);
-                break;
-
-        default:
-                assert_not_reached("Hmm, unknown transport type.");
-        }
+        if (user)
+                r = sd_bus_default_user(bus);
+        else
+                r = sd_bus_default_system(bus);
 
         return r;
 }
 
-int bus_open_transport_systemd(BusTransport transport, const char *host, bool user, sd_bus **bus) {
+int bus_open_transport_systemd(bool user, sd_bus **bus) {
         int r;
 
-        assert(transport >= 0);
-        assert(transport < _BUS_TRANSPORT_MAX);
         assert(bus);
 
-        assert_return((transport == BUS_TRANSPORT_LOCAL) == !host, -EINVAL);
-        assert_return(transport == BUS_TRANSPORT_LOCAL || !user, -ENOTSUP);
-
-        switch (transport) {
-
-        case BUS_TRANSPORT_LOCAL:
-                if (user)
-                        r = bus_open_user_systemd(bus);
-                else
-                        r = bus_open_system_systemd(bus);
-
-                break;
-
-        case BUS_TRANSPORT_CONTAINER:
-                r = sd_bus_open_system_container(bus, host);
-                break;
-
-        default:
-                assert_not_reached("Hmm, unknown transport type.");
-        }
+        if (user)
+                r = bus_open_user_systemd(bus);
+        else
+                r = bus_open_system_systemd(bus);
 
         return r;
 }

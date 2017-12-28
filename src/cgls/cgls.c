@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
                 arg_all * OUTPUT_SHOW_ALL |
                 (arg_full > 0) * OUTPUT_FULL_WIDTH;
 
-        r = bus_open_transport(BUS_TRANSPORT_LOCAL, NULL, false, &bus);
+        r = bus_open_transport(false, &bus);
         if (r < 0) {
                 log_error("Failed to create bus connection: %s", strerror(-r));
                 goto finish;
