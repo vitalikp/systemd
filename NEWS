@@ -9,6 +9,8 @@ systemd System and Service Manager
  * kdbus:
  	- remove “sd-resolve” module;
  	- remove “sd-utf8” module;
+ * systemctl:
+ 	- remove “list-machines” command;
  * tests:
  	- remove “test-resolve” test;
 
