@@ -71,8 +71,6 @@ static char** arg_dot_from_patterns = NULL;
 static char** arg_dot_to_patterns = NULL;
 static usec_t arg_fuzz = 0;
 static bool arg_no_pager = false;
-static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
-static char *arg_host = NULL;
 static bool arg_user = false;
 
 struct boot_times {
@@ -1118,7 +1116,6 @@ static void help(void) {
                "     --no-pager           Do not pipe output into a pager\n"
                "     --system             Operate on system systemd instance\n"
                "     --user               Operate on user systemd instance\n"
-               "  -M --machine=CONTAINER  Operate on local container\n"
                "     --order              When generating a dependency graph, show only order\n"
                "     --require            When generating a dependency graph, show only requirement\n"
                "     --from-pattern=GLOB, --to-pattern=GLOB\n"
@@ -1176,7 +1173,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hM:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "h", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -1227,11 +1224,6 @@ static int parse_argv(int argc, char *argv[]) {
                         arg_no_pager = true;
                         break;
 
-                case 'M':
-                        arg_transport = BUS_TRANSPORT_CONTAINER;
-                        arg_host = optarg;
-                        break;
-
                 case '?':
                         return -EINVAL;
 
@@ -1256,7 +1248,7 @@ int main(int argc, char *argv[]) {
         if (r <= 0)
                 goto finish;
 
-        r = bus_open_transport_systemd(arg_transport, arg_host, arg_user, &bus);
+        r = bus_open_transport_systemd(BUS_TRANSPORT_LOCAL, NULL, arg_user, &bus);
         if (r < 0) {
                 log_error("Failed to create bus connection: %s", strerror(-r));
                 goto finish;
