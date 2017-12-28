@@ -6,6 +6,8 @@ systemd System and Service Manager
  	- remove initramfs support;
  * libsystemd:
  	- remove “bus_message_map_properties_changed” function;
+ * loginctl:
+ 	- remove “machine” argument option;
  * kdbus:
  	- remove “sd-resolve” module;
  	- remove “sd-utf8” module;

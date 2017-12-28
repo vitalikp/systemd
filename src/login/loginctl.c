@@ -48,9 +48,7 @@ static bool arg_no_pager = false;
 static bool arg_legend = true;
 static const char *arg_kill_who = NULL;
 static int arg_signal = SIGTERM;
-static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
 static bool arg_ask_password = true;
-static char *arg_host = NULL;
 
 static void pager_open_if_enabled(void) {
 
@@ -65,9 +63,6 @@ static void polkit_agent_open_if_enabled(void) {
         /* Open the polkit agent as a child process if necessary */
 
         if (!arg_ask_password)
-                return;
-
-        if (arg_transport != BUS_TRANSPORT_LOCAL)
                 return;
 
         polkit_agent_open();
@@ -211,9 +206,6 @@ static int show_unit_cgroup(sd_bus *bus, const char *interface, const char *unit
 
         assert(bus);
         assert(unit);
-
-        if (arg_transport != BUS_TRANSPORT_LOCAL)
-                return 0;
 
         path = unit_dbus_path_from_name(unit);
         if (!path)
@@ -558,6 +550,7 @@ static int print_seat_status_info(sd_bus *bus, const char *path, bool *new_line)
         };
 
         SeatStatusInfo i = {};
+        unsigned c;
         int r;
 
         r = bus_map_all_properties(bus, "org.freedesktop.login1", path, map, &i);
@@ -587,19 +580,16 @@ static int print_seat_status_info(sd_bus *bus, const char *path, bool *new_line)
                 printf("\n");
         }
 
-        if (arg_transport == BUS_TRANSPORT_LOCAL) {
-                unsigned c;
 
-                c = columns();
-                if (c > 21)
-                        c -= 21;
-                else
-                        c = 0;
+        c = columns();
+        if (c > 21)
+                c -= 21;
+        else
+                c = 0;
 
-                printf("\t Devices:\n");
+        printf("\t Devices:\n");
 
-                show_sysfs(i.id, "\t\t  ", c);
-        }
+        show_sysfs(i.id, "\t\t  ", c);
 
 finish:
         strv_free(i.sessions);
@@ -1056,7 +1046,6 @@ static void help(void) {
                "     --no-pager          Do not pipe output into a pager\n"
                "     --no-legend         Do not show the headers and footers\n"
                "     --no-ask-password   Don't prompt for password\n"
-               "  -M --machine=CONTAINER Operate on local container\n"
                "  -p --property=NAME     Show only properties by this name\n"
                "  -a --all               Show all properties, including empty ones\n"
                "  -l --full              Do not ellipsize output\n"
@@ -1109,7 +1098,6 @@ static int parse_argv(int argc, char *argv[]) {
                 { "no-legend",       no_argument,       NULL, ARG_NO_LEGEND       },
                 { "kill-who",        required_argument, NULL, ARG_KILL_WHO        },
                 { "signal",          required_argument, NULL, 's'                 },
-                { "machine",         required_argument, NULL, 'M'                 },
                 { "no-ask-password", no_argument,       NULL, ARG_NO_ASK_PASSWORD },
                 {}
         };
@@ -1119,7 +1107,7 @@ static int parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "hp:als:M:", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "hp:als:", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -1174,11 +1162,6 @@ static int parse_argv(int argc, char *argv[]) {
                                 log_error("Failed to parse signal string %s.", optarg);
                                 return -EINVAL;
                         }
-                        break;
-
-                case 'M':
-                        arg_transport = BUS_TRANSPORT_CONTAINER;
-                        arg_host = optarg;
                         break;
 
                 case '?':
@@ -1301,7 +1284,7 @@ int main(int argc, char *argv[]) {
         if (r <= 0)
                 goto finish;
 
-        r = bus_open_transport(arg_transport, arg_host, false, &bus);
+        r = bus_open_transport(BUS_TRANSPORT_LOCAL, NULL, false, &bus);
         if (r < 0) {
                 log_error("Failed to create bus connection: %s", strerror(-r));
                 goto finish;
