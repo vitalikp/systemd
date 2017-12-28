@@ -7,6 +7,7 @@ systemd System and Service Manager
  * libsystemd:
  	- remove “bus_message_map_properties_changed” function;
  	- remove “BusTransport” enum;
+ 	- remove “sd_bus_open_system_container” function;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

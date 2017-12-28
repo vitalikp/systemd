@@ -1230,37 +1230,6 @@ int bus_set_address_system_container(sd_bus *b, const char *machine) {
         return 0;
 }
 
-_public_ int sd_bus_open_system_container(sd_bus **ret, const char *machine) {
-        sd_bus *bus;
-        int r;
-
-        assert_return(machine, -EINVAL);
-        assert_return(ret, -EINVAL);
-        assert_return(filename_is_safe(machine), -EINVAL);
-
-        r = sd_bus_new(&bus);
-        if (r < 0)
-                return r;
-
-        r = bus_set_address_system_container(bus, machine);
-        if (r < 0)
-                goto fail;
-
-        bus->bus_client = true;
-        bus->trusted = false;
-
-        r = sd_bus_start(bus);
-        if (r < 0)
-                goto fail;
-
-        *ret = bus;
-        return 0;
-
-fail:
-        bus_free(bus);
-        return r;
-}
-
 _public_ void sd_bus_close(sd_bus *bus) {
 
         if (!bus)
