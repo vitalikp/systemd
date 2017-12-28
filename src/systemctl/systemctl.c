@@ -126,8 +126,6 @@ static enum action {
         ACTION_CANCEL_SHUTDOWN,
         _ACTION_MAX
 } arg_action = ACTION_SYSTEMCTL;
-static BusTransport arg_transport = BUS_TRANSPORT_LOCAL;
-static char *arg_host = NULL;
 static bool arg_plain = false;
 
 static const struct {
@@ -173,9 +171,6 @@ static void polkit_agent_open_if_enabled(void) {
         /* Open the polkit agent as a child process if necessary */
 
         if (arg_scope != UNIT_FILE_SYSTEM)
-                return;
-
-        if (arg_transport != BUS_TRANSPORT_LOCAL)
                 return;
 
         polkit_agent_open();
@@ -3117,30 +3112,27 @@ static void print_status_info(
 
         if (i->control_group &&
             (i->main_pid > 0 || i->control_pid > 0 ||
-             ((arg_transport != BUS_TRANSPORT_LOCAL && arg_transport != BUS_TRANSPORT_CONTAINER) || cg_is_empty_recursive(SYSTEMD_CGROUP_CONTROLLER, i->control_group, false) == 0))) {
+             cg_is_empty_recursive(SYSTEMD_CGROUP_CONTROLLER, i->control_group, false) == 0)) {
                 unsigned c;
+                unsigned k = 0;
+                pid_t extra[2];
+                static const char prefix[] = "           ";
 
                 printf("   CGroup: %s\n", i->control_group);
 
-                if (arg_transport == BUS_TRANSPORT_LOCAL || arg_transport == BUS_TRANSPORT_CONTAINER) {
-                        unsigned k = 0;
-                        pid_t extra[2];
-                        static const char prefix[] = "           ";
+                c = columns();
+                if (c > sizeof(prefix) - 1)
+                        c -= sizeof(prefix) - 1;
+                else
+                        c = 0;
 
-                        c = columns();
-                        if (c > sizeof(prefix) - 1)
-                                c -= sizeof(prefix) - 1;
-                        else
-                                c = 0;
+                if (i->main_pid > 0)
+                        extra[k++] = i->main_pid;
 
-                        if (i->main_pid > 0)
-                                extra[k++] = i->main_pid;
+                if (i->control_pid > 0)
+                        extra[k++] = i->control_pid;
 
-                        if (i->control_pid > 0)
-                                extra[k++] = i->control_pid;
-
-                        show_cgroup_and_extra(SYSTEMD_CGROUP_CONTROLLER, i->control_group, prefix, c, false, extra, k, flags);
-                }
+                show_cgroup_and_extra(SYSTEMD_CGROUP_CONTROLLER, i->control_group, prefix, c, false, extra, k, flags);
         }
 
         if (i->need_daemon_reload)
@@ -3916,6 +3908,14 @@ static int show_system_status(sd_bus *bus) {
         char since1[FORMAT_TIMESTAMP_RELATIVE_MAX], since2[FORMAT_TIMESTAMP_MAX];
         _cleanup_free_ char *hn = NULL;
         struct machine_info mi = {};
+        int flags =
+                arg_all * OUTPUT_SHOW_ALL |
+                (!on_tty() || pager_have()) * OUTPUT_FULL_WIDTH |
+                on_tty() * OUTPUT_COLOR |
+                !arg_quiet * OUTPUT_WARN_CUTOFF |
+                arg_full * OUTPUT_FULL_WIDTH;
+        static const char prefix[] = "           ";
+        unsigned c;
         const char *on, *off;
         int r;
 
@@ -3938,7 +3938,7 @@ static int show_system_status(sd_bus *bus) {
         } else
                 on = off = "";
 
-        printf("%s%s%s %s\n", on, draw_special_char(DRAW_BLACK_CIRCLE), off, arg_host ? arg_host : hn);
+        printf("%s%s%s %s\n", on, draw_special_char(DRAW_BLACK_CIRCLE), off, hn);
 
         printf("    State: %s%s%s\n",
                on, strna(mi.state), off);
@@ -3951,25 +3951,14 @@ static int show_system_status(sd_bus *bus) {
                format_timestamp_relative(since1, sizeof(since1), mi.timestamp));
 
         printf("   CGroup: %s\n", mi.control_group ?: "/");
-        if (arg_transport == BUS_TRANSPORT_LOCAL || arg_transport == BUS_TRANSPORT_CONTAINER) {
-                int flags =
-                        arg_all * OUTPUT_SHOW_ALL |
-                        (!on_tty() || pager_have()) * OUTPUT_FULL_WIDTH |
-                        on_tty() * OUTPUT_COLOR |
-                        !arg_quiet * OUTPUT_WARN_CUTOFF |
-                        arg_full * OUTPUT_FULL_WIDTH;
 
-                static const char prefix[] = "           ";
-                unsigned c;
+        c = columns();
+        if (c > sizeof(prefix) - 1)
+                c -= sizeof(prefix) - 1;
+        else
+                c = 0;
 
-                c = columns();
-                if (c > sizeof(prefix) - 1)
-                        c -= sizeof(prefix) - 1;
-                else
-                        c = 0;
-
-                show_cgroup(SYSTEMD_CGROUP_CONTROLLER, strempty(mi.control_group), prefix, c, false, flags);
-        }
+        show_cgroup(SYSTEMD_CGROUP_CONTROLLER, strempty(mi.control_group), prefix, c, false, flags);
 
         free(mi.state);
         free(mi.control_group);
@@ -4862,8 +4851,6 @@ static void systemctl_help(void) {
                "     --version        Show package version\n"
                "     --system         Connect to system manager\n"
                "     --user           Connect to user service manager\n"
-               "  -M --machine=CONTAINER\n"
-               "                      Operate on local container\n"
                "  -t --type=TYPE      List only units of a particular type\n"
                "     --state=STATE    List only units with particular LOAD or SUB or ACTIVE state\n"
                "  -a --all            Show all loaded units/properties, including dead/empty\n"
@@ -5109,7 +5096,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "ht:alqfs:M:n:o:i", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "ht:alqfs:n:o:i", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -5269,11 +5256,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                         }
                         break;
 
-                case 'M':
-                        arg_transport = BUS_TRANSPORT_CONTAINER;
-                        arg_host = optarg;
-                        break;
-
                 case ARG_RUNTIME:
                         arg_runtime = true;
                         break;
@@ -5319,11 +5301,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 default:
                         assert_not_reached("Unhandled option");
                 }
-        }
-
-        if (arg_transport != BUS_TRANSPORT_LOCAL && arg_scope != UNIT_FILE_SYSTEM) {
-                log_error("Cannot access user instance remotely.");
-                return -EINVAL;
         }
 
         return 1;
@@ -6194,7 +6171,7 @@ int main(int argc, char*argv[]) {
         }
 
         if (!avoid_bus())
-                r = bus_open_transport_systemd(arg_transport, arg_host, arg_scope != UNIT_FILE_SYSTEM, &bus);
+                r = bus_open_transport_systemd(BUS_TRANSPORT_LOCAL, NULL, arg_scope != UNIT_FILE_SYSTEM, &bus);
 
         /* systemctl_main() will print an error message for the bus
          * connection, but only if it needs to */

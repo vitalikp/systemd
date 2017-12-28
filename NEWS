@@ -14,6 +14,7 @@ systemd System and Service Manager
  * systemctl:
  	- remove “list-machines” command;
  	- remove “recursive” argument option;
+ 	- remove “machine” argument option;
  * tests:
  	- remove “test-resolve” test;
 
