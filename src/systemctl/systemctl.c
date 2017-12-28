@@ -94,7 +94,6 @@ static bool arg_ignore_inhibitors = false;
 static bool arg_dry = false;
 static bool arg_quiet = false;
 static bool arg_full = false;
-static bool arg_recursive = false;
 static int arg_force = 0;
 static bool arg_runtime = false;
 static UnitFilePresetMode arg_preset_mode = UNIT_FILE_PRESET_FULL;
@@ -554,8 +553,7 @@ static int get_unit_list_recursive(
                 sd_bus *bus,
                 char **patterns,
                 UnitInfo **_unit_infos,
-                Set **_replies,
-                char ***_machines) {
+                Set **_replies) {
 
         _cleanup_free_ UnitInfo *unit_infos = NULL;
         _cleanup_(message_set_freep) Set *replies;
@@ -565,7 +563,6 @@ static int get_unit_list_recursive(
         assert(bus);
         assert(_replies);
         assert(_unit_infos);
-        assert(_machines);
 
         replies = set_new(NULL, NULL);
         if (!replies)
@@ -581,42 +578,6 @@ static int get_unit_list_recursive(
                 return r;
         }
 
-        if (arg_recursive) {
-                _cleanup_strv_free_ char **machines = NULL;
-                char **i;
-
-                r = sd_get_machine_names(&machines);
-                if (r < 0)
-                        return r;
-
-                STRV_FOREACH(i, machines) {
-                        _cleanup_bus_close_unref_ sd_bus *container = NULL;
-                        int k;
-
-                        r = sd_bus_open_system_container(&container, *i);
-                        if (r < 0) {
-                                log_error("Failed to connect to container %s: %s", *i, strerror(-r));
-                                continue;
-                        }
-
-                        k = get_unit_list(container, *i, patterns, &unit_infos, c, &reply);
-                        if (k < 0)
-                                return k;
-
-                        c = k;
-
-                        r = set_put(replies, reply);
-                        if (r < 0) {
-                                sd_bus_message_unref(reply);
-                                return r;
-                        }
-                }
-
-                *_machines = machines;
-                machines = NULL;
-        } else
-                *_machines = NULL;
-
         *_unit_infos = unit_infos;
         unit_infos = NULL;
 
@@ -629,12 +590,11 @@ static int get_unit_list_recursive(
 static int list_units(sd_bus *bus, char **args) {
         _cleanup_free_ UnitInfo *unit_infos = NULL;
         _cleanup_(message_set_freep) Set *replies = NULL;
-        _cleanup_strv_free_ char **machines = NULL;
         int r;
 
         pager_open_if_enabled();
 
-        r = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies, &machines);
+        r = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
         if (r < 0)
                 return r;
 
@@ -829,7 +789,6 @@ static int output_sockets_list(struct socket_info *socket_infos, unsigned cs) {
 
 static int list_sockets(sd_bus *bus, char **args) {
         _cleanup_(message_set_freep) Set *replies = NULL;
-        _cleanup_strv_free_ char **machines = NULL;
         _cleanup_free_ UnitInfo *unit_infos = NULL;
         _cleanup_free_ struct socket_info *socket_infos = NULL;
         const UnitInfo *u;
@@ -840,7 +799,7 @@ static int list_sockets(sd_bus *bus, char **args) {
 
         pager_open_if_enabled();
 
-        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies, &machines);
+        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
         if (n < 0)
                 return n;
 
@@ -1136,7 +1095,6 @@ static usec_t calc_next_elapse(dual_timestamp *nw, dual_timestamp *next) {
 
 static int list_timers(sd_bus *bus, char **args) {
         _cleanup_(message_set_freep) Set *replies = NULL;
-        _cleanup_strv_free_ char **machines = NULL;
         _cleanup_free_ struct timer_info *timer_infos = NULL;
         _cleanup_free_ UnitInfo *unit_infos = NULL;
         struct timer_info *t;
@@ -1148,7 +1106,7 @@ static int list_timers(sd_bus *bus, char **args) {
 
         pager_open_if_enabled();
 
-        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies, &machines);
+        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
         if (n < 0)
                 return n;
 
@@ -4959,7 +4917,6 @@ static void systemctl_help(void) {
                "                      ones. To list all units installed on the system, use\n"
                "                      the 'list-unit-files' command instead.\n"
                "  -l --full           Don't ellipsize unit names on output\n"
-               "  -r --recursive      Show unit list of host and local containers\n"
                "     --reverse        Show reverse dependencies with 'list-dependencies'\n"
                "     --job-mode=MODE  Specify how to deal with already queued jobs, when\n"
                "                      queueing a new job\n"
@@ -5190,7 +5147,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                 { "runtime",             no_argument,       NULL, ARG_RUNTIME             },
                 { "plain",               no_argument,       NULL, ARG_PLAIN               },
                 { "state",               required_argument, NULL, ARG_STATE               },
-                { "recursive",           no_argument,       NULL, 'r'                     },
                 { "preset-mode",         required_argument, NULL, ARG_PRESET_MODE         },
                 {}
         };
@@ -5200,7 +5156,7 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
         assert(argc >= 0);
         assert(argv);
 
-        while ((c = getopt_long(argc, argv, "ht:alqfs:M:n:o:ir", options, NULL)) >= 0) {
+        while ((c = getopt_long(argc, argv, "ht:alqfs:M:n:o:i", options, NULL)) >= 0) {
 
                 switch (c) {
 
@@ -5393,15 +5349,6 @@ static int systemctl_parse_argv(int argc, char *argv[]) {
                         }
                         break;
                 }
-
-                case 'r':
-                        if (geteuid() != 0) {
-                                log_error("--recursive requires root privileges.");
-                                return -EPERM;
-                        }
-
-                        arg_recursive = true;
-                        break;
 
                 case ARG_PRESET_MODE:
 

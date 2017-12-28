@@ -11,6 +11,7 @@ systemd System and Service Manager
  	- remove “sd-utf8” module;
  * systemctl:
  	- remove “list-machines” command;
+ 	- remove “recursive” argument option;
  * tests:
  	- remove “test-resolve” test;
 
