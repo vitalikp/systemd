@@ -4,6 +4,8 @@ systemd System and Service Manager
 ~~~~~~~
  * core:
  	- remove initramfs support;
+ * libsystemd:
+ 	- remove “bus_message_map_properties_changed” function;
  * kdbus:
  	- remove “sd-resolve” module;
  	- remove “sd-utf8” module;
