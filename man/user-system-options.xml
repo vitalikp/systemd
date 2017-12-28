@@ -32,14 +32,4 @@
       manager instance.</para>
     </listitem>
   </varlistentry>
-
-  <varlistentry id='machine'>
-    <term><option>-M</option></term>
-    <term><option>--machine=</option></term>
-
-    <listitem id='machine-text'>
-      <para>Execute operation on a local container. Specify a
-      container name to connect to.</para>
-    </listitem>
-  </varlistentry>
 </variablelist>

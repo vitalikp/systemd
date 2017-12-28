@@ -207,7 +207,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
       <xi:include href="user-system-options.xml" xpointer="user" />
       <xi:include href="user-system-options.xml" xpointer="system" />
-      <xi:include href="user-system-options.xml" xpointer="machine" />
 
       <xi:include href="standard-options.xml" xpointer="help" />
       <xi:include href="standard-options.xml" xpointer="version" />
