@@ -540,61 +540,14 @@ static int get_unit_list(
         return c;
 }
 
-static void message_set_freep(Set **set) {
-        sd_bus_message *m;
-
-        while ((m = set_steal_first(*set)))
-                sd_bus_message_unref(m);
-
-        set_free(*set);
-}
-
-static int get_unit_list_recursive(
-                sd_bus *bus,
-                char **patterns,
-                UnitInfo **_unit_infos,
-                Set **_replies) {
-
-        _cleanup_free_ UnitInfo *unit_infos = NULL;
-        _cleanup_(message_set_freep) Set *replies;
-        sd_bus_message *reply;
-        int c, r;
-
-        assert(bus);
-        assert(_replies);
-        assert(_unit_infos);
-
-        replies = set_new(NULL, NULL);
-        if (!replies)
-                return log_oom();
-
-        c = get_unit_list(bus, NULL, patterns, &unit_infos, 0, &reply);
-        if (c < 0)
-                return c;
-
-        r = set_put(replies, reply);
-        if (r < 0) {
-                sd_bus_message_unref(reply);
-                return r;
-        }
-
-        *_unit_infos = unit_infos;
-        unit_infos = NULL;
-
-        *_replies = replies;
-        replies = NULL;
-
-        return c;
-}
-
 static int list_units(sd_bus *bus, char **args) {
         _cleanup_free_ UnitInfo *unit_infos = NULL;
-        _cleanup_(message_set_freep) Set *replies = NULL;
+        _cleanup_bus_message_unref_ sd_bus_message *reply = NULL;
         int r;
 
         pager_open_if_enabled();
 
-        r = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
+        r = get_unit_list(bus, NULL, strv_skip_first(args), &unit_infos, 0, &reply);
         if (r < 0)
                 return r;
 
@@ -788,8 +741,8 @@ static int output_sockets_list(struct socket_info *socket_infos, unsigned cs) {
 }
 
 static int list_sockets(sd_bus *bus, char **args) {
-        _cleanup_(message_set_freep) Set *replies = NULL;
         _cleanup_free_ UnitInfo *unit_infos = NULL;
+        _cleanup_bus_message_unref_ sd_bus_message *reply = NULL;
         _cleanup_free_ struct socket_info *socket_infos = NULL;
         const UnitInfo *u;
         struct socket_info *s;
@@ -799,7 +752,7 @@ static int list_sockets(sd_bus *bus, char **args) {
 
         pager_open_if_enabled();
 
-        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
+        n = get_unit_list(bus, NULL, strv_skip_first(args), &unit_infos, 0, &reply);
         if (n < 0)
                 return n;
 
@@ -1094,9 +1047,9 @@ static usec_t calc_next_elapse(dual_timestamp *nw, dual_timestamp *next) {
 }
 
 static int list_timers(sd_bus *bus, char **args) {
-        _cleanup_(message_set_freep) Set *replies = NULL;
         _cleanup_free_ struct timer_info *timer_infos = NULL;
         _cleanup_free_ UnitInfo *unit_infos = NULL;
+        _cleanup_bus_message_unref_ sd_bus_message *reply = NULL;
         struct timer_info *t;
         const UnitInfo *u;
         size_t size = 0;
@@ -1106,7 +1059,7 @@ static int list_timers(sd_bus *bus, char **args) {
 
         pager_open_if_enabled();
 
-        n = get_unit_list_recursive(bus, strv_skip_first(args), &unit_infos, &replies);
+        n = get_unit_list(bus, NULL, strv_skip_first(args), &unit_infos, 0, &reply);
         if (n < 0)
                 return n;
 
