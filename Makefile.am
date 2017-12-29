@@ -193,7 +193,6 @@ SOCKETS_TARGET_WANTS =
 BUSNAMES_TARGET_WANTS =
 TIMERS_TARGET_WANTS =
 USER_SOCKETS_TARGET_WANTS =
-USER_BUSNAMES_TARGET_WANTS =
 
 SYSTEM_UNIT_ALIASES =
 USER_UNIT_ALIASES =
@@ -209,7 +208,6 @@ install-target-wants-hook:
 	what="$(TIMERS_TARGET_WANTS)" && wants=timers.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(SLICES_TARGET_WANTS)" && wants=slices.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(USER_SOCKETS_TARGET_WANTS)" && wants=sockets.target && dir=$(userunitdir) && $(add-wants)
-	what="$(USER_BUSNAMES_TARGET_WANTS)" && wants=busnames.target && dir=$(userunitdir) && $(add-wants)
 
 define add-wants
 	[ -z "$$what" ] || ( \
