@@ -124,7 +124,6 @@ static void bus_free(sd_bus *b) {
         free(b->unique_name);
         free(b->auth_buffer);
         free(b->address);
-        free(b->kernel);
         free(b->fake_label);
         free(b->cgroup_root);
         free(b->connection_name);
@@ -703,41 +702,6 @@ fail:
         return r;
 }
 
-static int parse_kernel_address(sd_bus *b, const char **p, char **guid) {
-        _cleanup_free_ char *path = NULL;
-        int r;
-
-        assert(b);
-        assert(p);
-        assert(*p);
-        assert(guid);
-
-        while (**p != 0 && **p != ';') {
-                r = parse_address_key(p, "guid", guid);
-                if (r < 0)
-                        return r;
-                else if (r > 0)
-                        continue;
-
-                r = parse_address_key(p, "path", &path);
-                if (r < 0)
-                        return r;
-                else if (r > 0)
-                        continue;
-
-                skip_address_key(p);
-        }
-
-        if (!path)
-                return -EINVAL;
-
-        free(b->kernel);
-        b->kernel = path;
-        path = NULL;
-
-        return 0;
-}
-
 static void bus_reset_parsed_address(sd_bus *b) {
         assert(b);
 
@@ -748,8 +712,6 @@ static void bus_reset_parsed_address(sd_bus *b) {
         b->exec_path = NULL;
         b->exec_argv = NULL;
         b->server_id = SD_ID128_NULL;
-        free(b->kernel);
-        b->kernel = NULL;
 }
 
 static int bus_parse_next_address(sd_bus *b) {
@@ -800,15 +762,6 @@ static int bus_parse_next_address(sd_bus *b) {
                                 return r;
 
                         break;
-
-                } else if (startswith(a, "kernel:")) {
-
-                        a += 7;
-                        r = parse_kernel_address(b, &a, &guid);
-                        if (r < 0)
-                                return r;
-
-                        break;
                 }
 
                 a = strchr(a, ';');
@@ -838,8 +791,6 @@ static int bus_start_address(sd_bus *b) {
 
                 if (b->exec_path)
                         r = bus_socket_exec(b);
-                else if (b->kernel)
-                        r = bus_kernel_connect(b);
                 else if (b->sockaddr.sa.sa_family != AF_UNSPEC)
                         r = bus_socket_connect(b);
                 else
@@ -919,7 +870,7 @@ _public_ int sd_bus_start(sd_bus *bus) {
 
         if (bus->input_fd >= 0)
                 r = bus_start_fd(bus);
-        else if (bus->address || bus->sockaddr.sa.sa_family != AF_UNSPEC || bus->exec_path || bus->kernel)
+        else if (bus->address || bus->sockaddr.sa.sa_family != AF_UNSPEC || bus->exec_path)
                 r = bus_start_address(bus);
         else
                 return -EINVAL;

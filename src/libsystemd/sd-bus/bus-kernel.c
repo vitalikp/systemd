@@ -776,24 +776,6 @@ int bus_kernel_take_fd(sd_bus *b) {
         return bus_start_running(b);
 }
 
-int bus_kernel_connect(sd_bus *b) {
-        assert(b);
-        assert(b->input_fd < 0);
-        assert(b->output_fd < 0);
-        assert(b->kernel);
-
-        if (b->is_server)
-                return -EINVAL;
-
-        b->input_fd = open(b->kernel, O_RDWR|O_NOCTTY|O_CLOEXEC);
-        if (b->input_fd < 0)
-                return -errno;
-
-        b->output_fd = b->input_fd;
-
-        return bus_kernel_take_fd(b);
-}
-
 static void close_kdbus_msg(sd_bus *bus, struct kdbus_msg *k) {
         uint64_t off;
         struct kdbus_item *d;

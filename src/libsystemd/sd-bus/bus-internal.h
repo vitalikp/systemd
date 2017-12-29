@@ -240,8 +240,6 @@ struct sd_bus {
         union sockaddr_union sockaddr;
         socklen_t sockaddr_size;
 
-        char *kernel;
-
         sd_id128_t server_id;
 
         char *address;
