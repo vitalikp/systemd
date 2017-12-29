@@ -37,6 +37,7 @@
 #include "bus-match.h"
 #include "bus-kernel.h"
 #include "kdbus.h"
+#include "socket-util.h"
 
 struct reply_callback {
         sd_bus_message_handler_t callback;

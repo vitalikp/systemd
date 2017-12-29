@@ -31,6 +31,7 @@
 #include "util.h"
 #include "strv.h"
 
+#include "missing.h"
 #include "bus-internal.h"
 #include "bus-message.h"
 #include "bus-kernel.h"
@@ -1304,168 +1305,6 @@ int bus_kernel_create_bus(const char *name, bool world, char **s) {
         return fd;
 }
 
-static int bus_kernel_translate_access(BusNamePolicyAccess access) {
-        assert(access >= 0);
-        assert(access < _BUSNAME_POLICY_ACCESS_MAX);
-
-        switch (access) {
-
-        case BUSNAME_POLICY_ACCESS_SEE:
-                return KDBUS_POLICY_SEE;
-
-        case BUSNAME_POLICY_ACCESS_TALK:
-                return KDBUS_POLICY_TALK;
-
-        case BUSNAME_POLICY_ACCESS_OWN:
-                return KDBUS_POLICY_OWN;
-
-        default:
-                assert_not_reached("Unknown policy access");
-        }
-}
-
-static int bus_kernel_translate_policy(const BusNamePolicy *policy, struct kdbus_item *item) {
-        int r;
-
-        assert(policy);
-        assert(item);
-
-        switch (policy->type) {
-
-        case BUSNAME_POLICY_TYPE_USER: {
-                const char *user = policy->name;
-                uid_t uid;
-
-                r = get_user_creds(&user, &uid, NULL, NULL, NULL);
-                if (r < 0)
-                        return r;
-
-                item->policy_access.type = KDBUS_POLICY_ACCESS_USER;
-                item->policy_access.id = uid;
-                break;
-        }
-
-        case BUSNAME_POLICY_TYPE_GROUP: {
-                const char *group = policy->name;
-                gid_t gid;
-
-                r = get_group_creds(&group, &gid);
-                if (r < 0)
-                        return r;
-
-                item->policy_access.type = KDBUS_POLICY_ACCESS_GROUP;
-                item->policy_access.id = gid;
-                break;
-        }
-
-        default:
-                assert_not_reached("Unknown policy type");
-        }
-
-        item->policy_access.access = bus_kernel_translate_access(policy->access);
-
-        return 0;
-}
-
-int bus_kernel_open_bus_fd(const char *bus, char **path) {
-        char *p;
-        int fd;
-        size_t len;
-
-        len = strlen("/dev/kdbus/") + DECIMAL_STR_MAX(uid_t) + 1 + strlen(bus) + strlen("/bus") + 1;
-
-        if (path) {
-                p = malloc(len);
-                if (!p)
-                        return -ENOMEM;
-                *path = p;
-        } else
-                p = alloca(len);
-        sprintf(p, "/dev/kdbus/" UID_FMT "-%s/bus", getuid(), bus);
-
-        fd = open(p, O_RDWR|O_NOCTTY|O_CLOEXEC);
-        if (fd < 0)
-                return -errno;
-
-        return fd;
-}
-
-int bus_kernel_make_starter(
-                int fd,
-                const char *name,
-                bool activating,
-                bool accept_fd,
-                BusNamePolicy *policy,
-                BusNamePolicyAccess world_policy) {
-
-        struct kdbus_cmd_hello *hello;
-        struct kdbus_item *n;
-        size_t policy_cnt = 0;
-        BusNamePolicy *po;
-        size_t size;
-        int r;
-
-        assert(fd >= 0);
-        assert(name);
-
-        LIST_FOREACH(policy, po, policy)
-                policy_cnt++;
-
-        if (world_policy >= 0)
-                policy_cnt++;
-
-        size = ALIGN8(offsetof(struct kdbus_cmd_hello, items)) +
-               ALIGN8(offsetof(struct kdbus_item, str) + strlen(name) + 1) +
-               policy_cnt * ALIGN8(offsetof(struct kdbus_item, policy_access) + sizeof(struct kdbus_policy_access));
-
-        hello = alloca0(size);
-
-        n = hello->items;
-        strcpy(n->str, name);
-        n->size = offsetof(struct kdbus_item, str) + strlen(n->str) + 1;
-        n->type = KDBUS_ITEM_NAME;
-        n = KDBUS_ITEM_NEXT(n);
-
-        LIST_FOREACH(policy, po, policy) {
-                n->type = KDBUS_ITEM_POLICY_ACCESS;
-                n->size = offsetof(struct kdbus_item, policy_access) + sizeof(struct kdbus_policy_access);
-
-                r = bus_kernel_translate_policy(po, n);
-                if (r < 0)
-                        return r;
-
-                n = KDBUS_ITEM_NEXT(n);
-        }
-
-        if (world_policy >= 0) {
-                n->type = KDBUS_ITEM_POLICY_ACCESS;
-                n->size = offsetof(struct kdbus_item, policy_access) + sizeof(struct kdbus_policy_access);
-                n->policy_access.type = KDBUS_POLICY_ACCESS_WORLD;
-                n->policy_access.access = bus_kernel_translate_access(world_policy);
-        }
-
-        hello->size = size;
-        hello->conn_flags =
-                (activating ? KDBUS_HELLO_ACTIVATOR : KDBUS_HELLO_POLICY_HOLDER) |
-                (accept_fd ? KDBUS_HELLO_ACCEPT_FD : 0);
-        hello->pool_size = KDBUS_POOL_SIZE;
-        hello->attach_flags = _KDBUS_ATTACH_ALL;
-
-        if (ioctl(fd, KDBUS_CMD_HELLO, hello) < 0)
-                return -errno;
-
-        /* The higher 32bit of both flags fields are considered
-         * 'incompatible flags'. Refuse them all for now. */
-        if (hello->bus_flags > 0xFFFFFFFFULL ||
-            hello->conn_flags > 0xFFFFFFFFULL)
-                return -ENOTSUP;
-
-        if (!bloom_validate_parameters((size_t) hello->bloom.size, (unsigned) hello->bloom.n_hash))
-                return -ENOTSUP;
-
-        return fd;
-}
-
 int bus_kernel_create_domain(const char *name, char **s) {
         struct kdbus_cmd_make *make;
         struct kdbus_item *n;
@@ -1522,19 +1361,6 @@ int bus_kernel_try_close(sd_bus *bus) {
         assert(bus->is_kernel);
 
         if (ioctl(bus->input_fd, KDBUS_CMD_BYEBYE) < 0)
-                return -errno;
-
-        return 0;
-}
-
-int bus_kernel_drop_one(int fd) {
-        struct kdbus_cmd_recv recv = {
-                .flags = KDBUS_RECV_DROP
-        };
-
-        assert(fd >= 0);
-
-        if (ioctl(fd, KDBUS_CMD_MSG_RECV, &recv) < 0)
                 return -errno;
 
         return 0;

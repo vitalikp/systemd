@@ -275,7 +275,7 @@ _unit_states() {
 
 _unit_types() {
     local -a _types
-    _types=(automount busname device mount path service snapshot socket swap target timer)
+    _types=(automount device mount path service snapshot socket swap target timer)
     _values -s , "${_types[@]}"
 }
 

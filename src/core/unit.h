@@ -285,7 +285,6 @@ typedef enum UnitSetPropertiesMode {
 
 #include "service.h"
 #include "socket.h"
-#include "busname.h"
 #include "target.h"
 #include "snapshot.h"
 #include "device.h"
@@ -472,7 +471,6 @@ extern const UnitVTable * const unit_vtable[_UNIT_TYPE_MAX];
 
 DEFINE_CAST(SERVICE, Service);
 DEFINE_CAST(SOCKET, Socket);
-DEFINE_CAST(BUSNAME, BusName);
 DEFINE_CAST(TARGET, Target);
 DEFINE_CAST(SNAPSHOT, Snapshot);
 DEFINE_CAST(DEVICE, Device);

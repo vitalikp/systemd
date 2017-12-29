@@ -33,6 +33,7 @@ systemd System and Service Manager
  * build:
  	- remove USER_BUSNAMES_TARGET_WANTS unit path;
  	- remove BUSNAMES_TARGET_WANTS unit path;
+ * remove busname unit type;
 
    systemd (214.9)
 ~~~~~~~

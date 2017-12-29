@@ -23,7 +23,6 @@
 
 #include <stdbool.h>
 
-#include "busname.h"
 #include "sd-bus.h"
 
 #define KDBUS_ITEM_NEXT(item) \
@@ -64,9 +63,6 @@ int bus_kernel_take_fd(sd_bus *b);
 int bus_kernel_write_message(sd_bus *bus, sd_bus_message *m, bool hint_sync_call);
 int bus_kernel_read_message(sd_bus *bus, bool hint_priority, int64_t priority);
 
-int bus_kernel_open_bus_fd(const char *bus, char **path);
-int bus_kernel_make_starter(int fd, const char *name, bool activating, bool accept_fd, BusNamePolicy *policy, BusNamePolicyAccess world_policy);
-
 int bus_kernel_create_bus(const char *name, bool world, char **s);
 int bus_kernel_create_domain(const char *name, char **s);
 
@@ -81,5 +77,3 @@ int kdbus_translate_request_name_flags(uint64_t sd_bus_flags, uint64_t *kdbus_fl
 int kdbus_translate_attach_flags(uint64_t sd_bus_flags, uint64_t *kdbus_flags);
 
 int bus_kernel_try_close(sd_bus *bus);
-
-int bus_kernel_drop_one(int fd);

@@ -33,7 +33,6 @@ typedef enum UnitLoadState UnitLoadState;
 enum UnitType {
         UNIT_SERVICE = 0,
         UNIT_SOCKET,
-        UNIT_BUSNAME,
         UNIT_TARGET,
         UNIT_SNAPSHOT,
         UNIT_DEVICE,

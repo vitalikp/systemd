@@ -747,8 +747,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/service.h \
 	src/core/socket.c \
 	src/core/socket.h \
-	src/core/busname.c \
-	src/core/busname.h \
 	src/core/target.c \
 	src/core/target.h \
 	src/core/snapshot.c \
@@ -787,8 +785,6 @@ libsystemd_core_la_SOURCES = \
 	src/core/dbus-service.h \
 	src/core/dbus-socket.c \
 	src/core/dbus-socket.h \
-	src/core/dbus-busname.c \
-	src/core/dbus-busname.h \
 	src/core/dbus-target.c \
 	src/core/dbus-target.h \
 	src/core/dbus-snapshot.c \

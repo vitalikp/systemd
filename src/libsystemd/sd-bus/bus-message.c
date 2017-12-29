@@ -29,6 +29,7 @@
 #include "time-util.h"
 #include "cgroup-util.h"
 
+#include "missing.h"
 #include "sd-bus.h"
 #include "bus-message.h"
 #include "bus-internal.h"

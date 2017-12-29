@@ -37,7 +37,6 @@
 static const char* const unit_type_table[_UNIT_TYPE_MAX] = {
         [UNIT_SERVICE] = "service",
         [UNIT_SOCKET] = "socket",
-        [UNIT_BUSNAME] = "busname",
         [UNIT_TARGET] = "target",
         [UNIT_SNAPSHOT] = "snapshot",
         [UNIT_DEVICE] = "device",
