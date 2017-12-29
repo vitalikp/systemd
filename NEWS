@@ -32,6 +32,7 @@ systemd System and Service Manager
  	- remove “test-resolve” test;
  * build:
  	- remove USER_BUSNAMES_TARGET_WANTS unit path;
+ 	- remove BUSNAMES_TARGET_WANTS unit path;
 
    systemd (214.9)
 ~~~~~~~

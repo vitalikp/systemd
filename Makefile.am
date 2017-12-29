@@ -190,7 +190,6 @@ LOCAL_FS_TARGET_WANTS =
 MULTI_USER_TARGET_WANTS =
 SYSINIT_TARGET_WANTS =
 SOCKETS_TARGET_WANTS =
-BUSNAMES_TARGET_WANTS =
 TIMERS_TARGET_WANTS =
 USER_SOCKETS_TARGET_WANTS =
 
@@ -204,7 +203,6 @@ install-target-wants-hook:
 	what="$(MULTI_USER_TARGET_WANTS)" && wants=multi-user.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(SYSINIT_TARGET_WANTS)" && wants=sysinit.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(SOCKETS_TARGET_WANTS)" && wants=sockets.target && dir=$(systemunitdir) && $(add-wants)
-	what="$(BUSNAMES_TARGET_WANTS)" && wants=busnames.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(TIMERS_TARGET_WANTS)" && wants=timers.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(SLICES_TARGET_WANTS)" && wants=slices.target && dir=$(systemunitdir) && $(add-wants)
 	what="$(USER_SOCKETS_TARGET_WANTS)" && wants=sockets.target && dir=$(userunitdir) && $(add-wants)
