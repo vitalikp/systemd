@@ -8,6 +8,7 @@ systemd System and Service Manager
  	- remove “bus_message_map_properties_changed” function;
  	- remove “BusTransport” enum;
  	- remove “sd_bus_open_system_container” function;
+ 	- remove “machine” field from sd_bus struct;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

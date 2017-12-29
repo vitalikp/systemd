@@ -125,7 +125,6 @@ static void bus_free(sd_bus *b) {
         free(b->auth_buffer);
         free(b->address);
         free(b->kernel);
-        free(b->machine);
         free(b->fake_label);
         free(b->cgroup_root);
         free(b->connection_name);
@@ -751,8 +750,6 @@ static void bus_reset_parsed_address(sd_bus *b) {
         b->server_id = SD_ID128_NULL;
         free(b->kernel);
         b->kernel = NULL;
-        free(b->machine);
-        b->machine = NULL;
 }
 
 static int bus_parse_next_address(sd_bus *b) {
@@ -922,7 +919,7 @@ _public_ int sd_bus_start(sd_bus *bus) {
 
         if (bus->input_fd >= 0)
                 r = bus_start_fd(bus);
-        else if (bus->address || bus->sockaddr.sa.sa_family != AF_UNSPEC || bus->exec_path || bus->kernel || bus->machine)
+        else if (bus->address || bus->sockaddr.sa.sa_family != AF_UNSPEC || bus->exec_path || bus->kernel)
                 r = bus_start_address(bus);
         else
                 return -EINVAL;
