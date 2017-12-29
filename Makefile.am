@@ -2380,8 +2380,7 @@ nodist_systemunit_DATA += \
 	units/systemd-user-sessions.service
 
 dist_systemunit_DATA += \
-	units/user.slice \
-	units/org.freedesktop.login1.busname
+	units/user.slice
 
 dist_dbussystemservice_DATA += \
 	src/login/org.freedesktop.login1.service
@@ -2404,9 +2403,6 @@ MULTI_USER_TARGET_WANTS += \
 
 SYSTEM_UNIT_ALIASES += \
 	systemd-logind.service dbus-org.freedesktop.login1.service
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.login1.busname
 
 if ENABLE_MULTI_SEAT_X
 

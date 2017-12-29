@@ -25,6 +25,8 @@ systemd System and Service Manager
  	- remove “list-machines” command;
  	- remove “recursive” argument option;
  	- remove “machine” argument option;
+ * units:
+ 	- remove “org.freedesktop.login1” busname;
  * tests:
  	- remove “test-resolve” test;
 
