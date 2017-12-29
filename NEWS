@@ -17,6 +17,7 @@ systemd System and Service Manager
  * kdbus:
  	- remove “sd-resolve” module;
  	- remove “sd-utf8” module;
+ 	- remove “bus-container” module;
  * systemctl:
  	- remove “list-machines” command;
  	- remove “recursive” argument option;

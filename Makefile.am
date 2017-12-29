@@ -1703,8 +1703,6 @@ libsystemd_internal_la_SOURCES = \
 	src/libsystemd/sd-bus/bus-socket.h \
 	src/libsystemd/sd-bus/bus-kernel.c \
 	src/libsystemd/sd-bus/bus-kernel.h \
-	src/libsystemd/sd-bus/bus-container.c \
-	src/libsystemd/sd-bus/bus-container.h \
 	src/libsystemd/sd-bus/bus-message.c \
 	src/libsystemd/sd-bus/bus-message.h \
 	src/libsystemd/sd-bus/bus-creds.c \

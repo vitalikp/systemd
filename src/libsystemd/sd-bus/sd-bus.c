@@ -49,7 +49,6 @@
 #include "bus-signature.h"
 #include "bus-objects.h"
 #include "bus-util.h"
-#include "bus-container.h"
 #include "bus-protocol.h"
 #include "bus-track.h"
 #include "bus-slot.h"
@@ -842,10 +841,6 @@ static int bus_start_address(sd_bus *b) {
 
                 if (b->exec_path)
                         r = bus_socket_exec(b);
-                else if (b->machine && b->kernel)
-                        r = bus_container_connect_kernel(b);
-                else if (b->machine && b->sockaddr.sa.sa_family != AF_UNSPEC)
-                        r = bus_container_connect_socket(b);
                 else if (b->kernel)
                         r = bus_kernel_connect(b);
                 else if (b->sockaddr.sa.sa_family != AF_UNSPEC)
