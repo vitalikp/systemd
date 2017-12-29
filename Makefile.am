@@ -2209,15 +2209,6 @@ EXTRA_DIST += \
 	units/systemd-rfkill@.service.in
 
 # ------------------------------------------------------------------------------
-if ENABLE_KDBUS
-dist_systemunit_DATA += \
-	units/org.freedesktop.systemd1.busname
-
-BUSNAMES_TARGET_WANTS += \
-	org.freedesktop.systemd1.busname
-endif
-
-# ------------------------------------------------------------------------------
 if ENABLE_LOGIND
 systemd_logind_SOURCES = \
 	src/login/logind.c \

@@ -27,6 +27,7 @@ systemd System and Service Manager
  	- remove “machine” argument option;
  * units:
  	- remove “org.freedesktop.login1” busname;
+ 	- remove “org.freedesktop.systemd1” busname;
  * tests:
  	- remove “test-resolve” test;
 
