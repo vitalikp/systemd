@@ -822,7 +822,6 @@ int bus_next_address(sd_bus *b) {
 }
 
 static int bus_start_fd(sd_bus *b) {
-        struct stat st;
         int r;
 
         assert(b);
@@ -847,13 +846,7 @@ static int bus_start_fd(sd_bus *b) {
                         return r;
         }
 
-        if (fstat(b->input_fd, &st) < 0)
-                return -errno;
-
-        if (S_ISCHR(b->input_fd))
-                return bus_kernel_take_fd(b);
-        else
-                return bus_socket_take_fd(b);
+        return bus_socket_take_fd(b);
 }
 
 _public_ int sd_bus_start(sd_bus *bus) {

@@ -58,8 +58,6 @@ struct memfd_cache {
         size_t allocated;
 };
 
-int bus_kernel_take_fd(sd_bus *b);
-
 int bus_kernel_write_message(sd_bus *bus, sd_bus_message *m, bool hint_sync_call);
 int bus_kernel_read_message(sd_bus *bus, bool hint_priority, int64_t priority);
 
