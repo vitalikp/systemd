@@ -43,7 +43,6 @@
 #include "bus-message.h"
 #include "bus-type.h"
 #include "bus-socket.h"
-#include "bus-kernel.h"
 #include "bus-control.h"
 #include "bus-introspect.h"
 #include "bus-signature.h"
@@ -285,7 +284,7 @@ _public_ int sd_bus_negotiate_creds(sd_bus *bus, uint64_t mask) {
         /* The well knowns we need unconditionally, so that matches can work */
         bus->creds_mask = mask | SD_BUS_CREDS_WELL_KNOWN_NAMES|SD_BUS_CREDS_UNIQUE_NAME;
 
-        return kdbus_translate_attach_flags(bus->creds_mask, &bus->attach_flags);
+        return 0;
 }
 
 _public_ int sd_bus_set_server(sd_bus *bus, int b, sd_id128_t server_id) {

@@ -58,4 +58,3 @@ struct memfd_cache {
         size_t allocated;
 };
 
-int kdbus_translate_attach_flags(uint64_t sd_bus_flags, uint64_t *kdbus_flags);

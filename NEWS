@@ -28,6 +28,7 @@ systemd System and Service Manager
  		• kdbus_translate_request_name_flags;
  		• bus_kernel_create_bus;
  		• bus_kernel_flush_memfd;
+ 		• kdbus_translate_attach_flags;
  	- remove “BusTransport” enum;
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;
