@@ -59,7 +59,6 @@ struct memfd_cache {
 };
 
 int bus_kernel_create_bus(const char *name, bool world, char **s);
-int bus_kernel_create_domain(const char *name, char **s);
 
 int bus_kernel_pop_memfd(sd_bus *bus, void **address, size_t *mapped, size_t *allocated);
 void bus_kernel_push_memfd(sd_bus *bus, int fd, void *address, size_t mapped, size_t allocated);

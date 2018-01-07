@@ -286,57 +286,6 @@ int bus_kernel_create_bus(const char *name, bool world, char **s) {
         return fd;
 }
 
-int bus_kernel_create_domain(const char *name, char **s) {
-        struct kdbus_cmd_make *make;
-        struct kdbus_item *n;
-        int fd;
-
-        assert(name);
-        assert(s);
-
-        fd = open("/dev/kdbus/control", O_RDWR|O_NOCTTY|O_CLOEXEC);
-        if (fd < 0)
-                return -errno;
-
-        make = alloca0(ALIGN8(offsetof(struct kdbus_cmd_make, items) +
-                              offsetof(struct kdbus_item, str) +
-                              strlen(name) + 1));
-
-        n = make->items;
-        strcpy(n->str, name);
-        n->size = offsetof(struct kdbus_item, str) + strlen(n->str) + 1;
-        n->type = KDBUS_ITEM_MAKE_NAME;
-
-        make->size = ALIGN8(offsetof(struct kdbus_cmd_make, items) + n->size);
-        make->flags = KDBUS_MAKE_ACCESS_WORLD;
-
-        if (ioctl(fd, KDBUS_CMD_DOMAIN_MAKE, make) < 0) {
-                safe_close(fd);
-                return -errno;
-        }
-
-        /* The higher 32bit of the flags field are considered
-         * 'incompatible flags'. Refuse them all for now. */
-        if (make->flags > 0xFFFFFFFFULL) {
-                safe_close(fd);
-                return -ENOTSUP;
-        }
-
-        if (s) {
-                char *p;
-
-                p = strappend("/dev/kdbus/domain/", name);
-                if (!p) {
-                        safe_close(fd);
-                        return -ENOMEM;
-                }
-
-                *s = p;
-        }
-
-        return fd;
-}
-
 int bus_kernel_try_close(sd_bus *bus) {
         assert(bus);
         assert(bus->is_kernel);
