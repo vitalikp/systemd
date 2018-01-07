@@ -21,6 +21,7 @@ systemd System and Service Manager
  	- remove “bus_event_loop_with_idle” function;
  	- remove “sd_bus_try_close” function;
  	- remove “bus_remove_match_internal_kernel” function;
+ 	- remove “bus_add_match_internal_kernel” function;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:
