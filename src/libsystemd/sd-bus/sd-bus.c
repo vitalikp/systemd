@@ -40,7 +40,6 @@
 
 #include "sd-bus.h"
 #include "bus-internal.h"
-#include "bus-kernel.h"
 #include "bus-message.h"
 #include "bus-type.h"
 #include "bus-socket.h"
@@ -116,9 +115,6 @@ static void bus_free(sd_bus *b) {
                 *b->default_bus_ptr = NULL;
 
         bus_close_fds(b);
-
-        if (b->kdbus_buffer)
-                munmap(b->kdbus_buffer, KDBUS_POOL_SIZE);
 
         free(b->rbuffer);
         free(b->unique_name);

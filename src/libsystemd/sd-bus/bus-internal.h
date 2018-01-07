@@ -265,8 +265,6 @@ struct sd_bus {
 
         unsigned iteration_counter;
 
-        void *kdbus_buffer;
-
         pid_t original_pid;
 
         uint64_t hello_flags;
