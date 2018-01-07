@@ -114,9 +114,6 @@ static void message_free(sd_bus_message *m) {
 
         message_reset_parts(m);
 
-        if (m->free_kdbus)
-                free(m->kdbus);
-
         sd_bus_unref(m->bus);
 
         if (m->free_fds) {

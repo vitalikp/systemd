@@ -104,7 +104,6 @@ struct sd_bus_message {
         bool dont_send:1;
         bool allow_fds:1;
         bool free_header:1;
-        bool free_kdbus:1;
         bool free_fds:1;
         bool poisoned:1;
 
