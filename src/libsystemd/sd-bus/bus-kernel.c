@@ -59,24 +59,6 @@ void bus_kernel_flush_memfd(sd_bus *b) {
                 close_and_munmap(b->memfd_cache[i].fd, b->memfd_cache[i].address, b->memfd_cache[i].mapped);
 }
 
-int kdbus_translate_request_name_flags(uint64_t flags, uint64_t *kdbus_flags) {
-        uint64_t f = 0;
-
-        assert(kdbus_flags);
-
-        if (flags & SD_BUS_NAME_ALLOW_REPLACEMENT)
-                f |= KDBUS_NAME_ALLOW_REPLACEMENT;
-
-        if (flags & SD_BUS_NAME_REPLACE_EXISTING)
-                f |= KDBUS_NAME_REPLACE_EXISTING;
-
-        if (flags & SD_BUS_NAME_QUEUE)
-                f |= KDBUS_NAME_QUEUE;
-
-        *kdbus_flags = f;
-        return 0;
-}
-
 int kdbus_translate_attach_flags(uint64_t mask, uint64_t *kdbus_mask) {
         uint64_t m = 0;
 
