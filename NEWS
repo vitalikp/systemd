@@ -26,6 +26,7 @@ systemd System and Service Manager
  		• bus_add_match_internal_kernel;
  		• bus_kernel_parse_unique_name;
  		• kdbus_translate_request_name_flags;
+ 		• bus_kernel_create_bus;
  	- remove “BusTransport” enum;
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;
