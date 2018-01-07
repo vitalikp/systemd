@@ -8,6 +8,7 @@ systemd System and Service Manager
  	• struct sd_bus:
  		- remove “machine” field;
  		- remove “kernel” field;
+ 		- remove “use_memfd” field;
  	• struct bus_body_part:
  		- remove “memfd” field;
  	- remove “bus_message_map_properties_changed” function;

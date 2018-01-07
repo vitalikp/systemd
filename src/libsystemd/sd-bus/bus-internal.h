@@ -210,8 +210,6 @@ struct sd_bus {
         bool is_system:1;
         bool is_user:1;
 
-        int use_memfd;
-
         void *rbuffer;
         size_t rbuffer_size;
 
