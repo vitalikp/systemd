@@ -46,6 +46,7 @@ systemd System and Service Manager
  	- remove “test-resolve” test;
  	- remove “test-bus-kernel” test;
  	- remove “test-bus-kernel-bloom” test;
+ 	- remove “test-bus-kernel-benchmark” test;
  * build:
  	- remove USER_BUSNAMES_TARGET_WANTS unit path;
  	- remove BUSNAMES_TARGET_WANTS unit path;
