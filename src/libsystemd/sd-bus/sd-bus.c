@@ -147,8 +147,6 @@ static void bus_free(sd_bus *b) {
         assert(hashmap_isempty(b->nodes));
         hashmap_free(b->nodes);
 
-        bus_kernel_flush_memfd(b);
-
         assert_se(pthread_mutex_destroy(&b->memfd_cache_mutex) == 0);
 
         free(b);

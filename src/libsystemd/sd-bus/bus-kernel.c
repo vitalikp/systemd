@@ -43,22 +43,6 @@
 #define UNIQUE_NAME_MAX (3+DECIMAL_STR_MAX(uint64_t))
 
 
-static void close_and_munmap(int fd, void *address, size_t size) {
-        if (size > 0)
-                assert_se(munmap(address, PAGE_ALIGN(size)) >= 0);
-
-        safe_close(fd);
-}
-
-void bus_kernel_flush_memfd(sd_bus *b) {
-        unsigned i;
-
-        assert(b);
-
-        for (i = 0; i < b->n_memfd_cache; i++)
-                close_and_munmap(b->memfd_cache[i].fd, b->memfd_cache[i].address, b->memfd_cache[i].mapped);
-}
-
 int kdbus_translate_attach_flags(uint64_t mask, uint64_t *kdbus_mask) {
         uint64_t m = 0;
 
