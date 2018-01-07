@@ -35,7 +35,6 @@
 #include "sd-bus.h"
 #include "bus-error.h"
 #include "bus-match.h"
-#include "kdbus.h"
 #include "socket-util.h"
 
 struct reply_callback {
@@ -287,7 +286,6 @@ struct sd_bus {
         sd_bus **default_bus_ptr;
         pid_t tid;
 
-        struct kdbus_creds fake_creds;
         char *fake_label;
 
         char *cgroup_root;
