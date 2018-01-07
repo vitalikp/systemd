@@ -119,7 +119,6 @@ global:
         sd_bus_negotiate_creds;
         sd_bus_start;
         sd_bus_close;
-        sd_bus_try_close;
         sd_bus_ref;
         sd_bus_unref;
         sd_bus_is_open;

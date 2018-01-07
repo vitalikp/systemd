@@ -120,7 +120,6 @@ int sd_bus_negotiate_timestamp(sd_bus *bus, int b);
 int sd_bus_negotiate_creds(sd_bus *bus, uint64_t creds_mask);
 int sd_bus_start(sd_bus *ret);
 
-int sd_bus_try_close(sd_bus *bus);
 void sd_bus_close(sd_bus *bus);
 
 sd_bus *sd_bus_ref(sd_bus *bus);

@@ -285,13 +285,3 @@ int bus_kernel_create_bus(const char *name, bool world, char **s) {
 
         return fd;
 }
-
-int bus_kernel_try_close(sd_bus *bus) {
-        assert(bus);
-        assert(bus->is_kernel);
-
-        if (ioctl(bus->input_fd, KDBUS_CMD_BYEBYE) < 0)
-                return -errno;
-
-        return 0;
-}

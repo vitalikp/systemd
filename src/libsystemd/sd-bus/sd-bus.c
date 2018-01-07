@@ -3053,32 +3053,6 @@ _public_ int sd_bus_get_peer_creds(sd_bus *bus, uint64_t mask, sd_bus_creds **re
         return 0;
 }
 
-_public_ int sd_bus_try_close(sd_bus *bus) {
-        int r;
-
-        assert_return(bus, -EINVAL);
-        assert_return(!bus_pid_changed(bus), -ECHILD);
-
-        if (!bus->is_kernel)
-                return -ENOTSUP;
-
-        if (!BUS_IS_OPEN(bus->state))
-                return -ENOTCONN;
-
-        if (bus->rqueue_size > 0)
-                return -EBUSY;
-
-        if (bus->wqueue_size > 0)
-                return -EBUSY;
-
-        r = bus_kernel_try_close(bus);
-        if (r < 0)
-                return r;
-
-        sd_bus_close(bus);
-        return 0;
-}
-
 _public_ int sd_bus_get_name(sd_bus *bus, const char **name) {
         assert_return(bus, -EINVAL);
         assert_return(name, -EINVAL);
