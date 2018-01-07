@@ -42,21 +42,6 @@
 
 #define UNIQUE_NAME_MAX (3+DECIMAL_STR_MAX(uint64_t))
 
-int bus_kernel_parse_unique_name(const char *s, uint64_t *id) {
-        int r;
-
-        assert(s);
-        assert(id);
-
-        if (!startswith(s, ":1."))
-                return 0;
-
-        r = safe_atou64(s + 3, id);
-        if (r < 0)
-                return r;
-
-        return 1;
-}
 
 static void close_and_munmap(int fd, void *address, size_t size) {
         if (size > 0)

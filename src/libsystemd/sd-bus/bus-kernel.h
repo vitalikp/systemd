@@ -62,7 +62,5 @@ int bus_kernel_create_bus(const char *name, bool world, char **s);
 
 void bus_kernel_flush_memfd(sd_bus *bus);
 
-int bus_kernel_parse_unique_name(const char *s, uint64_t *id);
-
 int kdbus_translate_request_name_flags(uint64_t sd_bus_flags, uint64_t *kdbus_flags);
 int kdbus_translate_attach_flags(uint64_t sd_bus_flags, uint64_t *kdbus_flags);
