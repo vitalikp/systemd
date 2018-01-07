@@ -779,26 +779,6 @@ int bus_add_match_internal(
         return bus_add_match_internal_dbus1(bus, match);
 }
 
-int bus_remove_match_internal_kernel(
-                sd_bus *bus,
-                uint64_t cookie) {
-
-        struct kdbus_cmd_match m;
-        int r;
-
-        assert(bus);
-
-        zero(m);
-        m.size = offsetof(struct kdbus_cmd_match, items);
-        m.cookie = cookie;
-
-        r = ioctl(bus->input_fd, KDBUS_CMD_MATCH_REMOVE, &m);
-        if (r < 0)
-                return -errno;
-
-        return 0;
-}
-
 static int bus_remove_match_internal_dbus1(
                 sd_bus *bus,
                 const char *match) {
