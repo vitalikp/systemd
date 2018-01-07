@@ -159,7 +159,7 @@ _public_ int sd_bus_new(sd_bus **ret) {
         r->input_fd = r->output_fd = -1;
         r->message_version = 1;
         r->creds_mask |= SD_BUS_CREDS_WELL_KNOWN_NAMES|SD_BUS_CREDS_UNIQUE_NAME;
-        r->hello_flags |= KDBUS_HELLO_ACCEPT_FD;
+        r->accept_fd = true;
         r->attach_flags |= KDBUS_ATTACH_NAMES;
         r->original_pid = getpid();
 
@@ -255,7 +255,7 @@ _public_ int sd_bus_negotiate_fds(sd_bus *bus, int b) {
         assert_return(bus->state == BUS_UNSET, -EPERM);
         assert_return(!bus_pid_changed(bus), -ECHILD);
 
-        SET_FLAG(bus->hello_flags, KDBUS_HELLO_ACCEPT_FD, b);
+        bus->accept_fd = b;
         return 0;
 }
 
@@ -1113,7 +1113,7 @@ _public_ int sd_bus_can_send(sd_bus *bus, char type) {
                 return 0;
 
         if (type == SD_BUS_TYPE_UNIX_FD) {
-                if (!(bus->hello_flags & KDBUS_HELLO_ACCEPT_FD))
+                if (!bus->accept_fd)
                         return 0;
 
                 r = bus_ensure_running(bus);
@@ -1587,7 +1587,7 @@ _public_ int sd_bus_call(
 
                                 if (incoming->header->type == SD_BUS_MESSAGE_METHOD_RETURN) {
 
-                                        if (incoming->n_fds <= 0 || (bus->hello_flags & KDBUS_HELLO_ACCEPT_FD)) {
+                                        if (incoming->n_fds <= 0 || bus->accept_fd) {
                                                 if (reply)
                                                         *reply = incoming;
                                                 else
@@ -1867,7 +1867,7 @@ static int process_reply(sd_bus *bus, sd_bus_message *m) {
 
         slot = container_of(c, sd_bus_slot, reply_callback);
 
-        if (m->n_fds > 0 && !(bus->hello_flags & KDBUS_HELLO_ACCEPT_FD)) {
+        if (m->n_fds > 0 && !bus->accept_fd) {
 
                 /* If the reply contained a file descriptor which we
                  * didn't want we pass an error instead. */
@@ -2051,7 +2051,7 @@ static int process_fd_check(sd_bus *bus, sd_bus_message *m) {
         if (m->n_fds <= 0)
                 return 0;
 
-        if (bus->hello_flags & KDBUS_HELLO_ACCEPT_FD)
+        if (bus->accept_fd)
                 return 0;
 
         if (m->header->type != SD_BUS_MESSAGE_METHOD_CALL)
