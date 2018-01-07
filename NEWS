@@ -11,6 +11,9 @@ systemd System and Service Manager
  	- remove “bus_message_map_properties_changed” function;
  	- remove “BusTransport” enum;
  	- remove “sd_bus_open_system_container” function;
+ 	- allow naming event sources;
+ 	- use event source name rather than address in debug messages;
+ 	- name event sources used in libraries;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:
@@ -25,10 +28,14 @@ systemd System and Service Manager
  	- remove “list-machines” command;
  	- remove “recursive” argument option;
  	- remove “machine” argument option;
+ 	- filter templates from restartable units in bash-completion;
  * units:
  	- remove “org.freedesktop.login1” busname;
  	- remove “org.freedesktop.systemd1” busname;
  	- remove “busnames” target;
+ * po:
+ 	- update Russian translation;
+ 	- update French translation;
  * tests:
  	- remove “test-resolve” test;
  * build:
