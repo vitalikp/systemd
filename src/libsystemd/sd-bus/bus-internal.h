@@ -267,8 +267,6 @@ struct sd_bus {
 
         void *kdbus_buffer;
 
-        unsigned n_memfd_cache;
-
         pid_t original_pid;
 
         uint64_t hello_flags;

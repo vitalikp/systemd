@@ -13,6 +13,7 @@ systemd System and Service Manager
  		• remove “use_memfd” field;
  		• remove “memfd_cache_mutex” field;
  		• remove “memfd_cache” field;
+ 		• remove “n_memfd_cache” field;
  	- struct bus_body_part:
  		• remove “memfd” field;
  	- remove functions:
