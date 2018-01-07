@@ -17,6 +17,8 @@ systemd System and Service Manager
  		• remove “kdbus_buffer” field;
  	- struct bus_body_part:
  		• remove “memfd” field;
+ 	- struct sd_bus_message:
+ 		• remove “release_kdbus” field;
  	- remove functions:
  		• bus_message_map_properties_changed;
  		• sd_bus_open_system_container;
