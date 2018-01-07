@@ -127,8 +127,6 @@ struct sd_bus_message {
         struct iovec iovec_fixed[2];
         unsigned n_iovec;
 
-        struct kdbus_msg *kdbus;
-
         char *peeked_signature;
 
         /* If set replies to this message must carry the signature
