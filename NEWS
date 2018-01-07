@@ -15,6 +15,7 @@ systemd System and Service Manager
  	- use event source name rather than address in debug messages;
  	- name event sources used in libraries;
  	- remove “bus_kernel_take_fd” function;
+ 	- remove “bus_kernel_write_message” function;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

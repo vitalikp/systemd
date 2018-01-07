@@ -1202,15 +1202,12 @@ static int bus_write_message(sd_bus *bus, sd_bus_message *m, bool hint_sync_call
         assert(bus);
         assert(m);
 
-        if (bus->is_kernel)
-                r = bus_kernel_write_message(bus, m, hint_sync_call);
-        else
-                r = bus_socket_write_message(bus, m, idx);
+        r = bus_socket_write_message(bus, m, idx);
 
         if (r <= 0)
                 return r;
 
-        if (bus->is_kernel || *idx >= BUS_MESSAGE_SIZE(m))
+        if (*idx >= BUS_MESSAGE_SIZE(m))
                 log_debug("Sent message type=%s sender=%s destination=%s object=%s interface=%s member=%s cookie=%" PRIu64 " reply_cookie=%" PRIu64 " error=%s",
                           bus_message_type_to_string(m->header->type),
                           strna(sd_bus_message_get_sender(m)),
