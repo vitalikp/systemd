@@ -24,19 +24,10 @@ systemd System and Service Manager
  	- remove functions:
  		• bus_message_map_properties_changed;
  		• sd_bus_open_system_container;
- 		• bus_kernel_take_fd;
- 		• bus_kernel_write_message;
- 		• bus_kernel_read_message;
- 		• bus_kernel_create_domain;
  		• bus_event_loop_with_idle;
  		• sd_bus_try_close;
  		• bus_remove_match_internal_kernel;
  		• bus_add_match_internal_kernel;
- 		• bus_kernel_parse_unique_name;
- 		• kdbus_translate_request_name_flags;
- 		• bus_kernel_create_bus;
- 		• bus_kernel_flush_memfd;
- 		• kdbus_translate_attach_flags;
  	- remove “BusTransport” enum;
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;
@@ -51,6 +42,7 @@ systemd System and Service Manager
  	- remove “sd-resolve” module;
  	- remove “sd-utf8” module;
  	- remove “bus-container” module;
+ 	- remove “bus-kernel” module;
  * systemctl:
  	- remove “list-machines” command;
  	- remove “recursive” argument option;
