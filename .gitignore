@@ -76,7 +76,6 @@
 /test-bus-error
 /test-bus-gvariant
 /test-bus-introspect
-/test-bus-kernel
 /test-bus-kernel-benchmark
 /test-bus-kernel-bloom
 /test-bus-marshal

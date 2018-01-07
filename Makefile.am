@@ -1819,7 +1819,6 @@ tests += \
 	test-bus-cleanup \
 	test-bus-server \
 	test-bus-match \
-	test-bus-kernel \
 	test-bus-kernel-bloom \
 	test-bus-kernel-benchmark \
 	test-bus-introspect \
@@ -1943,20 +1942,6 @@ test_bus_match_SOURCES = \
 test_bus_match_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
-
-test_bus_kernel_SOURCES = \
-	src/libsystemd/sd-bus/test-bus-kernel.c
-
-test_bus_kernel_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la \
-	libsystemd-dump.la \
-	libsystemd-capability.la \
-	$(CAP_LIBS)
-
-test_bus_kernel_CFLAGS = \
-	$(AM_CFLAGS) \
-	$(CAP_CFLAGS)
 
 test_bus_kernel_bloom_SOURCES = \
 	src/libsystemd/sd-bus/test-bus-kernel-bloom.c
