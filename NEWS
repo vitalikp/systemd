@@ -18,6 +18,7 @@ systemd System and Service Manager
  	- remove “bus_kernel_write_message” function;
  	- remove “bus_kernel_read_message” function;
  	- remove “bus_kernel_create_domain” function;
+ 	- remove “bus_event_loop_with_idle” function;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:
