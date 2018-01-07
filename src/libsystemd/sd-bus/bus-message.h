@@ -72,7 +72,6 @@ struct bus_body_part {
         size_t size;
         size_t mapped;
         size_t allocated;
-        int memfd;
         bool free_this:1;
         bool munmap_this:1;
         bool sealed:1;
@@ -236,7 +235,6 @@ struct bus_body_part *message_append_part(sd_bus_message *m);
         for ((i) = 0, (part) = &(m)->body; (i) < (m)->n_body_parts; (i)++, (part) = (part)->next)
 
 int bus_body_part_map(struct bus_body_part *part);
-void bus_body_part_unmap(struct bus_body_part *part);
 
 int bus_message_to_errno(sd_bus_message *m);
 

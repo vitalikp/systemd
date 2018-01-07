@@ -61,20 +61,7 @@ static void message_free_part(sd_bus_message *m, struct bus_body_part *part) {
         assert(m);
         assert(part);
 
-        if (part->memfd >= 0) {
-                /* If we can reuse the memfd, try that. For that it
-                 * can't be sealed yet. */
-
-                if (!part->sealed)
-                        bus_kernel_push_memfd(m->bus, part->memfd, part->data, part->mapped, part->allocated);
-                else {
-                        if (part->mapped > 0)
-                                assert_se(munmap(part->data, part->mapped) == 0);
-
-                        safe_close(part->memfd);
-                }
-
-        } else if (part->munmap_this)
+        if (part->munmap_this)
                 munmap(part->data, part->mapped);
         else if (part->free_this)
                 free(part->data);
@@ -462,7 +449,6 @@ int bus_message_from_malloc(
                 m->body.data = (uint8_t*) buffer + sizeof(struct bus_header) + ALIGN8(BUS_MESSAGE_FIELDS_SIZE(m));
                 m->body.size = sz;
                 m->body.sealed = true;
-                m->body.memfd = -1;
         }
 
         m->n_iovec = 1;
@@ -1031,7 +1017,6 @@ struct bus_body_part *message_append_part(sd_bus_message *m) {
                 m->body_end->next = part;
         }
 
-        part->memfd = -1;
         m->body_end = part;
         m->n_body_parts ++;
 
@@ -1045,7 +1030,6 @@ static void part_zero(struct bus_body_part *part, size_t sz) {
 
         /* All other fields can be left in their defaults */
         assert(!part->data);
-        assert(part->memfd < 0);
 
         part->size = sz;
         part->is_zero = true;
@@ -1059,7 +1043,6 @@ static int part_make_space(
                 void **q) {
 
         void *n;
-        int r;
 
         assert(m);
         assert(part);
@@ -1068,58 +1051,19 @@ static int part_make_space(
         if (m->poisoned)
                 return -ENOMEM;
 
-        if (!part->data && part->memfd < 0)
-                part->memfd = bus_kernel_pop_memfd(m->bus, &part->data, &part->mapped, &part->allocated);
+        if (part->allocated == 0 || sz > part->allocated) {
+                size_t new_allocated;
 
-        if (part->memfd >= 0) {
-
-                if (part->allocated == 0 || sz > part->allocated) {
-                        uint64_t new_allocated;
-
-                        new_allocated = PAGE_ALIGN(sz > 0 ? 2 * sz : 1);
-                        r = ftruncate(part->memfd, new_allocated);
-                        if (r < 0) {
-                                m->poisoned = true;
-                                return -errno;
-                        }
-
-                        part->allocated = new_allocated;
+                new_allocated = sz > 0 ? 2 * sz : 64;
+                n = realloc(part->data, new_allocated);
+                if (!n) {
+                        m->poisoned = true;
+                        return -ENOMEM;
                 }
 
-                if (!part->data || sz > part->mapped) {
-                        size_t psz;
-
-                        psz = PAGE_ALIGN(sz > 0 ? sz : 1);
-                        if (part->mapped <= 0)
-                                n = mmap(NULL, psz, PROT_READ|PROT_WRITE, MAP_SHARED, part->memfd, 0);
-                        else
-                                n = mremap(part->data, part->mapped, psz, MREMAP_MAYMOVE);
-
-                        if (n == MAP_FAILED) {
-                                m->poisoned = true;
-                                return -errno;
-                        }
-
-                        part->mapped = psz;
-                        part->data = n;
-                }
-
-                part->munmap_this = true;
-        } else {
-                if (part->allocated == 0 || sz > part->allocated) {
-                        size_t new_allocated;
-
-                        new_allocated = sz > 0 ? 2 * sz : 64;
-                        n = realloc(part->data, new_allocated);
-                        if (!n) {
-                                m->poisoned = true;
-                                return -ENOMEM;
-                        }
-
-                        part->data = n;
-                        part->allocated = new_allocated;
-                        part->free_this = true;
-                }
+                part->data = n;
+                part->allocated = new_allocated;
+                part->free_this = true;
         }
 
         if (q)
@@ -2483,9 +2427,7 @@ static int bus_message_close_header(sd_bus_message *m) {
 }
 
 int bus_message_seal(sd_bus_message *m, uint64_t cookie, usec_t timeout) {
-        struct bus_body_part *part;
         size_t l, a;
-        unsigned i;
         int r;
 
         assert(m);
@@ -2540,30 +2482,6 @@ int bus_message_seal(sd_bus_message *m, uint64_t cookie, usec_t timeout) {
         if (a > 0)
                 memzero((uint8_t*) BUS_MESSAGE_FIELDS(m) + l, a);
 
-        /* If this is something we can send as memfd, then let's seal
-        the memfd now. Note that we can send memfds as payload only
-        for directed messages, and not for broadcasts. */
-        if (m->destination && m->bus->use_memfd) {
-                MESSAGE_FOREACH_PART(part, i, m)
-                        if (part->memfd >= 0 && !part->sealed && (part->size > MEMFD_MIN_SIZE || m->bus->use_memfd < 0)) {
-                                uint64_t sz;
-
-                                /* Try to seal it if that makes
-                                 * sense. First, unmap our own map to
-                                 * make sure we don't keep it busy. */
-                                bus_body_part_unmap(part);
-
-                                /* Then, sync up real memfd size */
-                                sz = part->size;
-                                if (ftruncate(part->memfd, sz) < 0)
-                                        return -errno;
-
-                                /* Finally, try to seal */
-                                if (fcntl(part->memfd, F_ADD_SEALS, F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_WRITE) >= 0)
-                                        part->sealed = true;
-                        }
-        }
-
         m->root_container.end = BUS_MESSAGE_BODY_SIZE(m);
         m->root_container.index = 0;
         m->root_container.offset_index = 0;
@@ -2587,7 +2505,7 @@ int bus_body_part_map(struct bus_body_part *part) {
                 return 0;
 
         /* For smaller zero parts (as used for padding) we don't need to map anything... */
-        if (part->memfd < 0 && part->is_zero && part->size < 8) {
+        if (part->is_zero && part->size < 8) {
                 static const uint8_t zeroes[7] = { };
                 part->data = (void*) zeroes;
                 return 0;
@@ -2595,9 +2513,7 @@ int bus_body_part_map(struct bus_body_part *part) {
 
         psz = PAGE_ALIGN(part->size);
 
-        if (part->memfd >= 0)
-                p = mmap(NULL, psz, PROT_READ, MAP_PRIVATE, part->memfd, 0);
-        else if (part->is_zero)
+        if (part->is_zero)
                 p = mmap(NULL, psz, PROT_READ, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
         else
                 return -EINVAL;
@@ -2610,28 +2526,6 @@ int bus_body_part_map(struct bus_body_part *part) {
         part->munmap_this = true;
 
         return 0;
-}
-
-void bus_body_part_unmap(struct bus_body_part *part) {
-
-        assert_se(part);
-
-        if (part->memfd < 0)
-                return;
-
-        if (!part->data)
-                return;
-
-        if (!part->munmap_this)
-                return;
-
-        assert_se(munmap(part->data, part->mapped) == 0);
-
-        part->data = NULL;
-        part->mapped = 0;
-        part->munmap_this = false;
-
-        return;
 }
 
 static int buffer_peek(const void *p, uint32_t sz, size_t *rindex, size_t align, size_t nbytes, void **r) {

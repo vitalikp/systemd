@@ -58,99 +58,11 @@ int bus_kernel_parse_unique_name(const char *s, uint64_t *id) {
         return 1;
 }
 
-int bus_kernel_pop_memfd(sd_bus *bus, void **address, size_t *mapped, size_t *allocated) {
-        struct memfd_cache *c;
-        int fd;
-
-        assert(address);
-        assert(mapped);
-        assert(allocated);
-
-        if (!bus || !bus->is_kernel)
-                return -ENOTSUP;
-
-        assert_se(pthread_mutex_lock(&bus->memfd_cache_mutex) >= 0);
-
-        if (bus->n_memfd_cache <= 0) {
-                _cleanup_free_ char *g = NULL;
-                int r;
-
-                assert_se(pthread_mutex_unlock(&bus->memfd_cache_mutex) >= 0);
-
-                assert(bus->connection_name);
-
-                g = bus_label_escape(bus->connection_name);
-                if (!g)
-                        return -ENOMEM;
-
-                r = memfd_create(g, MFD_ALLOW_SEALING);
-                if (r < 0)
-                        return -errno;
-
-                *address = NULL;
-                *mapped = 0;
-                *allocated = 0;
-                return r;
-        }
-
-        c = &bus->memfd_cache[--bus->n_memfd_cache];
-
-        assert(c->fd >= 0);
-        assert(c->mapped == 0 || c->address);
-
-        *address = c->address;
-        *mapped = c->mapped;
-        *allocated = c->allocated;
-        fd = c->fd;
-
-        assert_se(pthread_mutex_unlock(&bus->memfd_cache_mutex) >= 0);
-
-        return fd;
-}
-
 static void close_and_munmap(int fd, void *address, size_t size) {
         if (size > 0)
                 assert_se(munmap(address, PAGE_ALIGN(size)) >= 0);
 
         safe_close(fd);
-}
-
-void bus_kernel_push_memfd(sd_bus *bus, int fd, void *address, size_t mapped, size_t allocated) {
-        struct memfd_cache *c;
-        uint64_t max_mapped = PAGE_ALIGN(MEMFD_CACHE_ITEM_SIZE_MAX);
-
-        assert(fd >= 0);
-        assert(mapped == 0 || address);
-
-        if (!bus || !bus->is_kernel) {
-                close_and_munmap(fd, address, mapped);
-                return;
-        }
-
-        assert_se(pthread_mutex_lock(&bus->memfd_cache_mutex) >= 0);
-
-        if (bus->n_memfd_cache >= ELEMENTSOF(bus->memfd_cache)) {
-                assert_se(pthread_mutex_unlock(&bus->memfd_cache_mutex) >= 0);
-
-                close_and_munmap(fd, address, mapped);
-                return;
-        }
-
-        c = &bus->memfd_cache[bus->n_memfd_cache++];
-        c->fd = fd;
-        c->address = address;
-
-        /* If overly long, let's return a bit to the OS */
-        if (mapped > max_mapped) {
-                assert_se(ftruncate(fd, max_mapped) >= 0);
-                assert_se(munmap((uint8_t*) address + max_mapped, PAGE_ALIGN(mapped - max_mapped)) >= 0);
-                c->mapped = c->allocated = max_mapped;
-        } else {
-                c->mapped = mapped;
-                c->allocated = allocated;
-        }
-
-        assert_se(pthread_mutex_unlock(&bus->memfd_cache_mutex) >= 0);
 }
 
 void bus_kernel_flush_memfd(sd_bus *b) {
