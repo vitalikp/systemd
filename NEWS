@@ -3,6 +3,8 @@ systemd System and Service Manager
    systemd (214.10-dev)
 ~~~~~~~
  * core:
+ 	• struct Manager:
+ 		- remove “kdbus_fd” field;
  	- remove initramfs support;
  * libsystemd:
  	• struct sd_bus:

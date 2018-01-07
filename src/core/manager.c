@@ -73,7 +73,7 @@
 #include "dbus-unit.h"
 #include "dbus-job.h"
 #include "dbus-manager.h"
-#include "bus-kernel.h"
+
 
 /* As soon as 5s passed since a unit was added to our GC queue, make sure to run a gc sweep */
 #define GC_QUEUE_USEC_MAX (10*USEC_PER_SEC)
@@ -439,7 +439,7 @@ int manager_new(SystemdRunningAs running_as, bool test_run, Manager **_m) {
 
         m->idle_pipe[0] = m->idle_pipe[1] = m->idle_pipe[2] = m->idle_pipe[3] = -1;
 
-        m->pin_cgroupfs_fd = m->notify_fd = m->signal_fd = m->time_change_fd = m->dev_autofs_fd = m->private_listen_fd = m->kdbus_fd = -1;
+        m->pin_cgroupfs_fd = m->notify_fd = m->signal_fd = m->time_change_fd = m->dev_autofs_fd = m->private_listen_fd = -1;
         m->current_job_id = 1; /* start as id #1, so that we can leave #0 around as "null-like" value */
 
         m->test_run = test_run;
@@ -600,20 +600,10 @@ static int manager_setup_notify(Manager *m) {
 
 static int manager_setup_kdbus(Manager *m) {
 #ifdef ENABLE_KDBUS
-        _cleanup_free_ char *p = NULL;
-
         assert(m);
 
-        if (m->test_run || m->kdbus_fd >= 0)
+        if (m->test_run)
                 return 0;
-
-        m->kdbus_fd = bus_kernel_create_bus(m->running_as == SYSTEMD_SYSTEM ? "system" : "user", m->running_as == SYSTEMD_SYSTEM, &p);
-        if (m->kdbus_fd < 0) {
-                log_debug("Failed to set up kdbus: %s", strerror(-m->kdbus_fd));
-                return m->kdbus_fd;
-        }
-
-        log_debug("Successfully set up kdbus on %s", p);
 
         /* Create the namespace directory here, so that the contents
          * of that directory is not visible to non-root users. This is
@@ -635,7 +625,6 @@ static int manager_connect_bus(Manager *m, bool reexecuting) {
                 return 0;
 
         try_bus_connect =
-                m->kdbus_fd >= 0 ||
                 reexecuting ||
                 (m->running_as == SYSTEMD_USER && getenv("DBUS_SESSION_BUS_ADDRESS"));
 
@@ -820,7 +809,6 @@ void manager_free(Manager *m) {
         safe_close(m->signal_fd);
         safe_close(m->notify_fd);
         safe_close(m->time_change_fd);
-        safe_close(m->kdbus_fd);
 
         manager_close_idle_pipe(m);
 
@@ -2154,16 +2142,6 @@ int manager_serialize(Manager *m, FILE *f, FDSet *fds, bool switching_root) {
                 fprintf(f, "notify-socket=%s\n", m->notify_socket);
         }
 
-        if (m->kdbus_fd >= 0) {
-                int copy;
-
-                copy = fdset_put_dup(fds, m->kdbus_fd);
-                if (copy < 0)
-                        return copy;
-
-                fprintf(f, "kdbus-fd=%i\n", copy);
-        }
-
         bus_track_serialize(m->subscribed, f);
 
         fputc('\n', f);
@@ -2322,16 +2300,6 @@ int manager_deserialize(Manager *m, FILE *f, FDSet *fds) {
 
                         free(m->notify_socket);
                         m->notify_socket = n;
-
-                } else if (startswith(l, "kdbus-fd=")) {
-                        int fd;
-
-                        if (safe_atoi(l + 9, &fd) < 0 || fd < 0 || !fdset_contains(fds, fd))
-                                log_debug("Failed to parse kdbus fd: %s", l + 9);
-                        else {
-                                safe_close(m->kdbus_fd);
-                                m->kdbus_fd = fdset_remove(fds, fd);
-                        }
 
                 } else if (bus_track_deserialize_item(&m->deserialized_subscribed, l) == 0)
                         log_debug("Unknown serialization item '%s'", l);
