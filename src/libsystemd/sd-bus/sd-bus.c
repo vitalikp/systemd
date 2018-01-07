@@ -40,6 +40,7 @@
 
 #include "sd-bus.h"
 #include "bus-internal.h"
+#include "bus-kernel.h"
 #include "bus-message.h"
 #include "bus-type.h"
 #include "bus-socket.h"

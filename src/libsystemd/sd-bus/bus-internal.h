@@ -35,7 +35,6 @@
 #include "sd-bus.h"
 #include "bus-error.h"
 #include "bus-match.h"
-#include "bus-kernel.h"
 #include "kdbus.h"
 #include "socket-util.h"
 
@@ -268,7 +267,6 @@ struct sd_bus {
 
         void *kdbus_buffer;
 
-        struct memfd_cache memfd_cache[MEMFD_CACHE_MAX];
         unsigned n_memfd_cache;
 
         pid_t original_pid;
