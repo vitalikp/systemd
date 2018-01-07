@@ -146,8 +146,6 @@ static void bus_free(sd_bus *b) {
         assert(hashmap_isempty(b->nodes));
         hashmap_free(b->nodes);
 
-        assert_se(pthread_mutex_destroy(&b->memfd_cache_mutex) == 0);
-
         free(b);
 }
 
@@ -167,8 +165,6 @@ _public_ int sd_bus_new(sd_bus **ret) {
         r->hello_flags |= KDBUS_HELLO_ACCEPT_FD;
         r->attach_flags |= KDBUS_ATTACH_NAMES;
         r->original_pid = getpid();
-
-        assert_se(pthread_mutex_init(&r->memfd_cache_mutex, NULL) == 0);
 
         /* We guarantee that wqueue always has space for at least one
          * entry */
