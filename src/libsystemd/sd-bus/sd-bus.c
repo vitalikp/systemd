@@ -1262,10 +1262,7 @@ static int dispatch_wqueue(sd_bus *bus) {
 static int bus_read_message(sd_bus *bus, bool hint_priority, int64_t priority) {
         assert(bus);
 
-        if (bus->is_kernel)
-                return bus_kernel_read_message(bus, hint_priority, priority);
-        else
-                return bus_socket_read_message(bus);
+        return bus_socket_read_message(bus);
 }
 
 int bus_rqueue_make_room(sd_bus *bus) {
