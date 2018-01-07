@@ -77,7 +77,6 @@
 /test-bus-gvariant
 /test-bus-introspect
 /test-bus-kernel-benchmark
-/test-bus-kernel-bloom
 /test-bus-marshal
 /test-bus-match
 /test-bus-objects

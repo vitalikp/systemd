@@ -1819,7 +1819,6 @@ tests += \
 	test-bus-cleanup \
 	test-bus-server \
 	test-bus-match \
-	test-bus-kernel-bloom \
 	test-bus-kernel-benchmark \
 	test-bus-introspect \
 	test-bus-objects \
@@ -1940,13 +1939,6 @@ test_bus_match_SOURCES = \
 	src/libsystemd/sd-bus/test-bus-match.c
 
 test_bus_match_LDADD = \
-	libsystemd-internal.la \
-	libsystemd-shared.la
-
-test_bus_kernel_bloom_SOURCES = \
-	src/libsystemd/sd-bus/test-bus-kernel-bloom.c
-
-test_bus_kernel_bloom_LDADD = \
 	libsystemd-internal.la \
 	libsystemd-shared.la
 
