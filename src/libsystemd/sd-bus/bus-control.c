@@ -390,7 +390,7 @@ _public_ int sd_bus_get_owner(
 }
 
 #define internal_match(bus, m)                                          \
-        ((bus)->hello_flags & KDBUS_HELLO_MONITOR                       \
+        ((bus)->is_monitor                                              \
          ? (isempty(m) ? "eavesdrop='true'" : strappenda((m), ",eavesdrop='true'")) \
          : (m))
 

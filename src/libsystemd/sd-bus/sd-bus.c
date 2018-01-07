@@ -246,7 +246,7 @@ _public_ int sd_bus_set_monitor(sd_bus *bus, int b) {
         assert_return(bus->state == BUS_UNSET, -EPERM);
         assert_return(!bus_pid_changed(bus), -ECHILD);
 
-        SET_FLAG(bus->hello_flags, KDBUS_HELLO_MONITOR, b);
+        bus->is_monitor = b;
         return 0;
 }
 
@@ -1109,7 +1109,7 @@ _public_ int sd_bus_can_send(sd_bus *bus, char type) {
         assert_return(bus->state != BUS_UNSET, -ENOTCONN);
         assert_return(!bus_pid_changed(bus), -ECHILD);
 
-        if (bus->hello_flags & KDBUS_HELLO_MONITOR)
+        if (bus->is_monitor)
                 return 0;
 
         if (type == SD_BUS_TYPE_UNIX_FD) {
@@ -1306,7 +1306,7 @@ static int bus_send_internal(sd_bus *bus, sd_bus_message *_m, uint64_t *cookie, 
         assert_return(bus, -EINVAL);
         assert_return(m, -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !(bus->hello_flags & KDBUS_HELLO_MONITOR), -EROFS);
+        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1448,7 +1448,7 @@ _public_ int sd_bus_call_async(
         assert_return(!(m->header->flags & BUS_MESSAGE_NO_REPLY_EXPECTED), -EINVAL);
         assert_return(callback, -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !(bus->hello_flags & KDBUS_HELLO_MONITOR), -EROFS);
+        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1546,7 +1546,7 @@ _public_ int sd_bus_call(
         assert_return(!(m->header->flags & BUS_MESSAGE_NO_REPLY_EXPECTED), -EINVAL);
         assert_return(!bus_error_is_dirty(error), -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !(bus->hello_flags & KDBUS_HELLO_MONITOR), -EROFS);
+        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1853,7 +1853,7 @@ static int process_reply(sd_bus *bus, sd_bus_message *m) {
             m->header->type != SD_BUS_MESSAGE_METHOD_ERROR)
                 return 0;
 
-        if (bus->is_kernel && (bus->hello_flags & KDBUS_HELLO_MONITOR))
+        if (bus->is_kernel && bus->is_monitor)
                 return 0;
 
         if (m->destination && bus->unique_name && !streq_ptr(m->destination, bus->unique_name))
@@ -1987,7 +1987,7 @@ static int process_builtin(sd_bus *bus, sd_bus_message *m) {
         assert(bus);
         assert(m);
 
-        if (bus->hello_flags & KDBUS_HELLO_MONITOR)
+        if (bus->is_monitor)
                 return 0;
 
         if (bus->manual_peer_interface)
@@ -2045,7 +2045,7 @@ static int process_fd_check(sd_bus *bus, sd_bus_message *m) {
          * delivered to us later even though we ourselves did not
          * negotiate it. */
 
-        if (bus->hello_flags & KDBUS_HELLO_MONITOR)
+        if (bus->is_monitor)
                 return 0;
 
         if (m->n_fds <= 0)

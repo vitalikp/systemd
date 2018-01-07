@@ -207,6 +207,7 @@ struct sd_bus {
         bool manual_peer_interface:1;
         bool is_system:1;
         bool is_user:1;
+        bool is_monitor:1;
 
         void *rbuffer;
         size_t rbuffer_size;
