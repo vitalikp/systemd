@@ -24,6 +24,7 @@ systemd System and Service Manager
  		• remove “release_kdbus” field;
  		• remove “free_kdbus” field;
  		• remove “kdbus” field;
+ 		• remove “monotonic” field;
  	- remove functions:
  		• bus_message_map_properties_changed;
  		• sd_bus_open_system_container;
