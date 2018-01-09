@@ -41,6 +41,7 @@
 #include "sd-bus.h"
 #include "bus-internal.h"
 #include "bus-message.h"
+#include "kdbus.h"
 #include "bus-type.h"
 #include "bus-socket.h"
 #include "bus-control.h"
