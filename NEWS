@@ -27,6 +27,7 @@ systemd System and Service Manager
  		• remove “monotonic” field;
  		• remove “realtime” field;
  		• remove “seqnum” field;
+ 		• remove “priority” field;
  	- remove functions:
  		• bus_message_map_properties_changed;
  		• sd_bus_open_system_container;
