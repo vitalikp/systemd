@@ -172,7 +172,6 @@ global:
         sd_bus_message_get_reply_cookie;
         sd_bus_message_get_expect_reply;
         sd_bus_message_get_auto_start;
-        sd_bus_message_get_priority;
         sd_bus_message_get_signature;
         sd_bus_message_get_path;
         sd_bus_message_get_interface;
