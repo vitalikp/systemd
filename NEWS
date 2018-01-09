@@ -31,6 +31,7 @@ systemd System and Service Manager
  		• sd_bus_try_close;
  		• bus_remove_match_internal_kernel;
  		• bus_add_match_internal_kernel;
+ 		• sd_bus_message_get_realtime_usec;
  	- remove “BusTransport” enum;
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;

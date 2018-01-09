@@ -97,7 +97,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     when true, enables timestamping, and, when false, disables it. If
     this is disabled,
     <citerefentry><refentrytitle>sd_bus_message_get_monotonic_usec</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>sd_bus_message_get_realtime_usec</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>sd_bus_message_get_seqno</refentrytitle><manvolnum>3</manvolnum></citerefentry>
     fail with <constant>-ENODATA</constant> on incoming messages. Note
     that not all transports support timestamping of messages. On local

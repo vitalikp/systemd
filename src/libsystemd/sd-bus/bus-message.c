@@ -872,17 +872,6 @@ _public_ int sd_bus_message_get_monotonic_usec(sd_bus_message *m, uint64_t *usec
         return 0;
 }
 
-_public_ int sd_bus_message_get_realtime_usec(sd_bus_message *m, uint64_t *usec) {
-        assert_return(m, -EINVAL);
-        assert_return(usec, -EINVAL);
-
-        if (m->realtime <= 0)
-                return -ENODATA;
-
-        *usec = m->realtime;
-        return 0;
-}
-
 _public_ int sd_bus_message_get_seqnum(sd_bus_message *m, uint64_t *seqnum) {
         assert_return(m, -EINVAL);
         assert_return(seqnum, -EINVAL);
