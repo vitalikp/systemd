@@ -44,8 +44,7 @@
 
         <refnamediv>
                 <refname>sd_bus_message_get_monotonic_usec</refname>
-                <refname>sd_bus_message_get_seqnum</refname>
-                <refpurpose>Retrieve the sender timestamps and sequence number of a message</refpurpose>
+                <refpurpose>Retrieve the sender timestamps</refpurpose>
         </refnamediv>
 
         <refsynopsisdiv>
@@ -56,12 +55,6 @@
                                 <funcdef>int <function>sd_bus_message_get_monotonic_usec</function></funcdef>
                                 <paramdef>sd_bus_message *<parameter>message</parameter></paramdef>
                                 <paramdef>uint64_t *<parameter>usec</parameter></paramdef>
-                        </funcprototype>
-
-                        <funcprototype>
-                                <funcdef>int <function>sd_bus_message_get_seqnum</function></funcdef>
-                                <paramdef>sd_bus_message *<parameter>message</parameter></paramdef>
-                                <paramdef>uint64_t *<parameter>seqnum</parameter></paramdef>
                         </funcprototype>
                 </funcsynopsis>
         </refsynopsisdiv>
@@ -75,19 +68,6 @@
                 the <literal>CLOCK_MONOTONIC</literal> epoch, see
                 <citerefentry><refentrytitle>clock_gettime</refentrytitle><manvolnum>2</manvolnum></citerefentry>
                 for details.</para>
-
-                <para><function>sd_bus_message_get_seqnum()</function>
-                returns the kernel-assigned sequence number of the
-                message. The kernel assigns a global, monotonically
-                increasing sequence number to all messages transmitted
-                on the local system, at the time the message was
-                sent. This sequence number is useful for determining
-                message send order, even across different busses of
-                the local system. The sequence number combined with
-                the boot ID of the system (as returned by
-                <citerefentry><refentrytitle>sd_id128_get_boot</refentrytitle><manvolnum>3</manvolnum></citerefentry>)
-                is a suitable globally unique identifier for bus
-                messages.</para>
 
                 <para>Note that the sending order and receiving order
                 of messages might differ, in particular for broadcast
@@ -151,8 +131,7 @@
                 <title>Notes</title>
 
                 <para>The
-                <function>sd_bus_message_get_monotonic_usec()</function>,
-                and <function>sd_bus_message_get_seqnum()</function>
+                <function>sd_bus_message_get_monotonic_usec()</function>
                 interfaces are available as a shared library, which
                 can be compiled and linked to with the
                 <constant>libsystemd</constant> <citerefentry><refentrytitle>pkg-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>

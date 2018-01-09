@@ -206,7 +206,6 @@ const sd_bus_error *sd_bus_message_get_error(sd_bus_message *m);
 int sd_bus_message_get_errno(sd_bus_message *m);
 
 int sd_bus_message_get_monotonic_usec(sd_bus_message *m, uint64_t *usec);
-int sd_bus_message_get_seqnum(sd_bus_message *m, uint64_t* seqnum);
 
 sd_bus* sd_bus_message_get_bus(sd_bus_message *m);
 sd_bus_creds *sd_bus_message_get_creds(sd_bus_message *m); /* do not unref the result */

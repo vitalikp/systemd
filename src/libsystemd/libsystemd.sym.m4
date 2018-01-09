@@ -182,7 +182,6 @@ global:
         sd_bus_message_get_error;
         sd_bus_message_get_errno;
         sd_bus_message_get_monotonic_usec;
-        sd_bus_message_get_seqnum;
         sd_bus_message_get_creds;
         sd_bus_message_is_signal;
         sd_bus_message_is_method_call;

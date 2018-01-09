@@ -872,17 +872,6 @@ _public_ int sd_bus_message_get_monotonic_usec(sd_bus_message *m, uint64_t *usec
         return 0;
 }
 
-_public_ int sd_bus_message_get_seqnum(sd_bus_message *m, uint64_t *seqnum) {
-        assert_return(m, -EINVAL);
-        assert_return(seqnum, -EINVAL);
-
-        if (m->seqnum <= 0)
-                return -ENODATA;
-
-        *seqnum = m->seqnum;
-        return 0;
-}
-
 _public_ sd_bus_creds *sd_bus_message_get_creds(sd_bus_message *m) {
         assert_return(m, NULL);
 
