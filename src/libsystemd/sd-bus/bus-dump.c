@@ -97,12 +97,6 @@ int bus_message_dump(sd_bus_message *m, FILE *f, bool with_header) {
                                 ansi_lightred(), strna(m->error.name), ansi_highlight_off(),
                                 ansi_lightred(), strna(m->error.message), ansi_highlight_off());
 
-                if (m->seqnum != 0)
-                        fprintf(f, "  SequenceNumber=%"PRIu64, m->seqnum);
-
-                if (m->seqnum != 0)
-                        fputs("\n", f);
-
                 bus_creds_dump(&m->creds, f);
         }
 

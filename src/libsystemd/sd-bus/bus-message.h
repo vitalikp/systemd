@@ -95,7 +95,6 @@ struct sd_bus_message {
 
         sd_bus_creds creds;
 
-        uint64_t seqnum;
         int64_t priority;
 
         bool sealed:1;
