@@ -861,17 +861,6 @@ _public_ const sd_bus_error *sd_bus_message_get_error(sd_bus_message *m) {
         return &m->error;
 }
 
-_public_ int sd_bus_message_get_monotonic_usec(sd_bus_message *m, uint64_t *usec) {
-        assert_return(m, -EINVAL);
-        assert_return(usec, -EINVAL);
-
-        if (m->monotonic <= 0)
-                return -ENODATA;
-
-        *usec = m->monotonic;
-        return 0;
-}
-
 _public_ sd_bus_creds *sd_bus_message_get_creds(sd_bus_message *m) {
         assert_return(m, NULL);
 
