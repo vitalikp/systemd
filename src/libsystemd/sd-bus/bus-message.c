@@ -5171,11 +5171,3 @@ _public_ int sd_bus_message_get_priority(sd_bus_message *m, int64_t *priority) {
         *priority = m->priority;
         return 0;
 }
-
-_public_ int sd_bus_message_set_priority(sd_bus_message *m, int64_t priority) {
-        assert_return(m, -EINVAL);
-        assert_return(!m->sealed, -EPERM);
-
-        m->priority = priority;
-        return 0;
-}

@@ -215,7 +215,6 @@ int sd_bus_message_is_method_error(sd_bus_message *m, const char *name);
 int sd_bus_message_set_expect_reply(sd_bus_message *m, int b);
 int sd_bus_message_set_auto_start(sd_bus_message *m, int b);
 int sd_bus_message_set_destination(sd_bus_message *m, const char *destination);
-int sd_bus_message_set_priority(sd_bus_message *m, int64_t priority);
 
 int sd_bus_message_append(sd_bus_message *m, const char *types, ...);
 int sd_bus_message_append_basic(sd_bus_message *m, char type, const void *p);

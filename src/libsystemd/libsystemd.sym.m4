@@ -188,7 +188,6 @@ global:
         sd_bus_message_set_expect_reply;
         sd_bus_message_set_auto_start;
         sd_bus_message_set_destination;
-        sd_bus_message_set_priority;
         sd_bus_message_append;
         sd_bus_message_append_basic;
         sd_bus_message_append_array;
