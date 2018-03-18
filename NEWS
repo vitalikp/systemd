@@ -51,6 +51,7 @@ systemd System and Service Manager
  	- remove “bus-bloom” module;
  * logind:
  	- remove “GetSessionByPID” dbus method;
+ 	- remove “GetUserByPID” dbus method;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:
