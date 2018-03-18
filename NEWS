@@ -49,6 +49,8 @@ systemd System and Service Manager
  	- use event source name rather than address in debug messages;
  	- name event sources used in libraries;
  	- remove “bus-bloom” module;
+ * logind:
+ 	- remove “GetSessionByPID” dbus method;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

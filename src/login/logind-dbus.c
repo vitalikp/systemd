@@ -155,48 +155,6 @@ static int method_get_session(sd_bus *bus, sd_bus_message *message, void *userda
         return sd_bus_reply_method_return(message, "o", p);
 }
 
-static int method_get_session_by_pid(sd_bus *bus, sd_bus_message *message, void *userdata, sd_bus_error *error) {
-        _cleanup_free_ char *p = NULL;
-        Session *session = NULL;
-        Manager *m = userdata;
-        pid_t pid;
-        int r;
-
-        assert(bus);
-        assert(message);
-        assert(m);
-
-        assert_cc(sizeof(pid_t) == sizeof(uint32_t));
-
-        r = sd_bus_message_read(message, "u", &pid);
-        if (r < 0)
-                return r;
-
-        if (pid == 0) {
-                _cleanup_bus_creds_unref_ sd_bus_creds *creds = NULL;
-
-                r = sd_bus_query_sender_creds(message, SD_BUS_CREDS_PID, &creds);
-                if (r < 0)
-                        return r;
-
-                r = sd_bus_creds_get_pid(creds, &pid);
-                if (r < 0)
-                        return r;
-        }
-
-        r = manager_get_session_by_pid(m, pid, &session);
-        if (r < 0)
-                return r;
-        if (!session)
-                return sd_bus_error_setf(error, BUS_ERROR_NO_SESSION_FOR_PID, "PID "PID_FMT" does not belong to any known session", pid);
-
-        p = session_bus_path(session);
-        if (!p)
-                return -ENOMEM;
-
-        return sd_bus_reply_method_return(message, "o", p);
-}
-
 static int method_get_user(sd_bus *bus, sd_bus_message *message, void *userdata, sd_bus_error *error) {
         _cleanup_free_ char *p = NULL;
         Manager *m = userdata;
@@ -1925,7 +1883,6 @@ const sd_bus_vtable manager_vtable[] = {
         SD_BUS_PROPERTY("PreparingForSleep", "b", property_get_preparing, 0, 0),
 
         SD_BUS_METHOD("GetSession", "s", "o", method_get_session, SD_BUS_VTABLE_UNPRIVILEGED),
-        SD_BUS_METHOD("GetSessionByPID", "u", "o", method_get_session_by_pid, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("GetUser", "u", "o", method_get_user, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("GetUserByPID", "u", "o", method_get_user_by_pid, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("GetSeat", "s", "o", method_get_seat, SD_BUS_VTABLE_UNPRIVILEGED),
