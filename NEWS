@@ -60,6 +60,7 @@ systemd System and Service Manager
  	- remove “bus-container” module;
  	- remove “bus-kernel” module;
  	- remove PORTING-DBUS1 file;
+ 	- remove kdbus.h header file;
  * systemctl:
  	- remove “list-machines” command;
  	- remove “recursive” argument option;

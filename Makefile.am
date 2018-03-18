@@ -1715,7 +1715,6 @@ libsystemd_internal_la_SOURCES = \
 	src/libsystemd/sd-bus/bus-slot.c \
 	src/libsystemd/sd-bus/bus-slot.h \
 	src/libsystemd/sd-bus/bus-protocol.h \
-	src/libsystemd/sd-bus/kdbus.h \
 	src/libsystemd/sd-event/sd-event.c \
 	src/libsystemd/sd-event/event-util.h \
 	src/libsystemd/sd-id128/sd-id128.c \

@@ -41,7 +41,6 @@
 #include "sd-bus.h"
 #include "bus-internal.h"
 #include "bus-message.h"
-#include "kdbus.h"
 #include "bus-type.h"
 #include "bus-socket.h"
 #include "bus-control.h"
@@ -1042,11 +1041,6 @@ _public_ void sd_bus_close(sd_bus *bus) {
 
         if (!bus->is_kernel)
                 bus_close_fds(bus);
-
-        /* We'll leave the fd open in case this is a kernel bus, since
-         * there might still be memblocks around that reference this
-         * bus, and they might need to invoke the KDBUS_CMD_FREE
-         * ioctl on the fd when they are freed. */
 }
 
 static void bus_enter_closing(sd_bus *bus) {

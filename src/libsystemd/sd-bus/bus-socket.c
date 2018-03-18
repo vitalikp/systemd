@@ -37,7 +37,7 @@
 #include "bus-socket.h"
 #include "bus-internal.h"
 #include "bus-message.h"
-#include "kdbus.h"
+
 
 #define SNDBUF_SIZE (8*1024*1024)
 
