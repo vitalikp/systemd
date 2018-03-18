@@ -212,7 +212,6 @@ global:
         sd_bus_release_name;
         sd_bus_list_names;
         sd_bus_get_owner;
-        sd_bus_get_owner_machine_id;
         sd_bus_call_method;
         sd_bus_get_property;
         sd_bus_get_property_trivial;
