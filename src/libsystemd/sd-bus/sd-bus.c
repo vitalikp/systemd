@@ -161,7 +161,6 @@ _public_ int sd_bus_new(sd_bus **ret) {
         r->message_version = 1;
         r->creds_mask |= SD_BUS_CREDS_WELL_KNOWN_NAMES|SD_BUS_CREDS_UNIQUE_NAME;
         r->accept_fd = true;
-        r->attach_flags |= KDBUS_ATTACH_NAMES;
         r->original_pid = getpid();
 
         /* We guarantee that wqueue always has space for at least one
@@ -898,7 +897,6 @@ _public_ int sd_bus_open(sd_bus **ret) {
         /* We don't know whether the bus is trusted or not, so better
          * be safe, and authenticate everything */
         b->trusted = false;
-        b->attach_flags |= KDBUS_ATTACH_CAPS | KDBUS_ATTACH_CREDS;
 
         r = sd_bus_start(b);
         if (r < 0)
@@ -943,7 +941,6 @@ _public_ int sd_bus_open_system(sd_bus **ret) {
         /* Let's do per-method access control on the system bus. We
          * need the caller's UID and capability set for that. */
         b->trusted = false;
-        b->attach_flags |= KDBUS_ATTACH_CAPS | KDBUS_ATTACH_CREDS;
 
         r = sd_bus_start(b);
         if (r < 0)

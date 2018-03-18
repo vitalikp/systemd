@@ -16,6 +16,7 @@ systemd System and Service Manager
  		• remove “n_memfd_cache” field;
  		• remove “kdbus_buffer” field;
  		• remove “fake_creds” field;
+ 		• remove “attach_flags” field;
  		• add “is_monitor” field;
  		• add “accept_fd” field;
  	- struct bus_body_part:

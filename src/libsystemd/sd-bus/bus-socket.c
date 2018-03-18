@@ -613,7 +613,7 @@ void bus_socket_setup(sd_bus *b) {
         enable = !b->bus_client;
         setsockopt(b->input_fd, SOL_SOCKET, SO_PASSCRED, &enable, sizeof(enable));
 
-        enable = !b->bus_client && (b->attach_flags & KDBUS_ATTACH_SECLABEL);
+        enable = !b->bus_client;
         setsockopt(b->input_fd, SOL_SOCKET, SO_PASSSEC, &enable, sizeof(enable));
 
         /* Increase the buffers to 8 MB */
