@@ -70,6 +70,7 @@ systemd System and Service Manager
  	- remove “recursive” argument option;
  	- remove “machine” argument option;
  	- filter templates from restartable units in bash-completion;
+ 	- don't show unit status by pid;
  * units:
  	- remove “org.freedesktop.login1” busname;
  	- remove “org.freedesktop.systemd1” busname;

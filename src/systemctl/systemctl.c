@@ -3828,42 +3828,6 @@ static int show_one(
         return r;
 }
 
-static int get_unit_dbus_path_by_pid(
-                sd_bus *bus,
-                uint32_t pid,
-                char **unit) {
-
-        _cleanup_bus_error_free_ sd_bus_error error = SD_BUS_ERROR_NULL;
-        _cleanup_bus_message_unref_ sd_bus_message *reply = NULL;
-        char *u;
-        int r;
-
-        r = sd_bus_call_method(
-                        bus,
-                        "org.freedesktop.systemd1",
-                        "/org/freedesktop/systemd1",
-                        "org.freedesktop.systemd1.Manager",
-                        "GetUnitByPID",
-                        &error,
-                        &reply,
-                        "u", pid);
-        if (r < 0) {
-                log_error("Failed to get unit for PID "PID_FMT": %s", pid, bus_error_message(&error, r));
-                return r;
-        }
-
-        r = sd_bus_message_read(reply, "o", &u);
-        if (r < 0)
-                return bus_log_parse_error(r);
-
-        u = strdup(u);
-        if (!u)
-                return log_oom();
-
-        *unit = u;
-        return 0;
-}
-
 static int show_all(
                 const char* verb,
                 sd_bus *bus,
@@ -4012,12 +3976,7 @@ static int show(sd_bus *bus, char **args) {
                                         return log_oom();
 
                         } else {
-                                /* Interpret as PID */
-                                r = get_unit_dbus_path_by_pid(bus, id, &unit);
-                                if (r < 0) {
-                                        ret = r;
-                                        continue;
-                                }
+                                continue;
                         }
 
                         r = show_one(args[0], bus, unit, show_properties,
