@@ -1702,8 +1702,6 @@ libsystemd_internal_la_SOURCES = \
 	src/libsystemd/sd-bus/bus-type.h \
 	src/libsystemd/sd-bus/bus-match.c \
 	src/libsystemd/sd-bus/bus-match.h \
-	src/libsystemd/sd-bus/bus-bloom.c \
-	src/libsystemd/sd-bus/bus-bloom.h \
 	src/libsystemd/sd-bus/bus-introspect.c \
 	src/libsystemd/sd-bus/bus-introspect.h \
 	src/libsystemd/sd-bus/bus-objects.c \

@@ -44,6 +44,7 @@ systemd System and Service Manager
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;
  	- name event sources used in libraries;
+ 	- remove “bus-bloom” module;
  * loginctl:
  	- remove “machine” argument option;
  * systemd-analyze:

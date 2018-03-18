@@ -31,7 +31,6 @@
 #include "bus-internal.h"
 #include "bus-message.h"
 #include "bus-control.h"
-#include "bus-bloom.h"
 #include "bus-util.h"
 #include "cgroup-util.h"
 
