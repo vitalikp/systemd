@@ -374,52 +374,6 @@ static int method_get_unit(sd_bus *bus, sd_bus_message *message, void *userdata,
         return sd_bus_reply_method_return(message, "o", path);
 }
 
-static int method_get_unit_by_pid(sd_bus *bus, sd_bus_message *message, void *userdata, sd_bus_error *error) {
-        _cleanup_free_ char *path = NULL;
-        Manager *m = userdata;
-        pid_t pid;
-        Unit *u;
-        int r;
-
-        assert(bus);
-        assert(message);
-        assert(m);
-
-        assert_cc(sizeof(pid_t) == sizeof(uint32_t));
-
-        /* Anyone can call this method */
-
-        r = sd_bus_message_read(message, "u", &pid);
-        if (r < 0)
-                return r;
-
-        if (pid == 0) {
-                _cleanup_bus_creds_unref_ sd_bus_creds *creds = NULL;
-
-                r = sd_bus_query_sender_creds(message, SD_BUS_CREDS_PID, &creds);
-                if (r < 0)
-                        return r;
-
-                r = sd_bus_creds_get_pid(creds, &pid);
-                if (r < 0)
-                        return r;
-        }
-
-        u = manager_get_unit_by_pid(m, pid);
-        if (!u)
-                return sd_bus_error_setf(error, BUS_ERROR_NO_UNIT_FOR_PID, "PID %u does not belong to any loaded unit.", pid);
-
-        r = selinux_unit_access_check(u, message, "status", error);
-        if (r < 0)
-                return r;
-
-        path = unit_dbus_path(u);
-        if (!path)
-                return -ENOMEM;
-
-        return sd_bus_reply_method_return(message, "o", path);
-}
-
 static int method_load_unit(sd_bus *bus, sd_bus_message *message, void *userdata, sd_bus_error *error) {
         _cleanup_free_ char *path = NULL;
         Manager *m = userdata;
@@ -1802,7 +1756,6 @@ const sd_bus_vtable bus_manager_vtable[] = {
         SD_BUS_PROPERTY("SystemState", "s", property_get_system_state, 0, 0),
 
         SD_BUS_METHOD("GetUnit", "s", "o", method_get_unit, SD_BUS_VTABLE_UNPRIVILEGED),
-        SD_BUS_METHOD("GetUnitByPID", "u", "o", method_get_unit_by_pid, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("LoadUnit", "s", "o", method_load_unit, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("StartUnit", "ss", "o", method_start_unit, SD_BUS_VTABLE_UNPRIVILEGED),
         SD_BUS_METHOD("StartUnitReplace", "sss", "o", method_start_unit_replace, SD_BUS_VTABLE_UNPRIVILEGED),

@@ -6,6 +6,7 @@ systemd System and Service Manager
  	- struct Manager:
  		• remove “kdbus_fd” field;
  	- remove initramfs support;
+ 	- remove “GetUnitByPID” dbus method;
  * libsystemd:
  	- struct sd_bus:
  		• remove “machine” field;
