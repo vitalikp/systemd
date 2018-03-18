@@ -191,7 +191,6 @@ struct sd_bus {
         int message_version;
         int message_endian;
 
-        bool is_kernel:1;
         bool can_fds:1;
         bool bus_client:1;
         bool ucred_valid:1;

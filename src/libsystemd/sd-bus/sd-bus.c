@@ -354,7 +354,7 @@ static int bus_send_hello(sd_bus *bus) {
 
         assert(bus);
 
-        if (!bus->bus_client || bus->is_kernel)
+        if (!bus->bus_client)
                 return 0;
 
         r = sd_bus_message_new_method_call(
@@ -373,7 +373,7 @@ static int bus_send_hello(sd_bus *bus) {
 int bus_start_running(sd_bus *bus) {
         assert(bus);
 
-        if (bus->bus_client && !bus->is_kernel) {
+        if (bus->bus_client) {
                 bus->state = BUS_HELLO;
                 return 1;
         }
@@ -1039,8 +1039,7 @@ _public_ void sd_bus_close(sd_bus *bus) {
          * the bus object and the bus may be freed */
         bus_reset_queues(bus);
 
-        if (!bus->is_kernel)
-                bus_close_fds(bus);
+        bus_close_fds(bus);
 }
 
 static void bus_enter_closing(sd_bus *bus) {
@@ -1209,7 +1208,7 @@ static int dispatch_wqueue(sd_bus *bus) {
                 else if (r == 0)
                         /* Didn't do anything this time */
                         return ret;
-                else if (bus->is_kernel || bus->windex >= BUS_MESSAGE_SIZE(bus->wqueue[0])) {
+                else if (bus->windex >= BUS_MESSAGE_SIZE(bus->wqueue[0])) {
                         /* Fully written. Let's drop the entry from
                          * the queue.
                          *
@@ -1289,7 +1288,6 @@ static int bus_send_internal(sd_bus *bus, sd_bus_message *_m, uint64_t *cookie, 
         assert_return(bus, -EINVAL);
         assert_return(m, -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1333,7 +1331,7 @@ static int bus_send_internal(sd_bus *bus, sd_bus_message *_m, uint64_t *cookie, 
                         }
 
                         return r;
-                } else if (!bus->is_kernel && idx < BUS_MESSAGE_SIZE(m))  {
+                } else if (idx < BUS_MESSAGE_SIZE(m))  {
                         /* Wasn't fully written. So let's remember how
                          * much was written. Note that the first entry
                          * of the wqueue array is always allocated so
@@ -1431,7 +1429,6 @@ _public_ int sd_bus_call_async(
         assert_return(!(m->header->flags & BUS_MESSAGE_NO_REPLY_EXPECTED), -EINVAL);
         assert_return(callback, -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1529,7 +1526,6 @@ _public_ int sd_bus_call(
         assert_return(!(m->header->flags & BUS_MESSAGE_NO_REPLY_EXPECTED), -EINVAL);
         assert_return(!bus_error_is_dirty(error), -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-        assert_return(!bus->is_kernel || !bus->is_monitor, -EROFS);
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
@@ -1834,9 +1830,6 @@ static int process_reply(sd_bus *bus, sd_bus_message *m) {
 
         if (m->header->type != SD_BUS_MESSAGE_METHOD_RETURN &&
             m->header->type != SD_BUS_MESSAGE_METHOD_ERROR)
-                return 0;
-
-        if (bus->is_kernel && bus->is_monitor)
                 return 0;
 
         if (m->destination && bus->unique_name && !streq_ptr(m->destination, bus->unique_name))
@@ -2517,16 +2510,14 @@ _public_ int sd_bus_add_match(
 
         if (bus->bus_client) {
 
-                if (!bus->is_kernel) {
-                        /* When this is not a kernel transport, we
-                         * store the original match string, so that we
-                         * can use it to remove the match again */
+                /* When this is not a kernel transport, we
+                 * store the original match string, so that we
+                 * can use it to remove the match again */
 
-                        s->match_callback.match_string = strdup(match);
-                        if (!s->match_callback.match_string) {
-                                r = -ENOMEM;
-                                goto finish;
-                        }
+                s->match_callback.match_string = strdup(match);
+                if (!s->match_callback.match_string) {
+                        r = -ENOMEM;
+                        goto finish;
                 }
 
                 r = bus_add_match_internal(bus, s->match_callback.match_string, components, n_components, s->match_callback.cookie);
@@ -2986,9 +2977,6 @@ _public_ int sd_bus_get_peer_creds(sd_bus *bus, uint64_t mask, sd_bus_creds **re
         assert_return(mask <= _SD_BUS_CREDS_ALL, -ENOTSUP);
         assert_return(ret, -EINVAL);
         assert_return(!bus_pid_changed(bus), -ECHILD);
-
-        if (bus->is_kernel)
-                return -ENOTSUP;
 
         if (!BUS_IS_OPEN(bus->state))
                 return -ENOTCONN;
