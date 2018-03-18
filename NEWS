@@ -41,6 +41,7 @@ systemd System and Service Manager
  		• sd_bus_message_set_priority;
  		• sd_bus_message_get_priority;
  		• sd_bus_get_owner_machine_id;
+ 		• sd_bus_negotiate_timestamp;
  	- remove “BusTransport” enum;
  	- allow naming event sources;
  	- use event source name rather than address in debug messages;

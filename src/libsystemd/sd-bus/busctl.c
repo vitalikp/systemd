@@ -453,12 +453,6 @@ int main(int argc, char *argv[]) {
                         goto finish;
                 }
 
-                r = sd_bus_negotiate_timestamp(bus, true);
-                if (r < 0) {
-                        log_error("Failed to enable timestamps: %s", strerror(-r));
-                        goto finish;
-                }
-
                 r = sd_bus_negotiate_fds(bus, true);
                 if (r < 0) {
                         log_error("Failed to enable fds: %s", strerror(-r));

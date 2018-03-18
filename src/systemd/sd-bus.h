@@ -116,7 +116,6 @@ int sd_bus_set_trusted(sd_bus *bus, int b);
 int sd_bus_set_name(sd_bus *bus, const char *name);
 int sd_bus_set_monitor(sd_bus *bus, int b);
 int sd_bus_negotiate_fds(sd_bus *bus, int b);
-int sd_bus_negotiate_timestamp(sd_bus *bus, int b);
 int sd_bus_negotiate_creds(sd_bus *bus, uint64_t creds_mask);
 int sd_bus_start(sd_bus *ret);
 

@@ -260,15 +260,6 @@ _public_ int sd_bus_negotiate_fds(sd_bus *bus, int b) {
         return 0;
 }
 
-_public_ int sd_bus_negotiate_timestamp(sd_bus *bus, int b) {
-        assert_return(bus, -EINVAL);
-        assert_return(bus->state == BUS_UNSET, -EPERM);
-        assert_return(!bus_pid_changed(bus), -ECHILD);
-
-        SET_FLAG(bus->attach_flags, KDBUS_ATTACH_TIMESTAMP, b);
-        return 0;
-}
-
 _public_ int sd_bus_negotiate_creds(sd_bus *bus, uint64_t mask) {
         assert_return(bus, -EINVAL);
         assert_return(mask <= _SD_BUS_CREDS_ALL, -EINVAL);
