@@ -458,7 +458,6 @@ dist_doc_DATA = \
 	LICENSE.GPL2 \
 	LICENSE.MIT \
 	DISTRO_PORTING \
-	src/libsystemd/sd-bus/PORTING-DBUS1 \
 	src/libsystemd/sd-bus/DIFFERENCES \
 	src/libsystemd/sd-bus/GVARIANT-SERIALIZATION
 
